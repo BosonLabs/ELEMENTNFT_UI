@@ -1,13 +1,18 @@
 import React from 'react';
 import Card from '../Snippets/Card';
 import {Button} from 'react-bootstrap';
+import FilterExplore from '../Snippets/FilterExplore';
 
 const Explore = () => {
     return (
         <div className='mb-36'>
             <div className="mb-16 d-flex align-items-center">
-                <div className='h2 d-flex align-items-center'>
+                <div className='h2 w-100 flex-grow-1 d-xl-flex align-items-center'>
                     Explore
+
+                    <div className="ps-xl-4 mt-xl-0 mt-2 flex-grow-1">
+                        <FilterExplore />
+                    </div>
                 </div>
             </div>
 

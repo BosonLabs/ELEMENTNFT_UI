@@ -132,6 +132,11 @@ h6{
 			background-color: rgba($dark, 0.05);
 			color: $dark;
 		}
+
+		&-text{
+			font-weight: 700;
+			color: $color-6e;
+		}
 	}
 
 	&-divider{
@@ -665,6 +670,153 @@ h6{
 					}
 				}
 			}
+		}
+	}
+}
+
+.filter{
+	&-dropdown{
+		@include maxDevice(767px){
+			z-index: 33 !important;
+		}
+	}
+	&-dropdown, &-item{
+		white-space: nowrap;
+		min-width: 150px;
+
+		@include maxDevice(991px){
+			margin-bottom: 15px;
+		}
+		@include maxDevice(767px){
+			margin-bottom: 8px;
+		}
+	}
+	&-item{
+		z-index: 99;
+		color: $dark;
+		font-size: 14px;
+		font-weight: 400;
+
+		@include maxDevice(767px){
+			&.filter-category{
+				z-index: 88;
+			}
+
+			&.filter-collections{
+				z-index: 77;
+			}
+			&.filter-sale-type{
+				z-index: 66;
+			}
+		}
+
+
+		& + .filter-item, & + .filter-dropdown{
+			margin-left: 10px;
+
+			@include maxDevice(767px){
+				margin-left: 5px;
+			}
+		}
+
+		& > div{
+			& > div{
+				padding-left: 8px;
+				border-radius: 25px;
+
+				& > div div:first-child{
+					font-weight: 700;
+					font-size: 14px;
+					color: $dark;
+
+					img{
+						max-width: 22px;
+						max-height: 22px;
+						margin-right: 5px;
+					}
+				}
+
+				&:nth-child(4){
+					padding: 0;
+					width: auto;
+					min-width: 190px;
+					border-radius: 12px;
+					box-shadow: rgba($dark, 0.2) 0px 7px 36px -8px;
+					
+					& > div{
+						padding: 16px 12px;
+						
+						& > div{
+							color: $dark;
+							display: block;
+							cursor: pointer;
+							text-align: left;
+							font-weight: 600;
+							padding: 12px 16px;
+							border-radius: 8px;
+	
+							&:hover{
+								background-color: rgba($dark, 0.05);
+								color: $dark;
+							}
+				
+				
+							img{
+								max-width: 22px;
+								max-height: 22px;
+								margin-right: 10px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&-icon-round{
+		.custom-select-option{
+			img{
+				border-radius: 25px;
+			}
+		}
+	}
+
+	&-dropdown{
+		z-index: 99;
+		color: $dark;
+		font-size: 14px;
+		font-weight: 400;
+
+		.btn{
+			border-color: $color-cc;
+		}
+
+		.dropdown-menu{
+			min-width: 240px;
+			
+			input{
+				border: 1px solid rgba($dark, .1);
+				border-radius: 10px;
+			}
+		}
+	}
+}
+
+.form{
+	&-switch{
+		color: $dark;
+		font-size: 15px;
+		padding-left: 0;
+		font-weight: 700;
+		padding: 8px 16px;
+		@include flexbox();
+		@include align-items(center);
+		@include justify-content(space-between);
+		@include flex-direction(row-reverse);
+
+		input{
+			margin-left: 0 !important;
+			margin-top: 0 !important;
 		}
 	}
 }

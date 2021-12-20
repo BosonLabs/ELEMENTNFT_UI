@@ -8,6 +8,7 @@ import AllIcon from '../assets/images/all-icon.svg'
 import EthereumIcon from '../assets/images/ethereum-icon.svg'
 import FlowIcon from '../assets/images/flow-icon.svg'
 import TezosIcon from '../assets/images/tezos-icon.svg'
+import ThemeChanger from './Snippets/ThemeChanger';
 
 function Header() {
     const [search, setSearch] = React.useState(false);
@@ -37,10 +38,10 @@ function Header() {
 
                     <Nav className='d-none d-md-flex'>
                         <NavDropdown title="Explore" id="basic-nav-dropdown">
-                            <Link className='nav-link' to="/"><img src={AllIcon} alt="icon" /> All</Link>
-                            <Link className='nav-link' to="/"><img src={EthereumIcon} alt="icon" /> Ethereum</Link>
-                            <Link className='nav-link' to="/"><img src={FlowIcon} alt="icon" /> Flow</Link>
-                            <Link className='nav-link' to="/"><img src={TezosIcon} alt="icon" /> Tezos</Link>
+                            <Link className='dropdown-item' to="/"><img src={AllIcon} alt="icon" /> All</Link>
+                            <Link className='dropdown-item' to="/"><img src={EthereumIcon} alt="icon" /> Ethereum</Link>
+                            <Link className='dropdown-item' to="/"><img src={FlowIcon} alt="icon" /> Flow</Link>
+                            <Link className='dropdown-item' to="/"><img src={TezosIcon} alt="icon" /> Tezos</Link>
                         </NavDropdown>
                         <Nav.Link as={Link} to="/">My profile</Nav.Link>
                         <Nav.Link as={Link} to="/">Following</Nav.Link>
@@ -49,12 +50,12 @@ function Header() {
                     <Nav className='hide-desktop-below'>
                         <Nav.Link to="/" as={Link}>How it works</Nav.Link>
                         <NavDropdown title="Community" id="basic-nav-dropdown">
-                            <Link to="/" className='nav-link'>About</Link>
-                            <Link to="/" className='nav-link'>Blog</Link>
-                            <Link to="/" className='nav-link'>RARI Token</Link>
-                            <Link to="/" className='nav-link'>Suggest feature</Link>
-                            <Link to="/" className='nav-link'>Rarible protocol</Link>
-                            <Link to="/" className='nav-link'>Subscribe</Link>
+                            <Link to="/" className='dropdown-item'>About</Link>
+                            <Link to="/" className='dropdown-item'>Blog</Link>
+                            <Link to="/" className='dropdown-item'>RARI Token</Link>
+                            <Link to="/" className='dropdown-item'>Suggest feature</Link>
+                            <Link to="/" className='dropdown-item'>Rarible protocol</Link>
+                            <Link to="/" className='dropdown-item'>Subscribe</Link>
                             <NavDropdown.Divider />
                             <div className="dropdown-menu-social">
                                 <Link to="/" target="_blank">
@@ -81,13 +82,13 @@ function Header() {
 
                     <Nav className='d-none d-md-flex show-desktop-below'>
                         <NavDropdown drop="end" className='dropdown-noarrow' title={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>} id="basic-nav-dropdown">
-                            <Link className='nav-link' to="/">How it works</Link>
-                            <Link className='nav-link' to="/">About</Link>
-                            <Link className='nav-link' to="/">Blog</Link>
-                            <Link className='nav-link' to="/">RARI Token</Link>
-                            <Link className='nav-link' to="/">Suggest feature</Link>
-                            <Link className='nav-link' to="/">Rarible protocol</Link>
-                            <Link className='nav-link' to="/">Subscribe</Link>
+                            <Link className='dropdown-item' to="/">How it works</Link>
+                            <Link className='dropdown-item' to="/">About</Link>
+                            <Link className='dropdown-item' to="/">Blog</Link>
+                            <Link className='dropdown-item' to="/">RARI Token</Link>
+                            <Link className='dropdown-item' to="/">Suggest feature</Link>
+                            <Link className='dropdown-item' to="/">Rarible protocol</Link>
+                            <Link className='dropdown-item' to="/">Subscribe</Link>
                             <NavDropdown.Divider />
                             <div className="dropdown-menu-social">
                                 <Link to="/" target="_blank">
@@ -118,9 +119,7 @@ function Header() {
                         <Button className='btn btn-round d-xl-none btn-white' onClick={handleSerach}>
                             <svg viewBox="0 0 16 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye vZMA-D"><path fillRule="evenodd" clipRule="evenodd" d="M2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7ZM7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57591 14 10.0302 13.4792 11.2001 12.6004C11.2281 12.6376 11.259 12.6733 11.2929 12.7071L14.2929 15.7071C14.6834 16.0976 15.3166 16.0976 15.7071 15.7071C16.0976 15.3166 16.0976 14.6834 15.7071 14.2929L12.7071 11.2929C12.6733 11.259 12.6376 11.2281 12.6004 11.2001C13.4792 10.0302 14 8.57591 14 7C14 3.13401 10.866 0 7 0Z" fill="currentColor"></path></svg>
                         </Button>
-                        <Button className='btn btn-round btn-white'>
-                            <svg viewBox="0 0 24 24" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye gVaYHr"><path fillRule="evenodd" clipRule="evenodd" d="M5.75788 17.4844C5.07158 16.7559 6.12135 15.7797 7.1112 15.928C7.42793 15.9754 7.75214 16 8.08209 16C11.6719 16 14.5821 13.0899 14.5821 9.5C14.5821 8.42871 14.3302 7.41794 13.8791 6.52697C13.4263 5.63282 14.0229 4.31312 14.9328 4.73338C17.6775 6.00109 19.5821 8.77812 19.5821 12C19.5821 16.4183 16.0004 20 11.5821 20C9.28652 20 7.21678 19.0331 5.75788 17.4844Z" fill="currentColor"></path></svg>
-                        </Button>
+                        <ThemeChanger />
                         <Button className='btn btn-round d-lg-none btn-white' onClick={handleMenu}>
                             <svg viewBox="0 0 18 8" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye esgSbr"><path fillRule="evenodd" clipRule="evenodd" d="M1 0C0.447715 0 0 0.447715 0 1C0 1.55228 0.447716 2 1 2H17C17.5523 2 18 1.55228 18 1C18 0.447715 17.5523 0 17 0H1ZM4 6C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8H14C14.5523 8 15 7.55228 15 7C15 6.44772 14.5523 6 14 6H4Z" fill="currentColor"></path></svg>
                         </Button>

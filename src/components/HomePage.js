@@ -18,7 +18,7 @@ function HomePage() {
     return (
         <Layout>
             <Container fluid="lg">
-                {/* <Banner /> */}
+                <Banner />
                 <TopCollections />
                 <HotBids />
                 <TopCollectionsSellers />
