@@ -1,6 +1,21 @@
 h1, .h1{
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 46px;
+	font-weight: 700;
+	margin-bottom: 0.5em;
+
+	.btn{
+		font-size: inherit;
+		margin-right: 10px;
+		margin-left: 6px;
+		line-height: 1;
+	}
+
+	@include maxDevice(1199px){
+		font-size: 36px;
+	}
+	@include maxDevice(767px){
+		font-size: 32px;
+	}
 }
 
 h2, .h2{
@@ -54,6 +69,35 @@ h6{
 	top: 1.5px;
 }
 
+.page{
+	&-spacer{
+		padding: 28px 0;
+
+		@include maxDevice(991px){
+			padding: 20px 0;
+		}
+		@include maxDevice(767px){
+			padding: 12px 0;
+		}
+	}
+
+	&-content{
+		font-size: 16px;
+
+		li{
+			margin-bottom: 8px;
+		}
+
+		a{
+			color: $blue;
+		}
+
+		h3{
+			font-size: 24px;
+			margin-bottom: 18px;
+		}
+	}
+}
 
 .input{
 	&-group{
@@ -160,6 +204,8 @@ h6{
 		background: linear-gradient(126.49deg, rgb(0, 163, 255) 0%, rgb(0, 102, 255) 100%);
 		-webkit-text-fill-color: transparent;
 		-webkit-background-clip: text;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 
 	&-menu{
@@ -817,6 +863,124 @@ h6{
 		input{
 			margin-left: 0 !important;
 			margin-top: 0 !important;
+		}
+	}
+}
+
+.login{
+	&-view{
+		min-height: 100vh;
+		padding: 32px;
+
+		@include maxDevice(991px){
+			padding-left: 28px;
+			padding-right: 28px;
+		}
+	
+		@include maxDevice(767px){
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+	
+		@include maxDevice(575px){
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+
+		&:after{
+			content: "";
+			bottom: 0px;
+			left: 0px;
+			z-index: -1;
+			height: 200px;
+			width: 380px;
+			position: fixed;
+			background: linear-gradient(
+		0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
+
+			@include maxDevice(1199px){
+				width: 280px;
+			}
+			
+			@include maxDevice(767px){
+				display: none;
+			}
+		}
+	}
+
+	&-image{
+		object-position: center;
+		object-fit: cover;
+		position: fixed;
+		z-index: -1;
+		height: 100%;
+		width: 380px;
+		left: 0;
+		top: 0;
+
+		@include maxDevice(1199px){
+			width: 280px;
+		}
+	}
+
+	&-middle{
+		max-width: 600px;
+		padding: 0 100px;
+		margin-left: 380px;
+
+		@include maxDevice(1199px){
+			margin-left: 280px;
+		}
+
+		@include maxDevice(991px){
+			padding-left: 60px;
+			padding-right: 60px;
+		}
+	
+		@include maxDevice(767px){
+			margin-left: 0;
+			padding: 25px 0 50px;
+		}
+
+		h6{
+			font-size: 18px;
+			font-weight: 600;
+		}
+	}
+
+	&-header{
+		@include minDevice(768px){
+			top: 0;
+			left: 0;
+			position: fixed;
+			padding-left: 28px;
+			padding-right: 28px;
+		}
+
+		@include minDevice(992px){
+			padding: 32px;
+		}
+	}
+
+	&-footer{
+		font-size: 18px;
+		
+		
+		@include minDevice(768px){
+			bottom: 0;
+			left: 0;
+			color: $white;
+			position: fixed;
+			padding-left: 28px;
+			padding-right: 28px;
+		}
+
+		@include minDevice(992px){
+			padding: 32px;
+		}
+
+		a{
+			color: inherit;
 		}
 	}
 }

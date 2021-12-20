@@ -137,6 +137,10 @@ p{
 		font-weight: 900;
 	}
 
+	&-link{
+		color: $dark !important;
+	}
+
 	&-reset{
 		min-width: auto;
 		border: none;
@@ -241,6 +245,58 @@ p{
 		z-index: 2;
 		left: 14px;
 		top: -5px;
+	}
+
+	&-login{
+		height: auto;
+		color: $dark;
+		padding: 16px;
+		line-height: 1;
+		font-size: 18px;
+		@include flexbox();
+		padding-right: 48px;
+		border-radius: 50px;
+		border: 1px solid rgba($dark, .1);
+
+		&-eq{
+			padding-right: 16px;
+		}
+
+		img{
+			max-height: 23px;
+		}
+
+		span:not(.badge){
+			margin: auto;
+		}
+		
+		.badge{
+			top: 14px;
+			right: 16px;
+			height: 28px;
+			font-size: 13px;
+			padding: 0px 10px;
+			line-height: 28px;
+			position: absolute;
+			border-radius: 14px;
+
+			img{
+				vertical-align: -3px;
+				margin-right: 4px;
+				width: 13px;
+			}
+
+			&.bg{
+				&-primary{
+					color: $blue !important;
+					background-color: rgba($blue, 0.1) !important;
+				}
+				&-success{
+					color: $green !important;
+					background-color: rgba($green, 0.1) !important;
+				}
+			}
+		}
 	}
 }
 
