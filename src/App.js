@@ -9,6 +9,8 @@ import Home from './components/HomePage';
 import Login from './components/Connect';
 import ExplorePage from './components/ExplorePage';
 import HowItWorks from './components/HowItWorks';
+import Information from './components/Information';
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -22,6 +24,12 @@ function App() {
         </Route>
         <Route path="/how-it-works">
           <HowItWorks />
+        </Route>
+        <Route path="/information">
+          <Information />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
         <Route path="/">
           <Home />

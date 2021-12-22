@@ -137,12 +137,19 @@ p{
 		font-weight: 900;
 	}
 
+	&-primary{
+		background-color: $blue;
+		border-color: $blue;
+	}
+
 	&-link{
 		color: $dark !important;
 	}
 
 	&-reset{
+		line-height: normal;
 		min-width: auto;
+		height: auto;
 		border: none;
 		padding: 0;
 		margin: 0;
@@ -181,13 +188,23 @@ p{
 		padding: 0;
 		width: 40px;
 
-		svg{
-			top: -1px;
-			width: 20px;
-			height: 20px;
-			display: block;
-			position: relative;
+		@include maxDevice(767px){
+			svg{
+				width: auto !important;
+				height: auto !important;
+			}
 		}
+
+		&:not(.btn-round-sm){
+			svg{
+				top: -1px;
+				width: 20px;
+				height: 20px;
+				display: block;
+				position: relative;
+			}
+		}
+
 	}
 
 	&-outline-gray{
@@ -298,6 +315,36 @@ p{
 			}
 		}
 	}
+
+	&-copy-code{
+		height: auto;
+		display: flex;
+		-webkit-box-align: center;
+		align-items: center;
+		padding: 2px 10px 2px 5px;
+		width: 138px;
+		border-radius: 12px;
+		font-size: 13px;
+		line-height: 22px;
+		text-align: center;
+		color: $color-6e;
+		background: rgba($dark, 0.04);
+		transition: all 0.12s ease-in-out 0s;
+		margin: auto;
+
+		img{
+			width: 16px;
+			height: 16px;
+			margin-right: 4px;
+			vertical-align: inherit;
+		}
+
+		span, .toast{
+			-webkit-box-flex: 1;
+			flex-grow: 1;
+			text-align: center;
+		}
+	}
 }
 
 .badge{
@@ -314,6 +361,19 @@ p{
 		background-color: $red !important;
 		color: $white !important;
 	}
+
+	&-new{
+		background-image: linear-gradient(90deg, rgb(255, 0, 184) 0%, rgb(100, 161, 255) 100%);
+		color: $white !important;
+		vertical-align: middle;
+		border-radius: 4px;
+		line-height: 18px;
+		padding: 0px 4px;
+		margin-left: 6px;
+		font-weight: 700;
+		font-size: 12px;
+		border: 0px;
+	}
 }
 
 .rounded{
@@ -329,6 +389,10 @@ p{
 .text{
 	&-white-50{
 		color: rgba($white, 0.5);
+	}
+
+	&-gray{
+		color: $color-6e;
 	}
 
 	&-grad{
@@ -403,6 +467,10 @@ p{
 	&-16{
 		margin-bottom: 16px;
 	}
+}
+
+.mt-1{
+	margin-top: 1px;
 }
 
 .vh-100{
