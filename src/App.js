@@ -11,6 +11,10 @@ import ExplorePage from './components/ExplorePage';
 import HowItWorks from './components/HowItWorks';
 import Information from './components/Information';
 import Profile from './components/Profile';
+import FollowingPage from './components/FollowingPage';
+import ActivityPage from './components/ActivityPage';
+import SingleBid from './components/SingleBid';
+import About from './components/About';
 
 function App() {
   return (
@@ -30,6 +34,18 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/following">
+          <FollowingPage />
+        </Route>
+        <Route path="/activity">
+          <ActivityPage />
+        </Route>
+        <Route path="/bid">
+          <SingleBid />
+        </Route>
+        <Route path="/about">
+          <About />
         </Route>
         <Route path="/">
           <Home />

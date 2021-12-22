@@ -5,7 +5,7 @@ import FilterExplore from './Snippets/FilterExplore';
 import Card from './Snippets/Card';
 
 
-function HomePage() {
+function ExportPage() {
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);
     // });
@@ -53,4 +53,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default ExportPage;

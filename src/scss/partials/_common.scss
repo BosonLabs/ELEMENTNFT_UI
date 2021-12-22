@@ -26,6 +26,26 @@ textarea{
 .container{
 	max-width: 1084px;
 	width: 100%;
+
+	&-fluid{
+		padding-left: 32px;
+		padding-right: 32px;
+
+		@include maxDevice(991px){
+			padding-left: 28px;
+			padding-right: 28px;
+		}
+
+		@include maxDevice(767px){
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+
+		@include maxDevice(575px){
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+	}
 }
 
 .container-lg{
@@ -166,10 +186,12 @@ p{
 		}
 	}
 
+	
+
 	&-white{
 		color: $dark !important;
 		background-color: $white !important;
-		border-color: rgba($dark, .1) !important;
+		border:1px solid rgba($dark, .1) !important;
 	}
 
 	&-light-blue{
@@ -345,6 +367,36 @@ p{
 			text-align: center;
 		}
 	}
+
+	&-rounded{
+		border-radius: 25px !important;
+	}
+
+	&-play{
+		background-color: rgba($white, .4);
+		@include translate(-50%, -50%);
+		@include inline-flex;
+		border-radius: 80px;
+		position: absolute;
+    	height: 80px;
+		width: 80px;
+		left: 50%;
+		top: 50%;
+
+		img{
+			margin: auto;
+		}
+	}
+
+	&-icon{
+		width: 40px;
+		height: 40px;
+		border-radius: 6px;
+
+		&:hover{
+			background-color: $color-e6;
+		}
+	}
 }
 
 .badge{
@@ -448,6 +500,13 @@ p{
 .p{
 	&-10{
 		padding: 10px;
+	}
+}
+
+.py{
+	&-5p{
+		padding-top: 15%;
+		padding-bottom: 15%;
 	}
 }
 
