@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Form, InputGroup, Button, Nav, NavDropdown, Dropdown, Row, Col} from 'react-bootstrap';
+import {Container, Form, InputGroup, Button,Toast, Nav, NavDropdown, Modal, Dropdown, Row, Col} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
@@ -9,15 +9,59 @@ import EthereumIcon from '../assets/images/ethereum-icon.svg'
 import FlowIcon from '../assets/images/flow-icon.svg'
 import TezosIcon from '../assets/images/tezos-icon.svg'
 import ThemeChanger from './Snippets/ThemeChanger';
+import User from '../assets/images/dummy-icon.svg';
 
 function Header() {
+    const [show, setShow] = React.useState(false);
     const [search, setSearch] = React.useState(false);
     const [menu, setMenu] = React.useState(false);
+    const [toast, setToast] = React.useState(false);
 
     const handleSerach = () => setSearch(!search);
     const handleMenu = () => setMenu(!menu);
+    // handleConvert
+    const handleConvert = () => setShow(!show);
+
+    // amount
+    const [value, setValue] = React.useState('');
     return (
         <>
+            {/* convert modal */}
+            <Modal show={show} centered size="sm" onHide={handleConvert}>
+                <Modal.Header closeButton>
+                <Modal.Title>Convert</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Label><strong>You pay</strong> Max amount is 0 WETH</Form.Label>
+                        <InputGroup className="mb-4 input-group-field">
+                            <Form.Control
+                                placeholder="Enter an amount"
+                                value={value} onChange={(e) => setValue(e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'))}
+                            />
+                            <InputGroup.Text id="basic-addon2">ETH</InputGroup.Text>
+                        </InputGroup>
+
+                        <div className="mb-4 text-center">
+                            <Button className='btn btn-round btn-round-sm btn-white'>
+                                <svg viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye bRyxAn"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M9.41611 3.624C9.07146 3.85376 8.60581 3.76063 8.37604 3.41598C8.14628 3.07134 8.23941 2.60569 8.58405 2.37592L11.5755 0.381602C11.5815 0.377475 11.5876 0.373433 11.5937 0.369477L12.0001 0.0985718L12.4064 0.369477C12.4126 0.373433 12.4186 0.377475 12.4246 0.381602L15.4161 2.37592C15.7608 2.60569 15.8539 3.07134 15.6241 3.41598C15.3944 3.76063 14.9287 3.85376 14.5841 3.624L12.7501 2.40135V9.49996C12.7501 9.91417 12.4143 10.25 12.0001 10.25C11.5859 10.25 11.2501 9.91417 11.2501 9.49996V2.40135L9.41611 3.624ZM4.75008 0.99996C4.75008 0.585746 4.41429 0.24996 4.00008 0.24996C3.58587 0.24996 3.25008 0.585746 3.25008 0.99996V8.09857L1.4161 6.87592C1.07146 6.64616 0.605806 6.73929 0.376042 7.08393C0.146278 7.42858 0.239408 7.89423 0.584055 8.124L3.57553 10.1183C3.58153 10.1224 3.5876 10.1265 3.59373 10.1304L4.00008 10.4013L4.40643 10.1304C4.41256 10.1265 4.41863 10.1224 4.42463 10.1183L7.4161 8.124C7.76075 7.89423 7.85388 7.42858 7.62412 7.08393C7.39435 6.73929 6.9287 6.64616 6.58405 6.87592L4.75008 8.09857V0.99996Z"></path></svg>
+                            </Button>
+                        </div>
+
+                        <Form.Label><strong>You receive</strong></Form.Label>
+                        <InputGroup className="mb-4 input-group-field">
+                            <Form.Control
+                                placeholder="Amount you will receive"
+                                value={value} onChange={(e) => setValue(e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'))}
+                            />
+                            <InputGroup.Text id="basic-addon3">WETH</InputGroup.Text>
+                        </InputGroup>
+                        <Button type='submit' variant='primary' size="lg" className='w-100 mb-2'>Convert</Button>
+                        <Button variant='white' size="lg" onClick={handleConvert} className='w-100'>Cancel</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+
             <header className="header">
                 <Container fluid className="d-flex align-items-center">
                     <div className="logo">
@@ -114,11 +158,88 @@ function Header() {
                     </Nav>
 
                     <div className="header-control d-flex align-items-center ms-auto">
-                        <Link to="/" className='btn d-md-block d-none btn-grad'>Create</Link>
-                        <Link to="/" className='btn d-md-block d-none btn-white'>Sign in</Link>
                         <Button className='btn btn-round d-xl-none btn-white' onClick={handleSerach}>
                             <svg viewBox="0 0 16 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye vZMA-D"><path fillRule="evenodd" clipRule="evenodd" d="M2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7ZM7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57591 14 10.0302 13.4792 11.2001 12.6004C11.2281 12.6376 11.259 12.6733 11.2929 12.7071L14.2929 15.7071C14.6834 16.0976 15.3166 16.0976 15.7071 15.7071C16.0976 15.3166 16.0976 14.6834 15.7071 14.2929L12.7071 11.2929C12.6733 11.259 12.6376 11.2281 12.6004 11.2001C13.4792 10.0302 14 8.57591 14 7C14 3.13401 10.866 0 7 0Z" fill="currentColor"></path></svg>
                         </Button>
+                        <Dropdown className='dropdown-noarrow'>
+                            <Dropdown.Toggle variant="success" className='btn btn-round btn-round-sm btn-white' id="dropdown-basic">
+                                <svg viewBox="0 0 12 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye YJxZz"><path d="M7.00146 0V6H11.0015L4.00146 16V10H0.00146484L7.00146 0Z" fill="currentColor"></path></svg>
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu className='dropdown-menu-right dropdown-menu-info'>
+                                <div className="dropdown-header d-flex align-items-center justify-content-between">
+                                    <h4>Notifications</h4>
+                                    <Button variant='link' className='btn-reset'>See all</Button>
+                                </div>
+                                <div className="dropdown-body">
+                                    <div className="no-found py-5p text-gray text-center">
+                                        <svg viewBox="0 0 12 16" fill="none" width="38" height="38" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL mb-3 sc-hKwDye jggBKf"><path d="M7.00146 0V6H11.0015L4.00146 16V10H0.00146484L7.00146 0Z" fill="currentColor"></path></svg>
+                                        <p className="lead mb-4">No new notifications</p>
+                                    </div>
+                                </div>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Link to="/" className='btn d-md-block d-none btn-grad'>Create</Link>
+                        <Link to="/" className='btn d-md-block d-none btn-white'>Sign in</Link>
+                        
+                        <Button className='btn btn-round btn-round-sm btn-white'>
+                            <svg viewBox="0 0 18 12" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye YJxZz"><path d="M5.29412 5.79545L11.6471 3.75L6.35294 7.84091L9.17647 15L18 0L0 0L5.29412 5.79545Z" fill="currentColor"></path></svg>
+                        </Button>
+                        <Dropdown className='dropdown-noarrow'>
+                            <Dropdown.Toggle variant="white" className='btn btn-round btn-user' id="dropdown-basic">
+                                <img src={User} alt="user" />
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu className='dropdown-menu-right dropdown-menu-info'>
+                                <Button variant='copy-code-lg' className="w-100 mb-2 justify-content-start"  onClick={() => { navigator.clipboard.writeText('0x31dB2A...aB9d'); setToast(true)}}>
+                                    {!toast ? <span>0x31dB2A...aB9d <svg viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 8.25H2C1.86193 8.25 1.75 8.13807 1.75 8V2C1.75 1.86193 1.86193 1.75 2 1.75H8C8.13807 1.75 8.25 1.86193 8.25 2V3.25H5C4.0335 3.25 3.25 4.0335 3.25 5V8.25ZM3.25 9.75H2C1.0335 9.75 0.25 8.9665 0.25 8V2C0.25 1.0335 1.0335 0.25 2 0.25H8C8.9665 0.25 9.75 1.0335 9.75 2V3.25H11C11.9665 3.25 12.75 4.0335 12.75 5V11C12.75 11.9665 11.9665 12.75 11 12.75H5C4.0335 12.75 3.25 11.9665 3.25 11V9.75ZM11.25 11C11.25 11.1381 11.1381 11.25 11 11.25H5C4.86193 11.25 4.75 11.1381 4.75 11V5C4.75 4.86193 4.86193 4.75 5 4.75H11C11.1381 4.75 11.25 4.86193 11.25 5V11Z" fill="currentColor"></path></svg></span> : (
+                                        <Toast className='toast-text' onClose={() => {setToast(false);}} show={toast} autohide delay={1500}>
+                                            <Toast.Body>Copied! <svg viewBox="0 0 20 15" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path d="M2 7L7.33333 12L18 2" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path></svg></Toast.Body>
+                                        </Toast>  
+                                    )}
+                                </Button>
+                                <div className="dropdown-account mb-3">
+                                    <div className="d-flex align-items-center justify-content-between mb-3">
+                                        <div className="dropdown-account-item d-flex align-items-center justify-content-between">
+                                            <svg viewBox="0 0 40 40" fill="none" width="44" height="44" color="currentColor" xlmns="http://www.w3.org/2000/svg"><path opacity="0.1" d="M20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20C40 31.0457 31.0457 40 20 40Z" fill="#6B8CEF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M28.7498 20.2747L19.3775 5V16.0875L27.9627 19.9232L19.3775 16.0898V25.716L28.7498 20.2749L28.75 20.275L28.7499 20.2748L28.75 20.2748L28.7498 20.2747ZM19.375 16.0875V5L10.0039 20.2747L10.0038 20.2748L10.0039 20.2748L10.0038 20.275L10.004 20.2749L19.375 25.716V16.0898L10.791 19.9232L19.375 16.0875ZM19.375 27.4595V34.9933L9.99752 22.0195L19.375 27.4595ZM19.3775 27.4583V34.9933L28.75 22.0195L19.3775 27.4583Z" fill="#6B8CEF"></path></svg>
+
+                                            <div className='ms-3'>
+                                                <h6 className='mb-1'>Balance</h6>
+                                                <h5 className='mb-0'>0 ETH</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex align-items-center justify-content-between mb-3">
+                                        <div className="dropdown-account-item d-flex align-items-center justify-content-between">
+                                            <svg viewBox="0 0 40 40" fill="none" width="44" height="44" color="currentColor" xlmns="http://www.w3.org/2000/svg"><path opacity="0.1" d="M20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20C40 31.0457 31.0457 40 20 40Z" fill="#FD88EA"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M28.7498 20.2747L19.3775 5V16.0875L27.9627 19.9232L19.3775 16.0898V25.716L28.7498 20.2749L28.75 20.275L28.7499 20.2748L28.75 20.2748L28.7498 20.2747ZM19.375 16.0875V5L10.0039 20.2747L10.0038 20.2748L10.0039 20.2748L10.0038 20.275L10.004 20.2749L19.375 25.716V16.0898L10.791 19.9232L19.375 16.0875ZM19.375 27.4595V34.9933L9.99752 22.0195L19.375 27.4595ZM19.3775 27.4583V34.9933L28.75 22.0195L19.3775 27.4583Z" fill="#FD88EA"></path></svg>
+
+                                            <div className='ms-3'>
+                                                <h6 className='mb-1'>Bidding Balance <Button variant='reset' className='ms-1'><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg></Button></h6>
+                                                <h5 className='mb-0'>0 WETH</h5>
+                                            </div>
+                                        </div>
+
+                                        <Button variant='white' onClick={handleConvert}>Convert</Button>
+                                    </div>
+                                    <div className="d-flex align-items-center justify-content-between mb-3">
+                                        <div className="dropdown-account-item d-flex align-items-center justify-content-between">
+                                            <svg viewBox="0 0 40 40" fill="none" width="44" height="44" color="currentColor" xlmns="http://www.w3.org/2000/svg"><rect opacity="0.1" width="40" height="40" rx="20" fill="url(#paint0_radial_329:3512)"></rect><path d="M26.9585 19.4355C28.1432 19.1289 29.1972 18.2461 29.1972 16.4712C29.1972 13.5163 26.6787 12.8286 23.4513 12.8286H10.5976V26.1354H16.0077V21.6193H22.4252C23.414 21.6193 23.9923 22.0095 23.9923 22.976V26.1354H29.4024V22.8087C29.4024 20.9967 28.3764 19.8537 26.9585 19.4355ZM22.5185 18.0324H16.0077V16.7314H22.5185C23.2274 16.7314 23.6565 16.8244 23.6565 17.3819C23.6565 17.9395 23.2274 18.0324 22.5185 18.0324Z" fill="white"></path><path d="M26.9585 19.4355C28.1432 19.1289 29.1972 18.2461 29.1972 16.4712C29.1972 13.5163 26.6787 12.8286 23.4513 12.8286H10.5976V26.1354H16.0077V21.6193H22.4252C23.414 21.6193 23.9923 22.0095 23.9923 22.976V26.1354H29.4024V22.8087C29.4024 20.9967 28.3764 19.8537 26.9585 19.4355ZM22.5185 18.0324H16.0077V16.7314H22.5185C23.2274 16.7314 23.6565 16.8244 23.6565 17.3819C23.6565 17.9395 23.2274 18.0324 22.5185 18.0324Z" fill="url(#paint1_linear_329:3512)"></path><defs><radialGradient id="paint0_radial_329:3512" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9.35438 13.3566) rotate(57.6582) scale(24.3216 25.4403)"><stop stop-color="#0C50FF"></stop><stop offset="0.557292" stop-color="#5B9DFF"></stop><stop offset="1" stop-color="#FF74F1"></stop></radialGradient><linearGradient id="paint1_linear_329:3512" x1="10.0001" y1="12.5002" x2="20.9592" y2="27.0958" gradientUnits="userSpaceOnUse"><stop stop-color="#5988FF"></stop><stop offset="1" stop-color="#FF74F1"></stop></linearGradient></defs></svg>
+
+                                            <div className='ms-3'>
+                                                <h5 className='mb-0'>0 RARI</h5>
+                                            </div>
+                                        </div>
+
+                                        <Link to="/rari" className='btn btn-white'>Claim</Link>
+                                    </div>
+
+                                    <Link to="/" className='btn btn-white w-100'>Add funds with card</Link>
+                                </div>
+                                <Link className='dropdown-item' to="/"><svg viewBox="0 0 22 22" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL me-2 sc-hKwDye dzBvbb"><path d="M21.5 11C21.5 16.799 16.799 21.5 11 21.5C5.20101 21.5 0.5 16.799 0.5 11C0.5 5.20101 5.20101 0.5 11 0.5C16.799 0.5 21.5 5.20101 21.5 11ZM17.911 16.7656C19.2152 15.204 20 13.1937 20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 13.1937 2.78482 15.204 4.089 16.7656C5.95721 15.1962 8.36846 14.25 11 14.25C13.6315 14.25 16.0428 15.1962 17.911 16.7656ZM16.8531 17.837C15.2583 16.532 13.2208 15.75 11 15.75C8.77913 15.75 6.74168 16.532 5.14684 17.8369C6.72049 19.1854 8.76511 20 11 20C13.2349 20 15.2795 19.1854 16.8531 17.837ZM14.7397 8.91665C14.7397 11.0337 13.0234 12.75 10.9063 12.75C8.78924 12.75 7.073 11.0337 7.073 8.91665C7.073 6.79955 8.78924 5.08331 10.9063 5.08331C13.0234 5.08331 14.7397 6.79955 14.7397 8.91665ZM10.9063 11.25C12.195 11.25 13.2397 10.2053 13.2397 8.91665C13.2397 7.62798 12.195 6.58331 10.9063 6.58331C9.61767 6.58331 8.573 7.62798 8.573 8.91665C8.573 10.2053 9.61767 11.25 10.9063 11.25Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg> My profile</Link>
+                                <Link className='dropdown-item' to="/"><svg viewBox="0 0 20 18" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL me-2 sc-hKwDye dzBvbb"><path d="M1.5549 9.12339C1.4817 8.99529 1.4817 8.83804 1.5549 8.70994L5.5549 1.70994C5.62908 1.58012 5.76714 1.5 5.91667 1.5H13.8959C14.0454 1.5 14.1835 1.58012 14.2577 1.70994L18.2577 8.70994C18.3309 8.83804 18.3309 8.99529 18.2577 9.12339L14.2577 16.1234C14.1835 16.2532 14.0454 16.3333 13.8959 16.3333H5.91667C5.76714 16.3333 5.62908 16.2532 5.5549 16.1234L1.5549 9.12339ZM0.252534 7.96573C-0.0841778 8.55498 -0.0841781 9.27835 0.252534 9.8676L4.25253 16.8676C4.59378 17.4648 5.22886 17.8333 5.91667 17.8333H13.8959C14.5837 17.8333 15.2188 17.4648 15.56 16.8676L19.56 9.8676C19.8968 9.27835 19.8968 8.55498 19.56 7.96573L15.56 0.965733C15.2188 0.368547 14.5837 0 13.8959 0H5.91667C5.22886 0 4.59378 0.368547 4.25253 0.965733L0.252534 7.96573ZM9.90629 12.75C12.0234 12.75 13.7396 11.0338 13.7396 8.91667C13.7396 6.79958 12.0234 5.08333 9.90629 5.08333C7.7892 5.08333 6.07296 6.79958 6.07296 8.91667C6.07296 11.0338 7.7892 12.75 9.90629 12.75ZM12.2396 8.91667C12.2396 10.2053 11.195 11.25 9.90629 11.25C8.61763 11.25 7.57296 10.2053 7.57296 8.91667C7.57296 7.628 8.61763 6.58333 9.90629 6.58333C11.195 6.58333 12.2396 7.628 12.2396 8.91667Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg> Edit profile</Link>
+                                <Link className='dropdown-item' to="/"><svg viewBox="0 0 16 18" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL me-2 sc-hKwDye dzBvbb"><path d="M8.004 0C8.44583 0 8.804 0.366264 8.804 0.818073V8.9988C8.804 9.45061 8.44583 9.81688 8.004 9.81688C7.56217 9.81688 7.204 9.45061 7.204 8.9988V0.818073C7.204 0.366264 7.56217 0 8.004 0ZM3.47359 4.03537C3.78607 4.3548 3.78615 4.87277 3.47378 5.1923C2.57893 6.10766 1.9696 7.2738 1.72282 8.54327C1.47605 9.81274 1.60291 11.1285 2.08737 12.3243C2.57184 13.52 3.39214 14.542 4.44457 15.261C5.497 15.9801 6.73429 16.3639 8 16.3639C9.26571 16.3639 10.503 15.9801 11.5554 15.261C12.6079 14.542 13.4282 13.52 13.9126 12.3243C14.3971 11.1285 14.524 9.81274 14.2772 8.54327C14.0304 7.2738 13.4211 6.10766 12.5262 5.1923C12.2139 4.87277 12.2139 4.3548 12.5264 4.03537C12.8389 3.71595 13.3454 3.71603 13.6578 4.03556C14.7763 5.17976 15.538 6.63743 15.8465 8.22427C16.1549 9.8111 15.9964 11.4558 15.3908 12.9505C14.7852 14.4452 13.7598 15.7227 12.4443 16.6215C11.1288 17.5203 9.58214 18 8 18C6.41786 18 4.87125 17.5203 3.55571 16.6215C2.24018 15.7227 1.21479 14.4452 0.609217 12.9505C0.00363941 11.4558 -0.15494 9.8111 0.15353 8.22427C0.462 6.63744 1.22367 5.17976 2.34222 4.03556C2.65459 3.71603 3.16112 3.71595 3.47359 4.03537Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg> Sign out</Link>
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <ThemeChanger />
                         <Button className='btn btn-round d-lg-none btn-white' onClick={handleMenu}>
                             <svg viewBox="0 0 18 8" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye esgSbr"><path fillRule="evenodd" clipRule="evenodd" d="M1 0C0.447715 0 0 0.447715 0 1C0 1.55228 0.447716 2 1 2H17C17.5523 2 18 1.55228 18 1C18 0.447715 17.5523 0 17 0H1ZM4 6C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8H14C14.5523 8 15 7.55228 15 7C15 6.44772 14.5523 6 14 6H4Z" fill="currentColor"></path></svg>

@@ -46,11 +46,16 @@ textarea{
 			padding-right: 16px;
 		}
 	}
-}
 
-.container-lg{
-	max-width: 1500px;
-	width: 100%;
+	&-lg{
+		max-width: 1500px;
+		width: 100%;
+	}
+
+	&-md{
+		max-width: 860px;
+		width: 100%;
+	}
 }
 
 .container, .container-lg{
@@ -154,7 +159,7 @@ p{
 		min-width: 192px;
 		border-radius: 48px;
 		font-size: 15px;
-		font-weight: 900;
+		font-weight: 700;
 	}
 
 	&-primary{
@@ -186,7 +191,22 @@ p{
 		}
 	}
 
-	
+	&-light-grad{
+		background-image: radial-gradient(115.34% 575.98% at 104.79% 0%, rgba(113, 227, 242, 0.17) 0%, rgba(124, 177, 255, 0.17) 44.96%, rgba(250, 0, 255, 0.09) 100%);
+
+		span{
+			overflow: hidden;
+			background: linear-gradient(to right, rgb(12, 80, 255) 0%, rgb(12, 80, 255) 24%, rgb(91, 157, 255) 55.73%, rgb(255, 116, 241) 75%, rgb(255, 116, 241) 100%);
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;
+			vertical-align: middle;
+			color: $blue;
+		}
+
+		svg{
+			vertical-align: -2px;
+		}
+	}
 
 	&-white{
 		color: $dark !important;
@@ -226,7 +246,20 @@ p{
 				position: relative;
 			}
 		}
+		&-lg{
+			width: 48px;
+			height: 48px;
+		}
+	}
 
+	&-user{
+		img{
+			object-position: center;
+			border-radius: inherit;
+			object-fit: cover;
+			height: inherit;
+			width: inherit;
+		}
 	}
 
 	&-outline-gray{
@@ -365,6 +398,30 @@ p{
 			-webkit-box-flex: 1;
 			flex-grow: 1;
 			text-align: center;
+		}
+
+		&-lg{
+			padding: 12px 16px !important;
+			line-height: normal;
+			border-radius: 6px;
+			font-size: 20px;
+			height: auto;
+			color: $dark;
+
+			&:hover{
+				background-color: rgba($dark, 0.05);
+			}
+
+			svg{
+				color: $color-6e;
+				margin-left: 8px;
+				width: 12px;
+			}
+
+			.toast-text{
+				font-size: inherit;
+				padding: 0;
+			}
 		}
 	}
 

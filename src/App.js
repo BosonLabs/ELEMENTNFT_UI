@@ -14,7 +14,9 @@ import Profile from './components/Profile';
 import FollowingPage from './components/FollowingPage';
 import ActivityPage from './components/ActivityPage';
 import SingleBid from './components/SingleBid';
+import SingleBid2 from './components/SingleBid2';
 import About from './components/About';
+import Rari from './components/Rari';
 
 function App() {
   return (
@@ -44,8 +46,14 @@ function App() {
         <Route path="/bid">
           <SingleBid />
         </Route>
+        <Route path="/bid-2">
+          <SingleBid2 />
+        </Route>
         <Route path="/about">
           <About />
+        </Route>
+        <Route path="/rari">
+          <Rari />
         </Route>
         <Route path="/">
           <Home />
