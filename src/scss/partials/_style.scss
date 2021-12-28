@@ -41,6 +41,11 @@ h2, .h2{
 h3{
 	font-weight: 700;
 	font-size: 18px;
+
+	small{
+		color: $color-6e;
+		font-weight: 400;
+	}
 }
 
 h4{
@@ -146,13 +151,13 @@ h6{
 		&-field{
 			border-bottom: 2px solid rgba($dark, 0.07);
 
-			input, span{
+			input, span, select{
 				background-color: transparent;
 				border: none;
 				height: 48px;
 			}
 
-			input{
+			input, select{
 				padding-left: 0;
 			}
 
@@ -930,6 +935,14 @@ h6{
 			font-size: 1.4em;
 		}
 	}
+
+	&-single{
+		background-color: rgba(232, 237, 249, 0.5);
+		border: 1px solid rgb(167, 214, 249);
+		padding: 14px 18px;
+		font-size: 16px;
+		color: $dark;;
+	}
 }
 
 .login{
@@ -1267,6 +1280,41 @@ h6{
 
 					&.active{
 						border: none !important;
+					}
+				}
+			}
+		}
+	}
+
+	&-pills{
+		@include justify-content(space-between);
+
+		li{
+			margin: 0;
+			width: 31.5%;
+
+			button{
+				width: 100%;
+				height: 140px;
+				font-weight: 700;
+				@include flexbox();
+				color: $dark !important;
+				border-radius: 16px !important;
+				background-color: $white !important;
+				border: 1px solid rgba($dark, .1) !important;
+
+				&.active{
+					border-color: $blue !important;
+				}
+
+				span{
+					margin: auto;
+					max-width: 60px;
+					line-height: 1.2;
+
+					img{
+						display: block;
+						margin: 0 auto 8px;
 					}
 				}
 			}
@@ -1723,6 +1771,80 @@ video{
 
 		p{
 			margin-top: 3px;
+		}
+	}
+}
+
+.signup{
+	&-cards{
+		font-size: 16px;
+
+		.card-body{
+			@include maxDevice(767px){
+				padding: 0;
+			}
+		}
+
+		.badge{
+			position: absolute;
+			top: 15px;
+			right: 15px;
+		}
+		
+		p{
+			color: $color-6e;
+			max-width: 150px;
+			margin: 0 auto 32px;
+
+			@include maxDevice(767px){
+				margin-bottom: 0;
+			}
+		}
+
+		.btn{
+			min-width: 180px;
+
+			@include maxDevice(767px){
+				min-width: 100%;
+			}
+		}
+
+		img{
+			width: 78px;
+			min-width: 78px;
+			margin-bottom: 40px;
+
+			@include maxDevice(767px){
+				margin-bottom: 0;
+			}
+		}
+
+		h3{
+			font-size: 24px;
+		}
+	}
+}
+
+.upload{
+	border: 2px dashed rgba($dark, .1);
+	border-radius: 16px;
+	color: $color-6e;
+	position: relative;
+
+	&-image{
+		margin: -15px auto;
+		max-width: 100%;
+		display: block;
+	}
+}
+
+
+
+.dropdown-menu{
+	&-link{
+		a{
+			@include flexbox();
+			@include align-items(center);
 		}
 	}
 }

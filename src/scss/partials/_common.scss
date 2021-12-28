@@ -96,6 +96,10 @@ a{
 	&.disabled, &:disabled, &[disabled]{
 		color: rgba($white, 0.2)
 	}
+
+	&:hover{
+		color: $dark;
+	}
 }
 
 strong{
@@ -454,6 +458,42 @@ p{
 			background-color: $color-e6;
 		}
 	}
+
+	&-card{
+		height: auto;
+		line-height: 1;
+		min-width: 145px;
+		padding: 25px 5px;
+		border-radius: 16px;
+		border: 1px solid rgba($dark, 0.1);
+
+		&.active{
+			border-color: $blue;
+		}
+
+		svg, img{
+			margin-bottom: 10px;
+			width: 40px;
+			height: 40px;
+			border-radius: 40px;
+		}
+		h3{
+			width: 100%;
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		p{
+			font-weight: 400;
+			color: $color-6e;
+		}
+	}
+
+	&-upload-close{
+		position: absolute;
+		top: 15px;
+		right: 15px;
+	}
 }
 
 .badge{
@@ -469,6 +509,14 @@ p{
 	&-red{
 		background-color: $red !important;
 		color: $white !important;
+	}
+
+	&-success{
+		background-color: rgba($green, 0.1) !important;
+		color: $green !important;
+		border-radius: 25px;
+		padding: 6px 15px;
+		height: auto;
 	}
 
 	&-new{
@@ -502,6 +550,10 @@ p{
 
 	&-gray{
 		color: $color-6e;
+
+		strong, h3{
+			color: $dark;
+		}
 	}
 
 	&-grad{

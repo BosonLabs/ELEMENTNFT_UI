@@ -17,6 +17,9 @@ import SingleBid from './components/SingleBid';
 import SingleBid2 from './components/SingleBid2';
 import About from './components/About';
 import Rari from './components/Rari';
+import Start from './components/Create/Start';
+import Type from './components/Create/Type';
+import Single from './components/Create/Single';
 
 function App() {
   return (
@@ -54,6 +57,15 @@ function App() {
         </Route>
         <Route path="/rari">
           <Rari />
+        </Route>
+        <Route path="/create/start">
+          <Start />
+        </Route>
+        <Route path="/create/type">
+          <Type />
+        </Route>
+        <Route path="/create/single">
+          <Single />
         </Route>
         <Route path="/">
           <Home />
