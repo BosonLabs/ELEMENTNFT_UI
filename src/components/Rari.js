@@ -1,15 +1,12 @@
 import React from 'react';
 import Layout from './Layout';
-import {Container, Button, Row, Col, Card} from 'react-bootstrap';
+import {Container, Button, Row, Col} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
 import RariLogo from '../assets/images/rari-logo.png';
 
-const SingleBid = () => {
-    const [video, setVideo] = React.useState(false);
-
-    const handle = () => setVideo(!video);
+const Rari = () => {
     return (
         <Layout>
             <Container fluid="md">
@@ -81,4 +78,4 @@ const SingleBid = () => {
     );
 };
 
-export default SingleBid;
+export default Rari;
