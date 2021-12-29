@@ -1,77 +1,167 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import "./styles/app.sass";
+import Page from "./components/Page";
+import Home from "./screens/Home";
+import UploadVariants from "./screens/UploadVariants";
+import UploadDetails from "./screens/UploadDetails";
+import ConnectWallet from "./screens/ConnectWallet";
+import Faq from "./screens/Faq";
+import Activity from "./screens/Activity";
+import Search01 from "./screens/Search01";
+import Search02 from "./screens/Search02";
+import Profile from "./screens/Profile";
+import ProfileEdit from "./screens/ProfileEdit";
+import Item from "./screens/Item";
+import PageList from "./screens/PageList";
+import "./style.css";
+import Profileuserview from "./screens/Profileuserview";
+import UploadDetailsAll from "./screens/UploadDetailsAll";
+import ProfilecopyAll from "./screens/ProfilecopyAll";
 
-import Home from './components/HomePage';
-import Login from './components/Connect';
-import ExplorePage from './components/ExplorePage';
-import HowItWorks from './components/HowItWorks';
-import Information from './components/Information';
-import Profile from './components/Profile';
-import FollowingPage from './components/FollowingPage';
-import ActivityPage from './components/ActivityPage';
-import SingleBid from './components/SingleBid';
-import SingleBid2 from './components/SingleBid2';
-import About from './components/About';
-import Rari from './components/Rari';
-import Start from './components/Create/Start';
-import Type from './components/Create/Type';
-import Single from './components/Create/Single';
 
-function App() {
-  return (
-    <Router>
+function App() {  
+  return (        
+    <Router>      
       <Switch>
-        <Route path="/connect">
-          <Login />
-        </Route>
-        <Route path="/explore">
-          <ExplorePage />
-        </Route>
-        <Route path="/how-it-works">
-          <HowItWorks />
-        </Route>
-        <Route path="/information">
-          <Information />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route path="/following">
-          <FollowingPage />
-        </Route>
-        <Route path="/activity">
-          <ActivityPage />
-        </Route>
-        <Route path="/bid">
-          <SingleBid />
-        </Route>
-        <Route path="/bid-2">
-          <SingleBid2 />
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/rari">
-          <Rari />
-        </Route>
-        <Route path="/create/start">
-          <Start />
-        </Route>
-        <Route path="/create/type">
-          <Type />
-        </Route>
-        <Route path="/create/single">
-          <Single />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Page>
+              <Home />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/upload-variants"
+          render={() => (
+            <Page>
+              <UploadVariants />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/upload-details"
+          render={() => (
+            <Page>
+              <UploadDetails />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/connect-wallet"
+          render={() => (
+            <Page>
+              <ConnectWallet />
+            </Page>
+          )}
+        />
+        
+        <Route
+          exact
+          path="/faq"
+          render={() => (
+            <Page>
+              <Faq />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/activity"
+          render={() => (
+            <Page>
+              <Activity />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/search01"
+          render={() => (
+            <Page>
+              <Search01 />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/search02"
+          render={() => (
+            <Page>
+              <Search02 />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/profile"
+          render={() => (
+            <Page>
+              <Profile />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/profile-edit"
+          render={() => (
+            <Page>
+              <ProfileEdit />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/item"
+          render={() => (
+            <Page>
+              <Item />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/pagelist"
+          render={() => (
+            <Page>
+              <PageList />
+            </Page>
+          )}
+          />
+          <Route
+          exact
+          path="/profileuserview"
+          render={() => (
+            <Page>
+              <Profileuserview />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/uploaddetailsall"
+          render={() => (
+            <Page>
+              <UploadDetailsAll />
+            </Page>
+          )}
+        />
+        <Route
+          exact
+          path="/profilecopyall"
+          render={() => (
+            <Page>
+              <ProfilecopyAll />
+            </Page>
+          )}
+        />
+      </Switch>      
+    </Router>    
   );
 }
 
