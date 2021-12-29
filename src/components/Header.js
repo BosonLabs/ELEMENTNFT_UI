@@ -179,8 +179,8 @@ function Header() {
                                 </div>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Link to="/" className='btn d-md-block d-none btn-grad'>Create</Link>
-                        <Link to="/" className='btn d-md-block d-none btn-white'>Sign in</Link>
+                        <Link to="/create/single" className='btn d-md-block d-none btn-grad'>Create</Link>
+                        <Link to="/connect" className='btn d-md-block d-none btn-white'>Sign in</Link>
                         
                         <Button className='btn btn-round btn-round-sm btn-white'>
                             <svg viewBox="0 0 18 12" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye YJxZz"><path d="M5.29412 5.79545L11.6471 3.75L6.35294 7.84091L9.17647 15L18 0L0 0L5.29412 5.79545Z" fill="currentColor"></path></svg>
@@ -319,10 +319,10 @@ function Header() {
 
                             <Row>
                                 <Col>
-                                    <Link to="/" className='btn d-block btn-grad'>Create</Link>
+                                    <Link to="/create/single" className='btn d-block btn-grad'>Create</Link>
                                 </Col>
                                 <Col>
-                                    <Link to="/" className='btn d-block btn-light-blue'>Sign in</Link>
+                                    <Link to="/connect" className='btn d-block btn-light-blue'>Sign in</Link>
                                 </Col>
                             </Row>
                         </div>
