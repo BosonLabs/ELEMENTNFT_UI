@@ -41,7 +41,7 @@ const Cards = ({ className, item }) => {
   return (
     <div className={cn(styles.card, className)}>
       <div className={styles.preview}>        
-        <img srcSet={`${item.image2x} 2x`} src={item.image} alt="Card" />
+        <img srcSet={`${item.image} 2x`} src={item.image} alt="Card" />
         <div className={styles.control}>            
           <div
             className={cn(

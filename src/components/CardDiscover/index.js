@@ -438,7 +438,7 @@ useEffect(()=>{usernameget()},[])
     <div style={divStyle}>         
       <div className={styles.preview}>        
       
-        <img srcSet={`${item.image2x} 2x`} src={item.image} alt="Card"  style={{width:"150px",height:"150px",marginLeft:"30px",marginRight:"2px",marginTop:"6px"}}/>
+        <img srcSet={`${item.image} 2x`} src={item.image} alt="Card"  style={{width:"150px",height:"150px",marginLeft:"30px",marginRight:"2px",marginTop:"6px"}}/>
         <div className={styles.control}>
           <div
             className={cn(
