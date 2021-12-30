@@ -76,7 +76,6 @@ const OnSale = () => {
                         )}
                     />
                 </div>
-
                 <div className="filter-item filter-sale-type">
                     <Select
                         styles={colourStyles}
