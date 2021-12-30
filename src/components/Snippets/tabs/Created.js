@@ -1,14 +1,84 @@
-import React from 'react';
+import React, { useState,useEffect} from "react";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import AllIcon from '../../../assets/images/cate-all-icon.svg';
 import {Dropdown, Row, Col, Button} from 'react-bootstrap';
+import Card from '../../Snippets/Card';
 import {
     Link
   } from "react-router-dom";
+import firebase from '../../../firebase';
 const animatedComponents = makeAnimated();
 
 const OnSale = () => {
+    const[getImgreffalgo,setgetImgreffalgo]=useState([]);
+    console.log("getImgalgo",getImgreffalgo)
+    const dbcallalgo=async()=>{
+        console.log("inside dbcallalgo function")  
+        let req = [];
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+        }
+        else{
+          let getalgo=localStorage.getItem("wallet");    
+          //let kreq =[];
+          firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+            if (data) {
+              data.forEach((d) => {
+                //console.log("keycheck",d.key)
+                let value=d.val();
+                req.push(            
+                  {
+                    userSymbol:value.userSymbol,
+                    title: value.id,
+                    price: value.priceSet,
+                    highestBid: value.keyId,
+                    counter:value.userName ,
+                    //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                    bid:value.ownerAddress,
+                    image: value.imageUrl,
+                    image2x:value.paramsdb,
+                    category: value.privatekey,
+                    categoryText: value.cAddress,
+                    //purchasing !
+                    url: value.history,
+                    league:value.league,
+                    team:value.team,
+                    type:value.type,
+                    dimen:value.dimen,
+                    teamlogo:value.teamlogo,      
+                    ipfsurl:value.ipfsUrl,
+                    extra:value.extra1,
+                    previousaddress:value.previousoaddress,
+                    date:value.datesets,
+                    description:value.description,
+                    soldd:"",
+                    history:"",
+                    Mnemonic:value.Mnemonic,
+                    usdcids:value.usdcids,
+                    applicationid:value.applicationid,
+                    escrowaddress:value.escrowaddress,
+                    users: [                
+                      {
+                        //avatar: "/images/content/avatar-4.jpg",
+                        avatar :value.imageUrl,
+                      },
+                    ],
+                  },          
+                )
+                //image:images/content/card-pic-1.jpg
+                //image2x: "/images/content/card-pic-1@2x.jpg",
+      
+                //req.push(d.key)          
+              });        
+            }
+          });
+          setgetImgreffalgo(req);
+        
+        }
+        //console.log("acc",getalgo)
+      }
+      
+    useEffect(()=>{dbcallalgo()},[])
     const colourStyles = {
         option: (styles, { isFocused }) => {
           // const color = chroma(data.color);
@@ -167,11 +237,25 @@ const OnSale = () => {
                 </div>
             </div>
 
-            <div className="no-found py-5 text-center">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
+                <div className="col mb-4" >
+                {getImgreffalgo.map((x, index) => {
+                console.log("logo",x)
+                return(  
+                    <>
+                    <Card verify={true} img={x.image} title={x.counter} count="401" subTitle={`<span>Highest bid</span> <span>${x.price/1000000}</span>`} linkText="0.221 WETH" />
+                    <br/>
+                    </>                                                                                          
+              )})}                              
+                </div>                
+            </div>
+
+            {/* <div className="no-found py-5 text-center">
                 <h2>No items found</h2>
                 <p className="lead mb-4">Come back soon! Or try to browse <br />something for you on our marketplace</p>
                 <Link to="/" className='btn btn-primary'>Browse marketplace</Link>
             </div>
+             */}                            
         </div>
     );
 };

@@ -15,7 +15,7 @@ function Footer() {
                 <div className="footer-top">
                     <Row>
                         <Col lg={5}>
-                            <h3>Join Rarible community</h3>
+                            <h3>Join Element Community</h3>
 
                             <div className="footer-social d-flex align-items-center">
                                 <Link to="/" target="_blank">
@@ -70,7 +70,7 @@ function Footer() {
                         <Col md={7}>
                             <Row>
                                 <Col xs={6} sm={4}>
-                                    <h3>Rarible</h3>
+                                    <h3>Element</h3>
 
                                     <ul>
                                         <li><Link to="/">Explore</Link></li>
@@ -87,9 +87,9 @@ function Footer() {
                                     <ul>
                                         <li><Link to="/">About</Link></li>
                                         <li><Link to="/">Blog</Link></li>
-                                        <li><Link to="/">RARI Token</Link></li>
+                                        <li><Link to="/">ELEMENT Token</Link></li>
                                         <li><Link to="/">Suggest feature</Link></li>
-                                        <li><Link to="/">Rarible protocol</Link></li>
+                                        <li><Link to="/">Element protocol</Link></li>
                                         <li><Link to="/">Subscribe</Link></li>
                                     </ul>
                                 </Col>
