@@ -1,0 +1,168 @@
+.header{
+	background: rgba($white, 0.7);
+    backdrop-filter: blur(20px);
+    transform: translateZ(0px);
+	z-index: 100;
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+
+	.container{
+		&-fluid{
+			min-height: 78px;
+		}
+	}
+
+	.logo{
+		font-size: 22px;
+		font-weight: 900;
+		margin-right: 24px;
+		color: $dark !important;
+		
+		svg{
+			margin-right: 13px;
+
+			@include maxDevice(1300px){
+				margin-right: 0;
+			}
+		}
+
+		span{
+			@include maxDevice(1300px){
+				display: none;
+			}
+		}
+
+	}
+
+	form{
+		margin-right: 24px;
+	}
+
+	&-control{
+		margin-left: 5px;
+
+		& > *{
+			margin-left: 8px;
+		}
+
+		.dropdown-menu{
+			@include maxDevice(575px){
+				transform: none !important;
+				position: fixed !important;
+				top: 75px !important;
+				left: 15px !important;
+				right: 15px !important;
+				width: auto;
+				min-width: auto;
+				max-width: none;
+			}
+		}
+	}
+
+	&-search{
+		background-color: $white;
+		color: $color-6e;
+		position: fixed;
+		font-size: 14px;
+		overflow: auto;
+		z-index: 9999;
+		height: 100%;
+		width: 100%;
+		left: 0;
+		top: 0;
+
+		&-header{
+			min-height: 78px;
+			border-bottom: 1px solid $color-e6;
+		}
+
+		&-nofound{
+			text-align: center;
+			max-width: 175px;
+			display: block;
+			margin: auto;
+		}
+
+		&-body{
+			padding: 25px 0;
+		}
+	}
+
+	&-mobile{
+		background: $white;
+		position: fixed;
+		overflow: auto;
+		z-index: 9999;
+		height: 100%;
+		width: 100%;
+		left: 0;
+		top: 0;
+
+		&-header{
+			min-height: 78px;
+		}
+
+		&-body{
+			padding: 15px 0 30px;
+
+			ul{
+				list-style-type: none;
+				margin: 0 0 18px;
+				padding: 0;
+
+				li{
+					margin-bottom: 6px;
+				}
+
+				a{
+					font-weight: 600;
+					font-size: 19px;
+					color: $dark;
+				}
+			}
+
+			.dropdown-menu-social{
+				@include justify-content(space-around);
+				border-top: 1px solid $color-e6;
+				margin-bottom: 15px;
+				margin-top: 40px;
+				padding: 20px 0;
+			}
+		}
+	}
+}
+
+.nav{
+	font-weight: 600;
+	font-size: 16px;
+
+	&-link{
+		color: rgba($dark, 0.5);
+		font-weight: 600;
+		padding: 9px 0;
+
+		@include maxDevice(991px){
+			font-size: 14px;
+		}
+
+		&:hover{
+			color: $dark;
+		}
+	}
+
+	& > *{
+		margin-right: 18px;
+
+		@include maxDevice(991px){
+			margin-right: 12px;
+		}
+	}
+
+	& + &{
+		border-left: 1px solid $color-e6;
+		padding-left: 18px;
+	}
+}	
+

@@ -1,0 +1,134 @@
+.footer{
+    padding: 45px 0;
+    color: $color-6e;
+    background-color: rgba($dark, 0.05);
+
+    &-top{
+        border-bottom: 1px solid $color-e6;
+
+        @include maxDevice(991px){
+            text-align: center;
+            padding-bottom: 40px;
+        }
+    }
+
+    h3{
+        color: $dark;
+        margin-top: 18px;
+        margin-bottom: 20px;
+    }
+
+    ul{
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-weight: 700;
+        list-style-type: none;
+    }
+
+    &-line{
+        height: 1px;
+        margin: 40px 0;
+        background-color: $color-e6;
+    }
+
+    &-social{
+        @include maxDevice(991px){
+            @include justify-content(center);
+        }
+
+        a{
+            width: 56px;
+            height: 56px;
+            margin-right: 10px;
+            @include flexbox();
+            border-radius: 12px;
+            background-color: $color-ed;
+
+            svg{
+                margin: auto;
+            }
+        }
+    }
+
+    &-middle{
+        border-bottom: 1px solid $color-e6;
+        padding-bottom: 40px;
+        padding-top: 50px;
+
+        @include maxDevice(767px){
+            padding-top: 30px;
+        }
+
+        ul{
+            li{
+                margin-bottom: 12px;
+
+                a{
+                    color: $color-6e;
+
+                    &:hover{
+                        color: $dark;
+                    }
+                }
+            }
+
+            .badge{
+                margin-left: 8px;
+            }
+        }
+    }
+}
+
+.qr-frame{
+    position: relative;
+    border-top: 8px solid $color-c5;
+    border-right: 8px solid $color-c5;
+    border-left: 8px solid $color-c5;
+    border-image: initial;
+    border-radius: 20px 20px 0px 0px;
+    border-bottom: none;
+    margin-right: 32px;
+    padding: 15px;
+    width: 150px;
+    height: 180px;
+    margin: auto;
+
+    img{
+        max-width: 102px;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+.copyrights{
+    font-size: 14px;
+    padding-top: 25px;
+    color: rgba($dark, 0.4);
+    border-top: 1px solid $color-e6;
+    
+    ul{
+        a{
+            color: $color-6e;
+        }
+        
+        li{
+            & + li{
+                margin-left: 32px;
+            }
+
+            .dropdown{
+                &-toggle{
+                    font-weight: 700;
+                    font-size: 16px;
+                    color: $color-6e;
+                }
+
+                &-menu{
+                    top: auto !important;
+                    bottom: 100% !important;
+                }
+            }
+        }
+    }
+}
