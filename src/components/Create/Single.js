@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
 import Layout from '../Layout';
-import {Container, Row, Col, Card, Form, Tab, Tabs, InputGroup, Dropdown, Button, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap';
-import {
-    Link
-  } from "react-router-dom";
+// import {Container, Row, Col, Card, Form, Tab, Tabs, InputGroup, Dropdown, Button, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap';
+import {Container, Row, Col, Form, InputGroup, Button, Modal} from 'react-bootstrap';
+// import {
+//     Link
+//   } from "react-router-dom";
 
 //import CardInfo from '../Snippets/Card'
 //import Preview from '../../assets/images/preview.jpg'
@@ -15,7 +16,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
-const axios = require('axios');
+// const axios = require('axios');
 
 
 
@@ -28,13 +29,13 @@ const Start = () => {
     const [tdescription,setDescription] = useState("");  
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // const handleShow = () => setShow(true);
 
 
     const [showTest, setShowTest] = React.useState(false);
 
     const handleCloseTest = () => setShowTest(false);
-    const handleShowTest = () => setShowTest(true);
+    // const handleShowTest = () => setShowTest(true);
 
     const [Img,setImg] = useState("")
 
@@ -91,7 +92,7 @@ const Start = () => {
           let ta=tname;
           let tb='CIFI';
           let te=1000;
-          let idget="";
+        //   let idget="";
           console.log("uploadonecheck",ta);
           console.log("uploadtwocheck",tb);
           console.log("uploadtwocheck",te);

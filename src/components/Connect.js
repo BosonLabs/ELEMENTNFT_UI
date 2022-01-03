@@ -1,13 +1,14 @@
 import React,{useState} from 'react';
-import {
-    Link
-  } from "react-router-dom";
-import {Badge} from 'react-bootstrap';
+// import {
+//     Link
+//   } from "react-router-dom";
+// import {Badge} from 'react-bootstrap';
 
 import Banner from '../assets/images/loginBanner.png';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 //import history from './history';
-import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
+// import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 //import ModalList from "../components/ModalList";
 //import FolowStepsList from "../components/FolowStepList";
@@ -23,7 +24,7 @@ function Login() {
     const [isListtrys, setisListtrys] = useState([]);
     const [show, setShow] = React.useState(false);
     const [showcall, setShowcall] = React.useState(false);
-    const handleClose = () => setShow(false);
+    // const handleClose = () => setShow(false);
     //const handleShow = () => setShow(true);
     
     React.useEffect(() => {
