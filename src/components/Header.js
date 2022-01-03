@@ -10,6 +10,9 @@ import FlowIcon from '../assets/images/flow-icon.svg'
 import TezosIcon from '../assets/images/tezos-icon.svg'
 import ThemeChanger from './Snippets/ThemeChanger';
 import User from '../assets/images/dummy-icon.svg';
+//import algoimg from '../../public/images/Algo.png'
+//import {Row, Col} from 'react-bootstrap';
+//import Logo from "../../public/logo512.png";
 
 function Header() {
     const [show, setShow] = React.useState(false);
@@ -223,8 +226,16 @@ function Header() {
                                 <div className="dropdown-account mb-3">
                                     <div className="d-flex align-items-center justify-content-between mb-3">
                                         <div className="dropdown-account-item d-flex align-items-center justify-content-between">
-                                            <svg viewBox="0 0 40 40" fill="none" width="44" height="44" color="currentColor" xlmns="http://www.w3.org/2000/svg"><path opacity="0.1" d="M20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20C40 31.0457 31.0457 40 20 40Z" fill="#6B8CEF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M28.7498 20.2747L19.3775 5V16.0875L27.9627 19.9232L19.3775 16.0898V25.716L28.7498 20.2749L28.75 20.275L28.7499 20.2748L28.75 20.2748L28.7498 20.2747ZM19.375 16.0875V5L10.0039 20.2747L10.0038 20.2748L10.0039 20.2748L10.0038 20.275L10.004 20.2749L19.375 25.716V16.0898L10.791 19.9232L19.375 16.0875ZM19.375 27.4595V34.9933L9.99752 22.0195L19.375 27.4595ZM19.3775 27.4583V34.9933L28.75 22.0195L19.3775 27.4583Z" fill="#6B8CEF"></path></svg>
+                                            {/* <svg viewBox="0 0 40 40" fill="none" width="44" height="44" 
+                                            color="currentColor" xlmns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.1" d="M20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20C40 31.0457 31.0457 40 20 40Z" fill="#6B8CEF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M28.7498 20.2747L19.3775 5V16.0875L27.9627 19.9232L19.3775 16.0898V25.716L28.7498 20.2749L28.75 20.275L28.7499 20.2748L28.75 20.2748L28.7498 20.2747ZM19.375 16.0875V5L10.0039 20.2747L10.0038 20.2748L10.0039 20.2748L10.0038 20.275L10.004 20.2749L19.375 25.716V16.0898L10.791 19.9232L19.375 16.0875ZM19.375 27.4595V34.9933L9.99752 22.0195L19.375 27.4595ZM19.3775 27.4583V34.9933L28.75 22.0195L19.3775 27.4583Z" fill="#6B8CEF">
+                                            </path></svg> */}
 
+{/* <div className="info-card-icon"> */}
+                        <img src={"/public/logo192.png"} style={{height:"115 px" ,width:"120px"}} alt="logo" />
+{/* </div> */}
+
+                                       {/* <img src={"/public/images/Algo.png"} alt="users" /> */}
                                             <div className='ms-3'>
                                                 <h6 className='mb-1'>Balance</h6>
                                                 <h5 className='mb-0'>0 Algo</h5>
