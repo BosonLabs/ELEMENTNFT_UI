@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import Flickity from 'react-flickity-component'
+// import {Row, Col} from 'react-bootstrap';
 import Card from '../Snippets/Card';
 const axios = require('axios');
 
@@ -111,6 +112,33 @@ const LiveAuctions = () => {
                 <div className='carousel-cell carousel-cell-20'><Card verify={true} title="Wizard Furbiez #29" count="8" subTitle={`<span>Auction</span> <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card timer='19:10' verify={true} title="Wizard Furbiez #30" count="6" subTitle={`<span>Highest bid</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div> */}
             </Flickity>
+
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+              <div className='col mb-4'>
+                  <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+              </div>
+          </div>
 
         </div>
     );
