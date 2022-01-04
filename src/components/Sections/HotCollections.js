@@ -81,7 +81,7 @@ const HotBids = () => {
                 static // default false
             >
 
-<div className="row row-cols-1 row-cols-sm-2 row-cols-md-10 row-cols-lg-10">
+<div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 row-cols-lg-6">
 {getI.map((x, index) => {
                 console.log("logo",x)
                 return(  

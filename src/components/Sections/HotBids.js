@@ -7,7 +7,6 @@ const HotBids = () => {
     const[getI,setgetI]=useState([]); 
     console.log("getImgal",getI)    
     const check=()=>{
-
         alert("check")
     }
 
@@ -80,7 +79,7 @@ const HotBids = () => {
                 static // default false
             >
 
-<div className="row row-cols-1 row-cols-sm-2 row-cols-md-8 row-cols-lg-8">
+<div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 row-cols-lg-6">
 {getI.map((x, index) => {
                 console.log("logo",x)
                 return(  
