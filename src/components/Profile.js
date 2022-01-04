@@ -46,42 +46,21 @@ function HomePage() {
                 let value=d.val();
                 req.push(            
                   {
-                    userSymbol:value.userSymbol,
-                    title: value.id,
-                    price: value.priceSet,
-                    highestBid: value.keyId,
-                    counter:value.userName ,
-                    //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                    bid:value.ownerAddress,
-                    image: value.imageUrl,
-                    image2x:value.paramsdb,
-                    category: value.privatekey,
-                    categoryText: value.cAddress,
-                    //purchasing !
-                    url: value.history,
-                    league:value.league,
-                    team:value.team,
-                    type:value.type,
-                    dimen:value.dimen,
-                    teamlogo:value.teamlogo,      
-                    ipfsurl:value.ipfsUrl,
-                    extra:value.extra1,
-                    previousaddress:value.previousoaddress,
-                    date:value.datesets,
-                    description:value.description,
-                    soldd:"",
-                    history:"",
-                    Mnemonic:value.Mnemonic,
-                    usdcids:value.usdcids,
-                    applicationid:value.applicationid,
-                    escrowaddress:value.escrowaddress,
-                    users: [                
-                      {
-                        //avatar: "/images/content/avatar-4.jpg",
-                        avatar :value.imageUrl,
-                      },
-                    ],
-                  },          
+                  Assetid:value.Assetid,
+                  Imageurl:value.Imageurl,
+                  NFTPrice:value.NFTPrice,
+                  EscrowAddress:value.EscrowAddress,
+                  keyId:value.keyId,
+                  NFTName:value.NFTName,
+                  userSymbol:value.userSymbol,
+                  Ipfsurl:value.Ipfsurl,
+                  ownerAddress:value.ownerAddress,
+                  previousoaddress:value.previousoaddress,
+                  TimeStamp:value.TimeStamp,
+                  NFTDescription:value.NFTDescription,
+                  HistoryAddress:value.HistoryAddress,
+                  Appid:value.Appid   
+                  }          
                 )
                 //image:images/content/card-pic-1.jpg
                 //image2x: "/images/content/card-pic-1@2x.jpg",
@@ -89,8 +68,9 @@ function HomePage() {
                 //req.push(d.key)          
               });        
             }
+            setgetImgreffalgo(req);
           });
-          setgetImgreffalgo(req);
+          
         
         }
         //console.log("acc",getalgo)
@@ -99,16 +79,11 @@ function HomePage() {
     useEffect(()=>{dbcallalgo()},[])
 
     const dbcallsalealgo=async()=>{
-        console.log("inside dbcallsalealgo function")
-        
-        let req = [];
-      
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
-      
-        }else{
-      
-          let getalgo=localStorage.getItem("wallet");
-          
+        console.log("inside dbcallsalealgo function")        
+        let req = [];      
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
+        }else{      
+          let getalgo=localStorage.getItem("wallet");          
           //let kreq =[];
           firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
             if (data) {
@@ -117,49 +92,29 @@ function HomePage() {
                 let value=d.val();
                 req.push(            
                   {
+                    Assetid:value.Assetid,
+                    Imageurl:value.Imageurl,
+                    NFTPrice:value.NFTPrice,
+                    EscrowAddress:value.EscrowAddress,
+                    keyId:value.keyId,
+                    NFTName:value.NFTName,
                     userSymbol:value.userSymbol,
-                    title: value.id,
-                    price: value.priceSet,
-                    highestBid: value.keyId,
-                    counter:value.userName ,
-                    //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                    bid:value.ownerAddress,
-                    image: value.imageUrl,
-                    image2x: value.paramsdb,
-                    category: value.privatekey,
-                    categoryText: value.cAddress,
-                    //purchasing !
-                    url: value.history,
-                    league:value.league,
-                    team:value.team,
-                    type:value.type,
-                    dimen:value.dimen,
-                    teamlogo:value.teamlogo,      
-                    ipfsurl:value.ipfsUrl,
-                    extra:value.extra1,
-                    previousaddress:value.previousoaddress,
-                    date:value.datesets,
-                    description:value.description,
-                    soldd:"",
-                    Mnemonic:value.Mnemonic,
-                    usdcids:value.usdcids,
-                    applicationid:value.applicationid,
-                    escrowaddress:value.escrowaddress,
-                    users: [                
-                      {
-                        //avatar: "/images/content/avatar-4.jpg",
-                        avatar :value.imageUrl,
-                      },
-                    ],
-                  },
-                
+                    Ipfsurl:value.Ipfsurl,
+                    ownerAddress:value.ownerAddress,
+                    previousoaddress:value.previousoaddress,
+                    TimeStamp:value.TimeStamp,
+                    NFTDescription:value.NFTDescription,
+                    HistoryAddress:value.HistoryAddress,
+                    Appid:value.Appid   
+                  },                
                 )
               });        
             }
+            setgetImgreffalgosale(req);  
           });
-          setgetImgreffalgosale(req);  
+          
         }
-        console.log("acc",getImgreffalgosale)
+        console.log("accsale",getImgreffalgosale)
       
       }
       
@@ -167,16 +122,11 @@ function HomePage() {
 
     const dbcallalgobuy=async()=>{
         console.log("inside dbcallalgobuy function")  
-        let req = [];
-      
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-      
+        let req = [];      
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
         }
-        else{
-      
-        
-          let getalgo=localStorage.getItem("wallet");
-          
+        else{              
+          let getalgo=localStorage.getItem("wallet");          
           //let kreq =[];
           firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {      
             if (data) {
@@ -185,52 +135,26 @@ function HomePage() {
                 let value=d.val();
                 req.push(            
                   {
+                    Assetid:value.Assetid,
+                    Imageurl:value.Imageurl,
+                    NFTPrice:value.NFTPrice,
+                    EscrowAddress:value.EscrowAddress,
+                    keyId:value.keyId,
+                    NFTName:value.NFTName,
                     userSymbol:value.userSymbol,
-                    title: value.id,
-                    price: value.priceSet,
-                    highestBid: value.keyId,
-                    counter:value.userName ,
-                    //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                    bid:value.ownerAddress,
-                    image: value.imageUrl,
-                    image2x:value.paramsdb,
-                    category: value.privatekey,
-                    categoryText: value.cAddress,
-                    //purchasing !
-                    url: value.history,
-                    league:value.league,
-                    team:value.team,
-                    type:value.type,
-                    dimen:value.dimen,
-                    teamlogo:value.teamlogo,      
-                    ipfsurl:value.ipfsUrl,
-                    extra:value.extra1,
-                    previousaddress:value.previousoaddress,
-                    date:value.datesets,
-                    description:value.description,
-                    Mnemonic:value.Mnemonic,
-                    usdcids:value.usdcids,
-                    applicationid:value.applicationid,
-                    escrowaddress:value.escrowaddress,
-                    users: [                
-                      {
-                        //avatar: "/images/content/avatar-4.jpg",
-                        avatar :value.imageUrl,
-                      },
-                    ],
-                  },
-                
-                )
-      
-                //image:images/content/card-pic-1.jpg
-                //image2x: "/images/content/card-pic-1@2x.jpg",
-      
-                //req.push(d.key)          
+                    Ipfsurl:value.Ipfsurl,
+                    ownerAddress:value.ownerAddress,
+                    previousoaddress:value.previousoaddress,
+                    TimeStamp:value.TimeStamp,
+                    NFTDescription:value.NFTDescription,
+                    HistoryAddress:value.HistoryAddress,
+                    Appid:value.Appid   
+                  },                
+                )      
               });        
             }
-          });
-          setgetImgreffalgobuy(req);
-        
+            setgetImgreffalgobuy(req);
+          });                  
         }
         //console.log("acc",getalgo)
       
@@ -317,7 +241,7 @@ function HomePage() {
                 </div>
 
 
-                <ProfileTabs />
+                <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy}/>
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>

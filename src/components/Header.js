@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {Container, Form, InputGroup, Button,Toast, Nav, NavDropdown, Modal, Dropdown, Row, Col} from 'react-bootstrap';
 import {
     Link
@@ -12,13 +12,17 @@ import ThemeChanger from './Snippets/ThemeChanger';
 import User from '../assets/images/dummy-icon.svg';
 //import algoimg from '../../public/images/Algo.png'
 //import {Row, Col} from 'react-bootstrap';
-//import Logo from "../../public/logo512.png";
+import Logo from '../assets/images/Algo.png';
+import cjson from '../config.json'
+const algosdk = require('algosdk'); 
+
 
 function Header() {
     const [show, setShow] = React.useState(false);
     const [search, setSearch] = React.useState(false);
     const [menu, setMenu] = React.useState(false);
     const [toast, setToast] = React.useState(false);
+    const [algobalance, setalgobalance] = useState("");
 
     const handleSerach = () => setSearch(!search);
     const handleMenu = () => setMenu(!menu);
@@ -27,6 +31,57 @@ function Header() {
 
     // amount
     const [value, setValue] = React.useState('');
+    useEffect(() => {        
+        async function listenMMAccount() {
+    
+          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
+          }
+          else{          
+            const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+            const port = "";            
+            const token = {            
+                'X-API-key' : cjson.purestakeapi,
+            }
+            let client = new algosdk.Algodv2(token, baseServer, port);                
+    ( async() => {
+      let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+      let calc=JSON.stringify(account1_info.amount)/1000000;      
+      setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
+      localStorage.setItem("balget",account1_info);      
+  })().catch(e => {
+      console.log(e);
+  })                    
+        }        
+    }
+    listenMMAccount();
+      }, []);
+
+    const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+    const port = "";
+    //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+    const token = {
+    
+        'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+    }
+    let client = new algosdk.Algodv2(token, baseServer, port);  
+
+    console.log("log1",client);
+
+( async() => {
+let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());
+console.log("accinfo",account1_info)
+console.log("accinfoamount",account1_info.amount)
+let calc=JSON.stringify(account1_info.amount)/1000000;
+//console.log("calc",calc)
+setalgobalance(JSON.stringify(account1_info.amount)/1000000);
+//console.log("Balance of account 1: " + JSON.stringify(account1_info.amount));
+localStorage.setItem("balget",account1_info);
+// let account2_info = (await client.accountInformation().do());
+// console.log("Balance of account 2: " + JSON.stringify(account2_info.amount));
+})().catch(e => {
+console.log(e);
+})
+
     return (
         <>
             {/* convert modal */}
@@ -213,7 +268,7 @@ function Header() {
 
                                 ):(
 
-                                    <Button variant='copy-code-lg' className="w-100 mb-2 justify-content-start"  onClick={() => { navigator.clipboard.writeText('0x31dB2A...aB9d'); setToast(true)}}>
+                                    <Button variant='copy-code-lg' className="w-100 mb-2 justify-content-start"  onClick={() => { navigator.clipboard.writeText(localStorage.getItem('wallet')); setToast(true)}}>
                                     {!toast ? <span>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)} <svg viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 8.25H2C1.86193 8.25 1.75 8.13807 1.75 8V2C1.75 1.86193 1.86193 1.75 2 1.75H8C8.13807 1.75 8.25 1.86193 8.25 2V3.25H5C4.0335 3.25 3.25 4.0335 3.25 5V8.25ZM3.25 9.75H2C1.0335 9.75 0.25 8.9665 0.25 8V2C0.25 1.0335 1.0335 0.25 2 0.25H8C8.9665 0.25 9.75 1.0335 9.75 2V3.25H11C11.9665 3.25 12.75 4.0335 12.75 5V11C12.75 11.9665 11.9665 12.75 11 12.75H5C4.0335 12.75 3.25 11.9665 3.25 11V9.75ZM11.25 11C11.25 11.1381 11.1381 11.25 11 11.25H5C4.86193 11.25 4.75 11.1381 4.75 11V5C4.75 4.86193 4.86193 4.75 5 4.75H11C11.1381 4.75 11.25 4.86193 11.25 5V11Z" fill="currentColor"></path></svg></span> : (
                                         <Toast className='toast-text' onClose={() => {setToast(false);}} show={toast} autohide delay={1500}>
                                             <Toast.Body>Copied! <svg viewBox="0 0 20 15" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path d="M2 7L7.33333 12L18 2" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path></svg></Toast.Body>
@@ -230,15 +285,21 @@ function Header() {
                                             color="currentColor" xlmns="http://www.w3.org/2000/svg">
                                             <path opacity="0.1" d="M20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20C40 31.0457 31.0457 40 20 40Z" fill="#6B8CEF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M28.7498 20.2747L19.3775 5V16.0875L27.9627 19.9232L19.3775 16.0898V25.716L28.7498 20.2749L28.75 20.275L28.7499 20.2748L28.75 20.2748L28.7498 20.2747ZM19.375 16.0875V5L10.0039 20.2747L10.0038 20.2748L10.0039 20.2748L10.0038 20.275L10.004 20.2749L19.375 25.716V16.0898L10.791 19.9232L19.375 16.0875ZM19.375 27.4595V34.9933L9.99752 22.0195L19.375 27.4595ZM19.3775 27.4583V34.9933L28.75 22.0195L19.3775 27.4583Z" fill="#6B8CEF">
                                             </path></svg> */}
-
-{/* <div className="info-card-icon"> */}
-                        <img src={"/public/logo192.png"} style={{height:"115 px" ,width:"120px"}} alt="logo" />
-{/* </div> */}
-
-                                       {/* <img src={"/public/images/Algo.png"} alt="users" /> */}
+                                            <img src={Logo} style={{height:"55 px" ,width:"55 px"}}alt="logo" />                                       
                                             <div className='ms-3'>
+                                                {localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" ? (
+                                                <>
                                                 <h6 className='mb-1'>Balance</h6>
                                                 <h5 className='mb-0'>0 Algo</h5>
+                                                </>
+                                                ):(
+                                                <>
+                                                <h6 className='mb-1'>Balance</h6>
+                                                <h5 className='mb-0'>{algobalance} Algo</h5>
+                                                </>
+
+                                                )}
+                                                
                                             </div>
                                         </div>
                                     </div>

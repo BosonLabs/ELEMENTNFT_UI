@@ -16,7 +16,7 @@ const myAlgoWallet = new MyAlgoConnect();
 
 
 
-const CardInfo = (props) => {
+const CardBuy = (props) => {
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
@@ -43,170 +43,165 @@ const CardInfo = (props) => {
             lastRound++;
             await algodclient.statusAfterBlock(lastRound).do();
           }
-        };
-
-        
+        };        
 
         const refreshSale=()=>{
             setshowTestSale(false)
             window.location.reload(false)
         }
 
-        const refresh=()=>{
-            setshowTestDone(false)
-            window.location.reload(false)
-        }
-    const onshow2=()=>{
-        setShowTestLoading(true)
-        console.log("sale",props.dataall);
-        if(localStorage.getItem('wallet') === props.dataall.ownerAddress){            
-            fireDb.database().ref(`imagerefexploreoneAlgos/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
-                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
-                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:props.dataall.previousoaddress,
-                TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid            
-              }).then(()=>{
-                fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
-                  console.log("remove db");
-                  setShowTestLoading(false)
-                  setshowTestSale(true)              
-              })
-        }
-        
-    }
-
-    const onshow1=()=>{
-        setShowTest(true)        
-    }
-
-    const setpricedb=async(b)=>{
-        setShowTest(false)
-        if(getprices === null || getprices === undefined || getprices === ""){
-            setShowTest(true)
-        }else{                    
-            setShowTestLoading(true)    
-            const algosdk = require('algosdk');  
-            const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-            // const myAlgoConnect = new MyAlgoConnect();
-            let appId=parseInt(configfile['appId']);
-            //let idget=assetidgetc;
-            let assetidgetc=parseInt(props.dataall.Assetid)    
-            //console.log("letasset",x.title)
-          try {            
-            let amountmul=(parseInt(getprices)*1000000);
-            console.log("amountmul",amountmul)
-          const params = await algodclient.getTransactionParams().do();            
-          const myAlgoConnect = new MyAlgoConnect();
-          let results = await algodclient.compile(dataescrow).do();
-              console.log("Resultconsole = " + results);
-              console.log("Hash = " + results.hash);
-              console.log("Result = " + results.result);
-              //await sleep(20000)
-              let program = new Uint8Array(Buffer.from(results.result, "base64"));      
-              let lsig = algosdk.makeLogicSig(program);
-              //let tealSignPrint = tealSign(sk, data, lsig.address());
-              console.log("LSIG",lsig.address())
-          let appArgs = [];
-          appArgs.push(new Uint8Array(Buffer.from("createlisting")));
-          appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));
-      console.log("ssk",props.dataall.keyId)
-      console.log("ssa",props.dataall.Assetid)
-      console.log("ssi",props.dataall.Imageurl)
-      console.log("ass",parseInt(amountmul))
-      console.log("lss",lsig.address())
-      console.log("namess",props.dataall.NFTName)
-      console.log("urlss",props.dataall.Ipfsurl)
-      console.log("ownerss",props.dataall.ownerAddress)
-      console.log("ipfsss",props.dataall.Ipfsurl)
-      console.log("press",props.dataall.previousoaddress)
-      console.log("timess",props.dataall.TimeStamp)
-      console.log("desss",props.dataall.NFTDescription)
-      console.log("hisss",props.dataall.HistoryAddress)
-      console.log("appss",props.dataall.Appid)      
-      console.log("userss",props.dataall.userSymbol)      
-          let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
-            from:localStorage.getItem('wallet'), 
-            suggestedParams:params, 
-            appIndex:parseInt(appId), 
-            appArgs:appArgs
-          })
-  
-          let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-          from: localStorage.getItem('wallet'),
-          to: lsig.address(),
-          amount: Number(parseInt(3000)),
-          note: undefined,
-          suggestedParams: params
-          });
+        const buynow=async()=>{
+            if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
+            }
+            else{          
+            if(props.dataall === localStorage.getItem("wallet"))
+            {   
+                alert("you are owner so you does not purchase this token")             
+            }
+            else{
+                setShowTestLoading(true)                
+                const algosdk = require('algosdk');  
+                const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');          
+                //const myAlgoConnect = new MyAlgoConnect();
+                //  let appId="50714558";
+                let appId=parseInt(configfile['appId']);                
+                let params = await algodclient.getTransactionParams().do();
+                //comment out the next two lines to use suggested fee
+                params.fee = 1000;
+                params.flatFee = true;  
+                //console.log("Global state", datedt);  
+              try {    
+                let convert95=(((parseInt(props.dataall.NFTPrice))/100)*95)
+                console.log("convert95",convert95)  
+                let convert5=(((parseInt(props.dataall.NFTPrice))/100)*5);
+                console.log("convert5",convert5)
+                const params = await algodclient.getTransactionParams().do();    
+                const myAlgoConnect = new MyAlgoConnect();
+                let results = await algodclient.compile(dataescrow).do();
+                console.log("Resultconsole = " + results);
+                console.log("Hash = " + results.hash);
+                console.log("Result = " + results.result);
+                //await sleep(20000)
+                let program = new Uint8Array(Buffer.from(results.result, "base64"));      
+                let lsig = algosdk.makeLogicSig(program);
+                //let tealSignPrint = tealSign(sk, data, lsig.address());
+                console.log("LSIG",lsig.address())
+                let appArgs = [];
+                appArgs.push(new Uint8Array(Buffer.from("Buynow")));
+                const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+                from: localStorage.getItem('wallet'),
+                to: localStorage.getItem('wallet'),
+                assetIndex: parseInt(props.dataall.Assetid),
+                note: undefined,
+                amount: 0,
+                suggestedParams: params
+                });
+              
+                const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
+                const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
+                console.log("optresponse",responseass)
+                
                   
-          const transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: lsig.address(),
-          to: lsig.address(),
-          assetIndex: parseInt(assetidgetc),
-          note: undefined,
-          amount: 0,
-          suggestedParams: params
-          });
-          
-          const transaction4= algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: localStorage.getItem('wallet'),
-          to: lsig.address(),
-          assetIndex: parseInt(assetidgetc),
-          note: undefined,
-          amount: 1,
-          suggestedParams: params
-          });
-  
-          const txn5 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
-            reKeyTo: undefined,
-            from : localStorage.getItem('wallet'),
-            manager: lsig.address(),
-            assetIndex:parseInt(assetidgetc),
-            suggestedParams:params,
-            strictEmptyAddressChecking:false
-            
-          })
-          
-          
-          const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4,txn5]);
-          const txs = [ transaction1, transaction2, transaction3, transaction4,txn5 ];
-          txs[0].group = groupID;
-          txs[1].group = groupID;
-          txs[2].group = groupID;
-          txs[3].group = groupID;
-          txs[4].group = groupID;
-          
+                const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
+                  from:localStorage.getItem('wallet'), 
+                  suggestedParams: params, 
+                  appIndex: parseInt(appId), 
+                  appArgs: appArgs
+              });
+              
+              const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+                  suggestedParams:params,
+                  from:localStorage.getItem('wallet'),
+                  to: lsig.address(), 
+                  amount: 2000
+              });
+              const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+                suggestedParams:params,
+                from:localStorage.getItem('wallet'),
+                to: lsig.address(), 
+                amount: parseInt(props.dataall.NFTPrice)
+              });
+              
+                const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+                  suggestedParams:params,
+                  from: lsig.address(),
+                  to:localStorage.getItem('wallet'), 
+                  amount: 1,
+                  assetIndex: parseInt(props.dataall.Assetid)
+                });
+              
+                
+                const txn5 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+                  suggestedParams:params,
+                  from: lsig.address(),
+                  to: props.dataall.ownerAddress, 
+                  amount: parseInt(convert95)
+              });
+              
+              const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
+                reKeyTo: undefined,
+                from : lsig.address(),
+                manager:localStorage.getItem('wallet'),
+                assetIndex: parseInt(props.dataall.Assetid),
+                suggestedParams:params,
+                strictEmptyAddressChecking:false
+                
+              })
+              
+              const txn7 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+                suggestedParams:params,
+                from: lsig.address(),
+                to:"PSYRA3264OJABUAD4GWNUMGXGYDZHJRPGL5GX26SNF3OIDQQKSPWZGDWN4", 
+                amount: parseInt(convert5)
+              });
+              
+              const txnsToGroup = [ txn1, txn2 ,txn3, txn4, txn5, txn6, txn7];
+              const groupID = algosdk.computeGroupID(txnsToGroup)
+              txnsToGroup[0].group = groupID;
+              txnsToGroup[1].group = groupID;
+              txnsToGroup[2].group = groupID;
+              txnsToGroup[3].group = groupID;
+              txnsToGroup[4].group = groupID;
+              txnsToGroup[5].group = groupID;
+              txnsToGroup[6].group = groupID;
+              
+              const signedTx1 = await myAlgoConnect.signTransaction(txnsToGroup[0].toByte());
+              const signedTx2 = await myAlgoConnect.signTransaction(txnsToGroup[1].toByte());
+              const signedTx3 = await myAlgoConnect.signTransaction(txnsToGroup[2].toByte());
+              const signedTx4 = algosdk.signLogicSigTransaction(txnsToGroup[3], lsig);
+              const signedTx5 = algosdk.signLogicSigTransaction(txnsToGroup[4], lsig);
+              const signedTx6 = algosdk.signLogicSigTransaction(txnsToGroup[5], lsig);
+              const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);
+              
+              const response = await algodclient.sendRawTransaction([signedTx1.blob,signedTx2.blob,signedTx3.blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
+              console.log("TxID", JSON.stringify(response, null, 1));
+              await waitForConfirmation(algodclient, response.txId);
+              
+              //db change here
                     
-          const signedTx1 = await myAlgoConnect.signTransaction(txs[0].toByte());
-          const signedTx2 = await myAlgoConnect.signTransaction(txs[1].toByte());
-          const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);
-          const signedTx4 = await myAlgoConnect.signTransaction(txs[3].toByte());
-          const signedTx5 = await myAlgoConnect.signTransaction(txs[4].toByte());
-          const response = await algodclient.sendRawTransaction([ signedTx1.blob, signedTx2.blob, signedTx3.blob, signedTx4.blob,signedTx5.blob]).do();
-          console.log("TxID", JSON.stringify(response, null, 1));
-          await waitForConfirmation(algodclient, response.txId);
-  
-          //db here
-
-      
-          fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
-            Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseInt(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
-            NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
-            TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid
-          }).then(()=>{  
-          
-            setShowTestLoading(true)
-            setshowTestDone(true)
-
-          })
-            
-          //db end here
-            } catch (err) {
-              console.error(err);
-              setShowTestLoading(false)
-            }        
+              fireDb.database().ref(`imagerefexploreoneAlgos/${props.dataall.ownerAddress}`).child(props.dataall.keyId).remove().then(()=>{
+                fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(props.dataall.keyId).set({
+                    Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
+                    NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:localStorage.getItem('wallet'),previousoaddress:props.dataall.ownerAddress,
+                    TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.ownerAddress,Appid:props.dataall.Appid            
+                      }).then(()=>{          
+                        setShowTestLoading(false)  
+                        setshowTestSale(true)
+                    }) 
+              })
+              .catch((e) => {
+              console.error(e);
+              setShowTestLoading(false)  
+              });                            
+              //db change end here
+                } catch (err) {
+                  console.error(err);
+                }                                                                  
+            }
+        }
         }
 
-    }
+        
     
     
     return (
@@ -250,7 +245,7 @@ const CardInfo = (props) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className='link-flex dropdown-menu-right'>
-                        <Dropdown.Item href="/">Buy now</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>buynow()}>Buy now</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
                         <Dropdown.Item href="/">Share</Dropdown.Item>
@@ -287,33 +282,8 @@ const CardInfo = (props) => {
                     <Button variant='default' className='btn-count float-end'>
                         <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye bZjZGw"><path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" strokeWidth="2"></path></svg>
                         <span>{props.count}</span>
-                    </Button>
-
-                    {props.linkText === undefined || props.linkText === null || props.linkText === " " || props.linkText === 0 ? (<>
-                    <Button variant='default' className='btn-count float-end' onClick={()=>onshow1()}>                        
-                        <span>Set Price</span>
-                    </Button>
-                     </>) : (<>
-                    <Button variant='default' className='btn-count float-end' onClick={()=>onshow2()}>   
-                        <span>Sale NFT</span>
-                    </Button>
-                    </>)}    
-
-                <Modal show={showTest} centered size="sm" onHide={handleCloseTest}>
-                <Modal.Header  />
-                <Modal.Body>
-                    <div className="text-center py-4">
-                        <h3>Price </h3>
-                        <InputGroup className="mb-4 input-group-field" onChange={event => setprices( event.target.value)}>
-                        <Form.Control
-                            placeholder='Enter price'
-                        />
-                </InputGroup>
-                    </div>
-                    <Button variant="primary" size="lg" className='w-100' onClick={()=>setpricedb(props.linkText)()}>SET PRICE</Button>
-                </Modal.Body>
-            </Modal>                          
-
+                    </Button>                    
+                
             <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
                 <Modal.Header  />
                 <Modal.Body>
@@ -322,20 +292,12 @@ const CardInfo = (props) => {
                     </div>                    
                 </Modal.Body>
             </Modal>                          
-            <Modal show={showTestDone} centered size="sm" onHide={handleCloseTestDone}>
-                <Modal.Header  />
-                <Modal.Body>
-                    <div className="text-center py-4">
-                        <h3>Price Updated</h3>  
-                    </div>                    
-                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refresh()}>Done</Button>
-                </Modal.Body>
-            </Modal>                          
+                             
             <Modal show={showTestSale} centered size="sm" onHide={handleCloseTestSale}>
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Updated</h3>  
+                        <h3>Token Purchase Successfully</h3>  
                     </div>                    
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
                 </Modal.Body>
@@ -348,4 +310,4 @@ const CardInfo = (props) => {
     );
 };
 
-export default CardInfo;
+export default CardBuy;

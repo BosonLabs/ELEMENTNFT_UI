@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from "react";
-import Card from '../Snippets/Card';
+//import Card from '../Snippets/Card';
 import {Button} from 'react-bootstrap';
 import FilterExplore from '../Snippets/FilterExplore';
+import CardBuy from "../Snippets/CardBuy";
 const axios = require('axios');
 
 
@@ -24,7 +25,7 @@ const Explore = () => {
         else{                        
           axios({
             method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos/.json',
+            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
             responseType: 'stream'
           })
             .then(function (response) {
@@ -37,34 +38,20 @@ const Explore = () => {
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    
                 req2.push({                      
-                    userSymbol:a[b].userSymbol,
-                    title: a[b].id,
-                    price: a[b].priceSet,
-                    highestBid: a[b].keyId,
-                    counter:a[b].userName ,                    
-                    bid:a[b].ownerAddress,
-                    image: a[b].imageUrl,
-                    image2x: a[b].paramsdb,
-                    category: a[b].privatekey,
-                    categoryText: a[b].cAddress,                    
-                    url: a[b].history,
-                    date:a[b].datesets,
-                    description:a[b].description,
-                    extra:a[b].extra1,
-                    ipfsurl:a[b].ipfsUrl,
-                    previousaddress:a[b].previousoaddress,
-                    soldd:a[b].soldd,
-                    whois:a[b].whois,
-                    Mnemonic:a[b].Mnemonic,
-                    usdcids:a[b].usdcids,
-                  applicationid:a[b].applicationid,
-                  escrowaddress:a[b].escrowaddress,
-                  resdata1:"",
-                    users: [                
-                      {               
-                        avatar: a[b].imageUrl,
-                      },
-                    ],
+                  Assetid:a[b].Assetid,
+                  Imageurl:a[b].Imageurl,
+                  NFTPrice:a[b].NFTPrice,
+                  EscrowAddress:a[b].EscrowAddress,
+                  keyId:a[b].keyId,
+                  NFTName:a[b].NFTName,
+                  userSymbol:a[b].userSymbol,
+                  Ipfsurl:a[b].Ipfsurl,
+                  ownerAddress:a[b].ownerAddress,
+                  previousoaddress:a[b].previousoaddress,
+                  TimeStamp:a[b].TimeStamp,
+                  NFTDescription:a[b].NFTDescription,
+                  HistoryAddress:a[b].HistoryAddress,
+                  Appid:a[b].Appid  
                   })   
                 })                                                                                                                
               })                                                                     
@@ -85,17 +72,18 @@ const Explore = () => {
                 </div>
             </div>
 
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
-                <div className="col mb-4" onClick={()=>{check()}} >
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4">
+                
                 {getI.map((x, index) => {
                 console.log("logo",x)
                 return(  
                     <>
-                    <Card verify={true} img={x.image} title={x.counter} count="401" subTitle={`<span>Highest bid</span> <span>${x.price/1000000}</span>`} linkText="0.221 WETH" />
-                    <br/>
+                    <div className='col mb-4'>
+                    <CardBuy verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/>  
+                    </div>
                     </>                                                                                          
               )})}                              
-                </div>
+                
                 {/* <div className="col mb-4"><Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" /></div>
                 <div className="col mb-4"><Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" /></div>
                 <div className="col mb-4"><Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" /></div>

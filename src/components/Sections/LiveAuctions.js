@@ -27,7 +27,7 @@ const LiveAuctions = () => {
         else{                        
           axios({
             method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos/.json',
+            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
             responseType: 'stream'
           })
             .then(function (response) {
@@ -40,34 +40,20 @@ const LiveAuctions = () => {
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    
                 req2.push({                      
-                    userSymbol:a[b].userSymbol,
-                    title: a[b].id,
-                    price: a[b].priceSet,
-                    highestBid: a[b].keyId,
-                    counter:a[b].userName ,                    
-                    bid:a[b].ownerAddress,
-                    image: a[b].imageUrl,
-                    image2x: a[b].paramsdb,
-                    category: a[b].privatekey,
-                    categoryText: a[b].cAddress,                    
-                    url: a[b].history,
-                    date:a[b].datesets,
-                    description:a[b].description,
-                    extra:a[b].extra1,
-                    ipfsurl:a[b].ipfsUrl,
-                    previousaddress:a[b].previousoaddress,
-                    soldd:a[b].soldd,
-                    whois:a[b].whois,
-                    Mnemonic:a[b].Mnemonic,
-                    usdcids:a[b].usdcids,
-                  applicationid:a[b].applicationid,
-                  escrowaddress:a[b].escrowaddress,
-                  resdata1:"",
-                    users: [                
-                      {               
-                        avatar: a[b].imageUrl,
-                      },
-                    ],
+                  Assetid:a[b].Assetid,
+                  Imageurl:a[b].Imageurl,
+                  NFTPrice:a[b].NFTPrice,
+                  EscrowAddress:a[b].EscrowAddress,
+                  keyId:a[b].keyId,
+                  NFTName:a[b].NFTName,
+                  userSymbol:a[b].userSymbol,
+                  Ipfsurl:a[b].Ipfsurl,
+                  ownerAddress:a[b].ownerAddress,
+                  previousoaddress:a[b].previousoaddress,
+                  TimeStamp:a[b].TimeStamp,
+                  NFTDescription:a[b].NFTDescription,
+                  HistoryAddress:a[b].HistoryAddress,
+                  Appid:a[b].Appid  
                   })   
                 })                                                                                                                
               })                                                                     
@@ -93,15 +79,18 @@ const LiveAuctions = () => {
                 reloadOnUpdate // default false
                 static // default false
             >
-                <div className='carousel-cell carousel-cell-20'>
+              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-8 row-cols-lg-8">
+              
                 {getI.map((x, index) => {
                 console.log("logo",x)
                 return(  
                     <>
-                    <Card timer='19:10' img={x.image} verify={true} count="401" subTitle="$1,426,752"/>                    
-                    <br/>
+                    <div className='col mb-4'>
+                    <Card timer='19:10' img={x.Imageurl} verify={true} count="401" subTitle="$1,426,752"/>                    
+                    </div>                    
                     </>                                                                                          
               )})}                                                  
+              
                 </div>
                 {/* <div className='carousel-cell carousel-cell-20'><Card timer='19:10' verify={true} title="Wizard Furbiez #29" count="8" subTitle={`<span>Auction</span> <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card verify={true} title="Wizard Furbiez #30" count="6" subTitle={`<span>Highest bid</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div>
@@ -113,7 +102,7 @@ const LiveAuctions = () => {
                 <div className='carousel-cell carousel-cell-20'><Card timer='19:10' verify={true} title="Wizard Furbiez #30" count="6" subTitle={`<span>Highest bid</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div> */}
             </Flickity>
 
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
+            {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
               <div className='col mb-4'>
                   <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
               </div>
@@ -138,7 +127,7 @@ const LiveAuctions = () => {
               <div className='col mb-4'>
                   <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
               </div>
-          </div>
+          </div> */}
 
         </div>
     );

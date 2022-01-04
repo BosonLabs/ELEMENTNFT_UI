@@ -10,7 +10,8 @@ import Card from '../Card';
 
 const animatedComponents = makeAnimated();
 
-const OnSale = () => {
+const OnSale = (data) => {
+    console.log("getdatasale",data.data)            
     const colourStyles = {
         option: (styles, { isFocused }) => {
           // const color = chroma(data.color);
@@ -80,6 +81,8 @@ const OnSale = () => {
         { value: 'ADORs', label: 'ADORs', icon: 'https://raw.githubusercontent.com/rarible/public-assets/main/tokens/ADORs.png' },
         { value: 'ARKE', label: 'ARKE', icon: 'https://raw.githubusercontent.com/rarible/public-assets/main/tokens/ARKE.png' },
     ]
+
+
     return (
         <div className='mb-4'>
             <div className='d-flex mb-4 filter-list flex-wrap align-items-center'>
@@ -209,7 +212,24 @@ const OnSale = () => {
                 </div>
             </div>
 
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
+
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4">
+            {data.data.map((x, index) => {
+                console.log("xvalue",x)
+                return(  
+                    <>                    
+                    <div className='col mb-4' >
+                    <Card img={x.Imageurl} 
+                    title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
+                    linkText={parseInt(x.NFTPrice/1000000)} dataall={x}
+                    />
+                    </div>                    
+                    </>                                                                                          
+              )})}                                                  
+                    
+                    </div>
+
+            {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
                 <div className='col mb-4'>
                     <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
                 </div>
@@ -234,7 +254,7 @@ const OnSale = () => {
                 <div className='col mb-4'>
                     <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
                 </div>
-            </div>
+            </div> */}
 
             <div className="no-found d-none py-5 text-center">
                 <h2>No items found</h2>

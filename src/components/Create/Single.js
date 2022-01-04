@@ -27,6 +27,7 @@ const Start = () => {
     const [show, setShow] = React.useState(false);
     const [tname,setName] = useState("");
     const [tdescription,setDescription] = useState("");  
+    const [algobalance, setalgobalance] = useState("");
 
     const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
@@ -274,16 +275,16 @@ const Start = () => {
                                   const db = ref2.push().key;                         
                                   //const db2 = ref22.push().key;                         
                                   console.log("dbcheck",db)
-                                  ref2.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:"",keyId:db,userName:tname,userSymbol:"ENFT",
-                                  ipfsUrl:Img,ownerAddress:addresseswall,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,
-                                  whois:'',
-                                  description:tdescription,history:"",Mnemonic:"",applicationid:appId,usdcids:assetID,escrowaddress:""})
+                                  ref2.child(db).set({
+                                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                  NFTName:tname,userSymbol:"ENFT",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId})
                                   .then(()=>{
-                                  ref22.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:"",keyId:db,
-                                  userName:tname,userSymbol:"ENFT",
-                                  ipfsUrl:Img,ownerAddress:addresseswall,soldd:"",extra1:"",
-                                  previousoaddress:"",datesets:dateset,whois:'',                                  
-                                  description:tdescription,history:"",Mnemonic:"",applicationid:appId,usdcids:assetID,escrowaddress:""})
+                                  ref22.child(db).set({
+                                    Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                    NFTName:tname,userSymbol:"ENFT",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                    TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId
+                                      })
                                   .then(()=>{     
                 //add pinata here          
                 //pinata          
