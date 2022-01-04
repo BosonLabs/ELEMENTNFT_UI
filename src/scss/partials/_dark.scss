@@ -1,0 +1,305 @@
+$dark: #121212;
+$dark-1f: #1f1f1f;
+$dark-19: #191919;
+$dark-33: #333333;
+$dark-29: #292929;
+$color-8c: #8c8c8c;
+
+body.dark-mode{
+    background-color: $dark;
+    color: $white;
+
+    a{
+
+        &.nav-link{
+            color: rgba($white, 0.5);
+
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+
+    h5{
+        color: $white;
+    }
+
+    p{
+        color: rgba($white, 0.4);
+    }
+
+    .nav + .nav{
+        border-left-color: rgba($white, 0.2);
+    }
+
+    .btn{
+        &-link{
+            color: $white !important;
+        }
+
+        &-white{
+            border-color: rgba($white, 0.1) !important;
+            background: transparent !important;
+            color: $white !important;
+        }
+
+        &-dark{
+            background: $white;
+            overflow: hidden;
+            color: $dark;
+            border: 0px;
+        }
+
+        &-outline{
+            &-gray{
+                color: $white;
+                background-color: transparent;
+                border: 1px solid rgba($white, 0.1) !important;
+            }
+        }
+
+        &-lagend{
+            background-color: $dark;
+            color: $color-8c;
+        }
+
+        &-default{
+            background-color: $dark-29;
+            color: rgba($white, 0.6);
+        }
+    }
+
+    .header{
+        background-color: rgba($dark, .7);
+
+        &-mobile, &-search{
+            background-color: $dark;
+
+            &-body{
+                ul{
+                    a{
+                        color: $white;
+                    }
+                }
+            }
+        }
+
+        .logo{
+            a{
+                color: $white !important;
+            }
+        }
+    }
+
+    .form{
+        &-switch{
+            color: $white;
+        }
+        &-control{
+            color: $white;
+            background-color: transparent;
+        }
+    }
+
+    .input-group{
+        &-search{
+            color: $color-8c;
+            background-color: rgba($white, 0.07);
+    
+            .btn{
+                background-color: transparent;
+            }
+        }
+
+        &-newsletter{
+            color: $color-8c;
+            background-color: rgba($white, 0.07);            
+        }
+    }
+
+    .footer{
+        border-top: 1px solid rgba($white, 0.1);
+        color: $color-8c;
+
+        img.dark-filter{
+            filter: invert(1);
+        }
+
+        &-middle{
+            border-bottom-color: rgba($white, 0.1);
+        }
+
+        &-social{
+            a{
+                background-color: $dark-19;
+                color: $white;
+
+                &:hover{
+                    background-color: $dark-33;
+                }
+            }
+        }
+
+        h3{
+            color: $white;
+        }
+    }
+
+    .dropdown{
+        &.show{
+            & > a{
+                color: $white;
+            }
+        }
+        &-menu{
+            background-color: $dark-1f;
+            border: 1px solid rgba($white, 0.1);
+
+            a{
+                color: $white;
+            }
+            
+            &-social{
+                
+                a{
+                    color: $color-8c;
+
+                    &:hover{
+                        color: $white;
+                    }
+                }
+            }
+        }
+
+        &-item{
+            &:hover{
+                background-color: rgba($white, 0.05);
+                color: $white;
+            }
+        }
+    }
+
+    .collection{
+        &-list{
+            a, h6{
+                color: $color-8c;
+            }
+            h5{
+                color: $white;
+            }
+        }
+    }
+
+    .card{
+        border-color: rgba($white, 0.1);
+        background-color: $dark;
+        color: $color-8c;
+
+        &-title{
+            color: $white;
+            
+            a{
+                color: $white;
+            }
+        }
+
+        h5{
+            color: $color-8c;
+        }
+    }
+
+    .filter{
+        &-item{
+            color: $white;
+            
+
+            & > div{
+                & > div{
+                    background-color: $dark;
+                    border: 1px solid rgba($white, 0.1);
+                    
+                    & > div div:first-child{
+                        color: $white;
+                    }
+
+                    &:nth-child(4){
+                        box-shadow: rgba($white, 0.2) 0px 7px 36px -8px;
+
+                        & > div{
+                            & > div{
+                                color: $white;
+
+                                &:hover{
+                                    background-color: rgba($white, 0.05);
+                                    color: $white;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &-dropdown{
+            .btn{
+                background-color: $dark;
+                border: 1px solid rgba($white, 0.1);
+            }
+
+            .dropdown-menu{
+                input{
+                    border-color: rgba($white, 0.1);
+                }
+            }
+        }
+    }
+
+    .profile{
+        &-card{
+            background-color: rgba($white, 0.03);
+        }
+    }
+
+    .nav-tabs{
+        border-bottom-color: rgba($white, 0.1);
+
+        li {
+            button{
+                color: rgba($white, 0.6);
+
+                &.active{
+                    border-bottom-color: $white !important;
+                    background-color: transparent;
+                    color: $white !important;
+                }
+            }
+        }
+    }
+
+    .btn-copy-code-lg{
+        color: $white;
+
+        &:hover{
+            background-color: rgba($white, .1);
+            color: $white;
+        }
+    }
+
+    .modal{
+        .btn-close{
+            filter: invert(1);
+        }
+
+        &-content{
+            background-color: $dark;
+        }
+    }
+
+    .text-gray strong, .text-gray h3, .dropdown-header h4{
+        color: $white;
+    }
+
+    .upload{
+        border-color: rgba($white, .1);
+    }
+}

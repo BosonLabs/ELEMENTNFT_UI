@@ -46,7 +46,7 @@ function Footer() {
                         </Col>
                         <Col lg={3}>
                             <h3>Download the Rarible app to explore any NFTs</h3>
-                            <Link to="apple.com" target="_blank"><img style={{maxWidth: '118px'}} src={AppleIcon} alt="icon" /></Link>
+                            <Link to="apple.com" target="_blank"><img style={{maxWidth: '118px'}} className='dark-filter' src={AppleIcon} alt="icon" /></Link>
                         </Col>
                     </Row>
                 </div>
@@ -112,7 +112,7 @@ function Footer() {
                                     </Dropdown>
 
                                     <div className="pt-4">
-                                      <img src={CertifiedImage} alt="CertifiedImage" className='img-fluid' />  
+                                      <img src={CertifiedImage} alt="CertifiedImage" className='img-fluid dark-filter' />  
                                     </div>
                                 </Col>
                             </Row>
@@ -127,7 +127,7 @@ function Footer() {
                     <ul className='d-flex align-items-center order-md-2 mb-md-0 mb-2'>
                         <li><Link to="/">Terms</Link></li>
                         <li><Link to="/">Privacy policy</Link></li>
-                        <li>
+                        <li className='d-md-none'>
                             <Dropdown className='dropdown-noarrow'>
                                 <Dropdown.Toggle variant="reset">
                                     Language: English

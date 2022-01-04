@@ -176,6 +176,7 @@ p{
 	}
 
 	&-reset{
+		background-color: transparent;
 		line-height: normal;
 		min-width: auto;
 		height: auto;
@@ -324,10 +325,12 @@ p{
 	}
 
 	&-login{
+		width: 100%;
 		height: auto;
 		color: $dark;
 		padding: 16px;
 		line-height: 1;
+		display: block;
 		font-size: 18px;
 		@include flexbox();
 		padding-right: 48px;

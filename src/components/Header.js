@@ -420,10 +420,10 @@ console.log(e);
 
                                 {localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" ?(
                           
-                          <Link to="/connect" className='btn d-md-block d-none btn-white'>Sign in</Link>                            
+                          <Link to="/connect" className='btn d-block btn-white'>Sign in</Link>                            
                         ):(
                         
-                            <Link to="/connect" className='btn d-md-block d-none btn-grad'>Connected</Link>
+                            <Link to="/connect" className='btn d-block btn-grad'>Connected</Link>
                         )}                                          
                                 </Col>
                             </Row>
