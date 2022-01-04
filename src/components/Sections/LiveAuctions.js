@@ -79,6 +79,7 @@ const LiveAuctions = () => {
                 reloadOnUpdate // default false
                 static // default false
             >
+              
               <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 row-cols-lg-6">
               
                 {getI.map((x, index) => {

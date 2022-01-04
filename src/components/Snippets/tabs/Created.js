@@ -176,7 +176,7 @@ const Created = (data) => {
                 </div>
             </div>
 
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
             {data.data.map((x, index) => {
                 console.log("xvalue",x)
                 return(  

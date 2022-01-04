@@ -31,15 +31,12 @@ const Start = () => {
 
     const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
-
-
     const [showTest, setShowTest] = React.useState(false);
-
+    const [showTestLoading, setshowTestLoading] = React.useState(false);    
     const handleCloseTest = () => setShowTest(false);
+    const handleCloseTestLoading =()=> setshowTestLoading(false)
     // const handleShowTest = () => setShowTest(true);
-
     const [Img,setImg] = useState("")
-
     const captureFile =async(event) => {
         event.stopPropagation()
         event.preventDefault()
@@ -90,6 +87,7 @@ const Start = () => {
             console.log("Empty",localStorage.getItem("wallet"))
           }
           else{
+          setshowTestLoading(true)
           let ta=tname;
           let tb='CIFI';
           let te=1000;
@@ -319,7 +317,8 @@ const Start = () => {
                                         //handle results here
                                         console.log(result);
                                         console.log("jsonresult")                                            
-                                        setShowTest(true)
+                                        setshowTestLoading(false)
+                                        setShowTest(true)                                        
                             // setIsOpens(false)
                             // setIsOpen(true);
                             //return appId;                                            
@@ -449,6 +448,15 @@ const Start = () => {
                     </div>
 
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>done()}>Done</Button>
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>Loading...</h3>
+                    </div>                    
                 </Modal.Body>
             </Modal>
         </Layout>
