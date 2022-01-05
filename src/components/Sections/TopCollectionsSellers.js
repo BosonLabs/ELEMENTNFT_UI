@@ -10,7 +10,7 @@ import firebase from "../../firebase";
 const TopCollectionsSelles = () => {
     const dateOptions = ["1", "7", "30"];
     const directionOptions = ["Sellers", "Buyers"];
-    const [date, setDate] = useState(dateOptions[2]);
+    const [date, setDate] = useState(dateOptions[0]);
     const [direction, setDirection] = useState(directionOptions[0]);
     console.log("ses",direction);
     console.log("sesd",date);
@@ -27,147 +27,126 @@ const TopCollectionsSelles = () => {
         console.log(e);
         setDate(e)
     }
-      //buyers
+    //buyers
+  const dbcallalgobuy=async()=>{    
+    let req = [];
+    firebase.database().ref("imagerefbuy").on("value", (data) => {      
+      if (data) {
+        data.forEach((d) => {          
+          const a=d.val();
+            Object.keys(a).map(async(b)=>{                  
+                      req.push({
+                        Assetid:a[b].Assetid,
+                        Imageurl:a[b].Imageurl,
+                        NFTPrice:a[b].NFTPrice,
+                        EscrowAddress:a[b].EscrowAddress,
+                        keyId:a[b].keyId,
+                        NFTName:a[b].NFTName,
+                        userSymbol:a[b].userSymbol,
+                        Ipfsurl:a[b].Ipfsurl,
+                        ownerAddress:a[b].ownerAddress,
+                        previousoaddress:a[b].previousoaddress,
+                        TimeStamp:a[b].TimeStamp,
+                        NFTDescription:a[b].NFTDescription,
+                        HistoryAddress:a[b].HistoryAddress,
+                        Appid:a[b].Appid   
+                    })                    
+            })            
+        });        
+        setgetIb(req)              
+      }    
+      //setgetImb(req)
+    });
+  }  
+  useEffect(()=>{dbcallalgobuy()},[])
 
-//   const dbcallalgobuy=async()=>{
-//     //console.log("inside dbcallalgobuy function")
-//     //imagerefexplore//
-//     let req = [];
-//     firebase.database().ref("imagerefbuy").on("value", (data) => {      
-//       if (data) {
-//         data.forEach((d) => {          
-//           const a=d.val();
-//             Object.keys(a).map(async(b)=>{      
-//               //console.log(a[b].id);
-//                       req.push({
-//                       userSymbol:a[b].userSymbol,
-//                       price: a[b].id,
-//                       sign: a[b].priceSet,
-//                       // sign: "/images/content/cup.svg",
-//                       number: a[b].keyId,
-//                       name:a[b].userName ,
-//                       //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-//                       bid:a[b].ownerAddress,
-//                       avatar: a[b].imageUrl,
-//                       image2x: a[b].paramsdb,
-//                       category: a[b].privatekey,
-//                       categoryText: a[b].cAddress,
-//                       //purchasing !
-//                       url: a[b].datesets,
-//                       users: [                
-//                         {
-//                           avatar: a[b].imageUrl,
-//                         },
-//                       ],
-//                     })                    
-//             })            
-//         });        
-//         setgetIb(req)              
-//       }    
-//       //setgetImb(req)
-//     });
-//   }
-  
-//   useEffect(()=>{dbcallalgobuy()},[])
-
-
-//   //seller
-  
-//   const dbcallalgosale=async()=>{
-//     //console.log("inside dbcallalgobuy function")
-//     //imagerefexplore//
-//     let reqsale = [];
-//     firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
-//       if (data) {
-//         data.forEach((d) => {          
-//           const a=d.val();
-//             Object.keys(a).map(async(b)=>{      
-//               //console.log(a[b].id);
-//                       reqsale.push({
-//                       userSymbol:a[b].userSymbol,
-//                       price: a[b].id,
-//                       sign: a[b].priceSet,
-//                       // sign: "/images/content/cup.svg",
-//                       number: a[b].keyId,
-//                       name:a[b].userName ,
-//                       //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-//                       bid:a[b].ownerAddress,
-//                       avatar: a[b].imageUrl,
-//                       image2x: a[b].paramsdb,
-//                       category: a[b].privatekey,
-//                       categoryText: a[b].cAddress,
-//                       //purchasing !
-//                       url: a[b].datesets,
-//                       users: [                
-//                         {
-//                           avatar:a[b].imageUrl,
-//                         },
-//                       ],
-//                     })                    
-//             })            
-//         });        
-//         setgetImb(reqsale) 
-//       }          
-//     });
-//   }
-  
-//   useEffect(()=>{dbcallalgosale()},[])
-//     const filterdata=()=>{
-//         console.log("inside filter function")
-//         if(direction === 'Sellers') {
-//           if(date === '1')
-//           {
-//               console.log("one")
-//               let data = getImb.filter((val)=>{
-//               console.log("datainside",val)
-//               let currentdate=moment().format('ddd MMM DD YYYY')
-//               //let currentdate = moment(val.url);
-//               console.log("currentdate",currentdate)
-//               let createddate=moment(val.url).format('ddd MMM DD YYYY')
-//               console.log("createddate",createddate)
-//               return currentdate === createddate 
-//             })
-//               console.log("R1",data)
-//               return data;              
-//           }    
-//               let data = getImb.filter((val)=>{
-//               console.log("sellers7get",val)
-//               console.log("sellers7",val.url)
-//               console.log("sellers two")
-//               let currentdate=moment().subtract(1,"days")
-//               let weekdate=moment().subtract(parseInt(date),"days")
-//               //let createddate=moment(val.url)
-//               return moment(val.url).isBetween(weekdate,currentdate)
-//             })
-//             console.log("R7",data)
-//             //window.location.reload(false)
-//             return data;    
-//         }
-//         if(date === '1')
-//         {
-//               let data = getIb.filter((val)=>{
-//               let currentdate=moment().format('ddd MMM DD YYYY')
-//               //let currentdate = moment(val.url);
-//               console.log("currentdate",currentdate)
-//               let createddate=moment(val.url).format('ddd MMM DD YYYY')
-//               return currentdate===createddate 
-//           })
-//               console.log("B1",data)
-//               return data;
-//         }    
-//             let data = getIb.filter((val)=>{
-//             console.log("Buyers7get",val)
-//             console.log("Buyers7",val.url)
-//             let currentdate=moment().subtract(1,"days")
-//             let weekdate=moment().subtract(parseInt(date),"days")
-//             //let createddate=moment(val.adddate)
-//             return moment(val.url).isBetween(weekdate,currentdate)        
-//           })
-//             console.log("B7",data)
-//             return data;    
-//         //return getIb;    
-//       }
-//       useEffect(()=>{filterdata()},[])
+  //seller  
+  const dbcallalgosale=async()=>{   
+    let reqsale = [];
+    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
+      if (data) {
+        data.forEach((d) => {          
+          const a=d.val();
+            Object.keys(a).map(async(b)=>{                    
+                      reqsale.push({
+                        Assetid:a[b].Assetid,
+                        Imageurl:a[b].Imageurl,
+                        NFTPrice:a[b].NFTPrice,
+                        EscrowAddress:a[b].EscrowAddress,
+                        keyId:a[b].keyId,
+                        NFTName:a[b].NFTName,
+                        userSymbol:a[b].userSymbol,
+                        Ipfsurl:a[b].Ipfsurl,
+                        ownerAddress:a[b].ownerAddress,
+                        previousoaddress:a[b].previousoaddress,
+                        TimeStamp:a[b].TimeStamp,
+                        NFTDescription:a[b].NFTDescription,
+                        HistoryAddress:a[b].HistoryAddress,
+                        Appid:a[b].Appid  
+                    })                    
+            })            
+        });        
+        setgetImb(reqsale) 
+      }          
+    });
+  }
+  useEffect(()=>{dbcallalgosale()},[])
+  const filterdata=()=>{        
+        if(direction === 'Sellers') {
+          if(date === '1')
+          {
+              console.log("one")
+              let data = getImb.filter((val)=>{
+              console.log("datainside",val)
+              let currentdate=moment().format('ddd MMM DD YYYY')
+              //let currentdate = moment(val.url);
+              console.log("currentdate",currentdate)
+              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
+              console.log("createddate",createddate)
+              return currentdate === createddate 
+            })
+              console.log("R1",data)
+              return data;              
+          }    
+              let data = getImb.filter((val)=>{
+              console.log("sellers7get",val)
+              console.log("sellers7",val.TimeStamp)
+              console.log("sellers two",moment().subtract(parseInt(date),"days").format('MMM DD YYYY'))
+              let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')
+              console.log("curr7",currentdate)
+              let weekdate=moment().subtract(4,"days").format('ddd MMM DD YYYY')
+              console.log("curr8",weekdate)                            
+              return moment(val.TimeStamp).isBetween(weekdate,currentdate)
+              //return moment().range(val.TimeStamp,weekdate)
+            })
+            console.log("R7",data)            
+            return data;    
+        }
+        if(date === '1')
+        {
+              let data = getIb.filter((val)=>{
+              let currentdate=moment().format('ddd MMM DD YYYY')
+              //let currentdate = moment(val.url);
+              console.log("currentdate",currentdate)
+              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
+              return currentdate===createddate 
+          })
+              console.log("B1",data)
+              return data;
+        }    
+            let data = getIb.filter((val)=>{
+            console.log("Buyers7get",val)
+            console.log("Buyers7",val.TimeStamp)
+            let currentdate=moment().subtract(1,"days")
+            let weekdate=moment().subtract(parseInt(date),"days")
+            //let createddate=moment(val.adddate)
+            return moment(val.TimeStamp).isBetween(weekdate,currentdate)        
+          })
+            console.log("B7",data)
+            return data;    
+        //return getIb;    
+      }
+      useEffect(()=>{filterdata()},[])
     return (
 
         <div className='mb-36'>
@@ -195,18 +174,16 @@ const TopCollectionsSelles = () => {
             </div>
 
             <div className="overflow-auto">
-            {/* {filterdata().map((x, index) => (                      
+            {filterdata().map((x, index) => (                      
                 <>
                 <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
                 <li>
-                        <CollectionItem verify={true} count={1} title="adidas Originals: Into the Metaverse" amount="$34,845,758" />
-                        <CollectionItem verify={true} count={2} title="CloneX" amount="$7,418,707" />
-                        <CollectionItem verify={true} count={3} title="My Pet Hooligan" amount="$3,333,156" />
+                        <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} />                        
                     </li>
                 </ul>                
                 </>
-            ))} */}
-                <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
+            ))}
+                {/* <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
                     <li>
                         <CollectionItem verify={true} count={1} title="adidas Originals: Into the Metaverse" amount="$34,845,758" />
                         <CollectionItem verify={true} count={2} title="CloneX" amount="$7,418,707" />
@@ -232,7 +209,7 @@ const TopCollectionsSelles = () => {
                         <CollectionItem verify={true} count={14} title="Doodles" amount="$1,024,316" />
                         <CollectionItem verify={true} count={15} title="DEGENERATE/REGENERATE" amount="$945,556" />
                     </li>
-                </ul>
+                </ul> */}
             </div>
 
             <Link to="/" className='btn d-block mt-4 d-sm-none ms-auto btn-white'>Sign in</Link>
