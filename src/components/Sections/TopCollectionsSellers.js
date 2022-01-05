@@ -32,12 +32,12 @@ const TopCollectionsSelles = () => {
                             {direction}
                         </Dropdown.Toggle>
                         <Dropdown.Menu className='link-flex' onSelect={handleSelect}>
-                            <Dropdown.Item >sellers 
+                            <Dropdown.Item eventKey="sellers">sellers 
                             {/* <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
                                 <path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path>
                             </svg> */}
                             </Dropdown.Item>
-                            <Dropdown.Item >buyers
+                            <Dropdown.Item eventKey="buyers">buyers
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -51,14 +51,14 @@ const TopCollectionsSelles = () => {
 
                         {/* href="/" */}
                         <Dropdown.Menu className='link-flex' onSelect={handleSelect2}>
-                            <Dropdown.Item id="dropdown-split-basic">1 day 
+                            <Dropdown.Item eventKey="1">1 day 
                                 {/* <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
                                     <path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round">
                                     </path>
                                 </svg> */}
                             </Dropdown.Item>
-                            <Dropdown.Item >7 days</Dropdown.Item>
-                            <Dropdown.Item >30 days</Dropdown.Item>
+                            <Dropdown.Item eventKey="7">7 days</Dropdown.Item>
+                            <Dropdown.Item eventKey="30">30 days</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
