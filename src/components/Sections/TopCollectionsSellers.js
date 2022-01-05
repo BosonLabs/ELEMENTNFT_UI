@@ -35,7 +35,6 @@ const TopCollectionsSelles = () => {
                             <Dropdown.Item eventKey="Buyers" variant="reset" className='dropdown-btn-grad'>Buyers
                             </Dropdown.Item>                        
                     </DropdownButton>
-
                      in
                      &nbsp;
                      {date} day
