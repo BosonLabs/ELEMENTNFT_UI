@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {Dropdown} from 'react-bootstrap';
+import {Dropdown, DropdownButton} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
@@ -27,40 +27,24 @@ const TopCollectionsSelles = () => {
             <div className="mb-32 d-flex align-items-center">
                 <div className='h2 d-flex align-items-center'>
                     Top 
-                    <Dropdown  >
-                        <Dropdown.Toggle variant="reset" className='dropdown-btn-grad'>
-                            {direction}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu className='link-flex' onSelect={handleSelect}>
-                            <Dropdown.Item eventKey="sellers">sellers 
-                            {/* <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
-                                <path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path>
-                            </svg> */}
+                    &nbsp;
+                    {direction}
+                    <DropdownButton onSelect={handleSelect}>                                                
+                            <Dropdown.Item eventKey="Sellers" variant="reset" className='dropdown-btn-grad'>Sellers                         
                             </Dropdown.Item>
-                            <Dropdown.Item eventKey="buyers">buyers
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                            <Dropdown.Item eventKey="Buyers" variant="reset" className='dropdown-btn-grad'>Buyers
+                            </Dropdown.Item>                        
+                    </DropdownButton>
 
                      in
-
-                    <Dropdown >
-                        <Dropdown.Toggle variant="reset" className='dropdown-btn-grad'>
-                            {date}
-                        </Dropdown.Toggle>
-
-                        {/* href="/" */}
-                        <Dropdown.Menu className='link-flex' onSelect={handleSelect2}>
-                            <Dropdown.Item eventKey="1">1 day 
-                                {/* <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
-                                    <path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round">
-                                    </path>
-                                </svg> */}
+                     &nbsp;
+                     {date} day
+                    <DropdownButton onSelect={handleSelect2}>                        
+                            <Dropdown.Item eventKey="1" variant="reset" className='dropdown-btn-grad'>1 day                                 
                             </Dropdown.Item>
-                            <Dropdown.Item eventKey="7">7 days</Dropdown.Item>
-                            <Dropdown.Item eventKey="30">30 days</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                            <Dropdown.Item eventKey="7" variant="reset" className='dropdown-btn-grad'>7 days</Dropdown.Item>
+                            <Dropdown.Item eventKey="30" variant="reset" className='dropdown-btn-grad'>30 days</Dropdown.Item>                        
+                    </DropdownButton>
                 </div>
             </div>
 
