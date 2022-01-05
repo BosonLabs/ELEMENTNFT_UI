@@ -19,16 +19,16 @@ const TopCollectionsSelles = () => {
                     Top 
                     <Dropdown>
                         <Dropdown.Toggle variant="reset" className='dropdown-btn-grad'>
-                            sellers
+                            {direction}
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu className='link-flex' setValue={setDirection} value={direction}>
-                            <Dropdown.Item >sellers 
+                        <Dropdown.Menu className='link-flex' >
+                            <Dropdown.Item setValue={setDirection} value={direction}>sellers 
                             <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
                                 <path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path>
                             </svg>
                             </Dropdown.Item>
-                            <Dropdown.Item >buyers
+                            <Dropdown.Item setValue={setDirection} value={direction}>buyers
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -37,13 +37,19 @@ const TopCollectionsSelles = () => {
 
                     <Dropdown>
                         <Dropdown.Toggle variant="reset" className='dropdown-btn-grad'>
-                            1 day
+                            {date}
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu className='link-flex'>
-                            <Dropdown.Item href="/">1 day <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM"><path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path></svg></Dropdown.Item>
-                            <Dropdown.Item href="/">7 days</Dropdown.Item>
-                            <Dropdown.Item href="/">30 days</Dropdown.Item>
+                        {/* href="/" */}
+                        <Dropdown.Menu className='link-flex' >
+                            <Dropdown.Item setValue={setDate} value={date}>1 day 
+                                <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
+                                    <path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round">
+                                    </path>
+                                </svg>
+                            </Dropdown.Item>
+                            <Dropdown.Item setValue={setDate} value={date}>7 days</Dropdown.Item>
+                            <Dropdown.Item setValue={setDate} value={date}>30 days</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
