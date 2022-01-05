@@ -21,7 +21,6 @@ const TopCollectionsSelles = () => {
                         <Dropdown.Toggle variant="reset" className='dropdown-btn-grad'>
                             {direction}
                         </Dropdown.Toggle>
-
                         <Dropdown.Menu className='link-flex' onChange={(e) => setDirection(e.target.value)} value={direction}>
                             <Dropdown.Item >sellers 
                             {/* <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
