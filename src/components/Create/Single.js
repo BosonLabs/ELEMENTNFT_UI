@@ -428,7 +428,7 @@ const Start = () => {
 
                     <h3>Short url <small>(required)</small></h3>
                     <InputGroup className="mb-2 input-group-field">
-                        <InputGroup.Text className='ps-0' id="basic-addon1">rarible.com/</InputGroup.Text>
+                        <InputGroup.Text className='ps-0' id="basic-addon1">ELEMENT.com/</InputGroup.Text>
                         <Form.Control
                             placeholder='Enter short url'
                         />

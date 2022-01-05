@@ -16,8 +16,8 @@ const Rari = () => {
                             <img src={RariLogo} alt="icon" />
                         </div>
                     </div>
-                    <h1 className='display-3 font-bold mb-2'>Meet $RARI - Rarible Protocol DAO Governance Token</h1>
-                    <p className="lead mb-3">Every week, 41,250 $RARI tokens are distributed among applications building on Rarible Protocol (including Rarible.com), proportional to sales volumes.</p>
+                    <h1 className='display-3 font-bold mb-2'>Meet $RARI - ELEMENT Protocol DAO Governance Token</h1>
+                    <p className="lead mb-3">Every week, 41,250 $RARI tokens are distributed among applications building on ELEMENT Protocol (including ELEMENT.com), proportional to sales volumes.</p>
                     <p className="lead">If you made a sale or a purchase last week, you've got some $RARI rewards to claim!</p>
                 </div>
                 
@@ -40,9 +40,9 @@ const Rari = () => {
                 </div>
 
                 <div className="py-5 rari-content px-md-5 text-center">
-                    <h2 className='display-6 mb-4 font-bold'>How $RARI rewards are calculated for Rarible.com users</h2>
+                    <h2 className='display-6 mb-4 font-bold'>How $RARI rewards are calculated for ELEMENT.com users</h2>
 
-                    <p>$RARI rewards distribution on <Link to="/">Rarible.com</Link> is a part of Rarible Protocol DAO <Link to="/">App Mining program</Link> and is calculated dynamically each week.</p>
+                    <p>$RARI rewards distribution on <Link to="/">ELEMENT.com</Link> is a part of ELEMENT Protocol DAO <Link to="/">App Mining program</Link> and is calculated dynamically each week.</p>
 
                     <div className="list-tree text-start mb-4 mt-5">
                         <div className="d-flex align-items-center">
@@ -67,7 +67,7 @@ const Rari = () => {
                         <div className="d-flex align-items-center">
                             <div className="list-count">4</div>
                             <div className="list-content">
-                                <h5>-50% for NFTs created not on Rarible.com</h5>
+                                <h5>-50% for NFTs created not on ELEMENT.com</h5>
                             </div>
                         </div>
                     </div>

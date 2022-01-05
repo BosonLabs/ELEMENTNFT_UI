@@ -56,7 +56,7 @@ const SingleBid = () => {
 
                             <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
-                                <span>Rarible Singles</span>
+                                <span>ELEMENT Singles</span>
                             </Link>
                         </Col>
                     </Row>

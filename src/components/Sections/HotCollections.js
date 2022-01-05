@@ -95,7 +95,7 @@ const HotBids = () => {
 
                 
                 
-                {/* <div className='carousel-cell carousel-cell-20'><Card verify={true} title="Rarible Multiples" subTitle="$1,426,752" /></div>
+                {/* <div className='carousel-cell carousel-cell-20'><Card verify={true} title="ELEMENT Multiples" subTitle="$1,426,752" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card title="Untitled" count="109" subTitle={`6.5 ETH <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card verify={true} title="Phunk #9379" count="109" subTitle={`<span>Not for sale</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card title="LAND (-98, 129)" count="65" subTitle={`6.5 ETH <span>1/1</span>`} linkText="Buy now" /></div>

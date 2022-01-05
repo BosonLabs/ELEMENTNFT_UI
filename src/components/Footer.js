@@ -40,21 +40,22 @@ function Footer() {
                         </Col>
                         <Col lg={3}>
                             <div className="footer-line d-lg-none"></div>
-                            <div className="qr-frame d-none d-lg-block">
+                            {/* <div className="qr-frame d-none d-lg-block">
                                 <img src={QrCode} alt="iocn" />
-                            </div>
+                            </div> */}
                         </Col>
                         <Col lg={3}>
-                            <h3>Download the Rarible app to explore any NFTs</h3>
-                            <Link to="apple.com" target="_blank"><img style={{maxWidth: '118px'}} className='dark-filter' src={AppleIcon} alt="icon" /></Link>
+                            {/* <h3>Download the Element app to explore any NFTs</h3>
+                            <Link to="apple.com" target="_blank"><img style={{maxWidth: '118px'}} className='dark-filter' src={AppleIcon} alt="icon" /></Link> */}
                         </Col>
                     </Row>
+                    <br></br>
                 </div>
 
                 <div className="footer-middle">
                     <Row>
                         <Col md={5} className='mb-md-0 mb-4'>
-                            <h3>Get the latest Rarible updates</h3>
+                            <h3>Get the latest Element updates</h3>
 
                             <Form action="/">
                                 <InputGroup className="input-group-newsletter">
@@ -144,7 +145,7 @@ function Footer() {
                             </Dropdown>
                         </li>
                     </ul>
-                    <p>© Rarible, Inc. All rights reserved.</p>
+                    <p>© ELEMENT, Inc. All rights reserved.</p>
                 </div>
             </Container>
         </div>

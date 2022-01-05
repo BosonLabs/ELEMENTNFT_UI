@@ -38,7 +38,7 @@ function HomePage() {
                             <h3>Safety, Security, and Policies</h3>
 
                             <ul className='list-unstyled'>
-                                <li><a href="/">Is connecting my wallet to Rarible secure?</a></li>
+                                <li><a href="/">Is connecting my wallet to ELEMENT secure?</a></li>
                                 <li><a href="/">I bought an NFT from someone, but I think I was scammed. What happened?</a></li>
                                 <li><a href="/">My verification request was rejected. Can I reapply?</a></li>
                                 <li><a href="/">What are your community rules and guidelines?</a></li>
@@ -47,13 +47,13 @@ function HomePage() {
                             <a href="/" className='btn-link'>See all <svg viewBox="0 0 16 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq" style={{transform: 'rotate(-90deg)'}}><path fill-rule="evenodd" clip-rule="evenodd" d="M8 11.4143L12.7071 6.7072C13.0976 6.31668 13.0976 5.68351 12.7071 5.29299C12.3166 4.90246 11.6834 4.90246 11.2929 5.29299L8 8.58588L4.70711 5.29299C4.31658 4.90246 3.68342 4.90246 3.29289 5.29299C2.90237 5.68351 2.90237 6.31668 3.29289 6.7072L8 11.4143Z" fill="currentColor"></path></svg></a>
                         </Col>
                         <Col md={6} className="mb-5">
-                            <h3>Using Rarible</h3>
+                            <h3>Using ELEMENT</h3>
 
                             <ul className='list-unstyled'>
-                                <li><a href="/">Which blockchains does Rarible support?</a></li>
-                                <li><a href="/">Why should I use Ethereum on Rarible?</a></li>
-                                <li><a href="/">Why should I use Flow on Rarible?</a></li>
-                                <li><a href="/">Why should I use Tezos on Rarible?</a></li>
+                                <li><a href="/">Which blockchains does ELEMENT support?</a></li>
+                                <li><a href="/">Why should I use Algorand on ELEMENT?</a></li>
+                                <li><a href="/">Why should I use Flow on ELEMENT?</a></li>
+                                <li><a href="/">Why should I use Tezos on ELEMENT?</a></li>
                             </ul>
 
                             <a href="/" className='btn-link'>See all <svg viewBox="0 0 16 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq" style={{transform: 'rotate(-90deg)'}}><path fill-rule="evenodd" clip-rule="evenodd" d="M8 11.4143L12.7071 6.7072C13.0976 6.31668 13.0976 5.68351 12.7071 5.29299C12.3166 4.90246 11.6834 4.90246 11.2929 5.29299L8 8.58588L4.70711 5.29299C4.31658 4.90246 3.68342 4.90246 3.29289 5.29299C2.90237 5.68351 2.90237 6.31668 3.29289 6.7072L8 11.4143Z" fill="currentColor"></path></svg></a>
@@ -64,8 +64,8 @@ function HomePage() {
                             <ul className='list-unstyled'>
                                 <li><a href="/">I should have received $RARI, but I didn’t. How do I claim it?</a></li>
                                 <li><a href="/">I think I minted duplicate NFTs. Is that even possible?</a></li>
-                                <li><a href="/">The Rarible website isn’t working properly. Now what?</a></li>
-                                <li><a href="/">I think my NFT disappeared from Rarible. Why?</a></li>
+                                <li><a href="/">The ELEMENT website isn’t working properly. Now what?</a></li>
+                                <li><a href="/">I think my NFT disappeared from ELEMENT. Why?</a></li>
                             </ul>
 
                             <a href="/" className='btn-link'>See all <svg viewBox="0 0 16 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq" style={{transform: 'rotate(-90deg)'}}><path fill-rule="evenodd" clip-rule="evenodd" d="M8 11.4143L12.7071 6.7072C13.0976 6.31668 13.0976 5.68351 12.7071 5.29299C12.3166 4.90246 11.6834 4.90246 11.2929 5.29299L8 8.58588L4.70711 5.29299C4.31658 4.90246 3.68342 4.90246 3.29289 5.29299C2.90237 5.68351 2.90237 6.31668 3.29289 6.7072L8 11.4143Z" fill="currentColor"></path></svg></a>

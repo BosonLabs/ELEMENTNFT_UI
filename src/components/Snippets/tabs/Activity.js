@@ -15,7 +15,7 @@ const OnSale = () => {
                     <div className="no-found d-none py-5 text-center">
                         <h2>Nothing yet</h2>
                         <p className="lead mb-4">Looks like there's still nothing. Activity will <br />be shown here</p>
-                        <Link to="/" className='btn btn-primary'>Explore Rarible</Link>
+                        <Link to="/" className='btn btn-primary'>Explore ELEMENT</Link>
                     </div>
 
                     <Activity image="https://img.rarible.com/prod/image/upload/t_preview/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" />

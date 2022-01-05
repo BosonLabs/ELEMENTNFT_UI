@@ -129,7 +129,7 @@ const Start = () => {
                 <Modal.Body>
                     <div className="pt-5 text-dark text-center">
                         <img src={CardIcon} alt="icon" width="64px" className='mb-2' />
-                        <p className='mb-3'><strong>Sign In</strong> <br />to continue to <strong>rarible.com</strong></p>
+                        <p className='mb-3'><strong>Sign In</strong> <br />to continue to <strong>ELEMENT.com</strong></p>
 
                         <Form>
                             <Form.Control className='form-single' type="email" placeholder="Email" />

@@ -14,7 +14,7 @@ const SingleBid = () => {
         <Layout>
             <Container>
                 <div className="py-md-5 text-center py-4">
-                    <h1 className='display-3 font-bold mb-2'>Meet Rarible</h1>
+                    <h1 className='display-3 font-bold mb-2'>Meet ELEMENT</h1>
                     <p className="lead mb-5">NFT marketplace where anything is possible and all are welcome</p>
 
                     <div className="position-relative">
@@ -26,7 +26,7 @@ const SingleBid = () => {
                 </div>
 
                 <div className="py-5 text-center">
-                    <h2 className='display-6 mb-4 font-bold'>Rarible in numbers</h2>
+                    <h2 className='display-6 mb-4 font-bold'>ELEMENT in numbers</h2>
 
                     <Row>
                         <Col>
@@ -69,7 +69,7 @@ const SingleBid = () => {
                     </div>
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Launched the <Link to="/">Rarible Protocol</Link>,</strong> a public, DAO-governed set of open-source tools for developers and businesses to build their own NFT projects and deploy customized NFT storefronts</p>
+                        <p><strong>Launched the <Link to="/">ELEMENT Protocol</Link>,</strong> a public, DAO-governed set of open-source tools for developers and businesses to build their own NFT projects and deploy customized NFT storefronts</p>
                     </div>
                 </div>
 

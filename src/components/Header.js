@@ -159,7 +159,7 @@ console.log(e);
                             <Link to="/" className='dropdown-item'>Blog</Link>
                             <Link to="/" className='dropdown-item'>RARI Token</Link>
                             <Link to="/" className='dropdown-item'>Suggest feature</Link>
-                            <Link to="/" className='dropdown-item'>Rarible protocol</Link>
+                            <Link to="/" className='dropdown-item'>ELEMENT protocol</Link>
                             <Link to="/" className='dropdown-item'>Subscribe</Link>
                             <NavDropdown.Divider />
                             <div className="dropdown-menu-social">
@@ -391,7 +391,7 @@ console.log(e);
                                 <li><Link to="/">Blog</Link></li>
                                 <li><Link to="/rari">RARI Token</Link></li>
                                 <li><Link to="/">Suggest feature</Link></li>
-                                <li><Link to="/">Rarible protocol</Link></li>
+                                <li><Link to="/">ELEMENT protocol</Link></li>
                             </ul>
 
                             <div className="dropdown-menu-social">
