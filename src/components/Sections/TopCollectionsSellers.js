@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {Dropdown} from 'react-bootstrap';
 import {
     Link
@@ -6,6 +6,12 @@ import {
 import CollectionItem from '../Snippets/CollectionItem';
 
 const TopCollectionsSelles = () => {
+    const dateOptions = ["1", "7", "30"];
+    const directionOptions = ["Sellers", "Buyers"];
+    const [date, setDate] = useState(dateOptions[2]);
+    const [direction, setDirection] = useState(directionOptions[0]);
+    console.log("ses",direction);
+    console.log("sesd",date);
     return (
         <div className='mb-36'>
             <div className="mb-32 d-flex align-items-center">
@@ -16,9 +22,14 @@ const TopCollectionsSelles = () => {
                             sellers
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu className='link-flex'>
-                            <Dropdown.Item href="/">sellers <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM"><path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path></svg></Dropdown.Item>
-                            <Dropdown.Item href="/">buyers</Dropdown.Item>
+                        <Dropdown.Menu className='link-flex' setValue={setDirection} value={direction}>
+                            <Dropdown.Item >sellers 
+                            <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM">
+                                <path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path>
+                            </svg>
+                            </Dropdown.Item>
+                            <Dropdown.Item >buyers
+                            </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
 

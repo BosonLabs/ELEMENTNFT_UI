@@ -248,9 +248,9 @@ console.log(e);
                         )}                        
                         
                         
-                        <Button className='btn btn-round btn-round-sm btn-white'>
+                        {/* <Button className='btn btn-round btn-round-sm btn-white'>
                             <svg viewBox="0 0 18 12" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye YJxZz"><path d="M5.29412 5.79545L11.6471 3.75L6.35294 7.84091L9.17647 15L18 0L0 0L5.29412 5.79545Z" fill="currentColor"></path></svg>
-                        </Button>
+                        </Button> */}
                         <Dropdown className='dropdown-noarrow'>
                             <Dropdown.Toggle variant="white" className='btn btn-round btn-user' id="dropdown-basic">
                                 <img src={User} alt="user" />
