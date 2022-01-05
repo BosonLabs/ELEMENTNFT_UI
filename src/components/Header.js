@@ -5,7 +5,7 @@ import {
   } from "react-router-dom";
 
 import AllIcon from '../assets/images/all-icon.svg'
-import EthereumIcon from '../assets/images/ethereum-icon.svg'
+import EthereumIcon from '../assets/images/Algo.png'
 import FlowIcon from '../assets/images/flow-icon.svg'
 import TezosIcon from '../assets/images/tezos-icon.svg'
 import ThemeChanger from './Snippets/ThemeChanger';
@@ -139,12 +139,13 @@ console.log(e);
                     </Form>
 
                     <Nav className='d-none d-md-flex'>
-                        <NavDropdown title="Explore" id="basic-nav-dropdown">
+                        <Nav.Link as={Link} to="/">Explore</Nav.Link>
+                        {/* <NavDropdown title="Explore" id="basic-nav-dropdown">
                             <Link className='dropdown-item' to="/"><img src={AllIcon} alt="icon" /> All</Link>
                             <Link className='dropdown-item' to="/"><img src={EthereumIcon} alt="icon" /> Ethereum</Link>
                             <Link className='dropdown-item' to="/"><img src={FlowIcon} alt="icon" /> Flow</Link>
                             <Link className='dropdown-item' to="/"><img src={TezosIcon} alt="icon" /> Tezos</Link>
-                        </NavDropdown>
+                        </NavDropdown> */}
                         <Nav.Link as={Link} to="/profile">My profile</Nav.Link>
                         <Nav.Link as={Link} to="/following">Following</Nav.Link>
                         <Nav.Link as={Link} to="/activity">Activity</Nav.Link>

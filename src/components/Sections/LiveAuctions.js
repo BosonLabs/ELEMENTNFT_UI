@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import Flickity from 'react-flickity-component'
 // import {Row, Col} from 'react-bootstrap';
 import Card from '../Snippets/Card';
+import CardLiveA from "../Snippets/CardLiveA";
 const axios = require('axios');
 
 const LiveAuctions = () => {
@@ -87,7 +88,7 @@ const LiveAuctions = () => {
                 return(  
                     <>
                     <div className='col mb-4'>
-                    <Card timer='19:10' img={x.Imageurl} verify={true} count="401" subTitle="$1,426,752"/>                    
+                    <CardLiveA timer='19:10' img={x.Imageurl} verify={true} count="401" subTitle="$1,426,752" dataall={x}/> 
                     </div>                    
                     </>                                                                                          
               )})}                                                  

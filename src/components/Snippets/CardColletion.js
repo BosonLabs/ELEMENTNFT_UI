@@ -6,7 +6,7 @@ import {
 
 import Logo from '../../assets/images/dummy-icon.svg'
 
-const CardInfo = (props) => {
+const CardCollection = (props) => {
     return (
         <Link to="/">
             <Card className='p-10 text-center'>
@@ -29,4 +29,4 @@ const CardInfo = (props) => {
     );
 };
 
-export default CardInfo;
+export default CardCollection;

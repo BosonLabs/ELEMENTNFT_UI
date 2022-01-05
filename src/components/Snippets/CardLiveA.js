@@ -6,7 +6,7 @@ import {
 
 import User from '../../assets/images/dummy-icon.svg';
 import Preview from '../../assets/images/preview.jpg';
-import EthereumIcon from '../../assets/images/Algo.png'
+import EthereumIcon from '../../assets/images/Algo.png';
 import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
@@ -16,7 +16,7 @@ const myAlgoWallet = new MyAlgoConnect();
 
 
 
-const CardBuy = (props) => {
+const CardLiveA = (props) => {
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
@@ -237,7 +237,7 @@ const CardBuy = (props) => {
                     </OverlayTrigger>
                 </div>
 
-                <Dropdown className='dropdown-noarrow'>
+                {/* <Dropdown className='dropdown-noarrow'>
                     <Dropdown.Toggle variant="reset">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">
                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
@@ -251,7 +251,7 @@ const CardBuy = (props) => {
                         <Dropdown.Item href="/">Share</Dropdown.Item>
                         <Dropdown.Item href="/">Report</Dropdown.Item>
                     </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
             </Card.Header>
             <Card.Body className='p-0'>
                 <div className="position-relative">
@@ -264,7 +264,7 @@ const CardBuy = (props) => {
                 </div>
 
                 <div className="card-title justify-content-between d-flex align-items-start">
-                    <Link to="/">{props.title}</Link>
+                    <Link to="/">{props.dataall.NFTName}</Link>
 
                     <OverlayTrigger
                         overlay={<Tooltip>Ethereum</Tooltip>}
@@ -310,4 +310,4 @@ const CardBuy = (props) => {
     );
 };
 
-export default CardBuy;
+export default CardLiveA;
