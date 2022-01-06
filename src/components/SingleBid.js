@@ -2,20 +2,25 @@ import React from 'react';
 import Layout from './LayoutNoFooter';
 import {Container, Button, Dropdown, Row, Col, Tabs, Tab} from 'react-bootstrap';
 import {
-    Link
+    Link,useLocation
   } from "react-router-dom";
+//import ElementIcon from '../assets/images/elementlogo.png'
 
-const SingleBid = () => {
+
+const SingleBid = (props) => {
+    const location = useLocation();
+    console.log("Biddata",location.state.imgurl)
+    //https://img.rarible.com/prod/image/upload/t_big/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" alt="banner" 
     return (
         <Layout>
             <Container fluid className='d-md-flex'>
                 <div className="content-left d-flex">
-                    <img src="https://img.rarible.com/prod/image/upload/t_big/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" alt="banner" />
+                    <img src={location.state.imgurl} alt="test"/>
                 </div>
                 <div className="content-right d-flex flex-column ms-auto">
                     <div className="d-flex mb-4">
                         <div>
-                            <h2 className='mb-1'>innocence 9</h2>
+                            <h2 className='mb-1'>{location.state.name}</h2>
                             <div className="category">Auction</div>
                         </div>
                         <div className="ms-auto d-flex align-items-center">

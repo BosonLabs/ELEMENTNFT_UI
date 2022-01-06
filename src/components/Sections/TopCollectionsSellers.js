@@ -111,13 +111,15 @@ const TopCollectionsSelles = () => {
               let data = getImb.filter((val)=>{
               console.log("sellers7get",val)
               console.log("sellers7",val.TimeStamp)
-              console.log("sellers two",moment().subtract(parseInt(date),"days").format('MMM DD YYYY'))
+              console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
               let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')
               console.log("curr7",currentdate)
-              let weekdate=moment().subtract(4,"days").format('ddd MMM DD YYYY')
-              console.log("curr8",weekdate)                            
-              return moment(val.TimeStamp).isBetween(weekdate,currentdate)
-              //return moment().range(val.TimeStamp,weekdate)
+              let weekdate=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
+              console.log("curr8",weekdate)                              
+              //return moment(val.TimeStamp).isBetween(weekdate,currentdate)
+              //const dateTimeFormat = "ddd MMM DD YYYY";
+              console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
+              return moment(val.TimeStamp).isBetween(weekdate, currentdate)                
             })
             console.log("R7",data)            
             return data;    
@@ -137,14 +139,13 @@ const TopCollectionsSelles = () => {
             let data = getIb.filter((val)=>{
             console.log("Buyers7get",val)
             console.log("Buyers7",val.TimeStamp)
-            let currentdate=moment().subtract(1,"days")
-            let weekdate=moment().subtract(parseInt(date),"days")
+            let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
+            let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
             //let createddate=moment(val.adddate)
-            return moment(val.TimeStamp).isBetween(weekdate,currentdate)        
+            return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
           })
             console.log("B7",data)
-            return data;    
-        //return getIb;    
+            return data;            
       }
       useEffect(()=>{filterdata()},[])
     return (
@@ -179,7 +180,7 @@ const TopCollectionsSelles = () => {
                 <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
                 <li>
                         <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} />                        
-                    </li>
+                </li>
                 </ul>                
                 </>
             ))}

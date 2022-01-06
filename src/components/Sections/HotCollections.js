@@ -4,21 +4,20 @@ import Card from '../Snippets/CardColletion';
 const axios = require('axios');
 
 
-const HotBids = () => {
+const HotBids = () => {    
     const[getI,setgetI]=useState([]); 
     console.log("getImgal",getI)    
     const check=()=>{
-
         alert("check")
     }
 
     const dbcallsaleal=async(index)=>{
         console.log("hello ramachandran")        
         console.log("inside dbcallsalealgo function")
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
-          alert("please connect your wallet")
-        }
-        else{                        
+        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+          //alert("please connect your wallet")
+        //}
+        //else{                        
           axios({
             method: 'get',
             url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
@@ -54,7 +53,7 @@ const HotBids = () => {
             });                        
             setgetI(req2)  
             });                    
-      } 
+      //} 
     }
     useEffect(()=>{dbcallsaleal()},[])
     const flickityOptions = {
@@ -86,12 +85,16 @@ const HotBids = () => {
                 console.log("logo",x)
                 return(  
                     <>
-                    <div className='col mb-4'>
+                  
+                    <div className='col mb-4'>  
+                    
                     <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" />
-                    </div>
+                    
+                    </div>                   
                     </>                                                                                          
               )})}                              
 </div>
+
 
                 
                 

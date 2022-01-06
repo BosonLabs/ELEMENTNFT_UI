@@ -22,10 +22,10 @@ const LiveAuctions = () => {
     const dbcallsaleal=async(index)=>{
         console.log("hello ramachandran")        
         console.log("inside dbcallsalealgo function")
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
-          alert("please connect your wallet")
-        }
-        else{                        
+        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+          //alert("please connect your wallet")
+        //}
+        //else{                        
           axios({
             method: 'get',
             url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
@@ -61,7 +61,7 @@ const LiveAuctions = () => {
             });                        
             setgetI(req2)  
             });                    
-      } 
+      //} 
     }
     useEffect(()=>{dbcallsaleal()},[])
     return (

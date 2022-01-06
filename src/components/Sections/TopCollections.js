@@ -11,12 +11,10 @@ const TopCollections = () => {
             <div className="mb-32 d-flex align-items-center">
                 <div className='h2 d-flex align-items-center'>
                     Top collections in
-
                     <Dropdown>
                         <Dropdown.Toggle variant="reset" className='dropdown-btn-grad'>
                             1 day
                         </Dropdown.Toggle>
-
                         <Dropdown.Menu className='link-flex'>
                             <Dropdown.Item href="/">1 day <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM"><path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path></svg></Dropdown.Item>
                             <Dropdown.Item href="/">7 days</Dropdown.Item>
@@ -24,10 +22,8 @@ const TopCollections = () => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-
                 <Link to="/" className='btn d-none d-sm-inline-block ms-auto btn-white'>Sign in</Link>
             </div>
-
             <div className="overflow-auto">
                 <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
                     <li>

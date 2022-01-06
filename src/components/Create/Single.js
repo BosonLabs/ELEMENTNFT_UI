@@ -89,7 +89,7 @@ const Start = () => {
           else{
           setshowTestLoading(true)
           let ta=tname;
-          let tb='CIFI';
+          let tb='ELEM';
           let te=1000;
         //   let idget="";
           console.log("uploadonecheck",ta);
@@ -179,7 +179,7 @@ const Start = () => {
     //                     cAddress:"",
     //                     keyId:db,
     //                     userName:tname,
-    //                     userSymbol:"ENFT",            
+    //                     userSymbol:"ELEM",            
     //                     ipfsUrl:Img,
     //                     ownerAddress:addresseswall,
     //                     soldd:"",
@@ -275,12 +275,12 @@ const Start = () => {
                                   console.log("dbcheck",db)
                                   ref2.child(db).set({
                                   Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                  NFTName:tname,userSymbol:"ENFT",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
                                   TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId})
                                   .then(()=>{
                                   ref22.child(db).set({
                                     Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                    NFTName:tname,userSymbol:"ENFT",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                    NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
                                     TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId
                                       })
                                   .then(()=>{     
