@@ -9,6 +9,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import {
     Link
   } from "react-router-dom";
+import CardCreate from "../../Snippets/Card";
 const animatedComponents = makeAnimated();
 
 
@@ -183,7 +184,7 @@ const Created = (data) => {
                     <>
                     {/* onClick={()=>getprice(x)} */}
                     <div className='col mb-4' >
-                    <Card img={x.Imageurl} 
+                    <CardCreate img={x.Imageurl} 
                     title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
                     linkText={parseInt(x.NFTPrice/1000000)} dataall={x}
                     />

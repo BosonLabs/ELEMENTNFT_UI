@@ -12,10 +12,10 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 const myAlgoWallet = new MyAlgoConnect();
-const CardOwn = (props) => {                        
+const CardSale = (props) => {                        
     return (
         <Card>
-            <Card.Header className='d-flex align-items-center'>
+            {/* <Card.Header className='d-flex align-items-center'>
                 <div className="card-users d-flex align-items-center me-auto">
                     <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
@@ -54,14 +54,14 @@ const CardOwn = (props) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className='link-flex dropdown-menu-right'>
-                        {/* <Dropdown.Item >Buy now</Dropdown.Item> */}
+                        <Dropdown.Item >Buy now</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item href="/profile">Refresh Metadata</Dropdown.Item>
-                        <Dropdown.Item href="/profile">Share</Dropdown.Item>
-                        <Dropdown.Item href="/profile">Report</Dropdown.Item>
+                        <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
+                        <Dropdown.Item href="/">Share</Dropdown.Item>
+                        <Dropdown.Item href="/">Report</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-            </Card.Header>
+            </Card.Header> */}
             <Card.Body className='p-0'>
                 <div className="position-relative">
                     <img src={props.img} className='img-fluid card-image' alt="Preview" />
@@ -101,4 +101,4 @@ const CardOwn = (props) => {
     );
 };
 
-export default CardOwn;
+export default CardSale;
