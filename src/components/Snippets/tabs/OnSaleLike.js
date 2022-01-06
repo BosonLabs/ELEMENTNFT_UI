@@ -1,27 +1,27 @@
 import React from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import AllIcon from '../../assets/images/cate-all-icon.svg';
-import {Dropdown, Row, Col, Button, Form} from 'react-bootstrap';
+import AllIcon from '../../../assets/images/cate-all-icon.svg';
+import {Dropdown, Row, Col, Button} from 'react-bootstrap';
+import {
+    Link
+  } from "react-router-dom";
+import Card from '../Card';
+import CardOwn from '../CardOwn';
+import CardSale from '../CardSale';
+
 const animatedComponents = makeAnimated();
 
-const FilterExplore = () => {
+const OnSaleLike = (data) => {    
+    console.log("getdatasalelike",data.data)            
     const colourStyles = {
-        option: (styles, { isFocused }) => {
-          // const color = chroma(data.color);
-        //   console.log({ data, isDisabled, isFocused, isSelected });
+        option: (styles, { isFocused }) => {          
           return {
             ...styles,
             backgroundColor: isFocused ? "rgba(4, 4, 5, 0.05)" : null,
           };
         }
     };
-
-    const blockChainOptions = [
-        { value: 'algorand', label: 'Algorand' },
-        { value: 'Algorand', label: 'Algorand' },
-        { value: 'flow', label: 'Flow' }
-    ]
 
     const CategoryOptions = [
         { value: 'all', label: 'All', icon: AllIcon },
@@ -82,27 +82,10 @@ const FilterExplore = () => {
         { value: 'ARKE', label: 'ARKE', icon: 'https://raw.githubusercontent.com/rarible/public-assets/main/tokens/ARKE.png' },
     ]
 
-    return (
-        <div className='d-flex filter-list flex-wrap align-items-center'>
-            {/* <div className="d-flex align-items-center flex-wrap"> */}
-                <div className="filter-item filter-blockchain">
-                    <Select
-                        styles={colourStyles}
-                        closeMenuOnSelect={false}
-                        components={animatedComponents}
-                        // defaultValue={[colourOptions[4], colourOptions[5]]}
-                        placeholder="Blockchain"
-                        isMulti
-                        options={blockChainOptions}
-                        formatOptionLabel={option => (
-                            <div className="custom-select-option d-flex align-items-center">
-                                {option.icon && <img src={option.icon} alt="icon" />}
-                                {option.label}
-                            </div>
-                        )}
-                    />
-                </div>
 
+    return (
+        <div className='mb-4'>
+            <div className='d-flex mb-4 filter-list flex-wrap align-items-center'>
                 <div className="filter-item filter-category">
                     <Select
                         styles={colourStyles}
@@ -119,7 +102,7 @@ const FilterExplore = () => {
                         )}
                     />
                 </div>
-               
+
                 <div className="filter-item filter-icon-round filter-collections">
                     <Select
                         // styles={colourStyles}
@@ -137,7 +120,7 @@ const FilterExplore = () => {
                         )}
                     />
                 </div>
-                
+
                 <div className="filter-item filter-sale-type">
                     <Select
                         styles={colourStyles}
@@ -155,7 +138,7 @@ const FilterExplore = () => {
                         )}
                     />
                 </div>
-                
+
                 <div className="filter-dropdown">
                     <Dropdown className='dropdown-noarrow'>
                         <Dropdown.Toggle variant="outline-gray">
@@ -200,50 +183,86 @@ const FilterExplore = () => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-            {/* </div> */}
+
+                <div className="filter-dropdown ms-auto">
+                    <Dropdown className='dropdown-noarrow'>
+                        <Dropdown.Toggle variant="outline-gray">
+                            <div className="btn-lagend">Sort</div>
+                        <svg viewBox="0 0 14 10" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL me-2 sc-hKwDye jsnDXb sc-egiyK fFvuv"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.333252 0.99998C0.333252 0.63179 0.631729 0.333313 0.999919 0.333313H12.9999C13.3681 0.333313 13.6666 0.63179 13.6666 0.99998C13.6666 1.36817 13.3681 1.66665 12.9999 1.66665H0.999919C0.631729 1.66665 0.333252 1.36817 0.333252 0.99998ZM1.66659 4.99998C1.66659 4.63179 1.96506 4.33331 2.33325 4.33331H11.6666C12.0348 4.33331 12.3333 4.63179 12.3333 4.99998C12.3333 5.36817 12.0348 5.66665 11.6666 5.66665H2.33325C1.96506 5.66665 1.66659 5.36817 1.66659 4.99998ZM2.99992 8.99998C2.99992 8.63179 3.2984 8.33331 3.66659 8.33331H10.3333C10.7014 8.33331 10.9999 8.63179 10.9999 8.99998C10.9999 9.36817 10.7014 9.66665 10.3333 9.66665H3.66659C3.2984 9.66665 2.99992 9.36817 2.99992 8.99998Z" fill="currentColor"></path></svg>
+
+                        Recently added  
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className='dropdown-menu-right link-flex'>
+                            <Dropdown.ItemText>Sort by</Dropdown.ItemText>
+                            <Dropdown.Item href="/">
+                                Recently added
+                                <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM"><path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path></svg>
+                            </Dropdown.Item>
+                            <Dropdown.Item href="/">
+                                Price: Low to High
+                            </Dropdown.Item>
+                            <Dropdown.Item href="/">
+                                Price: High to Low
+                            </Dropdown.Item>
+                            <Dropdown.Item href="/">
+                                Auction ending soon
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
+            </div>
 
 
-            <div className="filter-dropdown ms-auto">
-                <Dropdown className='dropdown-noarrow'>
-                    <Dropdown.Toggle variant="outline-gray">
-                        <div className="btn-lagend">Filter & Sort</div>
-                    <svg viewBox="0 0 14 10" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL me-2 sc-hKwDye jsnDXb sc-egiyK fFvuv"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.333252 0.99998C0.333252 0.63179 0.631729 0.333313 0.999919 0.333313H12.9999C13.3681 0.333313 13.6666 0.63179 13.6666 0.99998C13.6666 1.36817 13.3681 1.66665 12.9999 1.66665H0.999919C0.631729 1.66665 0.333252 1.36817 0.333252 0.99998ZM1.66659 4.99998C1.66659 4.63179 1.96506 4.33331 2.33325 4.33331H11.6666C12.0348 4.33331 12.3333 4.63179 12.3333 4.99998C12.3333 5.36817 12.0348 5.66665 11.6666 5.66665H2.33325C1.96506 5.66665 1.66659 5.36817 1.66659 4.99998ZM2.99992 8.99998C2.99992 8.63179 3.2984 8.33331 3.66659 8.33331H10.3333C10.7014 8.33331 10.9999 8.63179 10.9999 8.99998C10.9999 9.36817 10.7014 9.66665 10.3333 9.66665H3.66659C3.2984 9.66665 2.99992 9.36817 2.99992 8.99998Z" fill="currentColor"></path></svg>
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
+            {data.data.map((x, index) => {
+                console.log("xvalue",x)
+                return(  
+                    <>                    
+                    <div className='col mb-4' >
+                    <CardSale img={x.Imageurl} 
+                    title={x.NFTName} count="4012" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
+                    linkText={parseInt(x.NFTPrice/1000000)} dataall={x}
+                    />
+                    </div>                    
+                    </>                                                                                          
+              )})}                                                  
+                    
+                    </div>
 
-                    Recently added  
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu className='dropdown-menu-right link-flex'>
-                        <Dropdown.ItemText>Sort by</Dropdown.ItemText>
-                        <Dropdown.Item href="/">
-                            Recently added
-                            <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM"><path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path></svg>
-                        </Dropdown.Item>
-                        <Dropdown.Item href="/">
-                            Price: Low to High
-                        </Dropdown.Item>
-                        <Dropdown.Item href="/">
-                            Price: High to Low
-                        </Dropdown.Item>
-                        <Dropdown.Item href="/">
-                            Auction ending soon
-                        </Dropdown.Item>
-                        <Dropdown.ItemText>Options</Dropdown.ItemText>
+            {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+                <div className='col mb-4'>
+                    <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
+                </div>
+            </div> */}
 
-                        <Form.Check 
-                            type="switch"
-                            id="verified-only"
-                            label="Verified only"
-                            checked={true}
-                        />
-                        <Form.Check 
-                            type="switch"
-                            id="show-nsfw"
-                            label="Show NSFW"
-                        />
-                    </Dropdown.Menu>
-                </Dropdown>
+            <div className="no-found d-none py-5 text-center">
+                <h2>No items found</h2>
+                <p className="lead mb-4">Come back soon! Or try to browse <br />something for you on our marketplace</p>
+                <Link to="/" className='btn btn-primary'>Browse marketplace</Link>
             </div>
         </div>
     );
 };
 
-export default FilterExplore;
+export default OnSaleLike;

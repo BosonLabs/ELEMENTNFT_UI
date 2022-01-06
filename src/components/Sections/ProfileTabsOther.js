@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {Tabs, Tab} from 'react-bootstrap'
 import OnSale from '../Snippets/tabs/OnSale';
-import OnSaleLike from '../Snippets/tabs/OnSaleLike';
 import Created from '../Snippets/tabs/Created';
 import Liked from '../Snippets/tabs/Liked';
 import Collection from '../Snippets/tabs/Collection';
@@ -10,7 +9,7 @@ import Owned from '../Snippets/tabs/Owned';
 import firebase from '../../firebase';
 import Card from '../Snippets/Card';
 
-const ProfileTabs = (create) => {
+const ProfileTabsOther = (create) => {
 
     console.log("bcreate",create.create)    
     console.log("bsale",create.sale) 
@@ -23,24 +22,27 @@ const ProfileTabs = (create) => {
             </Tab>
             <Tab eventKey="owned" title="Owned">
                 <Owned data={create.buyed}/>
-            </Tab>                        
-            <Tab eventKey="created" title="Created">                
+            </Tab>            
+            
+                <Tab eventKey="created" title="Created">                
                 <Created data={create.create}/>
-            </Tab>                
+                </Tab>
+                {/* {getImgreffalgo.map((x, index) => {
+                <>
+                </>
+              })}       */}
+            
             <Tab eventKey="collections" title={<span>Collections <span class="badge badge-new">new</span></span>}>
                 <Collection />
             </Tab>
             <Tab eventKey="liked" title="Liked">
-                <OnSaleLike data={create.sale}/>
+                <Liked />
             </Tab>
-            {/* <Tab eventKey="liked" title="Liked">
-                <Liked data={create.create}/>
-            </Tab> */}
             <Tab eventKey="activity" title="Activity">
-                <Activity data={create.create}/>
+                <Activity />
             </Tab>
         </Tabs>
     );
 };
 
-export default ProfileTabs;
+export default ProfileTabsOther;

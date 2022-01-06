@@ -8,9 +8,12 @@ import {
     Link
   } from "react-router-dom";
 import firebase from '../../../firebase';
+import CardSale from "../CardSale";
+import CardLike from "../CardLike";
 const animatedComponents = makeAnimated();
 
-const OnSale = () => {
+const OnLiked = (data) => {
+    console.log("datalike",data)
     const[getImgreffalgo,setgetImgreffalgo]=useState([]);
     console.log("getImgalgo",getImgreffalgo)
     const dbcallalgo=async()=>{
@@ -237,13 +240,16 @@ const OnSale = () => {
                 </div>
             </div>
 
+            
             <div className="row d-none row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
+                
                 <div className="col mb-4" >
-                {getImgreffalgo.map((x, index) => {
-                console.log("logo",x)
+                {data.data.map((x, index) => {
+                console.log("loglike",x)
                 return(  
                     <>
-                    <Card verify={true} img={x.image} title={x.counter} count="401" subTitle={`<span>Highest bid</span> <span>${x.price/1000000}</span>`} linkText="0.221 WETH" />
+                    <CardLike dataall={x}
+                    />
                     <br/>
                     </>                                                                                          
               )})}                              
@@ -251,7 +257,7 @@ const OnSale = () => {
             </div>
 
 
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
+            {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
                 <div className='col mb-4'>
                     <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
                 </div>
@@ -276,7 +282,7 @@ const OnSale = () => {
                 <div className='col mb-4'>
                     <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
                 </div>
-            </div>
+            </div> */}
 
             {/* <div className="no-found py-5 text-center">
                 <h2>No items found</h2>
@@ -288,4 +294,4 @@ const OnSale = () => {
     );
 };
 
-export default OnSale;
+export default OnLiked;

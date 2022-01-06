@@ -12,7 +12,7 @@ import CardSale from '../CardSale';
 
 const animatedComponents = makeAnimated();
 
-const OnSale = (data) => {
+const OnSale = (data) => {    
     console.log("getdatasale",data.data)            
     const colourStyles = {
         option: (styles, { isFocused }) => {
@@ -222,7 +222,7 @@ const OnSale = (data) => {
                     <>                    
                     <div className='col mb-4' >
                     <CardSale img={x.Imageurl} 
-                    title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
+                    title={x.NFTName} count="4012" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
                     linkText={parseInt(x.NFTPrice/1000000)} dataall={x}
                     />
                     </div>                    

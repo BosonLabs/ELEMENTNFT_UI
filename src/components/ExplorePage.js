@@ -25,7 +25,7 @@ function ExportPage() {
 
                                 <Dropdown.Menu className='link-flex'>
                                     <Dropdown.Item href="/">All <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM"><path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path></svg></Dropdown.Item>
-                                    <Dropdown.Item href="/">Ethereum</Dropdown.Item>
+                                    <Dropdown.Item href="/">Algorand</Dropdown.Item>
                                     <Dropdown.Item href="/">Flow</Dropdown.Item>
                                     <Dropdown.Item href="/">Tezos</Dropdown.Item>
                                 </Dropdown.Menu>

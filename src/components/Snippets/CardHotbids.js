@@ -280,7 +280,7 @@ const CardHotbids = (props) => {
                     </Link>
 
                     <OverlayTrigger
-                        overlay={<Tooltip>Ethereum</Tooltip>}
+                        overlay={<Tooltip>Algorand</Tooltip>}
                     >
                         <img src={EthereumIcon} alt="icon" />
                     </OverlayTrigger>

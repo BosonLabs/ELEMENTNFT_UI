@@ -49,7 +49,7 @@ const SingleBid = () => {
 
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Multi-chain NFT marketplace</strong> with Ethereum, Flow and Tezos integrated</p>
+                        <p><strong>Multi-chain NFT marketplace</strong> with Algorand, Flow and Tezos integrated</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />

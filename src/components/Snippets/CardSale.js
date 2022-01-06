@@ -12,7 +12,8 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 const myAlgoWallet = new MyAlgoConnect();
-const CardSale = (props) => {                        
+const CardSale = (props) => {   
+    console.log("likeprops",props)                     
     return (
         <Card>
             {/* <Card.Header className='d-flex align-items-center'>
@@ -62,8 +63,8 @@ const CardSale = (props) => {
                     </Dropdown.Menu>
                 </Dropdown>
             </Card.Header> */}
-            <Card.Body className='p-0'>
-                <div className="position-relative">
+            <Card.Body className='p-0'>                
+                <div className="position-relative">                    
                     <img src={props.img} className='img-fluid card-image' alt="Preview" />
                     
                     {props.timer ? (
@@ -73,10 +74,10 @@ const CardSale = (props) => {
                 </div>
 
                 <div className="card-title justify-content-between d-flex align-items-start">
-                    <Link to="/">{props.title}</Link>
+                    <Link >{props.title}</Link>
 
                     <OverlayTrigger
-                        overlay={<Tooltip>Ethereum</Tooltip>}
+                        overlay={<Tooltip>Algorand</Tooltip>}
                     >
                         <img src={EthereumIcon} alt="icon" />
                     </OverlayTrigger>
@@ -84,8 +85,8 @@ const CardSale = (props) => {
 
                 <div className="card-info d-flex align-items-end justify-content-between">
                     <div>
-                        <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} />
-                        <Link to="/" className='btn-link-grad'>{props.linkText}</Link>
+                        {/* <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} /> */}
+                        <Link className='btn-link-grad'>{props.linkText}</Link>
                     </div>                    
                     
                     <Button variant='default' className='btn-count float-end'>

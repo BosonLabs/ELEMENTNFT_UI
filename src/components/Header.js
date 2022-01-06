@@ -150,7 +150,7 @@ const signoutlocal=async()=>{
                         <Nav.Link as={Link} to="/">Explore</Nav.Link>
                         {/* <NavDropdown title="Explore" id="basic-nav-dropdown">
                             <Link className='dropdown-item' to="/"><img src={AllIcon} alt="icon" /> All</Link>
-                            <Link className='dropdown-item' to="/"><img src={EthereumIcon} alt="icon" /> Ethereum</Link>
+                            <Link className='dropdown-item' to="/"><img src={Algorand} alt="icon" /> Algorand</Link>
                             <Link className='dropdown-item' to="/"><img src={FlowIcon} alt="icon" /> Flow</Link>
                             <Link className='dropdown-item' to="/"><img src={TezosIcon} alt="icon" /> Tezos</Link>
                         </NavDropdown> */}

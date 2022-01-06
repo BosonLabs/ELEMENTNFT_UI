@@ -54,7 +54,7 @@ const CardOwn = (props) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className='link-flex dropdown-menu-right'>
-                        {/* <Dropdown.Item >Buy now</Dropdown.Item> */}
+                        <Dropdown.Item >Resale</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item href="/profile">Refresh Metadata</Dropdown.Item>
                         <Dropdown.Item href="/profile">Share</Dropdown.Item>
@@ -76,7 +76,7 @@ const CardOwn = (props) => {
                     <Link to="/">{props.title}</Link>
 
                     <OverlayTrigger
-                        overlay={<Tooltip>Ethereum</Tooltip>}
+                        overlay={<Tooltip>Algorand</Tooltip>}
                     >
                         <img src={EthereumIcon} alt="icon" />
                     </OverlayTrigger>
@@ -84,7 +84,7 @@ const CardOwn = (props) => {
 
                 <div className="card-info d-flex align-items-end justify-content-between">
                     <div>
-                        <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} />
+                        {/* <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} /> */}
                         <Link to="/" className='btn-link-grad'>{props.linkText}</Link>
                     </div>                    
                     

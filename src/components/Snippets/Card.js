@@ -11,6 +11,43 @@ import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
+import {
+    FacebookShareButton,
+    GooglePlusShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    TelegramShareButton,
+    WhatsappShareButton,
+    PinterestShareButton,
+    VKShareButton,
+    OKShareButton,
+    RedditShareButton,
+    TumblrShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    ViberShareButton,
+    WorkplaceShareButton,
+    EmailShareButton,
+  } from 'react-share';
+import {
+    FacebookIcon,
+    TwitterIcon,
+    TelegramIcon,
+    WhatsappIcon,
+    GooglePlusIcon,
+    LinkedinIcon,
+    PinterestIcon,
+    VKIcon,
+    OKIcon,
+    RedditIcon,
+    TumblrIcon,
+    LivejournalIcon,
+    MailruIcon,
+    ViberIcon,
+    WorkplaceIcon,
+    EmailIcon,
+  } from 'react-share';
+
 const myAlgoWallet = new MyAlgoConnect();
 
 
@@ -21,12 +58,14 @@ const CardCreate = (props) => {
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
     const [showTestSale,setshowTestSale] = React.useState(false);   
+    const [showShare,setshowShare] = React.useState(false);   
          
     const [getprices,setprices]=useState(null)
     const handleCloseTest = () => setShowTest(false);
     const handleCloseTestLoading = () => setShowTestLoading(false);
     const handleCloseTestDone = () => setshowTestDone(false);
     const handleCloseTestSale = () => setshowTestSale(false);
+    const handleCloseshowShare = () => setshowShare(false);
     
     
     
@@ -209,6 +248,11 @@ const CardCreate = (props) => {
 
     }
     
+
+    const sharebutton=()=>{
+        //console.log("SingleBid",location.state.alldata)
+        setshowShare(true)
+    }
     
     return (
         <Card>
@@ -254,7 +298,7 @@ const CardCreate = (props) => {
                         {/* <Dropdown.Item href="/">Buy now</Dropdown.Item> */}
                         <Dropdown.Divider />
                         <Dropdown.Item href="/profile">Refresh Metadata</Dropdown.Item>
-                        <Dropdown.Item href="/profile">Share</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
                         <Dropdown.Item href="/profile">Report</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -273,22 +317,23 @@ const CardCreate = (props) => {
                     <Link to="/">{props.title}</Link>
 
                     <OverlayTrigger
-                        overlay={<Tooltip>Ethereum</Tooltip>}
+                        overlay={<Tooltip>Algorand</Tooltip>}
                     >
                         <img src={EthereumIcon} alt="icon" />
                     </OverlayTrigger>
-                </div>
+                </div>  
 
                 <div className="card-info d-flex align-items-end justify-content-between">
                     <div>
-                        <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} />
-                        <Link to="/" className='btn-link-grad'>{props.linkText}</Link>
+                        {/* <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} /> */}
+                        {/* <Link  className='btn-link-grad'>{props.linkText}</Link> */}
+                        <Link  className='btn-link-grad'>{props.linkText}</Link>
                     </div>                    
                     
-                    <Button variant='default' className='btn-count float-end'>
+                    {/* <Button variant='default' className='btn-count float-end'>
                         <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye bZjZGw"><path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" strokeWidth="2"></path></svg>
                         <span>{props.count}</span>
-                    </Button>
+                    </Button> */}
 
                     {props.linkText === undefined || props.linkText === null || props.linkText === " " || props.linkText === 0 ? (<>
                     <Button variant='default' className='btn-count float-end' onClick={()=>onshow1()}>                        
@@ -340,7 +385,43 @@ const CardCreate = (props) => {
                     </div>                    
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
                 </Modal.Body>
-            </Modal>                          
+            </Modal>       
+
+                        <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
+                <Modal.Header closeButton />
+                <Modal.Body>
+                            
+                            <h3>&nbsp;&nbsp;Share link to this page</h3>                            
+                            <br/>
+                            <FacebookShareButton
+                            url={window.location.href}
+                            // quote={props.joke.setup + props.joke.punchline}
+                            hashtag="#programing joke">
+                            <FacebookIcon logoFillColor="white" size={32} round={true}/>
+                            </FacebookShareButton>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <WhatsappShareButton
+                            url={window.location.href}
+                            // quote={props.joke.setup + props.joke.punchline}
+                            hashtag="#programing joke">
+                            <WhatsappIcon logoFillColor="white" size={32} round={true}/>
+                            </WhatsappShareButton>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <TwitterShareButton
+                            url={window.location.href}
+                            // quote={props.joke.setup + props.joke.punchline}
+                            hashtag="#programing joke">
+                            <TwitterIcon logoFillColor="white" size={32} round={true}/>
+                            </TwitterShareButton>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <EmailShareButton
+                            url={window.location.href}
+                            // quote={props.joke.setup + props.joke.punchline}
+                            hashtag="#programing joke">
+                            <EmailIcon logoFillColor="white" size={32} round={true}/>
+                            </EmailShareButton>                                                        
+                </Modal.Body>
+            </Modal>                      
                 </div>                   
                 
             </Card.Body>

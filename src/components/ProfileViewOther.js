@@ -6,14 +6,11 @@ import {
   } from "react-router-dom";
 
 import DummyPic from '../assets/images/dummy-icon.svg';
-import ProfileTabs from './Sections/ProfileTabs';
+//import ProfileTabs from './Sections/ProfileTabs';
 import firebase from '../firebase';
+import ProfileTabsOther from "./Sections/ProfileTabsOther";
 
 function HomePage() {
-    // React.useEffect(() => {
-    //     window.scrollTo(0, 0);
-    // });
-
     const [show, setShow] = React.useState(false);
     const [toast, setToast] = React.useState(false);
     const [followers, setFollowers] = React.useState(false);
@@ -241,7 +238,7 @@ function HomePage() {
                 </div>
 
 
-                <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy}/>
+                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy}/>
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>
@@ -276,9 +273,7 @@ function HomePage() {
                 <Modal.Title>Following</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution
-
-                    
+                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution                    
                 </Modal.Body>
             </Modal>
         </Layout>

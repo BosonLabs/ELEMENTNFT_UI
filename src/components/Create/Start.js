@@ -38,7 +38,7 @@ const Start = () => {
                                     <div className="d-flex mt-md-4 mb-md-0 mb-4 d-md-block align-items-center">
                                         <img src={Eth} alt="icon" />
                                         <div className='ms-3 ms-ms-0'>
-                                            <h3>Ethereum</h3>
+                                            <h3>Algorand</h3>
                                             <p>The most stable and widespread</p>
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@ const Start = () => {
                                     <div className="d-flex mt-md-4 mb-md-0 mb-4 d-md-block align-items-center">
                                         <img src={Eth} alt="icon" />
                                         <div className='ms-3 ms-ms-0'>
-                                            <h3>Ethereum</h3>
+                                            <h3>Algorand</h3>
                                             <p>The most stable and widespread</p>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@ const Start = () => {
                 <Modal.Header closeButton>
                 </Modal.Header>
                 <Modal.Body className='text-center text-dark'>
-                    <h2>Sign in with <br />Ethereum wallet</h2>
+                    <h2>Sign in with <br />Algorand wallet</h2>
 
                     <div className="py-4">
                         <Link to="/" className='mb-3 btn btn-primary text-white btn-login'>

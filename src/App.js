@@ -20,6 +20,7 @@ import Rari from './components/Rari';
 import Start from './components/Create/Start';
 import Type from './components/Create/Type';
 import Single from './components/Create/Single';
+import ProfileViewOther from "./components/ProfileViewOther";
 
 function App() {
   return (
@@ -66,6 +67,9 @@ function App() {
         </Route>
         <Route path="/create/single">
           <Single />
+        </Route>        
+        <Route path="/profileviewother">
+          <ProfileViewOther />
         </Route>
         <Route path="/">
           <Home />
