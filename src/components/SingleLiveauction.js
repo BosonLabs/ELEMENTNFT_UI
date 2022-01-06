@@ -7,10 +7,10 @@ import {
 //import ElementIcon from '../assets/images/elementlogo.png'
 
 
-const SingleBid = (props) => {
+const SingleLiveauction = (props) => {
     const location = useLocation();
     //console.log("Biddata",props.state)
-    console.log("Biddata",location.state)
+    console.log("Biddata",location.state.alldata)
     //https://img.rarible.com/prod/image/upload/t_big/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" alt="banner" 
     return (
         <Layout>
@@ -101,7 +101,7 @@ const SingleBid = (props) => {
                     <div className="sticky-bottom mt-auto text-center">
                         <Row className='mb-3'>
                             <Col xs={6}>
-                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg'>Place a bid</Button>
+                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg'>Waiting for owner to accept</Button>
                             </Col>
                             <Col xs={6}>
                                 <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg'>Buy</Button>
@@ -115,4 +115,4 @@ const SingleBid = (props) => {
     );
 };
 
-export default SingleBid;
+export default SingleLiveauction;

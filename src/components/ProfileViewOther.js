@@ -2,7 +2,7 @@ import React, { useState,useEffect} from "react";
 import Layout from './Layout';
 import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
 import {
-    Link
+    Link,useLocation
   } from "react-router-dom";
 
 import DummyPic from '../assets/images/dummy-icon.svg';
@@ -10,7 +10,10 @@ import DummyPic from '../assets/images/dummy-icon.svg';
 import firebase from '../firebase';
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
 
-function HomePage() {
+function HomePage(props) {
+
+    const location = useLocation(); 
+    console.log("hotcoll",location.state.alldata)
     const [show, setShow] = React.useState(false);
     const [toast, setToast] = React.useState(false);
     const [followers, setFollowers] = React.useState(false);

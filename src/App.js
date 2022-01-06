@@ -21,6 +21,7 @@ import Start from './components/Create/Start';
 import Type from './components/Create/Type';
 import Single from './components/Create/Single';
 import ProfileViewOther from "./components/ProfileViewOther";
+import SingleLiveauction from "./components/SingleLiveauction";
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
         </Route>
         <Route path="/activity">
           <ActivityPage />
+        </Route>
+        <Route path="/liveauction">
+          <SingleLiveauction />
         </Route>
         <Route path="/bid">
           <SingleBid />

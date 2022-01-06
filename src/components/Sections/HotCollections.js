@@ -88,7 +88,7 @@ const HotBids = () => {
                   
                     <div className='col mb-4'>  
                     
-                    <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" />
+                    <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/>
                     
                     </div>                   
                     </>                                                                                          
