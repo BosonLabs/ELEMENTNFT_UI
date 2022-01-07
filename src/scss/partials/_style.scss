@@ -527,7 +527,15 @@ h6{
 	}
 
 	&-image{
+		object-position: center;
 		border-radius: 6px;
+		object-fit: cover;
+		height: 170px;
+
+		@include maxDevice(575px){
+			height: auto;
+			width: 100%;
+		}
 	}
 
 	&-title{
@@ -582,7 +590,11 @@ h6{
 
 		img{
 			width: 100%;
+			width: inherit;
+			height: inherit;
+			object-fit: cover;
 			border-radius: 64px;
+			object-position: center;
 		}
 	}
 
@@ -1848,4 +1860,16 @@ video{
 			@include align-items(center);
 		}
 	}
+}
+
+.font-weight-normal{
+	font-weight: normal !important;
+}
+
+.update-pic{
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 100px;
+	object-position: center;
 }
