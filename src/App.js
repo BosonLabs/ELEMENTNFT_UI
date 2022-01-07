@@ -22,6 +22,7 @@ import Type from './components/Create/Type';
 import Single from './components/Create/Single';
 import ProfileViewOther from "./components/ProfileViewOther";
 import SingleLiveauction from "./components/SingleLiveauction";
+import Edit from "./components/Create/edit";
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/settings">
+          <Edit />
         </Route>
         <Route path="/following">
           <FollowingPage />
