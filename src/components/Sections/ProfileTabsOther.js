@@ -8,6 +8,10 @@ import Activity from '../Snippets/tabs/Activity';
 import Owned from '../Snippets/tabs/Owned';
 import firebase from '../../firebase';
 import Card from '../Snippets/Card';
+import OnSaleLike from '../Snippets/tabs/OnSaleLike';
+import OnSaleOther from '../Snippets/tabs/OnSaleOther';
+import CreatedViewOther from '../Snippets/tabs/CreatedViewOther';
+
 
 const ProfileTabsOther = (create) => {
 
@@ -17,31 +21,26 @@ const ProfileTabsOther = (create) => {
     
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">
-            <Tab eventKey="onSale" title="On sale">
-                <OnSale data={create.sale}/>
-            </Tab>
-            <Tab eventKey="owned" title="Owned">
-                <Owned data={create.buyed}/>
-            </Tab>            
-            
-                <Tab eventKey="created" title="Created">                
-                <Created data={create.create}/>
-                </Tab>
-                {/* {getImgreffalgo.map((x, index) => {
-                <>
-                </>
-              })}       */}
-            
-            <Tab eventKey="collections" title={<span>Collections <span class="badge badge-new">new</span></span>}>
-                <Collection />
-            </Tab>
-            <Tab eventKey="liked" title="Liked">
-                <Liked />
-            </Tab>
-            <Tab eventKey="activity" title="Activity">
-                <Activity />
-            </Tab>
-        </Tabs>
+        <Tab eventKey="onSale" title="On sale">
+            <OnSaleOther data={create.sale}/>
+        </Tab>
+        <Tab eventKey="owned" title="Owned">
+            <OnSale data={create.buyed}/>
+        </Tab>                        
+        <Tab eventKey="created" title="Created">                
+            <CreatedViewOther data={create.create}/>
+        </Tab>                
+        <Tab eventKey="collections" title={<span>Collections <span class="badge badge-new">new</span></span>}>
+            <Collection />
+        </Tab>
+        <Tab eventKey="liked" title="Liked">
+            <OnSaleLike data={create.sale}/>
+        </Tab>        
+        <Tab eventKey="activity" title="Activity">
+            <Activity data={create.create}/>
+        </Tab>
+    </Tabs>
+ 
     );
 };
 

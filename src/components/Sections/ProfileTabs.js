@@ -14,8 +14,7 @@ const ProfileTabs = (create) => {
 
     console.log("bcreate",create.create)    
     console.log("bsale",create.sale) 
-    console.log("bbuyed",create.buyed) 
-    
+    console.log("bbuyed",create.buyed)     
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">
             <Tab eventKey="onSale" title="On sale">

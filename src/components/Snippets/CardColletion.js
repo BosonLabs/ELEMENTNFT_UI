@@ -9,7 +9,7 @@ import Logo from '../../assets/images/dummy-icon.svg'
 const CardCollection = (props) => {    
     return (
         <Link  to={{
-            pathname: "/profile",
+            pathname: "/profileviewother",
             state:{alldata:props.dataall}
           }}>
             <Card className='p-10 text-center'>

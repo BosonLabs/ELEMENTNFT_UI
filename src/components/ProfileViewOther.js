@@ -8,6 +8,7 @@ import {
 import DummyPic from '../assets/images/dummy-icon.svg';
 //import ProfileTabs from './Sections/ProfileTabs';
 import firebase from '../firebase';
+import ProfileTabs from "./Sections/ProfileTabs";
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
 
 function HomePage(props) {
@@ -168,7 +169,7 @@ function HomePage(props) {
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
-                        <Button variant='white' onClick={handleShow}>Add cover</Button>
+                        {/* <Button variant='white' onClick={handleShow}>Add cover</Button> */}
                     </div>
 
                     <Link to="/profile" className='profile-pic'><img src={DummyPic} alt="pic" /><span>Edit</span></Link>
@@ -191,7 +192,7 @@ function HomePage(props) {
                 </div>
 
                 <div className="mb-4 text-center d-flex align-items-center justify-content-center">
-                    <Link to="/profile" className='btn btn-white'>Edit profile</Link>
+                    {/* <Link to="/profile" className='btn btn-white'>Edit profile</Link> */}
 
                     <Dropdown className='dropdown-noarrow ms-2'>
                         <Dropdown.Toggle variant="white" className='btn-round btn-round-sm'>
