@@ -39,15 +39,16 @@ function HomePage(props) {
 
     //const[getIf,setgetIf]=useState([""]); 
     //console.log("gethome",getIf)        
-    const[getIfo,setgetIfo]=useState([""]); 
+    const[getIfo,setgetIfo]=useState([null]); 
     console.log("gethomeo",getIfo)        
-    const[getIfl,setgetIfl]=useState([""]); 
+    const[getIfl,setgetIfl]=useState([null]); 
     console.log("gethomefl",getIfl)        
 
 
     const dbcallowner=async()=>{      
       console.log("Insowner",location.state.alldata.ownerAddress)
       let reqoo = [];      
+      try {
         firebase.database().ref("followings").child(location.state.alldata.ownerAddress).on("value", (data) => {
           console.log("Insowners",data)
           if (data) {              
@@ -60,7 +61,10 @@ function HomePage(props) {
             })          
           }
           setgetIfo(reqoo);
-        });                
+        })   
+      } catch (error) {
+        console.log('error occured during search', error);
+      }          
     }
     
   useEffect(()=>{dbcallowner()},[])
@@ -69,10 +73,11 @@ function HomePage(props) {
     let reqo = [];
     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
     }
-    else{            
+    else{   
+      try {         
       firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
         if (data) {              
-          console.log("tata",data.val().walletAddress)
+          //console.log("tata",data.val().walletAddress)
           reqo.push({
             TimeStamp:data.val().TimeStamp,
             follower:data.val().follower,
@@ -82,7 +87,10 @@ function HomePage(props) {
         }
         setgetIfl(reqo);
       });
-    }      
+    } catch (error) {
+      console.log('error occured during search', error);
+    }  
+    }          
   }
   
 useEffect(()=>{dbcallother()},[])
@@ -258,6 +266,7 @@ useEffect(()=>{dbcallother()},[])
       
     const followstart=async()=>{
       let allarr;
+      let allarr2;
       let allarrb;
       let allarrb2;
       let followa=[];
@@ -267,43 +276,54 @@ useEffect(()=>{dbcallother()},[])
       let dateset=new Date().toDateString();      
       const db = ref2.push().key;                                     
       //followinga.push(localStorage.getItem('wallet'))
-      getIfl.map((a)=>{
-        console.log("mappro",a.walletAddress)
-        if(a.walletAddress === null || a.walletAddress === undefined || a.walletAddress === "" || a.walletAddress === " " ){                  
-          followa.push(location.state.alldata.ownerAddress)
-          let chars = followa
+      if(getIfl === null || getIfl === undefined || getIfl === ""){
+        console.log("null1","null1")
+      }
+      else{
+        getIfl.map((a)=>{
+          //console.log("mappro",a.walletAddress)
+          if(a.walletAddress === null || a.walletAddress === undefined || a.walletAddress === "" || a.walletAddress === " " || a.follower === ""){                  
+            //followa.push(location.state.alldata.ownerAddress)
+            allarr2=a.following.concat(location.state.alldata.ownerAddress) 
+            let chars = allarr2
+            let uniqueChars = new Set(chars);
+            console.log("uni1",uniqueChars);
+            ref2.set({        
+              walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars,follower:""})
+              .then(()=>{
+                alert("done1")              
+                })          
+          }else{          
+          allarr=a.following.concat(location.state.alldata.ownerAddress)               
+          let chars = allarr
+          let uniqueChars = new Set(chars);
+          console.log("uni2",uniqueChars);
+          ref2.set({        
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars,follower:a.follower})
+          .then(()=>{          
+               alert("done2")
+            })
+          }                
+      })                  
+        console.log("allarr",allarr) 
+      }
+      if(getIfo === "" || getIfo === null || getIfo === undefined )  {
+        console.log("null2","null2")
+      }else{
+        getIfo.map((b)=>{        
+          allarrb=b.follower.concat(localStorage.getItem('wallet'))                                 
+          let chars = allarrb
           let uniqueChars = new Set(chars);
           console.log("uni",uniqueChars);
-          ref2.set({        
-            walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars,follower:""})
-            .then(()=>{
-              alert("done1")              
-              })          
-        }else{          
-        allarr=a.following.concat(location.state.alldata.ownerAddress)               
-        let chars = allarr
-        let uniqueChars = new Set(chars);
-        console.log("uni",uniqueChars);
-        ref2.set({        
-        walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars,follower:a.follower})
-        .then(()=>{          
-             alert("done2")
-          })
-        }                
-    })                  
-      console.log("allarr",allarr)      
-      getIfo.map((b)=>{        
-        allarrb=b.follower.concat(localStorage.getItem('wallet'))                                 
-        let chars = allarrb
-        let uniqueChars = new Set(chars);
-        console.log("uni",uniqueChars);
-        firebase.database().ref(`followings/${location.state.alldata.ownerAddress}`).set({
-          walletAddress:location.state.alldata.ownerAddress,TimeStamp:dateset,follower:uniqueChars,following:b.following})
-          .then(()=>{    
-                alert("done3")
-          })
-      })
-      console.log("allarr2",allarrb)            
+          firebase.database().ref(`followings/${location.state.alldata.ownerAddress}`).set({
+            walletAddress:location.state.alldata.ownerAddress,TimeStamp:dateset,follower:uniqueChars,following:b.following})
+            .then(()=>{    
+                  alert("done3")
+            })
+        })
+        console.log("allarr2",allarrb)            
+      }
+      
     }
 
     return (
