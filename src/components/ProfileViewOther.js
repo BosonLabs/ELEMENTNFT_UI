@@ -10,11 +10,16 @@ import DummyPic from '../assets/images/dummy-icon.svg';
 import firebase from '../firebase';
 import ProfileTabs from "./Sections/ProfileTabs";
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
+import Algopng from '../assets/images/Algo.png'
+const axios = require('axios');
 
 function HomePage(props) {
 
     const location = useLocation(); 
-    console.log("hotcoll",location.state.alldata)
+    console.log("hotcoll",location.state.alldata.ownerAddress)    
+    //console.log("followlast",location.state.follow[0].follower)
+    //console.log("followlast2",location.state.follow[0].following)
+    
     const [show, setShow] = React.useState(false);
     const [toast, setToast] = React.useState(false);
     const [followers, setFollowers] = React.useState(false);
@@ -32,15 +37,103 @@ function HomePage(props) {
     const handleFollowing = () => setFollowing(true);
 
 
+    //const[getIf,setgetIf]=useState([""]); 
+    //console.log("gethome",getIf)        
+    const[getIfo,setgetIfo]=useState([""]); 
+    console.log("gethomeo",getIfo)        
+    const[getIfl,setgetIfl]=useState([""]); 
+    console.log("gethomefl",getIfl)        
+
+
+    const dbcallowner=async()=>{      
+      console.log("Insowner",location.state.alldata.ownerAddress)
+      let reqoo = [];      
+        firebase.database().ref("followings").child(location.state.alldata.ownerAddress).on("value", (data) => {
+          console.log("Insowners",data)
+          if (data) {              
+            console.log("tataam",data.val())
+            reqoo.push({
+              TimeStamp:data.val().TimeStamp,
+              follower:data.val().follower,
+              following:data.val().following,
+              walletAddress:data.val().walletAddress, 
+            })          
+          }
+          setgetIfo(reqoo);
+        });                
+    }
+    
+  useEffect(()=>{dbcallowner()},[])
+
+  const dbcallother=async()=>{    
+    let reqo = [];
+    if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+    }
+    else{            
+      firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
+        if (data) {              
+          console.log("tata",data.val().walletAddress)
+          reqo.push({
+            TimeStamp:data.val().TimeStamp,
+            follower:data.val().follower,
+            following:data.val().following,
+            walletAddress:data.val().walletAddress, 
+            })          
+        }
+        setgetIfl(reqo);
+      });
+    }      
+  }
+  
+useEffect(()=>{dbcallother()},[])
+
+
+
+
+
+    // const dbcallsaleal=async(index)=>{        
+    //     let req2 = [];
+    //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+    //     }
+    //     else{                        
+    //       axios({
+    //                 method: 'get',
+    //                 url: 'https://demonft-2e778-default-rtdb.firebaseio.com/followings.json',
+    //                 responseType: 'stream'
+    //               })
+    //                 .then(function (response) {
+    //                 let req = [];        
+    //                 req.push(response.data)
+    //                 let req2 =[];
+    //                 req.forEach((a) => {              
+    //                   console.log("Ddhome",a) 
+    //                   Object.keys(a).map(async(b)=>{                              
+    //                     console.log("Dadhomel",a[b].walletAddress)                       
+    //                       req2.push({                      
+    //                         TimeStamp:a[b].TimeStamp,
+    //                         follower:a[b].follower,
+    //                         following:a[b].following,
+    //                         walletAddress:a[b].walletAddress,                  
+    //                       })   
+    //                     //}                        
+    //                   })                                                                     
+    //                 });                        
+    //                 setgetIf(req2)  
+    //       })              
+    //   } 
+    // }
+    // useEffect(()=>{dbcallsaleal()},[])
+
+
     const dbcallalgo=async()=>{
         console.log("inside dbcallalgo function")  
         let req = [];
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-        }
-        else{
-          let getalgo=localStorage.getItem("wallet");    
+        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+        //}
+        //else{
+          //let getalgo=localStorage.getItem("wallet");    
           //let kreq =[];
-          firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+          firebase.database().ref("imagerefAlgo").child(location.state.alldata.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
                 //console.log("keycheck",d.key)
@@ -73,20 +166,20 @@ function HomePage(props) {
           });
           
         
-        }
+        //}
         //console.log("acc",getalgo)
       }
       
     useEffect(()=>{dbcallalgo()},[])
 
     const dbcallsalealgo=async()=>{
-        console.log("inside dbcallsalealgo function")        
+        //console.log("inside dbcallsalealgo function")        
         let req = [];      
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
-        }else{      
-          let getalgo=localStorage.getItem("wallet");          
+        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
+        //}else{      
+         //let getalgo=localStorage.getItem("wallet");          
           //let kreq =[];
-          firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
+          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.alldata.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
                 //console.log("keycheck",d.key)
@@ -114,7 +207,7 @@ function HomePage(props) {
             setgetImgreffalgosale(req);  
           });
           
-        }
+        //}
         console.log("accsale",getImgreffalgosale)
       
       }
@@ -124,12 +217,12 @@ function HomePage(props) {
     const dbcallalgobuy=async()=>{
         console.log("inside dbcallalgobuy function")  
         let req = [];      
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
-        }
-        else{              
-          let getalgo=localStorage.getItem("wallet");          
+        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
+        //}
+        //else{              
+          //let getalgo=localStorage.getItem("wallet");          
           //let kreq =[];
-          firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {      
+          firebase.database().ref("imagerefbuy").child(location.state.alldata.ownerAddress).on("value", (data) => {      
             if (data) {
               data.forEach((d) => {
                 //console.log("keycheck",d.key)
@@ -156,13 +249,62 @@ function HomePage(props) {
             }
             setgetImgreffalgobuy(req);
           });                  
-        }
+        //}
         //console.log("acc",getalgo)
       
       }
       
     useEffect(()=>{dbcallalgobuy()},[])
       
+    const followstart=async()=>{
+      let allarr;
+      let allarrb;
+      let allarrb2;
+      let followa=[];
+      //let followinga=[];      
+      let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+      //let ref22=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}}`);
+      let dateset=new Date().toDateString();      
+      const db = ref2.push().key;                                     
+      //followinga.push(localStorage.getItem('wallet'))
+      getIfl.map((a)=>{
+        console.log("mappro",a.walletAddress)
+        if(a.walletAddress === null || a.walletAddress === undefined || a.walletAddress === "" || a.walletAddress === " " ){                  
+          followa.push(location.state.alldata.ownerAddress)
+          let chars = followa
+          let uniqueChars = new Set(chars);
+          console.log("uni",uniqueChars);
+          ref2.set({        
+            walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars,follower:""})
+            .then(()=>{
+              alert("done1")              
+              })          
+        }else{          
+        allarr=a.following.concat(location.state.alldata.ownerAddress)               
+        let chars = allarr
+        let uniqueChars = new Set(chars);
+        console.log("uni",uniqueChars);
+        ref2.set({        
+        walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars,follower:a.follower})
+        .then(()=>{          
+             alert("done2")
+          })
+        }                
+    })                  
+      console.log("allarr",allarr)      
+      getIfo.map((b)=>{        
+        allarrb=b.follower.concat(localStorage.getItem('wallet'))                                 
+        let chars = allarrb
+        let uniqueChars = new Set(chars);
+        console.log("uni",uniqueChars);
+        firebase.database().ref(`followings/${location.state.alldata.ownerAddress}`).set({
+          walletAddress:location.state.alldata.ownerAddress,TimeStamp:dateset,follower:uniqueChars,following:b.following})
+          .then(()=>{    
+                alert("done3")
+          })
+      })
+      console.log("allarr2",allarrb)            
+    }
 
     return (
         <Layout>
@@ -177,23 +319,26 @@ function HomePage(props) {
 
                 <div className="mb-36 text-center">
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText('0x31dB...aB9d'); setToast(true)}}>
-                        <img src="https://rarible.com/9b703a21b9f93a1f0065.svg" alt="icon" />
-                        {!toast ? <span>0x31dB...aB9d</span> : (
+                        <img src={Algopng} alt="icon" />
+                        {!toast ? <span>{(location.state.alldata.ownerAddress).slice(0,8)}....{(location.state.alldata.ownerAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
                         )}
                     </Button>
+                    
                 </div>
 
-                <div className="mb-32 d-flex align-items-center justify-content-center">
+                <div className="mb-32 d-flex align-items-center justify-content-center">                                    
                     <Button variant='link' onClick={handleFollowers} className='btn-reset'><span>0</span> <span className='ms-1 text-gray'>followers</span></Button>
                     <Button variant='link' onClick={handleFollowing} className='btn-reset ms-4'><span>0</span> <span className='ms-1 text-gray'>following</span></Button>
                 </div>
 
                 <div className="mb-4 text-center d-flex align-items-center justify-content-center">
                     {/* <Link to="/profile" className='btn btn-white'>Edit profile</Link> */}
-
+                    <Button variant='link' onClick={()=>followstart()} className='btn d-md-block d-none btn-grad' >
+                    <span>Follow</span>
+                    </Button>&nbsp;
                     <Dropdown className='dropdown-noarrow ms-2'>
                         <Dropdown.Toggle variant="white" className='btn-round btn-round-sm'>
                             <svg viewBox="0 0 15 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.7086 5.2928L7.00146 0.585693L2.29436 5.2928C1.90383 5.68332 1.90383 6.31649 2.29436 6.70701C2.68488 7.09754 3.31805 7.09754 3.70857 6.70701L6.00146 4.41412V11C6.00146 11.5523 6.44918 12 7.00146 12C7.55375 12 8.00146 11.5523 8.00146 11V4.41412L10.2944 6.70701C10.6849 7.09754 11.318 7.09754 11.7086 6.70701C12.0991 6.31649 12.0991 5.68332 11.7086 5.2928ZM1.00146 10C1.55375 10 2.00146 10.4477 2.00146 11V14H12.0015V11C12.0015 10.4477 12.4492 10 13.0015 10C13.5538 10 14.0015 10.4477 14.0015 11V15C14.0015 15.5523 13.5538 16 13.0015 16H1.00146C0.44918 16 0.00146484 15.5523 0.00146484 15V11C0.00146484 10.4477 0.44918 10 1.00146 10Z" fill="currentColor"></path></svg>

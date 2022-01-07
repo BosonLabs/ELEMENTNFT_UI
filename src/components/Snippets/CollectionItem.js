@@ -6,8 +6,14 @@ import {
 import Icon from '../../assets/images/dummy-icon.svg';
 
 const CollectionItem = (props) => {
+    console.log("propstops",props.dataall)
+    //console.log("followcoll",props.follow)
     return (
-        <Link to="/" className='collection-item d-flex align-items-center'>
+        <Link className='collection-item d-flex align-items-center' to={{
+            pathname: "/profileviewother",
+            state:{alldata:props.dataall}
+            // ,follow:props.follow
+          }}>        
             <div className="collection-count">{props.count}</div>
             <div className="collection-image">
                 <img src={Icon} alt="icon" />

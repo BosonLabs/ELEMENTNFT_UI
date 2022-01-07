@@ -23,6 +23,7 @@ function Login() {
     //const [isOpen, setIsOpen] = useState(false);
     //const [addwallet, setaddwallet] = useState(null);
     const [isListtrys, setisListtrys] = useState([]);
+    console.log("islock",isListtrys)
     const [show, setShow] = React.useState(false);
     const [showcall, setShowcall] = React.useState(false);
     // const handleClose = () => setShow(false);
@@ -51,7 +52,7 @@ const connect=async()=>{
 }
 
 const setaddwallet=async(a)=>{
-    localStorage.getItem('wallet',a)    
+    localStorage.setItem('wallet',a)    
     setShow(false)
     setShowcall(true)
     //history.push("/")

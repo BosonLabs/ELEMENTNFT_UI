@@ -7,7 +7,9 @@ import CollectionItem from '../Snippets/CollectionItem';
 import moment from 'moment';
 import firebase from "../../firebase";
 
-const TopCollectionsSelles = () => {
+const TopCollectionsSelles = (props) => {
+
+    // console.log("topsc",props.follow)
     const dateOptions = ["1", "7", "30"];
     const directionOptions = ["Sellers", "Buyers"];
     const [date, setDate] = useState(dateOptions[0]);
@@ -179,7 +181,9 @@ const TopCollectionsSelles = () => {
                 <>
                 <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
                 <li>
-                        <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} />                        
+                {/* <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/> */}
+                        <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} dataall={x} />   
+                        {/* follow={props.follow} */}
                 </li>
                 </ul>                
                 </>
