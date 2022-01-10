@@ -147,7 +147,7 @@ const Start = () => {
           //console.log("addressget",addresses)
           //localStorage.getItem('wallet',addresses[0])
           const params = await algodclient.getTransactionParams().do();
-        let transoptin = algosdk.makeApplicationOptInTxnFromObject({
+          let transoptin = algosdk.makeApplicationOptInTxnFromObject({
           from: localStorage.getItem('wallet'),      
           appIndex:parseInt(appId),
           note: undefined,
