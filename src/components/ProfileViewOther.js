@@ -1,10 +1,10 @@
+/* eslint-disable use-isnan */
 import React, { useState,useEffect} from "react";
 import Layout from './Layout';
 import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
 import {
     Link,useLocation
   } from "react-router-dom";
-
 import DummyPic from '../assets/images/dummy-icon.svg';
 //import ProfileTabs from './Sections/ProfileTabs';
 import firebase from '../firebase';
@@ -25,6 +25,8 @@ function HomePage(props) {
     const [followers, setFollowers] = React.useState(false);
     const [following, setFollowing] = React.useState(false);
     const[getImgreffalgo,setgetImgreffalgo]=useState([]);
+    const[getIPro,setgetIPro]=useState([""]);
+    console.log("getIPro",getIPro) 
     console.log("getImgalgo",getImgreffalgo)
     const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
     console.log("getImgalgosale",getImgreffalgosale)
@@ -44,9 +46,36 @@ function HomePage(props) {
     const[getIfl,setgetIfl]=useState([null]); 
     console.log("gethomefl",getIfl)        
 
+    const dbcallPro=async()=>{            
+      let r=[];
+      try {         
+      firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
+        if (data) {                      
+            r.push({
+              Bio:data.val().Bio,
+              Customurl: data.val().Customurl,
+              Email: data.val().Email,
+              Imageurl:data.val().Imageurl,
+              Personalsiteurl: data.val().Personalsiteurl,
+              TimeStamp: data.val().TimeStamp,
+              Twittername: data.val().Twittername,
+              UserName: data.val().UserName,
+              WalletAddress: data.val().WalletAddress,
+              bgurl:data.val().bgurl
+            })                
+        }
+        setgetIPro(r);
+      });                  
+    } catch (error) {
+      console.log('error occured during search', error);    
+    }                
+    }    
+  useEffect(()=>{dbcallPro()},[])
+
+
 
     const dbcallowner=async()=>{      
-      console.log("Insowner",location.state.alldata.ownerAddress)
+      console.log("Insowner",location.state.alldata.ownerAddress)    
       let reqoo = [];      
       try {
         firebase.database().ref("followings").child(location.state.alldata.ownerAddress).on("value", (data) => {
@@ -60,6 +89,9 @@ function HomePage(props) {
               walletAddress:data.val().walletAddress, 
             })          
           }
+          else{
+            setgetIfo([]);  
+          }
           setgetIfo(reqoo);
         })   
       } catch (error) {
@@ -70,14 +102,10 @@ function HomePage(props) {
   useEffect(()=>{dbcallowner()},[])
 
   const dbcallother=async()=>{    
-    let reqo = [];
-    if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-    }
-    else{   
+    let reqo = [];    
       try {         
       firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
-        if (data) {              
-          //console.log("tata",data.val().walletAddress)
+        if (data) {                        
           reqo.push({
             TimeStamp:data.val().TimeStamp,
             follower:data.val().follower,
@@ -85,18 +113,16 @@ function HomePage(props) {
             walletAddress:data.val().walletAddress, 
             })          
         }
+        else{
+          setgetIfl([]);  
+        }
         setgetIfl(reqo);
       });
     } catch (error) {
-      console.log('error occured during search', error);
-    }  
+      console.log('error occured during search', error);    
     }          
-  }
-  
+  }  
 useEffect(()=>{dbcallother()},[])
-
-
-
 
 
     // const dbcallsaleal=async(index)=>{        
@@ -135,12 +161,7 @@ useEffect(()=>{dbcallother()},[])
 
     const dbcallalgo=async()=>{
         console.log("inside dbcallalgo function")  
-        let req = [];
-        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-        //}
-        //else{
-          //let getalgo=localStorage.getItem("wallet");    
-          //let kreq =[];
+        let req = [];        
           firebase.database().ref("imagerefAlgo").child(location.state.alldata.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
@@ -176,21 +197,14 @@ useEffect(()=>{dbcallother()},[])
         
         //}
         //console.log("acc",getalgo)
-      }
-      
+    }   
     useEffect(()=>{dbcallalgo()},[])
 
-    const dbcallsalealgo=async()=>{
-        //console.log("inside dbcallsalealgo function")        
-        let req = [];      
-        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
-        //}else{      
-         //let getalgo=localStorage.getItem("wallet");          
-          //let kreq =[];
+    const dbcallsalealgo=async()=>{       
+        let req = [];              
           firebase.database().ref("imagerefexploreoneAlgos").child(location.state.alldata.ownerAddress).on("value", (data) => {
             if (data) {
-              data.forEach((d) => {
-                //console.log("keycheck",d.key)
+              data.forEach((d) => {                
                 let value=d.val();
                 req.push(            
                   {
@@ -213,27 +227,16 @@ useEffect(()=>{dbcallother()},[])
               });        
             }
             setgetImgreffalgosale(req);  
-          });
-          
-        //}
-        console.log("accsale",getImgreffalgosale)
-      
-      }
-      
+          });                  
+        console.log("accsale",getImgreffalgosale)      
+    }      
     useEffect(()=>{dbcallsalealgo()},[])
 
-    const dbcallalgobuy=async()=>{
-        console.log("inside dbcallalgobuy function")  
-        let req = [];      
-        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
-        //}
-        //else{              
-          //let getalgo=localStorage.getItem("wallet");          
-          //let kreq =[];
-          firebase.database().ref("imagerefbuy").child(location.state.alldata.ownerAddress).on("value", (data) => {      
+    const dbcallalgobuy=async()=>{    
+        let req = [];          
+        firebase.database().ref("imagerefbuy").child(location.state.alldata.ownerAddress).on("value", (data) => {      
             if (data) {
-              data.forEach((d) => {
-                //console.log("keycheck",d.key)
+              data.forEach((d) => {                
                 let value=d.val();
                 req.push(            
                   {
@@ -256,12 +259,8 @@ useEffect(()=>{dbcallother()},[])
               });        
             }
             setgetImgreffalgobuy(req);
-          });                  
-        //}
-        //console.log("acc",getalgo)
-      
-      }
-      
+          });                          
+    }      
     useEffect(()=>{dbcallalgobuy()},[])
       
     const followstart=async()=>{
@@ -333,14 +332,27 @@ useEffect(()=>{dbcallother()},[])
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
+                      {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
+                        <>
+                    <img src={DummyPic} alt="pic" width={"1500px"} height={"260px"} /><span>Edit</span>
+                    </>
+                    ):(
+                      <>
+                    <img src={getIPro[0].Imageurl} alt="pic" width={"1500px"} height={"260px"}/><span>Edit</span>
+                    </>
+                    )}
                         {/* <Button variant='white' onClick={handleShow}>Add cover</Button> */}
-                    </div>
-
+                    </div>                    
+                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
                     <Link to="/profile" className='profile-pic'><img src={DummyPic} alt="pic" /><span>Edit</span></Link>
+                    ):(
+                    <Link to="/profile" className='profile-pic'><img src={getIPro[0].Imageurl} alt="pic" /><span>Edit</span></Link>
+                    )}
+                    
                 </div>
 
                 <div className="mb-36 text-center">
-                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText('0x31dB...aB9d'); setToast(true)}}>
+                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
                         <img src={Algopng} alt="icon" />
                         {!toast ? <span>{(location.state.alldata.ownerAddress).slice(0,8)}....{(location.state.alldata.ownerAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
