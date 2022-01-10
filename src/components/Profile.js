@@ -1,20 +1,28 @@
+/* eslint-disable use-isnan */
 import React, { useState,useEffect} from "react";
 import Layout from './Layout';
 import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
-
 import DummyPic from '../assets/images/dummy-icon.svg';
 import ProfileTabs from './Sections/ProfileTabs';
 import firebase from '../firebase';
+import Compress from "react-image-file-resizer";
+import Logo from '../assets/images/Algo.png';
+import { useHistory } from "react-router-dom";
 
 function HomePage() {
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);
     // });
 
+    const[getPro,setgetPro]=useState([""]);
+    console.log("setgetPro",getPro)
+    let history=useHistory();    
     const [show, setShow] = React.useState(false);
+    const [showL,setShowL] = React.useState(false);
+    const [showDone,setShowDone] = React.useState(false);  
     const [toast, setToast] = React.useState(false);
     const [followers, setFollowers] = React.useState(false);
     const [following, setFollowing] = React.useState(false);
@@ -24,11 +32,101 @@ function HomePage() {
     console.log("getImgalgosale",getImgreffalgosale)
     const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
     console.log("getImgalgobuy",getImgreffalgobuy)
-
+    const [Img,setImg] = useState("")
     const handleClose = () => {setShow(false); setFollowers(false); setFollowing(false)};
     const handleShow = () => setShow(true);
     const handleFollowers = () => setFollowers(true);
     const handleFollowing = () => setFollowing(true);
+    const handleCloseL = () => setShowL(false);
+    
+    const captureFile =async(event) => {
+      event.stopPropagation()
+      event.preventDefault()
+      const file = event.target.files[0]
+      let reader = new window.FileReader()
+      try{
+      Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
+      uri => {
+        console.log("iuri",uri)
+        setImg(uri)      
+        setShow(false)
+        setShowL(true)        
+        updatecover(uri);
+      },
+      'base64'
+      );
+      reader.readAsArrayBuffer(file)
+      console.log(reader)          
+    }catch (err) {
+      console.error(err);    
+      }
+    };
+
+    const updatecover=async(u)=>{
+      firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {
+        console.log("pdata1",data)
+        if (data) {              
+        console.log("pdata2",data.val())
+        let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+        let dateset=new Date().toDateString();                
+        ref2.update({
+        Imageurl:data.val().Imageurl,bgurl:u,
+        UserName:data.val().UserName,Customurl:data.val().Customurl,WalletAddress:localStorage.getItem('wallet'),
+        TimeStamp:dateset,Twittername:data.val().Twittername,Personalsiteurl:data.val().Personalsiteurl,Email:data.val().Email,Bio:data.val().Bio})
+        .then(()=>{          
+          setShowL(false)                                    
+          setShowDone(true)
+        }).catch((err) => {                                    
+          setShowL(false)                     
+          console.log(err);
+        });   
+        }
+        else{
+          console.log("pdata2",data.val())
+          let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+          let dateset=new Date().toDateString();                
+          ref2.set({
+          Imageurl:"",bgurl:Img,
+          UserName:"",Customurl:"",WalletAddress:localStorage.getItem('wallet'),
+          TimeStamp:dateset,Twittername:"",Personalsiteurl:"",Email:"",Bio:""})
+          .then(()=>{          
+          setShowL(false)                                    
+          setShowDone(true)
+        }).catch((err) => {                                    
+          setShowL(false)                     
+          console.log(err);
+        });   
+        }
+      })
+    }
+
+
+    const dbgetcover=async()=>{      
+      let req = [];
+      if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+      }
+      else{          
+          firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+          if (data) {              
+          console.log("pdata2",data.val())
+              req.push({
+                Bio:data.val().Bio,
+                Customurl: data.val().Customurl,
+                Email: data.val().Email,
+                Imageurl:data.val().Imageurl,
+                Personalsiteurl: data.val().Personalsiteurl,
+                TimeStamp: data.val().TimeStamp,
+                Twittername: data.val().Twittername,
+                UserName: data.val().UserName,
+                WalletAddress: data.val().WalletAddress,
+                bgurl:data.val().bgurl
+              })                
+          }
+          setgetPro(req);
+        });                  
+      }        
+    }      
+  useEffect(()=>{dbgetcover()},[])
 
 
     const dbcallalgo=async()=>{
@@ -61,21 +159,13 @@ function HomePage() {
                   HistoryAddress:value.HistoryAddress,
                   Appid:value.Appid   
                   }          
-                )
-                //image:images/content/card-pic-1.jpg
-                //image2x: "/images/content/card-pic-1@2x.jpg",
-      
-                //req.push(d.key)          
+                )                
               });        
             }
             setgetImgreffalgo(req);
-          });
-          
-        
-        }
-        //console.log("acc",getalgo)
-      }
-      
+          });                  
+        }        
+      }      
     useEffect(()=>{dbcallalgo()},[])
 
     const dbcallsalealgo=async()=>{
@@ -158,9 +248,13 @@ function HomePage() {
         }
         //console.log("acc",getalgo)
       
-      }
-      
+      }      
     useEffect(()=>{dbcallalgobuy()},[])
+
+    const done=()=>{
+      //history.push("/profile")
+      //window.location.reload(false);    
+    }
       
 
     return (
@@ -168,16 +262,36 @@ function HomePage() {
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
+                    {getPro === null || getPro === "" || getPro === undefined || getPro === " " || getPro === NaN ? (
+                        <>
+                          <img src={DummyPic} alt="pics" width={"1500px"} height={"260px"} /><span>Edit</span>
+                        </>
+                      ):(
+                        <>
+                          <img src={getPro[0].bgurl} alt="pics" width={"1500px"} height={"260px"}/><span>Edit</span>
+                        </>
+                      )}
                         <Button variant='white' onClick={handleShow}>Add cover</Button>
                     </div>
 
-                    <Link to="/profile" className='profile-pic'><img src={DummyPic} alt="pic" /><span>Edit</span></Link>
+                    <Link to="/profile" className='profile-pic'>
+                      {getPro === null || getPro === "" || getPro === undefined || getPro === " " || getPro === NaN ? (
+                        <>
+                          <img src={DummyPic} alt="pic" /><span>Edit</span>
+                        </>
+                      ):(
+                        <>
+                          <img src={getPro[0].bgurl} alt="pic" /><span>Edit</span>
+                        </>
+                      )}
+                      
+                      </Link>
                 </div>
 
                 <div className="mb-36 text-center">
-                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText('0x31dB...aB9d'); setToast(true)}}>
-                        <img src="https://rarible.com/9b703a21b9f93a1f0065.svg" alt="icon" />
-                        {!toast ? <span>0x31dB...aB9d</span> : (
+                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(localStorage.getItem('wallet')); setToast(true)}}>
+                        <img src={Logo} alt="icon" />
+                        {!toast ? <span>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
@@ -191,7 +305,7 @@ function HomePage() {
                 </div>
 
                 <div className="mb-4 text-center d-flex align-items-center justify-content-center">
-                    <Link to="/profile" className='btn btn-white'>Edit profile</Link>
+                    <Link to="/settings" className='btn btn-white'>Edit profile</Link>                    
 
                     <Dropdown className='dropdown-noarrow ms-2'>
                         <Dropdown.Toggle variant="white" className='btn-round btn-round-sm'>
@@ -245,18 +359,28 @@ function HomePage() {
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header >
                 <Modal.Title>Update cover</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution
-
+                <Modal.Body>                    
                     <div className="mt-3">
-                        <input type="file" hidden id='uploadFile' />
-                        <label htmlFor="uploadFile" className='mb-3 btn btn-primary btn-lg w-100'>Select file</label>
-                        <Button variant="white" className='w-100' size={'lg'} onClick={handleClose}>
-                            Cancel
-                        </Button>
+                      {localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" ? (
+                      <>
+                      <Link to="/connect">
+                      <label htmlFor="uploadFile" className='mb-3 btn btn-primary btn-lg w-100'>Please Connect Wallet</label>
+                      </Link>
+                      </>
+                      ):(
+                      <>
+                      Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution
+                      <input type="file" hidden id='uploadFile' onChange = {captureFile}/>
+                      <label htmlFor="uploadFile" className='mb-3 btn btn-primary btn-lg w-100'>Select file</label>
+                      <Button variant="white" className='w-100' size={'lg'} onClick={handleClose}>
+                          Cancel
+                      </Button>
+                      </>
+                      )}
+                        
                     </div>
                 </Modal.Body>
             </Modal>
@@ -266,9 +390,7 @@ function HomePage() {
                 <Modal.Title>Followers</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution
-
-                    
+                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution                    
                 </Modal.Body>
             </Modal>
             <Modal show={following} size="sm" className="modal-reset" centered onHide={handleClose}>
@@ -276,9 +398,25 @@ function HomePage() {
                 <Modal.Title>Following</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution
+                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution                    
+                </Modal.Body>
+            </Modal>
+            <Modal show={showL} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>Loading...</h3>
+                    </div>                    
+                </Modal.Body>
+            </Modal>
 
-                    
+            <Modal show={showL} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                    <h3>Upload Successfully...</h3>
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>done()}>Done</Button>
                 </Modal.Body>
             </Modal>
         </Layout>

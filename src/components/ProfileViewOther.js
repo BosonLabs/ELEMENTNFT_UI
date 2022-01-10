@@ -126,7 +126,7 @@ useEffect(()=>{dbcallother()},[])
     //                     //}                        
     //                   })                                                                     
     //                 });                        
-    //                 setgetIf(req2)  
+    //                 setgetIfo(req2)  
     //       })              
     //   } 
     // }
@@ -271,19 +271,20 @@ useEffect(()=>{dbcallother()},[])
       let allarrb2;
       let followa=[];
       //let followinga=[];      
-      let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-      //let ref22=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}}`);
-      let dateset=new Date().toDateString();      
-      const db = ref2.push().key;                                     
+      
       //followinga.push(localStorage.getItem('wallet'))
-      if(getIfl === null || getIfl === undefined || getIfl === ""){
+      if(getIfl.length === 0 || getIfl === null || getIfl === undefined || getIfl === "" || getIfl === NaN ){
         console.log("null1","null1")
       }
       else{
+        let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+        //let ref22=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}}`);
+        let dateset=new Date().toDateString();      
+        const db = ref2.push().key;                                     
         getIfl.map((a)=>{
-          //console.log("mappro",a.walletAddress)
+          console.log("mappro",a.walletAddress)
           if(a.walletAddress === null || a.walletAddress === undefined || a.walletAddress === "" || a.walletAddress === " " || a.follower === ""){                  
-            //followa.push(location.state.alldata.ownerAddress)
+            followa.push(location.state.alldata.ownerAddress)
             allarr2=a.following.concat(location.state.alldata.ownerAddress) 
             let chars = allarr2
             let uniqueChars = new Set(chars);
@@ -307,9 +308,10 @@ useEffect(()=>{dbcallother()},[])
       })                  
         console.log("allarr",allarr) 
       }
-      if(getIfo === "" || getIfo === null || getIfo === undefined )  {
+      if(getIfo.length === 0 || getIfo === "" || getIfo === null || getIfo === undefined )  {
         console.log("null2","null2")
       }else{
+        let dateset=new Date().toDateString();            
         getIfo.map((b)=>{        
           allarrb=b.follower.concat(localStorage.getItem('wallet'))                                 
           let chars = allarrb
