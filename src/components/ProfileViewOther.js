@@ -64,6 +64,9 @@ function HomePage(props) {
               bgurl:data.val().bgurl
             })                
         }
+        else{
+          setgetIPro([""]);  
+        }
         setgetIPro(r);
       });                  
     } catch (error) {
@@ -90,7 +93,7 @@ function HomePage(props) {
             })          
           }
           else{
-            setgetIfo([]);  
+            setgetIfo([""]);  
           }
           setgetIfo(reqoo);
         })   
@@ -114,7 +117,7 @@ function HomePage(props) {
             })          
         }
         else{
-          setgetIfl([]);  
+          setgetIfl([""]);  
         }
         setgetIfl(reqo);
       });
@@ -272,7 +275,7 @@ useEffect(()=>{dbcallother()},[])
       //let followinga=[];      
       
       //followinga.push(localStorage.getItem('wallet'))
-      if(getIfl.length === 0 || getIfl === null || getIfl === undefined || getIfl === "" || getIfl === NaN ){
+      if(getIfl[0].length === 0 || getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN ){
         console.log("null1","null1")
       }
       else{
@@ -280,7 +283,7 @@ useEffect(()=>{dbcallother()},[])
         //let ref22=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}}`);
         let dateset=new Date().toDateString();      
         const db = ref2.push().key;                                     
-        getIfl.map((a)=>{
+        getIfl[0].map((a)=>{
           console.log("mappro",a.walletAddress)
           if(a.walletAddress === null || a.walletAddress === undefined || a.walletAddress === "" || a.walletAddress === " " || a.follower === ""){                  
             followa.push(location.state.alldata.ownerAddress)
@@ -307,11 +310,11 @@ useEffect(()=>{dbcallother()},[])
       })                  
         console.log("allarr",allarr) 
       }
-      if(getIfo.length === 0 || getIfo === "" || getIfo === null || getIfo === undefined )  {
+      if(getIfo[0].length === 0 || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN)  {
         console.log("null2","null2")
       }else{
         let dateset=new Date().toDateString();            
-        getIfo.map((b)=>{        
+        getIfo[0].map((b)=>{        
           allarrb=b.follower.concat(localStorage.getItem('wallet'))                                 
           let chars = allarrb
           let uniqueChars = new Set(chars);
@@ -323,8 +326,7 @@ useEffect(()=>{dbcallother()},[])
             })
         })
         console.log("allarr2",allarrb)            
-      }
-      
+      }      
     }
 
     return (
@@ -334,19 +336,22 @@ useEffect(()=>{dbcallother()},[])
                     <div className="profile-card">
                       {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
                         <>
-                    <img src={DummyPic} alt="pic" width={"1500px"} height={"260px"} /><span>Edit</span>
+                      <img src={DummyPic} alt="pic" width={"1500px"} height={"260px"} /><span>Edit</span>
                     </>
                     ):(
                       <>
-                    <img src={getIPro[0].Imageurl} alt="pic" width={"1500px"} height={"260px"}/><span>Edit</span>
+                      <img src={getIPro[0].Imageurl} alt="pic" width={"1500px"} height={"260px"}/><span>Edit</span>
                     </>
-                    )}
-                        {/* <Button variant='white' onClick={handleShow}>Add cover</Button> */}
+                    )}                      
                     </div>                    
                     {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
-                    <Link to="/profile" className='profile-pic'><img src={DummyPic} alt="pic" /><span>Edit</span></Link>
+                      <>
+                      <img src={DummyPic} alt="pic" /><span>Edit</span>
+                      </>
                     ):(
-                    <Link to="/profile" className='profile-pic'><img src={getIPro[0].Imageurl} alt="pic" /><span>Edit</span></Link>
+                      <>
+                      <img src={getIPro[0].Imageurl} alt="pic" /><span>Edit</span>
+                      </>
                     )}
                     
                 </div>
