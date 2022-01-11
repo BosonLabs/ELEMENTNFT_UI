@@ -96,7 +96,7 @@ const Explore = () => {
             </div>
 
             <div className="load-more">
-                <Button variant='border-grad' className='w-100' size="lg"><span>Load More</span></Button>
+                <Button variant='border-grad' className='w-100' size="lg" onClick={()=>{alert("hello")}}><span>Load More</span></Button>
             </div>
 
         </div>
