@@ -106,18 +106,13 @@ const TopCollections = () => {
                 {/* <Link to="/" className='btn d-none d-sm-inline-block ms-auto btn-white'>Sign in</Link> */}
             </div>
 
-            
-            {filterdata().map((x, index) => (                      
-                <>
-                <div className="overflow-auto">
-                <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
-                <li>
-                        <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} />                        
-                </li>
-                </ul>                
-                </div>
-                </>
+            <div className="">
+              <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
+            {filterdata().map((x, index) => (                                      
+                        <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} />                                                        
             ))}
+            </ul>
+            </div>
             
 
             {/* <div className="overflow-auto">
