@@ -176,18 +176,16 @@ const TopCollectionsSelles = (props) => {
                 </div>
             </div>
 
-            <div className="overflow-auto">
+            <div className="">
+              <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
             {filterdata().map((x, index) => (                      
-                <>
-                <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
-                <li>
+                <li className='mb-3'>
                 {/* <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/> */}
-                        <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} dataall={x} />   
+                        <CollectionItem verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} dataall={x} />   
                         {/* follow={props.follow} */}
                 </li>
-                </ul>                
-                </>
             ))}
+            </ul>                
                 {/* <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
                     <li>
                         <CollectionItem verify={true} count={1} title="adidas Originals: Into the Metaverse" amount="$34,845,758" />

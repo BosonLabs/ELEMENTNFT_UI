@@ -87,11 +87,11 @@ const LiveAuctions = () => {
                 console.log("logo",x)
                 return(  
                     <>
-                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">              
-                    <div className='col mb-4' >
+                    {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">               */}
+                    <div className='carousel-cell carousel-cell-20' >
                     <CardLiveA timer='19:10' img={x.Imageurl} verify={true} count="401" subTitle="$1,426,752" dataall={x}/> 
                     </div>                    
-                    </div>
+                    {/* </div> */}
                     </>                                                                                          
               )})}                                                                
                 

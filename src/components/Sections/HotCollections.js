@@ -85,11 +85,11 @@ const HotBids = () => {
                 console.log("logo",x)
                 return(  
                     <>                    
-                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1"> 
-                    <div className='col mb-4'>                                          
-                    <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/>                    
+                    {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">  */}
+                    <div className='carousel-cell carousel-cell-20'>                                          
+                      <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/>                    
                     </div>                   
-                    </div>
+                    {/* </div> */}
                     </>                                                                                          
               )})}                              
 
