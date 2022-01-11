@@ -339,7 +339,7 @@ const Start = () => {
       }
 
       const done=()=>{
-        history.push("/")
+        history.push("/profile")
         window.location.reload(false);    
       }
     return (
