@@ -3,11 +3,13 @@ import Flickity from 'react-flickity-component'
 // import {Row, Col} from 'react-bootstrap';
 import Card from '../Snippets/Card';
 import CardLiveA from "../Snippets/CardLiveA";
+import ReactPaginate from 'react-paginate';
 const axios = require('axios');
+
 
 const LiveAuctions = () => {
     const[getI,setgetI]=useState([]); 
-    console.log("getImgal",getI)    
+    console.log("getImgald",getI)    
     const check=()=>{
         alert("check")
     }
@@ -21,25 +23,22 @@ const LiveAuctions = () => {
 
     const dbcallsaleal=async(index)=>{
         console.log("hello ramachandran")        
-        console.log("inside dbcallsalealgo function")
-        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
-          //alert("please connect your wallet")
-        //}
-        //else{                        
+        console.log("inside dbcallsalealgo function")        
           axios({
             method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
+            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgolt.json',
             responseType: 'stream'
           })
             .then(function (response) {
             let req = [];        
             req.push(response.data)
             let req2 =[];
-            req.forEach((l) => {              
-              console.log("D",l)              
-              Object.keys(l).map(async(k)=>{                                        
-                const a=l[k];
-                Object.keys(a).map(async(b)=>{                    
+            req.forEach((a) => {              
+              console.log("Dl",a)              
+              Object.keys(a).map(async(b)=>{    
+                const l=a[b];
+                console.log("Dla",a[b])              
+                // Object.keys(a).map(async(b)=>{                    
                 req2.push({                      
                   Assetid:a[b].Assetid,
                   Imageurl:a[b].Imageurl,
@@ -56,11 +55,13 @@ const LiveAuctions = () => {
                   HistoryAddress:a[b].HistoryAddress,
                   Appid:a[b].Appid  
                   })   
-                })                                                                                                                
-              })                                                                     
+                //})                                                                                                                
+              })    
+              setgetI(req2)                                                                  
             });                        
-            setgetI(req2)  
-            });                    
+            
+            });   
+                             
       //} 
     }
     useEffect(()=>{dbcallsaleal()},[])
@@ -81,19 +82,20 @@ const LiveAuctions = () => {
                 static // default false
             >
               
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 row-cols-lg-6">
               
                 {getI.map((x, index) => {
                 console.log("logo",x)
                 return(  
                     <>
-                    <div className='col mb-4'>
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">              
+                    <div className='col mb-4' >
                     <CardLiveA timer='19:10' img={x.Imageurl} verify={true} count="401" subTitle="$1,426,752" dataall={x}/> 
                     </div>                    
+                    </div>
                     </>                                                                                          
-              )})}                                                  
-              
-                </div>
+              )})}                                                                
+                
+                
                 {/* <div className='carousel-cell carousel-cell-20'><Card timer='19:10' verify={true} title="Wizard Furbiez #29" count="8" subTitle={`<span>Auction</span> <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card verify={true} title="Wizard Furbiez #30" count="6" subTitle={`<span>Highest bid</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card timer='01:19:10' verify={true} title="Wizard Furbiez #26" count="25" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.001 WETH" /></div>
@@ -102,7 +104,7 @@ const LiveAuctions = () => {
                 <div className='carousel-cell carousel-cell-20'><Card timer='19:10' verify={true} title="Wizard Furbiez #26" count="25" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.001 WETH" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card verify={true} title="Wizard Furbiez #29" count="8" subTitle={`<span>Auction</span> <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card timer='19:10' verify={true} title="Wizard Furbiez #30" count="6" subTitle={`<span>Highest bid</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div> */}
-            </Flickity>
+            
 
             {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
               <div className='col mb-4'>
@@ -130,6 +132,9 @@ const LiveAuctions = () => {
                   <Card verify={true} title="ArtificialPaintings R0034 by AI" count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} linkText="0.221 WETH" />
               </div>
           </div> */}
+
+
+</Flickity>
 
         </div>
     );

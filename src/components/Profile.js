@@ -76,8 +76,10 @@ function HomePage() {
         .then(()=>{          
           setShowL(false)                                    
           setShowDone(true)
+          window.location.reload(false)
         }).catch((err) => {                                    
-          setShowL(false)                     
+          setShowL(false)              
+          window.location.reload(false)       
           console.log(err);
         });   
         }
@@ -92,9 +94,11 @@ function HomePage() {
           .then(()=>{          
           setShowL(false)                                    
           setShowDone(true)
+          window.location.reload(false)
         }).catch((err) => {                                    
           setShowL(false)                     
           console.log(err);
+          window.location.reload(false)
         });   
         }
       })
@@ -104,27 +108,31 @@ function HomePage() {
     const dbgetcover=async()=>{      
       let req = [];
       if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+        setgetPro([])
       }
-      else{          
+      else if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet'))){
           firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
-          if (data) {              
-          console.log("pdata2",data.val())
-              req.push({
-                Bio:data.val().Bio,
-                Customurl: data.val().Customurl,
-                Email: data.val().Email,
-                Imageurl:data.val().Imageurl,
-                Personalsiteurl: data.val().Personalsiteurl,
-                TimeStamp: data.val().TimeStamp,
-                Twittername: data.val().Twittername,
-                UserName: data.val().UserName,
-                WalletAddress: data.val().WalletAddress,
-                bgurl:data.val().bgurl
-              })                
-          }
-          setgetPro(req);
-        });                  
-      }        
+            if (data) {              
+            console.log("pdata2",data.val())
+                req.push({
+                  Bio:data.val().Bio,
+                  Customurl: data.val().Customurl,
+                  Email: data.val().Email,
+                  Imageurl:data.val().Imageurl,
+                  Personalsiteurl: data.val().Personalsiteurl,
+                  TimeStamp: data.val().TimeStamp,
+                  Twittername: data.val().Twittername,
+                  UserName: data.val().UserName,
+                  WalletAddress: data.val().WalletAddress,
+                  bgurl:data.val().bgurl
+                })                
+            }
+            setgetPro(req);
+          });                  
+        }
+        else{
+          setgetPro([]);
+        }                   
     }      
   useEffect(()=>{dbgetcover()},[])
 
@@ -262,7 +270,7 @@ function HomePage() {
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
-                    {getPro === null || getPro === "" || getPro === undefined || getPro === " " || getPro === NaN ? (
+                    {getPro[0] === null || getPro[0] === "" || getPro[0] === undefined || getPro[0] === " " || getPro[0] === NaN ? (
                         <>
                           <img src={DummyPic} alt="pics" width={"1500px"} height={"260px"} /><span>Edit</span>
                         </>
@@ -274,18 +282,21 @@ function HomePage() {
                         <Button variant='white' onClick={handleShow}>Add cover</Button>
                     </div>
 
-                    <Link to="/profile" className='profile-pic'>
-                      {getPro === null || getPro === "" || getPro === undefined || getPro === " " || getPro === NaN ? (
-                        <>
-                          <img src={DummyPic} alt="pic" /><span>Edit</span>
+                   
+                      {getPro[0] === null || getPro[0] === "" || getPro[0] === undefined || getPro[0] === " " || getPro[0] === NaN ? (
+                        <> <Link to="/settings" className='profile-pic'>
+                          <img src={DummyPic} alt="pic" onClick={()=>alert("image")}/><span>Edit</span>
+                          </Link>
                         </>
                       ):(
                         <>
+                        <Link to="/settings" className='profile-pic'>
                           <img src={getPro[0].bgurl} alt="pic" /><span>Edit</span>
+                          </Link>
                         </>
                       )}
                       
-                      </Link>
+                      
                 </div>
 
                 <div className="mb-36 text-center">

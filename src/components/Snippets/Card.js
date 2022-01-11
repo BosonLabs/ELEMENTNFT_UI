@@ -92,8 +92,9 @@ const CardCreate = (props) => {
         }
 
         const refresh=()=>{
-            setshowTestDone(false)
             window.location.reload(false)
+            setshowTestDone(false)
+            
         }
     const onshow2=()=>{
         setShowTestLoading(true)

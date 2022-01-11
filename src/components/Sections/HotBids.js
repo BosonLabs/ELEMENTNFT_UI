@@ -78,17 +78,19 @@ const HotBids = () => {
                 static // default false
             >
 
-<div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 row-cols-lg-6">
+
 {getI.map((x, index) => {
                 console.log("logo",x)
                 return(  
                     <>
+                    <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1">
                     <div className='col mb-4'>
                     <CardHotbids verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} />
                     </div>                    
+                    </div>
                     </>                                                                                          
               )})}                              
-</div>
+
 
 
                 {/* <div className='carousel-cell carousel-cell-20'><Card title="LAND (-98, 129)" count="65" subTitle={`6.5 ETH <span>1/1</span>`} linkText="Buy now" /></div>
