@@ -108,8 +108,10 @@ const TopCollections = () => {
 
             <div className="">
               <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
-            {filterdata().map((x, index) => (                                      
-                        <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} />                                                        
+            {filterdata().map((x, index) => (     
+                <li className='mb-3'>
+                    <CollectionItem verify={true} count={1} title={x.NFTName} amount={x.NFTPrice} />                                                        
+                </li>                                 
             ))}
             </ul>
             </div>
