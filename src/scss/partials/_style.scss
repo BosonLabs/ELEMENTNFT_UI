@@ -331,12 +331,12 @@ h6{
 		padding-bottom: 5px;
 
 		li{
-			width: 272px;
-			min-width: 272px;
-			margin-right: 15px;
+			width: 33.33%;
+			min-width: 240px;
+			padding-right: 15px;
 
 			&:last-child{
-				margin-right: 0;
+				padding-right: 0;
 			}
 		}
 	}

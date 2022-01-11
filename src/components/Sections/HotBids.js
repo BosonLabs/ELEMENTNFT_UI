@@ -80,14 +80,16 @@ const HotBids = () => {
 
 
 {getI.map((x, index) => {
-                console.log("logo",x)
+                // console.log("logo",x)
                 return(  
                     <>
-                    <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1">
-                    <div className='col mb-4'>
-                    <CardHotbids verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} />
-                    </div>                    
+                    {/* <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1">
+                    <div className='col mb-4'> */}
+                    <div className='carousel-cell carousel-cell-20'>
+                      <CardHotbids verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} />
                     </div>
+                    {/* </div>                    
+                    </div> */}
                     </>                                                                                          
               )})}                              
 
