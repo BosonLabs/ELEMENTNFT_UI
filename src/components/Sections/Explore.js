@@ -9,8 +9,9 @@ const axios = require('axios');
 const Explore = () => {
 
     
-    const[getI,setgetI]=useState([]); 
+    const[getI,setgetI]=useState([]);   
     console.log("getImgal",getI)    
+    const[pageSize,setPageSize]=useState(6); 
     const check=()=>{
 
         alert("check")
@@ -76,6 +77,7 @@ const Explore = () => {
                 
                 {getI.map((x, index) => {
                 console.log("logo",x)
+                if(index<pageSize)
                 return(  
                     <>
                     <div className='col mb-4'>
@@ -96,7 +98,7 @@ const Explore = () => {
             </div>
 
             <div className="load-more">
-                <Button variant='border-grad' className='w-100' size="lg" onClick={()=>{alert("hello")}}><span>Load More</span></Button>
+                <Button variant='border-grad' className='w-100' size="lg" onClick={()=>{setPageSize(pageSize+6)}}><span>Load More</span></Button>
             </div>
 
         </div>
