@@ -99,7 +99,7 @@ const setaddwallet=async(a)=>{
 
 const oncloseAll=async()=>{
     setShowcall(false)
-    history.push("/")
+    history.push("/profile")
     window.location.reload(false);    
 }
 
