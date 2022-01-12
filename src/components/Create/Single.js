@@ -268,6 +268,7 @@ const Start = () => {
                     let appId="50714558";
                     let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
                     let ref22=fireDb.database().ref(`imagerefAlgolt`);   
+                    let refactivity=fireDb.database().ref(`activitytable`);   
                                   let dateset=new Date().toDateString();
                                   console.log("dateget",dateset)
                                   const db = ref2.push().key;                         
@@ -278,7 +279,12 @@ const Start = () => {
                                   NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
                                   TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId})
                                   .then(()=>{
-                                  ref22.child(db).set({
+                                    refactivity.child(db).set({
+                                        Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                        NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId})
+                                        .then(()=>{                                        
+                                    ref22.child(db).set({
                                     Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                     NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
                                     TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId
@@ -334,7 +340,8 @@ const Start = () => {
                             //end pinata here                      
                                     
                                   })              
-                                  })                                
+                                  })
+                                })                                
         
       }
 

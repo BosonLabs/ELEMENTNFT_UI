@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Layout from './Layout';
 import {Container, Tabs, Tab, Row, Col} from 'react-bootstrap';
 import Filter from './Snippets/tabs/filters';
@@ -6,9 +6,50 @@ import Activity from './Snippets/Activity';
 import {
     Link
   } from "react-router-dom";
+import firebase from '../firebase';
 
 
 function ActivityPage() {
+    const[getImgreffalgo,setgetImgreffalgo]=React.useState([]);
+    console.log("getImgalgo",getImgreffalgo)
+    const dbcallalgo=async()=>{
+        console.log("inside dbcallalgo function")  
+        let req = [];
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+        }
+        else{
+          let getalgo=localStorage.getItem("wallet");    
+          //let kreq =[];
+          firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+            if (data) {
+              data.forEach((d) => {
+                //console.log("keycheck",d.key)
+                let value=d.val();
+                req.push(            
+                  {
+                  Assetid:value.Assetid,
+                  Imageurl:value.Imageurl,
+                  NFTPrice:value.NFTPrice,
+                  EscrowAddress:value.EscrowAddress,
+                  keyId:value.keyId,
+                  NFTName:value.NFTName,
+                  userSymbol:value.userSymbol,
+                  Ipfsurl:value.Ipfsurl,
+                  ownerAddress:value.ownerAddress,
+                  previousoaddress:value.previousoaddress,
+                  TimeStamp:value.TimeStamp,
+                  NFTDescription:value.NFTDescription,
+                  HistoryAddress:value.HistoryAddress,
+                  Appid:value.Appid   
+                  }          
+                )                
+              });        
+            }
+            setgetImgreffalgo(req);
+          });                  
+        }        
+      }      
+    useEffect(()=>{dbcallalgo()},[])
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);
     // });
@@ -21,27 +62,18 @@ function ActivityPage() {
                         Activity
                     </div>
 
-                    <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4 nav-tabs-start">
-                        <Tab eventKey="onSale" title="All">
+                    <Tabs defaultActiveKey="created" id="profile-tabs" className="mb-4 nav-tabs-start">
+                        {/* <Tab eventKey="onSale" title="All">
                             <Row>
                                 <Col md={7}>
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_preview/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0xca0eb7e3991f5c93ff4ed674cd840f9daa8c5911/avatar/QmU4Eh4EXworX2zdQ7EAhd8qMUgXZa8XNcMNusNJ98d7Ug" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_preview/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0xca0eb7e3991f5c93ff4ed674cd840f9daa8c5911/avatar/QmU4Eh4EXworX2zdQ7EAhd8qMUgXZa8XNcMNusNJ98d7Ug" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_preview/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0xca0eb7e3991f5c93ff4ed674cd840f9daa8c5911/avatar/QmU4Eh4EXworX2zdQ7EAhd8qMUgXZa8XNcMNusNJ98d7Ug" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_preview/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0xca0eb7e3991f5c93ff4ed674cd840f9daa8c5911/avatar/QmU4Eh4EXworX2zdQ7EAhd8qMUgXZa8XNcMNusNJ98d7Ug" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_preview/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" />
-                                    <Activity image="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0xca0eb7e3991f5c93ff4ed674cd840f9daa8c5911/avatar/QmU4Eh4EXworX2zdQ7EAhd8qMUgXZa8XNcMNusNJ98d7Ug" />
+                                    
                                 </Col>
                                 <Col md={5}>
                                     <Filter />
                                 </Col>
                             </Row>
-                        </Tab>
-                        <Tab eventKey="owned" title="Following">
+                        </Tab> */}
+                        {/* <Tab eventKey="owned" title="Following">
                             <Row>
                                 <Col md={7}>
                                     <div className="no-found py-5p text-center">
@@ -49,33 +81,36 @@ function ActivityPage() {
                                         <p className="lead mb-4">Looks like there's still nothing. Activity will <br />be shown here</p>
                                         <Link to="/" className='btn btn-primary'>Explore Element</Link>
                                     </div>
-                                </Col>
+                                </Col>                               
                                 <Col md={5}>
                                     <Filter />
                                 </Col>
                             </Row>
-                        </Tab>
+                        </Tab> */}
                         <Tab eventKey="created" title="My activity">
-                            <Row>
-                                <Col md={7}>
-                                    <div className="no-found py-5p text-center">
-                                        <h2>Nothing yet</h2>
-                                        <p className="lead mb-4">Looks like there's still nothing. Activity will <br />be shown here</p>
-                                        <Link to="/" className='btn btn-primary'>Explore Element</Link>
-                                    </div>
-                                </Col>
-                                <Col md={5}>
+                                   <Row>                                      
+                                   {getImgreffalgo.map((x, index) => {
+                                    console.log("xvalue",x)
+                                    return(  
+                                    <>
+                                    <Col md={7}>
+                                    <Activity image={x.Imageurl} dataall={x}/>  
+                                    </Col>                    
+                                    </>
+                                    )})}                                                        
+                             
+                             {/* <Col md={5}>
                                     <Filter />
-                                </Col>
+                            </Col> */}
                             </Row>
                         </Tab>
-                        <Tab eventKey="activity" title="My bids">
+                        {/* <Tab eventKey="activity" title="My bids">
                             <div className="no-found py-5p text-center">
                                 <h2>Nothing yet</h2>
                                 <p className="lead mb-4">Looks like there's still nothing. Activity will <br />be shown here</p>
                                 <Link to="/" className='btn btn-primary'>Explore Element</Link>
                             </div>
-                        </Tab>
+                        </Tab> */}
                     </Tabs>
                 </div>
             </Container>
