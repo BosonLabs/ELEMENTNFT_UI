@@ -133,7 +133,6 @@ const LiveAuctions = () => {
               </div>
           </div> */}
 
-
 </Flickity>
 
         </div>

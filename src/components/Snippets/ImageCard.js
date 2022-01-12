@@ -4,11 +4,15 @@ import {
   } from "react-router-dom";
 
 const ImageCard = (props) => {
+    console.log("Icard",props.dataall)
     return (
-        <Link to="/" className='card-media'>
+        <Link className='card-media' to={{
+            pathname: "/profileviewother",
+            state:{alldata:props.dataall}
+          }}>
             <div className="card-media-info">
                 <h3>{props.title}</h3>
-                {props.subtitle ? <h4>{props.subtitle}</h4> : null}
+                {props.description ? <h4>{props.description}</h4> : null}
             </div>
             <img src={props.image} alt="pic" />
         </Link>

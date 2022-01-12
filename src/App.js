@@ -21,6 +21,7 @@ import Start from './components/Create/Start';
 import Type from './components/Create/Type';
 import Single from './components/Create/Single';
 import ProfileViewOther from "./components/ProfileViewOther";
+import ProfileViewOtherCopy from "./components/ProfileViewOtherCopy";
 import SingleLiveauction from "./components/SingleLiveauction";
 import Edit from "./components/Create/edit";
 
@@ -78,6 +79,9 @@ function App() {
         </Route>        
         <Route path="/profileviewother">
           <ProfileViewOther />
+        </Route>
+        <Route path="/profileviewothercopy">
+          <ProfileViewOtherCopy />
         </Route>
         <Route path="/">
           <Home />

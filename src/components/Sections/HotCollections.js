@@ -11,13 +11,7 @@ const HotBids = () => {
         alert("check")
     }
 
-    const dbcallsaleal=async(index)=>{
-        console.log("hello ramachandran")        
-        console.log("inside dbcallsalealgo function")
-        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
-          //alert("please connect your wallet")
-        //}
-        //else{                        
+    const dbcallsaleal=async(index)=>{        
           axios({
             method: 'get',
             url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
@@ -52,8 +46,7 @@ const HotBids = () => {
               })                                                                     
             });                        
             setgetI(req2)  
-            });                    
-      //} 
+            });                          
     }
     useEffect(()=>{dbcallsaleal()},[])
     const flickityOptions = {

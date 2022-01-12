@@ -108,7 +108,7 @@ return (
             <Link  to={{
             pathname: "/bid-2",
             state:{alldata:props.dataall}
-          }}>
+            }}>
             <Card.Body className='p-0'>
                 <div className="position-relative">
                     <img src={props.img} className='img-fluid card-image' alt="Preview" />

@@ -6,6 +6,7 @@ import {
 import CollectionItem from '../Snippets/CollectionItem';
 import moment from 'moment';
 import firebase from "../../firebase";
+import CollectionItemCopy from '../Snippets/CollectionItemCopy';
 
 const TopCollections = () => {
     const dateOptions = ["1", "7", "30"];
@@ -110,7 +111,8 @@ const TopCollections = () => {
               <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
             {filterdata().map((x, index) => (     
                 <li className='mb-3'>
-                    <CollectionItem verify={true} count={index} title={x.NFTName} amount={x.NFTPrice} />                                                        
+                    <CollectionItemCopy verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} />   
+                    {/* <CollectionItem verify={true} count={index} title={x.NFTName} amount={x.NFTPrice} />*/}
                 </li>                                 
             ))}
             </ul>

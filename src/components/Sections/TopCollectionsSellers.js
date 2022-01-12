@@ -181,8 +181,8 @@ const TopCollectionsSelles = (props) => {
             {filterdata().map((x, index) => (                      
                 <li className='mb-3'>
                 {/* <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/> */}
-                        <CollectionItem verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} dataall={x} />   
-                        {/* follow={props.follow} */}
+                        <CollectionItem verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} />   
+                {/* follow={props.follow} */}
                 </li>
             ))}
             </ul>                
