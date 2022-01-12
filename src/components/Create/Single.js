@@ -268,7 +268,7 @@ const Start = () => {
                     let appId="50714558";
                     let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
                     let ref22=fireDb.database().ref(`imagerefAlgolt`);   
-                    let refactivity=fireDb.database().ref(`activitytable`);   
+                    let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
                                   let dateset=new Date().toDateString();
                                   console.log("dateget",dateset)
                                   const db = ref2.push().key;                         

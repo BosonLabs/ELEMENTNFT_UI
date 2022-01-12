@@ -19,8 +19,7 @@ function ActivityPage() {
         }
         else{
           let getalgo=localStorage.getItem("wallet");    
-          //let kreq =[];
-          firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+          firebase.database().ref("activitytable").child(getalgo).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
                 //console.log("keycheck",d.key)
