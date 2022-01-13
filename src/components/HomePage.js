@@ -1,4 +1,4 @@
-import React,{ useState,useEffect } from 'react';
+import React,{ useState,useEffect, useContext } from 'react';
 import Layout from './Layout';
 import {Container} from 'react-bootstrap';
 import TopCollections from './Sections/TopCollections';
@@ -8,10 +8,15 @@ import LiveAuctions from './Sections/LiveAuctions';
 import HotCollections from './Sections/HotCollections';
 import Explore from './Sections/Explore';
 import Banner from './Sections/Banner';
+import {MovieContext} from '../Movie';
 const axios = require('axios');
 
 
+
 function HomePage() {
+    //const [mov,setmov] = useContext(MovieContext)
+    //console.log("Movprint",mov)
+
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);
     // });

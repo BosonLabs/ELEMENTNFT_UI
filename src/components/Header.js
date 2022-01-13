@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useContext} from 'react';
 import {Container, Form, InputGroup, Button,Toast, Nav, NavDropdown, Modal, Dropdown, Row, Col} from 'react-bootstrap';
 import {
     Link
@@ -16,11 +16,20 @@ import User from '../assets/images/dummy-icon.svg';
 import Logo from '../assets/images/Algo.png';
 import Icon from '../assets/images/dummy-icon.svg';
 import cjson from '../config.json'
+import {MovieContext} from '../Movie';
 const algosdk = require('algosdk'); 
+const axios = require('axios');
 
 
 function Header() {
+    const[getI,setgetI]=useState([""]); 
+    const[getIexplore,setgetIexplore]=useState([]);  
+    //const [mov,setmov] = useContext(MovieContext)
+    //const [getIexplore,setgetIexplore] = useContext(MovieContext)
+    //console.log("search",mov)
+    //console.log("searchexplore",getIexplore)
     const [searchText, setSearchText] = React.useState('');
+    console.log("SeSet",searchText)
     const [show, setShow] = React.useState(false);
     const [search, setSearch] = React.useState(false);
     const [menu, setMenu] = React.useState(false);
@@ -85,10 +94,141 @@ localStorage.setItem("balget",account1_info);
 console.log(e);
 })
 
+
+const dbcallsaleal=async(index)=>{                
+    axios({
+        method: 'get',
+        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
+        responseType: 'stream'
+      })
+        .then(function (response) {
+        let req = [];        
+        req.push(response.data)
+        let req2 =[];
+        req.forEach((l) => {              
+          console.log("Dd",l)              
+          Object.keys(l).map(async(k)=>{                                        
+            const a=l[k];
+            Object.keys(a).map(async(b)=>{                    
+            req2.push({                      
+              Assetid:a[b].Assetid,
+              Imageurl:a[b].Imageurl,
+              NFTPrice:a[b].NFTPrice,
+              EscrowAddress:a[b].EscrowAddress,
+              keyId:a[b].keyId,
+              NFTName:a[b].NFTName,
+              userSymbol:a[b].userSymbol,
+              Ipfsurl:a[b].Ipfsurl,
+              ownerAddress:a[b].ownerAddress,
+              previousoaddress:a[b].previousoaddress,
+              TimeStamp:a[b].TimeStamp,
+              NFTDescription:a[b].NFTDescription,
+              HistoryAddress:a[b].HistoryAddress,
+              Appid:a[b].Appid  
+              })   
+            })                                                                                                                
+          })                                                                     
+        });                        
+        setgetI(req2)  
+        });            
+}
+useEffect(()=>{dbcallsaleal()},[])
+
+const dbcallsalealexplore=async(index)=>{        
+      axios({
+        method: 'get',
+        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+        responseType: 'stream'
+      })
+        .then(function (response) {
+        let req = [];        
+        req.push(response.data)
+        let req2 =[];
+        req.forEach((l) => {              
+          console.log("D",l)              
+          Object.keys(l).map(async(k)=>{                                        
+            const a=l[k];
+            Object.keys(a).map(async(b)=>{                    
+            req2.push({                      
+              Assetid:a[b].Assetid,
+              Imageurl:a[b].Imageurl,
+              NFTPrice:a[b].NFTPrice,
+              EscrowAddress:a[b].EscrowAddress,
+              keyId:a[b].keyId,
+              NFTName:a[b].NFTName,
+              userSymbol:a[b].userSymbol,
+              Ipfsurl:a[b].Ipfsurl,
+              ownerAddress:a[b].ownerAddress,
+              previousoaddress:a[b].previousoaddress,
+              TimeStamp:a[b].TimeStamp,
+              NFTDescription:a[b].NFTDescription,
+              HistoryAddress:a[b].HistoryAddress,
+              Appid:a[b].Appid  
+              })   
+            })                                                                                                                
+          })                                                                     
+        });                        
+        setgetIexplore(req2)  
+        });                    
+  } 
+useEffect(()=>{dbcallsalealexplore()},[])
+
 const signoutlocal=async()=>{
     localStorage.setItem('wallet',"");
     window.location.reload(false)
 }
+
+
+const filterdata=()=>{            
+    if(searchText === "")
+    {          
+    }
+    else{
+            let data = getIexplore.filter((val)=>{
+            //let val1 = (val.NFTName).toLoweCase()
+            //.includes(searchText.toLocaleLowerCase())
+            //console.log("val1",val1)          
+            return val
+        })
+        console.log("B1Top",data)
+        return data;
+    }            
+  }
+  useEffect(()=>{filterdata()},[])
+
+  const filterdata2=()=>{            
+    if(searchText === "")
+    {          
+    }
+    else{
+            let data = getI.filter((val)=>{
+            //let val1 = (val.NFTName).toLoweCase()
+            //.includes(searchText.toLocaleLowerCase())
+            //console.log("val1",val1)          
+            return val
+        })
+        console.log("B1Top",data)
+        return data;
+    }            
+  }
+  useEffect(()=>{filterdata2()},[])
+
+  const filterdata3=()=>{
+    if(searchText === "")
+    {          
+    }
+    else{
+            let data = getIexplore.filter((val)=>{
+            //let val1 = (val.NFTName).toLoweCase()
+            //.includes(searchText.toLocaleLowerCase())
+            //console.log("val1",val1)          
+            return val
+        })
+        console.log("B1Top",data)
+        return data;
+    }            
+  }
+  useEffect(()=>{filterdata3()},[])
 
 
     return (
@@ -150,133 +290,69 @@ const signoutlocal=async()=>{
                             <>
                             <div className="search-overlay" onClick={() => setSearchText('')}></div>
                             <div className="search-dropdown">
-                                <div className="mb-3">
-                                    <h6>Collections</h6>
-
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
+                            <div className="mb-3">
+                            <h6>Collections</h6>                                                        
+                            {filterdata().map((v,k)=>{
+                            if(k<2)
+                            return(                               
+                                <Link  to={{
+                                    pathname: "/profileviewother",
+                                    state:{alldata:v}
+                                }}>
+                                <div className="collection-image">
+                                            <img src={v.Imageurl} alt="icon" />
+                                            {/* <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg> */}                                                                                
                                 </div>
+                                <div className="collection-info">
+                                            <h5 className="text-truncate">{v.NFTName}</h5>
+                                            <h6>{v.ownerAddress.slice(0,10)}.....</h6>                                                                                                            
+                                </div>
+                                </Link>
+                                )
+                                })}                                                        
+                                </div>                            
                                 <div className="mb-3">
                                     <h6>Items</h6>
-
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
+                                    {filterdata2().map((v,k)=>{
+                                    if(k<3)
+                                return(                               
+                                <Link  to={{
+                                    pathname: "/profileviewother",
+                                    state:{alldata:v}
+                                }}>
+                                <div className="collection-image">
+                                            <img src={v.Imageurl} alt="icon" />
+                                            {/* <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg> */}                                                                                
+                                </div>
+                                <div className="collection-info">
+                                            <h5 className="text-truncate">{v.NFTName}</h5>
+                                            <h6>{v.ownerAddress.slice(0,10)}.....</h6>                                                                                                            
+                                </div>
+                                </Link>
+                                )
+                                })}                                                        
                                 </div>
                                 <div className="mb-3">
                                     <h6>Users</h6>
 
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
-                                    <a href="/" className="collection-item mb-1 d-flex align-items-center">
-                                        <div className="collection-image">
-                                            <img src={Icon} alt="icon" />
-                                            <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
-                                        </div>
-                                        <div className="collection-info">
-                                            <h5 className="text-truncate">NBA Top Shot</h5>
-                                            <h6>by 0x0b2a3299c...7e29</h6>
-                                        </div>
-                                    </a>
+                                {filterdata3().map((v,k)=>{
+                                if(k<4)
+                                return(                               
+                                <Link  to={{
+                                    pathname: "/profileviewother",
+                                    state:{alldata:v}
+                                }}>
+                                <div className="collection-image">
+                                            <img src={v.Imageurl} alt="icon" />
+                                            {/* <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg> */}                                                                                
+                                </div>
+                                <div className="collection-info">
+                                            <h5 className="text-truncate">{v.NFTName}</h5>
+                                            <h6>{v.ownerAddress.slice(0,10)}.....</h6>                                                                                                            
+                                </div>
+                                </Link>
+                                )
+                                })}     
                                 </div>
                             </div>
                             </>

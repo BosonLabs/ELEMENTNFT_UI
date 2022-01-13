@@ -24,11 +24,14 @@ import ProfileViewOther from "./components/ProfileViewOther";
 import ProfileViewOtherCopy from "./components/ProfileViewOtherCopy";
 import SingleLiveauction from "./components/SingleLiveauction";
 import Edit from "./components/Create/edit";
+import {Movie} from './Movie'
 
 function App() {
   return (
+    
+    // <Movie>
     <Router>
-      <Switch>
+      <Switch>          
         <Route path="/connect">
           <Login />
         </Route>
@@ -85,9 +88,11 @@ function App() {
         </Route>
         <Route path="/">
           <Home />
-        </Route>
+        </Route>        
       </Switch>
     </Router>
+    // </Movie>      
+
   );
 }
 
