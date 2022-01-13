@@ -185,16 +185,19 @@ const filterdata=()=>{
     }
     else{
             let data = getIexplore.filter((val)=>{
+            let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
+            console.log("val1",val1)          
+            return val1
             //let val1 = (val.NFTName).toLoweCase()
             //.includes(searchText.toLocaleLowerCase())
             //console.log("val1",val1)          
-            return val
+            //return val
         })
         console.log("B1Top",data)
         return data;
     }            
   }
-  useEffect(()=>{filterdata()},[])
+  //useEffect(()=>{filterdata()},[])
 
   const filterdata2=()=>{            
     if(searchText === "")
@@ -202,16 +205,16 @@ const filterdata=()=>{
     }
     else{
             let data = getI.filter((val)=>{
-            //let val1 = (val.NFTName).toLoweCase()
-            //.includes(searchText.toLocaleLowerCase())
-            //console.log("val1",val1)          
-            return val
+                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
+                console.log("val1",val1)          
+                return val1
+            //return val
         })
         console.log("B1Top",data)
         return data;
     }            
   }
-  useEffect(()=>{filterdata2()},[])
+  //useEffect(()=>{filterdata2()},[])
 
   const filterdata3=()=>{
     if(searchText === "")
@@ -219,16 +222,15 @@ const filterdata=()=>{
     }
     else{
             let data = getIexplore.filter((val)=>{
-            //let val1 = (val.NFTName).toLoweCase()
-            //.includes(searchText.toLocaleLowerCase())
-            //console.log("val1",val1)          
-            return val
+            let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
+            console.log("val1",val1)          
+            return val1
         })
         console.log("B1Top",data)
         return data;
     }            
   }
-  useEffect(()=>{filterdata3()},[])
+  //useEffect(()=>{filterdata3()},[])
 
 
     return (
