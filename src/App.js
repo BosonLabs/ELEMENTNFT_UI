@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,11 +25,94 @@ import ProfileViewOtherCopy from "./components/ProfileViewOtherCopy";
 import SingleLiveauction from "./components/SingleLiveauction";
 import Edit from "./components/Create/edit";
 import {Movie} from './Movie'
+import Validornotcheck from "./Validornotcheck";
+import {DataContext} from './Context/DataContext'
+const axios = require('axios');
+
 
 function App() {
+    const[getI,setgetI]=useState([""]); 
+    const[getIexplore,setgetIexplore]=useState([]);  
+    const dbcallsaleal=async(index)=>{                
+    axios({
+        method: 'get',
+        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
+        responseType: 'stream'
+      })
+        .then(function (response) {
+        let req = [];        
+        req.push(response.data)
+        let req2 =[];
+        req.forEach((l) => {              
+          console.log("Dd",l)              
+          Object.keys(l).map(async(k)=>{                                        
+            const a=l[k];
+            Object.keys(a).map(async(b)=>{                    
+            req2.push({                      
+              Assetid:a[b].Assetid,
+              Imageurl:a[b].Imageurl,
+              NFTPrice:a[b].NFTPrice,
+              EscrowAddress:a[b].EscrowAddress,
+              keyId:a[b].keyId,
+              NFTName:a[b].NFTName,
+              userSymbol:a[b].userSymbol,
+              Ipfsurl:a[b].Ipfsurl,
+              ownerAddress:a[b].ownerAddress,
+              previousoaddress:a[b].previousoaddress,
+              TimeStamp:a[b].TimeStamp,
+              NFTDescription:a[b].NFTDescription,
+              HistoryAddress:a[b].HistoryAddress,
+              Appid:a[b].Appid  
+              })   
+            })                                                                                                                
+          })                                                                     
+        });                        
+        setgetI(req2)  
+        });            
+}
+useEffect(()=>{dbcallsaleal()},[])
+
+const dbcallsalealexplore=async(index)=>{        
+      axios({
+        method: 'get',
+        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+        responseType: 'stream'
+      })
+        .then(function (response) {
+        let req = [];        
+        req.push(response.data)
+        let req2 =[];
+        req.forEach((l) => {              
+          console.log("D",l)              
+          Object.keys(l).map(async(k)=>{                                        
+            const a=l[k];
+            Object.keys(a).map(async(b)=>{                    
+            req2.push({                      
+              Assetid:a[b].Assetid,
+              Imageurl:a[b].Imageurl,
+              NFTPrice:a[b].NFTPrice,
+              EscrowAddress:a[b].EscrowAddress,
+              keyId:a[b].keyId,
+              NFTName:a[b].NFTName,
+              userSymbol:a[b].userSymbol,
+              Ipfsurl:a[b].Ipfsurl,
+              ownerAddress:a[b].ownerAddress,
+              previousoaddress:a[b].previousoaddress,
+              TimeStamp:a[b].TimeStamp,
+              NFTDescription:a[b].NFTDescription,
+              HistoryAddress:a[b].HistoryAddress,
+              Appid:a[b].Appid  
+              })   
+            })                                                                                                                
+          })                                                                     
+        });                        
+        setgetIexplore(req2)  
+        });                    
+  } 
+useEffect(()=>{dbcallsalealexplore()},[])
   return (
     
-    // <Movie>
+    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore}}>      
     <Router>
       <Switch>          
         <Route path="/connect">
@@ -86,12 +169,15 @@ function App() {
         <Route path="/profileviewothercopy">
           <ProfileViewOtherCopy />
         </Route>
+        <Route path="/validornotvalid">
+          <Validornotcheck />
+        </Route>        
         <Route path="/">
           <Home />
         </Route>        
       </Switch>
     </Router>
-    // </Movie>      
+    </DataContext.Provider>     
 
   );
 }

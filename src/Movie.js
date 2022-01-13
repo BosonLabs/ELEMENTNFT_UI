@@ -98,7 +98,7 @@ export const Movie = props =>{
       } 
     useEffect(()=>{dbcallsalealexplore()},[])
     return(
-        <MovieContext.Provider value={[getI,setgetI]}  valueexplore={[getIexplore,setgetIexplore]}>
+        <MovieContext.Provider value={{getI,setgetI}}>
             {props.children}
         </MovieContext.Provider>              
     )

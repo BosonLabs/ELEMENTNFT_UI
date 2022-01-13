@@ -120,7 +120,7 @@ function Footer() {
                                     <h3>Community</h3>
 
                                     <ul>
-                                        <li><Link to="/">About</Link></li>
+                                        <li><Link to="/about">About</Link></li>
                                         <li><Link to="/">Blog</Link></li>
                                         <li><Link to="/">ELEMENT Token</Link></li>
                                         <li><Link to="/">Suggest feature</Link></li>

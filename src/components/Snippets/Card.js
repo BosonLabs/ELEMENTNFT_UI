@@ -107,9 +107,18 @@ const CardCreate = (props) => {
                 TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid            
               }).then(()=>{
                 fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
-                  console.log("remove db");
-                  setShowTestLoading(false)
-                  setshowTestSale(true)              
+                let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                const db = refactivity.push().key;                         
+                refactivity.child(db).set({
+                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
+                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),                
+                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid})
+                .then(()=>{                                                            
+                    console.log("remove db");
+                    setShowTestLoading(false)
+                    setshowTestSale(true)              
+                })                        
+                  
               })
         }
         
@@ -234,10 +243,16 @@ const CardCreate = (props) => {
             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid
           }).then(()=>{  
-          
-            setShowTestLoading(true)
-            setshowTestDone(true)
-
+                let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                const db = refactivity.push().key;                         
+                refactivity.child(db).set({
+                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseInt(amountmul),EscrowAddress:"priceupdated",keyId:db,
+                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
+                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid})
+                .then(()=>{                                        
+                setShowTestLoading(true)
+                setshowTestDone(true)
+                })                        
           })
             
           //db end here

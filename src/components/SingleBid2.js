@@ -222,6 +222,17 @@ const SingleBid = (props) => {
                     NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
                     TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:location.state.alldata.ownerAddress,Appid:location.state.alldata.Appid            
                       }).then(()=>{          
+                        let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                        const db = refactivity.push().key;                         
+                        refactivity.child(db).set({
+                        Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,EscrowAddress:"BuyNFT",keyId:db,
+                        NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
+                        TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:location.state.alldata.HistoryAddress,Appid:location.state.alldata.Appid})
+                        .then(()=>{                                                            
+                            console.log("remove db");
+                            setShowTestLoading(false)
+                            setshowTestSale(true)              
+                        })                        
                         setShowTestLoading(false)  
                         setshowTestSale(true)
                     }) 
