@@ -366,7 +366,7 @@ function HomePage() {
                 </div>
 
 
-                <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy}/>
+                <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null}/>
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>

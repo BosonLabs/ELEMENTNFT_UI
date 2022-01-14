@@ -8,6 +8,18 @@ const axios = require('axios');
 
 const Explore = () => {
 
+    const[getchain,setchain]=useState(null);
+    const[getcategory,setcategory]=useState(null);
+    const[getsaletype,setsaletype]=useState(null);
+    const[getprice1,setprice1]=useState(0);
+    const[getprice2,setprice2]=useState(0);
+    const[getrecent,setrecent]=useState(null);
+    console.log("get1",getchain)    
+    console.log("get2",getcategory)    
+    console.log("get3",getsaletype)    
+    console.log("get4",getprice1) 
+    console.log("get5",getprice2)   
+    console.log("get6",getrecent)    
     
     const[getI,setgetI]=useState([]);   
     console.log("getImgal",getI)    
@@ -62,26 +74,42 @@ const Explore = () => {
       } 
     //}
     useEffect(()=>{dbcallsaleal()},[])
+    const filterdata=()=>{
+      if(getprice1 > 0  && getprice2 > 0){
+        
+        let data=getI.filter((val)=> val.NFTPrice >= getprice1 && val.NFTPrice <= getprice2)
+        console.log("filtercall1",data)
+        return data;
+      }
+      return getI
+    }
     return (
         <div className='mb-36'>
             <div className="mb-16 d-flex align-items-center">
                 <div className='h2 w-100 flex-grow-1 d-xl-flex align-items-center'>
                     Explore
                     <div className="ps-xl-4 mt-xl-0 mt-2 flex-grow-1">
-                        <FilterExplore />
+                        <FilterExplore 
+                        setMax ={(value)=>setprice2(value)}
+                        setMin ={(value)=>setprice1(value)}
+                        setChain ={(value)=>setchain(value)}
+                        setCategory ={(value)=>setcategory(value)}
+                        setRecent ={(value)=>setrecent(value)}
+                        setSaletype ={(value)=>setsaletype(value)}
+                        />                        
                     </div>
                 </div>
             </div>
 
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
                 
-                {getI.map((x, index) => {
+                {filterdata().map((x, index) => {
                 console.log("logo",x)
                 if(index<pageSize)
                 return(  
                     <>
                     <div className='col mb-4'>
-                    <CardBuy verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/>  
+                    <CardBuy verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText={x.NFTPrice} dataall={x}/>  
                     </div>
                     </>                                                                                          
               )})}                              

@@ -18,6 +18,7 @@ const ProfileTabsOther = (create) => {
     console.log("bcreate",create.create)    
     console.log("bsale",create.sale) 
     console.log("bbuyed",create.buyed) 
+    console.log("Logp",create.owner)
     
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">
@@ -37,7 +38,7 @@ const ProfileTabsOther = (create) => {
             <OnSaleLike data={create.sale}/>
         </Tab>        
         <Tab eventKey="activity" title="Activity">
-            <Activity data={create.create}/>
+            <Activity data={create.create} other={"other"} ownersend={create.owner}/>
         </Tab>
     </Tabs>
  

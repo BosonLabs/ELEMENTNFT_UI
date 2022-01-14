@@ -33,6 +33,8 @@ const axios = require('axios');
 function App() {
     const[getI,setgetI]=useState([""]); 
     const[getIexplore,setgetIexplore]=useState([]);  
+    console.log("App1",getI)
+    console.log("App2",getIexplore)
     const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',

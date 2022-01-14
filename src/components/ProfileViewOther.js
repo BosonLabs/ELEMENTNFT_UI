@@ -75,8 +75,6 @@ function HomePage(props) {
     }    
   useEffect(()=>{dbcallPro()},[])
 
-
-
     const dbcallowner=async()=>{      
       console.log("Insowner",location.state.alldata.ownerAddress)    
       let reqoo = [];      
@@ -498,7 +496,7 @@ useEffect(()=>{dbcallother()},[])
                 </div>
 
 
-                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy}/>
+                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.ownerAddress}/>
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>

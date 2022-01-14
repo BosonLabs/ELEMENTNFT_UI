@@ -6,27 +6,8 @@ import AlgoIcon from '../../assets/images/Algo.png';
 import {Dropdown, Row, Col, Button, Form} from 'react-bootstrap';
 const animatedComponents = makeAnimated();
 
-const FilterExplore = () => {
-    const [getInitial,setInitial]=React.useState("");
-    const [getend,setEnd]=React.useState("");
-
-    const Nullset=()=>{
-        document.getElementById('cl1').value = ''
-        document.getElementById('cl2').value = ''
-        setInitial("");
-        setEnd("");
-    }
-    const setValueprice=()=>{
-
-        if(getInitial === "" || getInitial === undefined || getInitial === null || getend === "" || getend === undefined || getend === null){
-
-            alert("please enter value")
-        }else{
-
-            alert("twovalue"+getInitial)
-
-        }        
-    }
+const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype}) => {
+        
     const colourStyles = {
         option: (styles, { isFocused }) => {
           // const color = chroma(data.color);
@@ -41,7 +22,7 @@ const FilterExplore = () => {
     const blockChainOptions = [
         { value: 'Algorand', label: 'Algorand' },
         // { value: 'Algorand', label: 'Algorand' },
-        // { value: 'flow', label: 'Flow' }
+        { value: 'flow', label: 'Flow' }
     ]
 
     const CategoryOptions = [
@@ -108,15 +89,17 @@ const FilterExplore = () => {
             {/* <div className="d-flex align-items-center flex-wrap"> */}
                 <div className="filter-item filter-blockchain">
                     <Select
+                        onChange={(event =>{setChain(event.target.value)})}
+                        value={blockChainOptions}
                         styles={colourStyles}
                         closeMenuOnSelect={false}
                         components={animatedComponents}
                         // defaultValue={[colourOptions[4], colourOptions[5]]}
-                        placeholder="Blockchain"
-                        isMulti
-                        options={blockChainOptions}
-                        formatOptionLabel={option => (
-                            <div className="custom-select-option d-flex align-items-center">
+                        placeholder="Blockchain"                        
+                        //isMulti
+                        options={blockChainOptions}                        
+                        formatOptionLabel={option => (                            
+                            <div className="custom-select-option d-flex align-items-center">                                
                                 {option.icon && <img src={option.icon} alt="icon" />}
                                 {option.label}
                             </div>
@@ -202,14 +185,14 @@ const FilterExplore = () => {
                             </div>
                             <Row className='gx-2'>
                                 <Col>
-                                    <input type="text" placeholder='From' className='form-control' id="cl1" onChange={event => setInitial( event.target.value)}/>
+                                    <input type="text" placeholder='From' className='form-control' id="cl1" onChange={event => setMin(event.target.value)}/>
                                 </Col>
                                 <Col>
-                                    <input type="text" placeholder='To' className='form-control' id="cl2" onChange={event => setEnd( event.target.value)}/>
+                                    <input type="text" placeholder='To' className='form-control' id="cl2" onChange={event => setMax(event.target.value)}/>
                                 </Col>
                             </Row>
 
-                            <Dropdown.Divider className='my-3' />
+                            {/* <Dropdown.Divider className='my-3' />
                             <Row className='gx-2'>
                                 <Col>
                                     <Button variant='default' className='w-100' onClick={()=>{
@@ -221,7 +204,7 @@ const FilterExplore = () => {
                                     setValueprice()}
                                     }>Apply</Button>
                                 </Col>
-                            </Row>
+                            </Row> */}
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>

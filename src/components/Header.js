@@ -17,17 +17,13 @@ import Logo from '../assets/images/Algo.png';
 import Icon from '../assets/images/dummy-icon.svg';
 import cjson from '../config.json'
 import {MovieContext} from '../Movie';
+import { DataContext } from '../Context/DataContext';
 const algosdk = require('algosdk'); 
 const axios = require('axios');
 
 
 function Header() {
-    const[getI,setgetI]=useState([""]); 
-    const[getIexplore,setgetIexplore]=useState([]);  
-    //const [mov,setmov] = useContext(MovieContext)
-    //const [getIexplore,setgetIexplore] = useContext(MovieContext)
-    //console.log("search",mov)
-    //console.log("searchexplore",getIexplore)
+    const {getI,getIexplore}=useContext(DataContext)
     const [searchText, setSearchText] = React.useState('');
     console.log("SeSet",searchText)
     const [show, setShow] = React.useState(false);
@@ -76,7 +72,6 @@ function Header() {
         'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
     }
     let client = new algosdk.Algodv2(token, baseServer, port);  
-
     console.log("log1",client);
 
 ( async() => {
@@ -95,84 +90,6 @@ console.log(e);
 })
 
 
-const dbcallsaleal=async(index)=>{                
-    axios({
-        method: 'get',
-        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
-        responseType: 'stream'
-      })
-        .then(function (response) {
-        let req = [];        
-        req.push(response.data)
-        let req2 =[];
-        req.forEach((l) => {              
-          console.log("Dd",l)              
-          Object.keys(l).map(async(k)=>{                                        
-            const a=l[k];
-            Object.keys(a).map(async(b)=>{                    
-            req2.push({                      
-              Assetid:a[b].Assetid,
-              Imageurl:a[b].Imageurl,
-              NFTPrice:a[b].NFTPrice,
-              EscrowAddress:a[b].EscrowAddress,
-              keyId:a[b].keyId,
-              NFTName:a[b].NFTName,
-              userSymbol:a[b].userSymbol,
-              Ipfsurl:a[b].Ipfsurl,
-              ownerAddress:a[b].ownerAddress,
-              previousoaddress:a[b].previousoaddress,
-              TimeStamp:a[b].TimeStamp,
-              NFTDescription:a[b].NFTDescription,
-              HistoryAddress:a[b].HistoryAddress,
-              Appid:a[b].Appid  
-              })   
-            })                                                                                                                
-          })                                                                     
-        });                        
-        setgetI(req2)  
-        });            
-}
-useEffect(()=>{dbcallsaleal()},[])
-
-const dbcallsalealexplore=async(index)=>{        
-      axios({
-        method: 'get',
-        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
-        responseType: 'stream'
-      })
-        .then(function (response) {
-        let req = [];        
-        req.push(response.data)
-        let req2 =[];
-        req.forEach((l) => {              
-          console.log("D",l)              
-          Object.keys(l).map(async(k)=>{                                        
-            const a=l[k];
-            Object.keys(a).map(async(b)=>{                    
-            req2.push({                      
-              Assetid:a[b].Assetid,
-              Imageurl:a[b].Imageurl,
-              NFTPrice:a[b].NFTPrice,
-              EscrowAddress:a[b].EscrowAddress,
-              keyId:a[b].keyId,
-              NFTName:a[b].NFTName,
-              userSymbol:a[b].userSymbol,
-              Ipfsurl:a[b].Ipfsurl,
-              ownerAddress:a[b].ownerAddress,
-              previousoaddress:a[b].previousoaddress,
-              TimeStamp:a[b].TimeStamp,
-              NFTDescription:a[b].NFTDescription,
-              HistoryAddress:a[b].HistoryAddress,
-              Appid:a[b].Appid  
-              })   
-            })                                                                                                                
-          })                                                                     
-        });                        
-        setgetIexplore(req2)  
-        });                    
-  } 
-useEffect(()=>{dbcallsalealexplore()},[])
-
 const signoutlocal=async()=>{
     localStorage.setItem('wallet',"");
     window.location.reload(false)
@@ -187,17 +104,12 @@ const filterdata=()=>{
             let data = getIexplore.filter((val)=>{
             let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
             console.log("val1",val1)          
-            return val1
-            //let val1 = (val.NFTName).toLoweCase()
-            //.includes(searchText.toLocaleLowerCase())
-            //console.log("val1",val1)          
-            //return val
+            return val1            
         })
         console.log("B1Top",data)
         return data;
     }            
-  }
-  //useEffect(()=>{filterdata()},[])
+  }  
 
   const filterdata2=()=>{            
     if(searchText === "")
