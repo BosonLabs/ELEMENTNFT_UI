@@ -132,7 +132,7 @@ const OnLiked = (data) => {
     ]
     return (
         <div className='mb-4'>
-            <div className='d-flex mb-4 filter-list flex-wrap align-items-center'>
+            {/* <div className='d-flex mb-4 filter-list flex-wrap align-items-center'>
                 <div className="filter-item filter-category">
                     <Select
                         styles={colourStyles}
@@ -238,7 +238,7 @@ const OnLiked = (data) => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-            </div>
+            </div> */}
 
             
             <div className="row d-none row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
