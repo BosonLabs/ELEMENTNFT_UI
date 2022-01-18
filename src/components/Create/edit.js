@@ -54,7 +54,6 @@ const Edit = () => {
 
 
       const onSubmitNFT = async (event) => {
-
         if(tname === "" || turl === "" || tTwitter === "" || temail === "" || tbio === "" || Img === "" || tpurl === ""){
             alert("please fill required")
         }
@@ -65,9 +64,9 @@ const Edit = () => {
         else{
         setshowTestLoading(true)
         let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
-        let dateset=new Date().toDateString();                
+        let dateset=new Date().toDateString();
         ref2.set({
-        Imageurl:Img,
+        Imageurl:Img,bgurl:Img,
         UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
         TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:""})
         .then(()=>{             
@@ -79,8 +78,6 @@ const Edit = () => {
         });   
     }    
     }
-
-    
       const done=()=>{
         history.push("/profile")
         window.location.reload(false);    

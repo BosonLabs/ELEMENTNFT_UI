@@ -45,12 +45,12 @@ function HomePage() {
       const file = event.target.files[0]
       let reader = new window.FileReader()
       try{
-      Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
-      uri => {
+      Compress.imageFileResizer (file, 300, 300, 'JPEG', 10, 0,
+      uri =>{
         console.log("iuri",uri)
         setImg(uri)      
-        setShow(false)
-        setShowL(true)        
+        //setShow(false)
+        //setShowL(true)            
         updatecover(uri);
       },
       'base64'
@@ -63,45 +63,49 @@ function HomePage() {
     };
 
     const updatecover=async(u)=>{
-      firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {
-        console.log("pdata1",data)
-        if (data) {              
-        console.log("pdata2",data.val())
-        let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
-        let dateset=new Date().toDateString();                
-        ref2.update({
-        Imageurl:data.val().Imageurl,bgurl:u,
-        UserName:data.val().UserName,Customurl:data.val().Customurl,WalletAddress:localStorage.getItem('wallet'),
-        TimeStamp:dateset,Twittername:data.val().Twittername,Personalsiteurl:data.val().Personalsiteurl,Email:data.val().Email,Bio:data.val().Bio})
-        .then(()=>{          
-          setShowL(false)                                    
-          setShowDone(true)
-          window.location.reload(false)
-        }).catch((err) => {                                    
-          setShowL(false)              
-          window.location.reload(false)       
-          console.log(err);
-        });   
-        }
-        else{
-          console.log("pdata2",data.val())
+      setShow(false)
+      setShowL(true)            
+      console.log("logtrue",firebase.database().ref("userprofile").child(localStorage.getItem('wallet')))
+      // if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).orderByCalled_ === false){ 
+      //       let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+      //       let dateset=new Date().toDateString();                
+      //       ref2.set({
+      //       Imageurl:u,bgurl:u,
+      //       UserName:"",Customurl:"",WalletAddress:localStorage.getItem('wallet'),
+      //       TimeStamp:dateset,Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""})
+      //       .then(()=>{          
+      //       setShowL(false)                                    
+      //       setShowDone(true)
+      //       //window.location.reload(false)
+      //     }).catch((err) => {                                    
+      //       setShowL(false)                     
+      //       console.log(err);
+      //       //window.location.reload(false)
+      //     });         
+      // }
+      // else{
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+          if (data) {                        
           let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
           let dateset=new Date().toDateString();                
-          ref2.set({
-          Imageurl:"",bgurl:Img,
-          UserName:"",Customurl:"",WalletAddress:localStorage.getItem('wallet'),
-          TimeStamp:dateset,Twittername:"",Personalsiteurl:"",Email:"",Bio:""})
+          console.log("data",data.val())
+          ref2.update({
+          Imageurl:data.val().Imageurl,bgurl:u,
+          UserName:data.val().UserName,Customurl:data.val().Customurl,WalletAddress:localStorage.getItem('wallet'),
+          TimeStamp:dateset,Twittername:data.val().Twittername,Personalsiteurl:data.val().Personalsiteurl,Email:data.val().Email,Bio:data.val().Bio,valid:data.val().valid})
           .then(()=>{          
-          setShowL(false)                                    
-          setShowDone(true)
-          window.location.reload(false)
-        }).catch((err) => {                                    
-          setShowL(false)                     
-          console.log(err);
-          window.location.reload(false)
-        });   
-        }
-      })
+            setShowL(false)                                    
+            setShowDone(true)            
+            window.location.reload(false)
+          }).catch((err) => {                                    
+            setShowL(false)              
+            window.location.reload(false)       
+            console.log(err);
+          });   
+          }          
+        })
+      //}
+
     }
 
 
