@@ -51,7 +51,8 @@ const TopCollectionsSelles = (props) => {
                         TimeStamp:a[b].TimeStamp,
                         NFTDescription:a[b].NFTDescription,
                         HistoryAddress:a[b].HistoryAddress,
-                        Appid:a[b].Appid   
+                        Appid:a[b].Appid,
+                        valid:a[b].valid   
                     })                    
             })            
         });        
@@ -84,7 +85,8 @@ const TopCollectionsSelles = (props) => {
                         TimeStamp:a[b].TimeStamp,
                         NFTDescription:a[b].NFTDescription,
                         HistoryAddress:a[b].HistoryAddress,
-                        Appid:a[b].Appid  
+                        Appid:a[b].Appid,
+                        valid:a[b].valid  
                     })                    
             })            
         });        
@@ -149,7 +151,7 @@ const TopCollectionsSelles = (props) => {
             console.log("B7",data)
             return data;            
       }
-      useEffect(()=>{filterdata()},[])
+  useEffect(()=>{filterdata()},[])
     return (
 
         <div className='mb-36'>

@@ -61,7 +61,8 @@ function HomePage(props) {
               Twittername: data.val().Twittername,
               UserName: data.val().UserName,
               WalletAddress: data.val().WalletAddress,
-              bgurl:data.val().bgurl
+              bgurl:data.val().bgurl,
+              valid:data.val().valid 
             })                
         }
         else{
@@ -198,7 +199,8 @@ useEffect(()=>{dbcallother()},[])
                   TimeStamp:value.TimeStamp,
                   NFTDescription:value.NFTDescription,
                   HistoryAddress:value.HistoryAddress,
-                  Appid:value.Appid   
+                  Appid:value.Appid,
+                  valid:value.valid
                   }          
                 )
                 //image:images/content/card-pic-1.jpg
@@ -237,7 +239,8 @@ useEffect(()=>{dbcallother()},[])
                     TimeStamp:value.TimeStamp,
                     NFTDescription:value.NFTDescription,
                     HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid   
+                    Appid:value.Appid,
+                    valid:value.valid  
                   },                
                 )
               });        
@@ -269,7 +272,8 @@ useEffect(()=>{dbcallother()},[])
                     TimeStamp:value.TimeStamp,
                     NFTDescription:value.NFTDescription,
                     HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid   
+                    Appid:value.Appid,
+                    valid:value.valid   
                   },                
                 )      
               });        

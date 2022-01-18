@@ -31,6 +31,7 @@ const axios = require('axios');
 
 
 function App() {
+  
     const[getI,setgetI]=useState([""]); 
     const[getIexplore,setgetIexplore]=useState([]);  
     console.log("App1",getI)
@@ -112,6 +113,7 @@ const dbcallsalealexplore=async(index)=>{
         });                    
   } 
 useEffect(()=>{dbcallsalealexplore()},[])
+
   return (
     
     <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore}}>      

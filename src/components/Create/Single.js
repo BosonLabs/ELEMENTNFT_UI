@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Layout from '../Layout';
 // import {Container, Row, Col, Card, Form, Tab, Tabs, InputGroup, Dropdown, Button, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap';
 import {Container, Row, Col, Form, InputGroup, Button, Modal} from 'react-bootstrap';
@@ -14,6 +14,7 @@ import fireDb from '../../firebase';
 import { create } from 'ipfs-http-client';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
+import firebase from '../../firebase';
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 // const axios = require('axios');
@@ -35,8 +36,40 @@ const Start = () => {
     const [showTestLoading, setshowTestLoading] = React.useState(false);    
     const handleCloseTest = () => setShowTest(false);
     const handleCloseTestLoading =()=> setshowTestLoading(false)
-    // const handleShowTest = () => setShowTest(true);
+    // const handleShowTest = () => setShowTest(true);    
     const [Img,setImg] = useState("")
+
+    const[getIPro,setgetIPro]=useState([""]);
+    console.log("getIPro",getIPro) 
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(localStorage.getItem('item')).on("value", (data) => {          
+          if (data) {                      
+              r.push({
+                Bio:data.val().Bio,
+                Customurl: data.val().Customurl,
+                Email: data.val().Email,
+                Imageurl:data.val().Imageurl,
+                Personalsiteurl: data.val().Personalsiteurl,
+                TimeStamp: data.val().TimeStamp,
+                Twittername: data.val().Twittername,
+                UserName: data.val().UserName,
+                WalletAddress: data.val().WalletAddress,
+                bgurl:data.val().bgurl,
+                valid:data.val().valid
+              })                
+          }
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro()},[])
     const captureFile =async(event) => {
         event.stopPropagation()
         event.preventDefault()
@@ -79,6 +112,8 @@ const Start = () => {
             await algodclient.statusAfterBlock(lastRound).do();
           }
         };
+
+
 
       const onSubmitNFT = async (event) => {
         //event.preventDefault();  
@@ -274,75 +309,147 @@ const Start = () => {
                                   const db = ref2.push().key;                         
                                   //const db2 = ref22.push().key;                         
                                   console.log("dbcheck",db)
-                                  ref2.child(db).set({
-                                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId})
-                                  .then(()=>{
-                                    refactivity.child(db).set({
+                                  if(getIPro[0].valid === null || getIPro[0].valid === undefined || getIPro[0].valid === ""){
+                                    ref2.child(db).set({
                                         Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                         NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId})
-                                        .then(()=>{                                        
-                                    ref22.child(db).set({
-                                    Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                    NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                    TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId
-                                      })
-                                  .then(()=>{     
-                //add pinata here          
-                //pinata          
-                //const axios = require('axios');
-                // let pinataApiKey='88348e7ce84879e143e1';
-                // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
-                const pinataApiKey = "221cfff25de18e88d3d0";
-                const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
-                const pinataSDK = require('@pinata/sdk');
-                const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
-                            pinata.testAuthentication().then((result) => {
-                            //handle successful authentication here
-                            console.log(result);  
-                            let ge=fileUrl;
-                            console.log("ipfsHash",fileUrl);
-                                    const body = {
-                                        message: ge
-                                    };
-                                    const options = {
-                                        pinataMetadata: {
-                                            name: tname,
-                                            keyvalues: {
-                                                customKey: 'customValue',
-                                                customKey2: 'customValue2'
-                                            }
-                                        },
-                                        pinataOptions: {
-                                            cidVersion: 0
-                                        }
-                                    };
-                                    pinata.pinJSONToIPFS(body, options).then((result) => {
-                                        //handle results here
-                                        console.log(result);
-                                        console.log("jsonresult")                                            
-                                        setshowTestLoading(false)
-                                        setShowTest(true)                                        
-                            // setIsOpens(false)
-                            // setIsOpen(true);
-                            //return appId;                                            
-                                      }).catch((err) => {
-                                          //handle error here
-                                          console.log(err);
-                                      });                        
-                                    }).catch((err) => {
-                                        //handle error here
-                                        console.log(err);
-                                    });                  
-                                    //end pinata          
-                            //end pinata here                      
-                                    
-                                  })              
-                                  })
-                                })                                
-        
+                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:false})
+                                        .then(()=>{
+                                          refactivity.child(db).set({
+                                              Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                              NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:false})
+                                              .then(()=>{                                        
+                                          ref22.child(db).set({
+                                          Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:false
+                                            })
+                                        .then(()=>{     
+                      //add pinata here          
+                      //pinata          
+                      //const axios = require('axios');
+                      // let pinataApiKey='88348e7ce84879e143e1';
+                      // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+                      const pinataApiKey = "221cfff25de18e88d3d0";
+                      const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
+                      const pinataSDK = require('@pinata/sdk');
+                      const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+                                  pinata.testAuthentication().then((result) => {
+                                  //handle successful authentication here
+                                  console.log(result);  
+                                  let ge=fileUrl;
+                                  console.log("ipfsHash",fileUrl);
+                                          const body = {
+                                              message: ge
+                                          };
+                                          const options = {
+                                              pinataMetadata: {
+                                                  name: tname,
+                                                  keyvalues: {
+                                                      customKey: 'customValue',
+                                                      customKey2: 'customValue2'
+                                                  }
+                                              },
+                                              pinataOptions: {
+                                                  cidVersion: 0
+                                              }
+                                          };
+                                          pinata.pinJSONToIPFS(body, options).then((result) => {
+                                              //handle results here
+                                              console.log(result);
+                                              console.log("jsonresult")                                            
+                                              setshowTestLoading(false)
+                                              setShowTest(true)                                        
+                                  // setIsOpens(false)
+                                  // setIsOpen(true);
+                                  //return appId;                                            
+                                            }).catch((err) => {
+                                                //handle error here
+                                                console.log(err);
+                                            });                        
+                                          }).catch((err) => {
+                                              //handle error here
+                                              console.log(err);
+                                          });                  
+                                          //end pinata          
+                                  //end pinata here                      
+                                          
+                                        })              
+                                        })
+                                      })  
+
+                                  }else{
+                                    ref2.child(db).set({
+                                        Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                        NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:true})
+                                        .then(()=>{
+                                          refactivity.child(db).set({
+                                              Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                              NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:true})
+                                              .then(()=>{                                        
+                                          ref22.child(db).set({
+                                          Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:true
+                                            })
+                                        .then(()=>{     
+                      //add pinata here          
+                      //pinata          
+                      //const axios = require('axios');
+                      // let pinataApiKey='88348e7ce84879e143e1';
+                      // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+                      const pinataApiKey = "221cfff25de18e88d3d0";
+                      const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
+                      const pinataSDK = require('@pinata/sdk');
+                      const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+                                  pinata.testAuthentication().then((result) => {
+                                  //handle successful authentication here
+                                  console.log(result);  
+                                  let ge=fileUrl;
+                                  console.log("ipfsHash",fileUrl);
+                                          const body = {
+                                              message: ge
+                                          };
+                                          const options = {
+                                              pinataMetadata: {
+                                                  name: tname,
+                                                  keyvalues: {
+                                                      customKey: 'customValue',
+                                                      customKey2: 'customValue2'
+                                                  }
+                                              },
+                                              pinataOptions: {
+                                                  cidVersion: 0
+                                              }
+                                          };
+                                          pinata.pinJSONToIPFS(body, options).then((result) => {
+                                              //handle results here
+                                              console.log(result);
+                                              console.log("jsonresult")                                            
+                                              setshowTestLoading(false)
+                                              setShowTest(true)                                        
+                                  // setIsOpens(false)
+                                  // setIsOpen(true);
+                                  //return appId;                                            
+                                            }).catch((err) => {
+                                                //handle error here
+                                                console.log(err);
+                                            });                        
+                                          }).catch((err) => {
+                                              //handle error here
+                                              console.log(err);
+                                          });                  
+                                          //end pinata          
+                                  //end pinata here                      
+                                          
+                                        })              
+                                        })
+                                      })  
+
+                                  }                                                                        
       }
 
       const done=()=>{

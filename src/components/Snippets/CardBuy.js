@@ -185,7 +185,7 @@ const CardBuy = (props) => {
                 fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(props.dataall.keyId).set({
                     Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
                     NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:localStorage.getItem('wallet'),previousoaddress:props.dataall.ownerAddress,
-                    TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.ownerAddress,Appid:props.dataall.Appid            
+                    TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.ownerAddress,Appid:props.dataall.Appid,valid:props.dataall.valid            
                       }).then(()=>{          
                         setShowTestLoading(false)  
                         setshowTestSale(true)

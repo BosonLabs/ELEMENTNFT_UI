@@ -22,61 +22,34 @@ const OnLiked = (data) => {
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
         }
         else{
-          let getalgo=localStorage.getItem("wallet");    
-          //let kreq =[];
+          let getalgo=localStorage.getItem("wallet");              
           firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
             if (data) {
-              data.forEach((d) => {
-                //console.log("keycheck",d.key)
+              data.forEach((d) => {                
                 let value=d.val();
                 req.push(            
                   {
-                    userSymbol:value.userSymbol,
-                    title: value.id,
-                    price: value.priceSet,
-                    highestBid: value.keyId,
-                    counter:value.userName ,
-                    //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                    bid:value.ownerAddress,
-                    image: value.imageUrl,
-                    image2x:value.paramsdb,
-                    category: value.privatekey,
-                    categoryText: value.cAddress,
-                    //purchasing !
-                    url: value.history,
-                    league:value.league,
-                    team:value.team,
-                    type:value.type,
-                    dimen:value.dimen,
-                    teamlogo:value.teamlogo,      
-                    ipfsurl:value.ipfsUrl,
-                    extra:value.extra1,
-                    previousaddress:value.previousoaddress,
-                    date:value.datesets,
-                    description:value.description,
-                    soldd:"",
-                    history:"",
-                    Mnemonic:value.Mnemonic,
-                    usdcids:value.usdcids,
-                    applicationid:value.applicationid,
-                    escrowaddress:value.escrowaddress,
-                    users: [                
-                      {
-                        //avatar: "/images/content/avatar-4.jpg",
-                        avatar :value.imageUrl,
-                      },
-                    ],
+                      Assetid:value.Assetid,
+                      Imageurl:value.Imageurl,
+                      NFTPrice:value.NFTPrice,
+                      EscrowAddress:value.EscrowAddress,
+                      keyId:value.keyId,
+                      NFTName:value.NFTName,
+                      userSymbol:value.userSymbol,
+                      Ipfsurl:value.Ipfsurl,
+                      ownerAddress:value.ownerAddress,
+                      previousoaddress:value.previousoaddress,
+                      TimeStamp:value.TimeStamp,
+                      NFTDescription:value.NFTDescription,
+                      HistoryAddress:value.HistoryAddress,
+                      Appid:value.Appid,
+                      valid:value.valid                      
                   },          
-                )
-                //image:images/content/card-pic-1.jpg
-                //image2x: "/images/content/card-pic-1@2x.jpg",
-      
-                //req.push(d.key)          
+                )                
               });        
             }
-          });
-          setgetImgreffalgo(req);
-        
+            setgetImgreffalgo(req);
+          });                  
         }
         //console.log("acc",getalgo)
       }

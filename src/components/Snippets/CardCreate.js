@@ -64,7 +64,7 @@ const CardInfo = (props) => {
             fireDb.database().ref(`imagerefexploreoneAlgos/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
                 Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
                 NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:props.dataall.previousoaddress,
-                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid            
+                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid     
               }).then(()=>{
                 fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
                   console.log("remove db");
@@ -192,7 +192,7 @@ const CardInfo = (props) => {
           fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseInt(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
-            TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid
+            TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid
           }).then(()=>{  
           
             setShowTestLoading(true)

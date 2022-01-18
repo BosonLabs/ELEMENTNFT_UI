@@ -1,12 +1,15 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {Card} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
 
 import Logo from '../../assets/images/dummy-icon.svg'
+import firebase from '../../firebase';
 
 const CardCollection = (props) => {    
+    
+      
     return (
         <Link  to={{
             pathname: "/profileviewother",
