@@ -125,7 +125,7 @@ const OnSaleOther = (data) => {
           return datas;
         }
         return data.data
-      }
+    }
 
     return (
         <div className='mb-4'>
