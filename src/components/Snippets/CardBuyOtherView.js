@@ -41,10 +41,6 @@ import {
     EmailIcon,
   } from 'react-share';
 
-
-
-
-
 const CardBuyOtherView = (props) => {    
     const [showTestLoading, setShowTestLoading] = React.useState(false);  
     const [showShare,setshowShare] = React.useState(false);                            

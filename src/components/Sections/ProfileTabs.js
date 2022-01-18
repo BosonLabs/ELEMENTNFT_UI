@@ -28,9 +28,9 @@ const ProfileTabs = (create) => {
             <Tab eventKey="created" title="Created">                
                 <Created data={create.create}/>
             </Tab>                
-            <Tab eventKey="collections" title={<span>Collections <span class="badge badge-new">new</span></span>}>
+            {/* <Tab eventKey="collections" title={<span>Collections <span class="badge badge-new">new</span></span>}>
                 <Collection />
-            </Tab>
+            </Tab> */}
             <Tab eventKey="liked" title="Liked">
                 <OnSaleLike data={create.sale}/>
             </Tab>

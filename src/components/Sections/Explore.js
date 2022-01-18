@@ -8,15 +8,15 @@ const axios = require('axios');
 
 const Explore = () => {
 
-    const[getchain,setchain]=useState(null);
-    const[getcategory,setcategory]=useState(null);
-    const[getsaletype,setsaletype]=useState(null);
+    const[getchain,setchain]=useState("Algorand");
+    const[getcategory,setcategory]=useState("All");
+    const[getsaletype,setsaletype]=useState("Fixed price");
     const[getprice1,setprice1]=useState(0);
     const[getprice2,setprice2]=useState(0);
-    const[getrecent,setrecent]=useState(null);
-    console.log("get1",getchain)    
-    console.log("get2",getcategory)    
-    console.log("get3",getsaletype)    
+    const[getrecent,setrecent]=useState("Recently added");
+    console.log("get1",getchain.value)    
+    console.log("get2",getcategory.value)    
+    console.log("get3",getsaletype.label)    
     console.log("get4",getprice1) 
     console.log("get5",getprice2)   
     console.log("get6",getrecent)    
@@ -81,6 +81,16 @@ const Explore = () => {
         console.log("filtercall1",data)
         return data;
       }
+      if(getrecent === "Low to High"){
+        let data=getI.sort((a,b)=>{ return parseInt(a.NFTPrice) - parseInt(b.NFTPrice)})
+        console.log("filtercall1",data)
+        return data;
+      }
+      if(getrecent ===  "High to Low"){
+        let data=getI.sort((a,b)=>{ return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)})
+        console.log("filtercall1",data)
+        return data;
+      }
       return getI
     }
     return (
@@ -96,6 +106,7 @@ const Explore = () => {
                         setCategory ={(value)=>setcategory(value)}
                         setRecent ={(value)=>setrecent(value)}
                         setSaletype ={(value)=>setsaletype(value)}
+                        getrecent ={getrecent}
                         />                        
                     </div>
                 </div>
