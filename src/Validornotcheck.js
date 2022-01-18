@@ -38,6 +38,20 @@ const Validornotcheck=()=>{
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
+
+    const dbupdatecall=async(user)=>{
+      console.log("userche",user)
+      firebase.database().ref("userprofile").child(user.WalletAddress).set({
+        Imageurl:user.Imageurl,bgurl:user.bgurl,
+        UserName:user.UserName,Customurl:user.Customurl,WalletAddress:user.WalletAddress,
+        TimeStamp:user.TimeStamp,Twittername:user.Twittername,Personalsiteurl:user.Personalsiteurl,Email:user.Email,Bio:user.Bio,valid:"validated"
+      }).then(()=>{
+        alert("Validated")
+        window.location.reload(false)        
+    })            
+        
+    }
+
     return(
         <>
               <table className="table table-striped table-bordered">
@@ -49,23 +63,30 @@ const Validornotcheck=()=>{
                         <th>P-url</th>                        
                         <th>TimeStamp</th>                        
                         <th>WalletAddress</th>
-                        {/* <th>ACCOUNT TYPE</th>                         */}
+                        <th>UserName</th>
+                        <th>TwitterName</th>                        
                         <th>STATUS</th>
-                        <th>APPROVE</th>
+                        <th>APPROVE</th>                        
                     </tr>
                 </thead>
                 <tbody>                
                     {getIPro && getIPro.map(user =>
                     
                         <tr key={user.Bio}>
-                            <td>{user.Customurl}</td>
+                            <td>{user.Bio}</td>                            
+                            <td>{user.Customurl}</td>                            
                             <td>{user.Email}</td>
                             <td>{user.Personalsiteurl}</td>                            
-                            <td>{user.UserName}</td>                            
                             <td>{user.TimeStamp}</td>    
-                            <td>{user.Twittername}</td>                            
-                            <td>{user.valid}</td>
                             <td>{user.WalletAddress}</td>                                                            
+                            <td>{user.UserName}</td>                                                      
+                            <td>{user.Twittername}</td>                            
+                            <td>{user.valid === null || user.valid === "" ? (
+                              <>pending</>                              
+                            ):(
+                              <>{user.valid}</>                              
+                            )}</td>
+                            <td style={{cursor:"pointer",styles:"bold",color:"#4a54f1"}} onClick={()=>dbupdatecall(user)}>Approve</td>                            
                         </tr>
                     )}
                 </tbody>
@@ -74,3 +95,5 @@ const Validornotcheck=()=>{
     )
 }
 export default Validornotcheck;
+
+//user.Bio,user.Customurl,user.Email,user.Personalsiteurl,user.TimeStamp,user.WalletAddress,user.UserName,user.Twittername,user.valid,user.Imageurl,user.bgurl
