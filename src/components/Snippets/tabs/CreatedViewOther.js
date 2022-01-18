@@ -93,8 +93,7 @@ const CreatedViewOther = (data) => {
     ]
 
     const filterdata=()=>{
-        if(getprice1 > 0  && getprice2 > 0){
-          
+        if(getprice1 > 0  && getprice2 > 0){          
           let datas=data.data.filter((val)=> val.NFTPrice >= getprice1 && val.NFTPrice <= getprice2)
           console.log("filtercall1",datas)
           return datas;
@@ -183,7 +182,7 @@ const CreatedViewOther = (data) => {
                                 </Col>
                             </Row>
 
-                            <Dropdown.Divider className='my-3' />
+                            {/* <Dropdown.Divider className='my-3' />
                             <Row className='gx-2'>
                                 <Col>
                                     <Button variant='default' className='w-100'>Clear</Button>
@@ -191,7 +190,7 @@ const CreatedViewOther = (data) => {
                                 <Col>
                                     <Button variant='default' className='w-100' disabled>Apply</Button>
                                 </Col>
-                            </Row>
+                            </Row> */}
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
