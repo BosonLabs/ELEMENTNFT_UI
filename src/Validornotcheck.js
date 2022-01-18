@@ -23,7 +23,8 @@ const Validornotcheck=()=>{
                     Twittername: data.val()[k].Twittername,
                     UserName: data.val()[k].UserName,
                     WalletAddress: data.val()[k].WalletAddress,
-                    bgurl:data.val()[k].bgurl
+                    bgurl:data.val()[k].bgurl,
+                    valid:data.val()[k].valid
                   })                    
             })
           }
@@ -42,11 +43,12 @@ const Validornotcheck=()=>{
               <table className="table table-striped table-bordered">
                 <thead>
                     <tr>
-                      <th>BIO</th>
+                        <th>BIO</th>
                         <th>Cus-URL</th>
                         <th>E-mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         <th>P-url</th>                        
-                        <th>IMAGE</th>
+                        <th>TimeStamp</th>                        
+                        <th>WalletAddress</th>
                         {/* <th>ACCOUNT TYPE</th>                         */}
                         <th>STATUS</th>
                         <th>APPROVE</th>
@@ -54,15 +56,17 @@ const Validornotcheck=()=>{
                 </thead>
                 <tbody>                
                     {getIPro && getIPro.map(user =>
-                    <></>
-                        // <tr key={user.userKey}>
-                        //     <td>{user.userKey}</td>
-                        //     <td>{user.profileName}</td>
-                        //     <td>{user.creationTime}</td>
-                        //     <td>{user.algoAddress.slice(0,20)}....</td>                            
-                        //     <td>{user.profileURL}</td>                            
-                        //     <td>{user.twitterName}</td>                            
-                        // </tr>
+                    
+                        <tr key={user.Bio}>
+                            <td>{user.Customurl}</td>
+                            <td>{user.Email}</td>
+                            <td>{user.Personalsiteurl}</td>                            
+                            <td>{user.UserName}</td>                            
+                            <td>{user.TimeStamp}</td>    
+                            <td>{user.Twittername}</td>                            
+                            <td>{user.valid}</td>
+                            <td>{user.WalletAddress}</td>                                                            
+                        </tr>
                     )}
                 </tbody>
             </table>         

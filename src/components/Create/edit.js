@@ -69,7 +69,7 @@ const Edit = () => {
         ref2.set({
         Imageurl:Img,
         UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
-        TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio})
+        TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:""})
         .then(()=>{             
             setshowTestLoading(false)  
             setShow(true)

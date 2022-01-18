@@ -69,14 +69,15 @@ const setaddwallet=async(a)=>{
                   Twittername: data.val().Twittername,
                   UserName: data.val().UserName,
                   WalletAddress: data.val().WalletAddress,
-                  bgurl:data.val().bgurl
+                  bgurl:data.val().bgurl,
+                  valid:data.val().valid
                 })                                
             }  
             console.log("InData",r)          
             firebase.database().ref("userprofile").child(a).set({
                 Imageurl:r[0].Bio,bgurl:r[0].bgurl,
                 UserName:r[0].UserName,Customurl:r[0].Customurl,WalletAddress:a,
-                TimeStamp:r[0].TimeStamp,Twittername:r[0].Twittername,Personalsiteurl:r[0].Personalsiteurl,Email:r[0].Email,Bio:r[0].Bio
+                TimeStamp:r[0].TimeStamp,Twittername:r[0].Twittername,Personalsiteurl:r[0].Personalsiteurl,Email:r[0].Email,Bio:r[0].Bio,valid:r[0]
             }).then(()=>{
                 setShow(false)
                 setShowcall(true)    
@@ -87,7 +88,7 @@ const setaddwallet=async(a)=>{
         firebase.database().ref("userprofile").child(a).set({
             Imageurl:logo,bgurl:logo,
             UserName:"",Customurl:"",WalletAddress:a,
-            TimeStamp:"",Twittername:"",Personalsiteurl:"",Email:"",Bio:""
+            TimeStamp:"",Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""
         }).then(()=>{
             setShow(false)
             setShowcall(true)    
