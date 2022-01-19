@@ -40,11 +40,11 @@ const Start = () => {
     const [Img,setImg] = useState("")
 
     const[getIPro,setgetIPro]=useState([""]);
-    console.log("getIPro",getIPro) 
+    console.log("getIProprofile",getIPro) 
     const dbcallPro=async()=>{            
         let r=[];
         try {         
-        firebase.database().ref("userprofile").child(localStorage.getItem('item')).on("value", (data) => {          
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
           if (data) {                      
               r.push({
                 Bio:data.val().Bio,
@@ -309,21 +309,22 @@ const Start = () => {
                                   const db = ref2.push().key;                         
                                   //const db2 = ref22.push().key;                         
                                   console.log("dbcheck",db)
-                                  if(getIPro[0].valid === null || getIPro[0].valid === undefined || getIPro[0].valid === ""){
+                                  console.log("dbcheckbefore",getIPro[0].valid)                                  
+                                  if(getIPro[0].valid === "validated"){
                                     ref2.child(db).set({
                                         Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                         NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:false})
+                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"true"})
                                         .then(()=>{
                                           refactivity.child(db).set({
                                               Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                               NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:false})
+                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"true"})
                                               .then(()=>{                                        
                                           ref22.child(db).set({
                                           Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                           NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:false
+                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"true"
                                             })
                                         .then(()=>{     
                       //add pinata here          
@@ -383,17 +384,17 @@ const Start = () => {
                                     ref2.child(db).set({
                                         Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                         NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:true})
+                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"false"})
                                         .then(()=>{
                                           refactivity.child(db).set({
                                               Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                               NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:true})
+                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"false"})
                                               .then(()=>{                                        
                                           ref22.child(db).set({
                                           Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                           NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:true
+                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"false"
                                             })
                                         .then(()=>{     
                       //add pinata here          

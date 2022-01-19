@@ -1,15 +1,52 @@
 import React, { useState,useEffect } from "react";
 import Flickity from 'react-flickity-component'
 import Card from '../Snippets/CardColletion';
+import firebase from '../../firebase';
 const axios = require('axios');
 
 
 const HotBids = () => {    
     const[getI,setgetI]=useState([]); 
     console.log("getImgal",getI)    
+    const[getIPro,setgetIPro]=useState([""]);
+    console.log("getIPro",getIPro) 
     const check=()=>{
         alert("check")
     }
+
+    const dbcallPro=async()=>{            
+      let r=[];
+      try {         
+      firebase.database().ref("userprofile").on("value", (data) => {          
+        if (data) {             
+          let a=data.val()                   
+          Object.keys(a).map(async(k)=>{                                    
+            console.log("proff",a[k])
+            r.push({
+              Bio:a[k].Bio,
+              Customurl: a[k].Customurl,
+              Email: a[k].Email,
+              Imageurl:a[k].Imageurl,
+              Personalsiteurl: a[k].Personalsiteurl,
+              TimeStamp: a[k].TimeStamp,
+              Twittername: a[k].Twittername,
+              UserName: a[k].UserName,
+              WalletAddress: a[k].WalletAddress,
+              bgurl:a[k].bgurl,
+              valid:a[k].valid
+            })                
+          })            
+        }
+        else{
+          setgetIPro([""]);  
+        }
+        setgetIPro(r);
+      });                  
+    } catch (error) {
+      console.log('error occured during search', error);    
+    }                
+    }    
+  useEffect(()=>{dbcallPro()},[])
 
     const dbcallsaleal=async(index)=>{        
           axios({
@@ -75,14 +112,16 @@ const HotBids = () => {
             >
 
 
-               {getI.map((x, index) => {
+               {getIPro.map((x, index) => {
                 console.log("logo",x)
                 return(  
                     <>                    
-                    {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">  */}
+                    {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">  */}                     
+                    {x.valid === "validated" && 
                     <div className='carousel-cell carousel-cell-20'>                                          
-                      <Card verify={x.valid} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} owner={x.ownerAddress}/>                    
+                    <Card verify={x.valid} img={x.Imageurl} title={x.UserName} count="401" subTitle={`<span>Highest bid</span> <span>${x.Twittername}</span>`} linkText="0.221 WETH" dataall={x} owner={x.WalletAddress}/>                    
                     </div>                   
+                    }                                          
                     {/* </div> */}
                     </>                                                                                          
               )})}                              

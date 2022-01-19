@@ -89,9 +89,8 @@ const CardCreate = (props) => {
         }
 
         const refresh=()=>{
-            window.location.reload(false)
             setshowTestDone(false)
-            
+            window.location.reload(false)                        
         }
     const onshow2=()=>{
         setShowTestLoading(true)
@@ -170,6 +169,7 @@ const CardCreate = (props) => {
       console.log("hisss",props.dataall.HistoryAddress)
       console.log("appss",props.dataall.Appid)      
       console.log("userss",props.dataall.userSymbol)      
+      console.log("validss",props.dataall.valid)      
           let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
             from:localStorage.getItem('wallet'), 
             suggestedParams:params, 
@@ -233,6 +233,7 @@ const CardCreate = (props) => {
           await waitForConfirmation(algodclient, response.txId);
   
           //db here
+          
 
           let dateset=new Date().toDateString();
           fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).update({

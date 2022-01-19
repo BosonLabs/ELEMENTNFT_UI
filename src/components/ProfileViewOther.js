@@ -16,7 +16,7 @@ const axios = require('axios');
 function HomePage(props) {
 
     const location = useLocation(); 
-    //console.log("hotcoll",location.state.alldata.ownerAddress)        
+    console.log("hotco",location.state)        
     //console.log("followlast",location.state.follow[0].follower)
     //console.log("followlast2",location.state.follow[0].following)
     
@@ -49,7 +49,7 @@ function HomePage(props) {
     const dbcallPro=async()=>{            
       let r=[];
       try {         
-      firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
+      firebase.database().ref("userprofile").child(location.state.alldata.WalletAddress).on("value", (data) => {          
         if (data) {                      
             r.push({
               Bio:data.val().Bio,
@@ -77,14 +77,14 @@ function HomePage(props) {
   useEffect(()=>{dbcallPro()},[])
 
     const dbcallowner=async()=>{      
-      console.log("Insowner",location.state.alldata.ownerAddress)    
+      console.log("Insowner",location.state.alldata.WalletAddress)    
       let reqoo = [];      
       try {
-        if(firebase.database().ref("followings").child(location.state.alldata.ownerAddress) === undefined){
+        if(firebase.database().ref("followings").child(location.state.alldata.WalletAddress) === undefined){
           alert("nono")
         }
         else{
-          firebase.database().ref("followings").child(location.state.alldata.ownerAddress).on("value", (data) => {
+          firebase.database().ref("followings").child(location.state.alldata.WalletAddress).on("value", (data) => {
             console.log("Insowners",data)
             if (data) {                            
               console.log("tataam",data.val())
@@ -177,7 +177,7 @@ useEffect(()=>{dbcallother()},[])
     const dbcallalgo=async()=>{
         console.log("inside dbcallalgo function")  
         let req = [];        
-          firebase.database().ref("imagerefAlgo").child(location.state.alldata.ownerAddress).on("value", (data) => {
+          firebase.database().ref("imagerefAlgo").child(location.state.alldata.WalletAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
                 //console.log("keycheck",d.key)
@@ -218,7 +218,7 @@ useEffect(()=>{dbcallother()},[])
 
     const dbcallsalealgo=async()=>{       
         let req = [];              
-          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.alldata.ownerAddress).on("value", (data) => {
+          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.alldata.WalletAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
                 let value=d.val();
@@ -251,7 +251,7 @@ useEffect(()=>{dbcallother()},[])
 
     const dbcallalgobuy=async()=>{    
         let req = [];          
-        firebase.database().ref("imagerefbuy").child(location.state.alldata.ownerAddress).on("value", (data) => {      
+        firebase.database().ref("imagerefbuy").child(location.state.alldata.WalletAddress).on("value", (data) => {      
             if (data) {
               data.forEach((d) => {                
                 let value=d.val();
@@ -284,17 +284,17 @@ useEffect(()=>{dbcallother()},[])
     const followstart=async()=>{                      
       if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
         let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref22=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}`);
+        let ref22=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
         let dateset=new Date().toDateString();                                         
         let arr1=[];
         let arr11=[];
-        arr1.push(location.state.alldata.ownerAddress)
+        arr1.push(location.state.alldata.WalletAddress)
         arr11.push(localStorage.getItem('wallet'))
         ref2.set({        
           walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
           .then(()=>{
             ref22.set({        
-              walletAddress:location.state.alldata.ownerAddress,TimeStamp:dateset,following:"",follower:arr11})
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:"",follower:arr11})
               .then(()=>{    
                 alert("done1")              
                 })                  
@@ -306,7 +306,7 @@ useEffect(()=>{dbcallother()},[])
         let dateset=new Date().toDateString();      
         console.log("nullnew1","null1")                  
         let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}`);
+        let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
         //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
         //let allarr11=getIfl[0].follower
         let allarr2=getIfo[0].following 
@@ -324,12 +324,12 @@ useEffect(()=>{dbcallother()},[])
         let uniqueChars22 = new Set(chars22);
         console.log("uni22",uniqueChars22);//thiru follow
         let arr1=[]        
-        arr1.push(location.state.alldata.ownerAddress)        
+        arr1.push(location.state.alldata.WalletAddress)        
         ref1.set({  
           walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
           .then(()=>{    
             ref11.update({        
-              walletAddress:location.state.alldata.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
               .then(()=>{    
                 alert("alert")                
                 })                              
@@ -341,8 +341,8 @@ useEffect(()=>{dbcallother()},[])
         let dateset=new Date().toDateString();      
         console.log("nullnew1","null1")                  
         let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}`);
-        let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
+        let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
+        let allarr1=getIfl[0].following.concat(location.state.alldata.WalletAddress) 
         let allarr11=getIfl[0].follower
         //let allarr2=getIfo[0].following 
         //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
@@ -364,7 +364,7 @@ useEffect(()=>{dbcallother()},[])
           walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
           .then(()=>{    
             ref11.set({        
-              walletAddress:location.state.alldata.ownerAddress,TimeStamp:dateset,following:"",follower:arr1})
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:"",follower:arr1})
               .then(()=>{    
                 alert("alert")                
                 })                              
@@ -374,8 +374,8 @@ useEffect(()=>{dbcallother()},[])
         let dateset=new Date().toDateString();      
         console.log("nullnew1","null1")                  
         let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.alldata.ownerAddress}`);
-        let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
+        let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
+        let allarr1=getIfl[0].following.concat(location.state.alldata.WalletAddress) 
         let allarr11=getIfl[0].follower
         let allarr2=getIfo[0].following 
         let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
@@ -396,7 +396,7 @@ useEffect(()=>{dbcallother()},[])
           walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
           .then(()=>{    
             ref11.update({        
-              walletAddress:location.state.alldata.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
               .then(()=>{    
                 alert("alert")                
                 })                              
@@ -446,9 +446,9 @@ useEffect(()=>{dbcallother()},[])
                 {/* </div> */}
 
                 <div className="mb-36 text-center">
-                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>                                        
+                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.WalletAddress); setToast(true)}}>                                        
                         <img src={Algopng} alt="icon" />
-                        {!toast ? <span>{(location.state.alldata.ownerAddress).slice(0,8)}....{(location.state.alldata.ownerAddress).slice(52,58)}</span> : (
+                        {!toast ? <span>{(location.state.alldata.WalletAddress).slice(0,8)}....{(location.state.alldata.WalletAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
@@ -514,7 +514,7 @@ useEffect(()=>{dbcallother()},[])
                 </div>
 
 
-                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.ownerAddress}/>
+                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress}/>
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>
