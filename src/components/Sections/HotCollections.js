@@ -119,7 +119,7 @@ const HotBids = () => {
                     {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">  */}                     
                     {x.valid === "validated" && 
                     <div className='carousel-cell carousel-cell-20'>                                          
-                    <Card verify={x.valid} img={x.Imageurl} title={x.UserName} count="401" subTitle={`<span>Highest bid</span> <span>${x.Twittername}</span>`} linkText="0.221 WETH" dataall={x} owner={x.WalletAddress}/>                    
+                    <Card verify={x.valid} img={x.Imageurl} title={x.UserName} count="401" subTitle={`<span>${x.Twittername}</span>`} linkText="0.221 WETH" dataall={x} owner={x.WalletAddress}/>                    
                     </div>                   
                     }                                          
                     {/* </div> */}

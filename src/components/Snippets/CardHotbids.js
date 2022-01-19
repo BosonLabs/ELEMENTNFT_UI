@@ -290,18 +290,20 @@ const CardHotbids = (props) => {
                     <Link to="/">
                         {props.dataall.NFTName}
                     </Link>
-
+                    {/* <Link to="/" className='btn-link-grad'>{props.dataall.NFTPrice/1000000}</Link> */}
                     <OverlayTrigger
                         overlay={<Tooltip>Algorand</Tooltip>}
                     >
                         <img src={EthereumIcon} alt="icon" />
+                        
                     </OverlayTrigger>
+                    
                 </div>
 
                 <div className="card-info d-flex align-items-end justify-content-between">
                     <div>
                         {/* <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} /> */}
-                        <Link to="/" className='btn-link-grad'>{props.dataall.NFTPrice}</Link>
+                        
                     </div>                    
                     
                     {/* <Button variant='default' className='btn-count float-end'>
