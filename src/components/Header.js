@@ -210,8 +210,10 @@ const filterdata=()=>{
                             if(k<2)
                             return(                               
                                 <Link  to={{
-                                    pathname: "/profileviewother",
-                                    state:{alldata:v}
+                                    //pathname: "/profileviewothercopy",
+                                    pathname: "/profileviewothercopy",            
+                                    state:{title:v.title,amount:v.amount,appid:v.appid,assetid:v.assetid,escrowaddress:v.escrowaddress,historyaddress:v.historyaddress,imageurl:v.imageurl,ipfsurl:v.ipfsurl,nftdescription:v.nftdescription,TimeStamp:v.TimeStamp,keyId:v.keyId,ownerAddress:v.ownerAddress,previousaddress:v.previousaddress,userSymbol:v.userSymbol,valid:v.valid}
+                                    //state:{alldata:v}
                                 }}>
                                 <div className="collection-image">
                                             <img src={v.Imageurl} alt="icon" />
@@ -231,8 +233,10 @@ const filterdata=()=>{
                                     if(k<3)
                                 return(                               
                                 <Link  to={{
-                                    pathname: "/profileviewother",
-                                    state:{alldata:v}
+                                    // pathname: "/profileviewother",
+                                    // state:{alldata:v}
+                                    pathname: "/profileviewothercopy",            
+                                    state:{title:v.title,amount:v.amount,appid:v.appid,assetid:v.assetid,escrowaddress:v.escrowaddress,historyaddress:v.historyaddress,imageurl:v.imageurl,ipfsurl:v.ipfsurl,nftdescription:v.nftdescription,TimeStamp:v.TimeStamp,keyId:v.keyId,ownerAddress:v.ownerAddress,previousaddress:v.previousaddress,userSymbol:v.userSymbol,valid:v.valid}
                                 }}>
                                 <div className="collection-image">
                                             <img src={v.Imageurl} alt="icon" />
@@ -253,8 +257,10 @@ const filterdata=()=>{
                                 if(k<4)
                                 return(                               
                                 <Link  to={{
-                                    pathname: "/profileviewother",
-                                    state:{alldata:v}
+                                    // pathname: "/profileviewother",
+                                    // state:{alldata:v}
+                                    pathname: "/profileviewothercopy",            
+                                    state:{title:v.title,amount:v.amount,appid:v.appid,assetid:v.assetid,escrowaddress:v.escrowaddress,historyaddress:v.historyaddress,imageurl:v.imageurl,ipfsurl:v.ipfsurl,nftdescription:v.nftdescription,TimeStamp:v.TimeStamp,keyId:v.keyId,ownerAddress:v.ownerAddress,previousaddress:v.previousaddress,userSymbol:v.userSymbol,valid:v.valid}
                                 }}>
                                 <div className="collection-image">
                                             <img src={v.Imageurl} alt="icon" />
