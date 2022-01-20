@@ -25,8 +25,17 @@ const CardCollection = (props) => {
                         ) : null}
                     </div>
 
-                    <h5 className='mb-1'>{props.title}</h5>
-                    <h6 className='font-bold' dangerouslySetInnerHTML={{__html: props.subTitle}} />
+                    {props.title ?(
+                        <h5 className='mb-1'>{props.title}</h5>
+                    ):(
+                        <h5 className='mb-1'>Profile incomplete</h5>
+                    )}
+                    {props.subTitle === null || props.subTitle === undefined || props.subTitle === "" ?(
+                        <h6 className='font-bold' >Profile incomplete</h6>
+                    ):(                        
+                        <h6 className='font-bold' dangerouslySetInnerHTML={{__html: props.subTitle}} />
+                    )}
+                    
                 </Card.Body>
             </Card>
         </Link>

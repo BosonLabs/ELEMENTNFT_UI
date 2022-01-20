@@ -1,11 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import Flickity from 'react-flickity-component'
 import Card from '../Snippets/CardColletion';
 import firebase from '../../firebase';
+import { DataContext } from '../../Context/DataContext';
 const axios = require('axios');
 
 
 const HotBids = () => {    
+  //const[getIProapp,setgetIProapp]=useContext(DataContext)
+  // console.log("appget1",getIProapp)
     const[getI,setgetI]=useState([]); 
     console.log("getImgal",getI)    
     const[getIPro,setgetIPro]=useState([""]);
@@ -117,11 +120,11 @@ const HotBids = () => {
                 return(  
                     <>                    
                     {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">  */}                     
-                    {x.valid === "validated" && 
+                    {/* {x.valid === "validated" &&  */}
                     <div className='carousel-cell carousel-cell-20'>                                          
-                    <Card verify={x.valid} img={x.Imageurl} title={x.UserName} count="401" subTitle={`<span>${x.Twittername}</span>`} linkText="0.221 WETH" dataall={x} owner={x.WalletAddress}/>                    
+                    <Card verify={x.valid} img={x.Imageurl} title={x.UserName} count="401" subTitle={x.Twittername} linkText="0.221 WETH" dataall={x} owner={x.WalletAddress}/>                    
                     </div>                   
-                    }                                          
+                    {/* }                                           */}
                     {/* </div> */}
                     </>                                                                                          
               )})}                              

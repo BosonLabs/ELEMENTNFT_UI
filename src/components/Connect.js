@@ -94,46 +94,7 @@ const setaddwallet=async(a)=>{
             setShowcall(true)    
             })    
         }
-    })
-    //)
-    // if(firebase.database().ref("userprofile").child(a).orderByCalled_ === false){ 
-    //  firebase.database().ref("userprofile").child(a).set({
-    //         Imageurl:logo,bgurl:logo,
-    //         UserName:"",Customurl:"",WalletAddress:a,
-    //         TimeStamp:"",Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""
-    //     }).then(()=>{
-    //         setShow(false)
-    //         setShowcall(true)    
-    //     })    
-    // }else{
-    //     let r=[];
-    //     firebase.database().ref("userprofile").child(a).on("value", (data) => {          
-    //         if (data) {                      
-    //             r.push({
-    //               Bio:data.val().Bio,
-    //               Customurl: data.val().Customurl,
-    //               Email: data.val().Email,
-    //               Imageurl:data.val().Imageurl,
-    //               Personalsiteurl: data.val().Personalsiteurl,
-    //               TimeStamp: data.val().TimeStamp,
-    //               Twittername: data.val().Twittername,
-    //               UserName: data.val().UserName,
-    //               WalletAddress: data.val().WalletAddress,
-    //               bgurl:data.val().bgurl,
-    //               valid:data.val().valid
-    //             })                                                
-    //         console.log("InData",r)                      
-    //         firebase.database().ref("userprofile").child(a).update({
-    //             Imageurl:r[0].Bio,bgurl:r[0].bgurl,
-    //             UserName:r[0].UserName,Customurl:r[0].Customurl,WalletAddress:a,
-    //             TimeStamp:r[0].TimeStamp,Twittername:r[0].Twittername,Personalsiteurl:r[0].Personalsiteurl,Email:r[0].Email,Bio:r[0].Bio,valid:r[0].valid
-    //         }).then(()=>{
-    //             setShow(false)
-    //             setShowcall(true)    
-    //         })    
-    //         }              
-    //     })        
-    // }    
+    })    
     } catch (error) {
         
         alert("no data")

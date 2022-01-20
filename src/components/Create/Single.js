@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect, useContext} from 'react';
 import Layout from '../Layout';
 // import {Container, Row, Col, Card, Form, Tab, Tabs, InputGroup, Dropdown, Button, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap';
 import {Container, Row, Col, Form, InputGroup, Button, Modal} from 'react-bootstrap';
@@ -15,6 +15,7 @@ import { create } from 'ipfs-http-client';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
 import firebase from '../../firebase';
+import { DataContext } from '../../Context/DataContext';
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 // const axios = require('axios');
@@ -22,6 +23,8 @@ const algosdk = require('algosdk');
 
 
 const Start = () => {
+    //const[getIPro2]=useContext(DataContext);
+    //console.log("getIProprofile",getIPro2[0].valid) 
     let history=useHistory();
     const [fileUrl, updateFileUrl] = useState(``)
     console.log("Newipfs",fileUrl)
@@ -30,7 +33,8 @@ const Start = () => {
     const [tdescription,setDescription] = useState("");  
     const [algobalance, setalgobalance] = useState("");
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => setShow(false);    
+    
     // const handleShow = () => setShow(true);
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setshowTestLoading] = React.useState(false);    
@@ -40,7 +44,7 @@ const Start = () => {
     const [Img,setImg] = useState("")
 
     const[getIPro,setgetIPro]=useState([""]);
-    console.log("getIProprofile",getIPro) 
+    console.log("getIProprofile",getIPro[0].valid) 
     const dbcallPro=async()=>{            
         let r=[];
         try {         
@@ -314,17 +318,17 @@ const Start = () => {
                                     ref2.child(db).set({
                                         Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                         NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"true"})
+                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"})
                                         .then(()=>{
                                           refactivity.child(db).set({
                                               Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                               NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"true"})
+                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"})
                                               .then(()=>{                                        
                                           ref22.child(db).set({
                                           Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                           NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"true"
+                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"
                                             })
                                         .then(()=>{     
                       //add pinata here          
@@ -384,17 +388,17 @@ const Start = () => {
                                     ref2.child(db).set({
                                         Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                         NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"false"})
+                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"})
                                         .then(()=>{
                                           refactivity.child(db).set({
                                               Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                               NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"false"})
+                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"})
                                               .then(()=>{                                        
                                           ref22.child(db).set({
                                           Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                                           NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:"",Appid:appId,valid:"false"
+                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"
                                             })
                                         .then(()=>{     
                       //add pinata here          

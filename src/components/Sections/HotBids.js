@@ -10,15 +10,15 @@ const HotBids = () => {
     console.log("getImgal",getI)        
 
     const dbcallsaleal=async(index)=>{
-        console.log("hello ramachandran")        
-        console.log("inside dbcallsalealgo function")
+        //console.log("hello ramachandran")        
+        //console.log("inside dbcallsalealgo function")
         //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
           //alert("please connect your wallet")
         //}
-        //else{                        
+        //else{  imagerefAlgo                      
           axios({
             method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
+            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefbuy.json',
             responseType: 'stream'
           })
             .then(function (response) {
@@ -87,7 +87,7 @@ const HotBids = () => {
                     {/* <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1">
                     <div className='col mb-4'> */}
                     <div className='carousel-cell carousel-cell-20'>
-                      <CardHotbids verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} />
+                      <CardHotbids HistoryAddress={x.HistoryAddress} pAddress={x.previousoaddress} oAddress={x.ownerAddress} verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} />
                     </div>
                     {/* </div>                    
                     </div> */}

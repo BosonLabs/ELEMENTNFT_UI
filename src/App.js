@@ -27,11 +27,16 @@ import Edit from "./components/Create/edit";
 import {Movie} from './Movie'
 import Validornotcheck from "./Validornotcheck";
 import {DataContext} from './Context/DataContext'
+import firebase from './firebase';
 const axios = require('axios');
 
 
 function App() {
-  
+
+    const[getIPro2,setgetIPro2]=useState([""]);
+    console.log("getIProprofile",getIPro2[0].valid)   
+    const[getIProapp,setgetIProapp]=useState([""]);
+    console.log("getIProapp",getIProapp) 
     const[getI,setgetI]=useState([""]); 
     const[getIexplore,setgetIexplore]=useState([]);  
     console.log("App1",getI)
@@ -114,9 +119,75 @@ const dbcallsalealexplore=async(index)=>{
   } 
 useEffect(()=>{dbcallsalealexplore()},[])
 
+const dbcallPro=async()=>{            
+  let r=[];
+  try {         
+  firebase.database().ref("userprofile").on("value", (data) => {          
+    if (data) {             
+      let a=data.val()                   
+      Object.keys(a).map(async(k)=>{                                    
+        console.log("proff",a[k])
+        r.push({
+          Bio:a[k].Bio,
+          Customurl: a[k].Customurl,
+          Email: a[k].Email,
+          Imageurl:a[k].Imageurl,
+          Personalsiteurl: a[k].Personalsiteurl,
+          TimeStamp: a[k].TimeStamp,
+          Twittername: a[k].Twittername,
+          UserName: a[k].UserName,
+          WalletAddress: a[k].WalletAddress,
+          bgurl:a[k].bgurl,
+          valid:a[k].valid
+        })                
+      })            
+    }
+    else{
+      setgetIProapp([""]);  
+    }
+    setgetIProapp(r);
+  });                  
+} catch (error) {
+  console.log('error occured during search', error);    
+}                
+}    
+useEffect(()=>{dbcallPro()},[])
+
+
+    
+    const dbcallPro2=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+          if (data) {                      
+              r.push({
+                Bio:data.val().Bio,
+                Customurl: data.val().Customurl,
+                Email: data.val().Email,
+                Imageurl:data.val().Imageurl,
+                Personalsiteurl: data.val().Personalsiteurl,
+                TimeStamp: data.val().TimeStamp,
+                Twittername: data.val().Twittername,
+                UserName: data.val().UserName,
+                WalletAddress: data.val().WalletAddress,
+                bgurl:data.val().bgurl,
+                valid:data.val().valid
+              })                
+          }
+          else{
+            setgetIPro2([""]);  
+          }
+          setgetIPro2(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro2()},[])
+
   return (
     
-    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore}}>      
+    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2}}>      
     <Router>
       <Switch>          
         <Route path="/connect">

@@ -87,6 +87,11 @@ const SingleBid = (props) => {
             window.location.reload(false)            
         }
 
+        const buynow2=async()=>{
+            let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));
+            console.log("lol",a)
+        }
+
         const buynow=async()=>{
             if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
             }
@@ -96,7 +101,8 @@ const SingleBid = (props) => {
                 alert("you are owner so you does not purchase this token")             
             }
             else{
-                setShowTestLoading(true)                
+                setShowTestLoading(true)  
+                let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
                 const algosdk = require('algosdk');  
                 const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');          
                 //const myAlgoConnect = new MyAlgoConnect();
@@ -218,16 +224,22 @@ const SingleBid = (props) => {
               let dateset=new Date().toDateString();
               fireDb.database().ref(`imagerefexploreoneAlgos/${location.state.alldata.ownerAddress}`).child(location.state.alldata.keyId).remove().then(()=>{
                 fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(location.state.alldata.keyId).set({
-                    Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,EscrowAddress:location.state.alldata.EscrowAddress,keyId:location.state.alldata.keyId,
-                    NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
-                    TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:location.state.alldata.ownerAddress,Appid:location.state.alldata.Appid,valid:location.state.alldata.valid            
+                    Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
+                    EscrowAddress:location.state.alldata.EscrowAddress,keyId:location.state.alldata.keyId,
+                    NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
+                    ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
+                    TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                    Appid:location.state.alldata.Appid,valid:location.state.alldata.valid            
                       }).then(()=>{          
                         let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
                         const db = refactivity.push().key;                         
                         refactivity.child(db).set({
-                        Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,EscrowAddress:"BuyNFT",keyId:db,
-                        NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
-                        TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:location.state.alldata.HistoryAddress,Appid:location.state.alldata.Appid,valid:location.state.alldata.valid})
+                        Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
+                        EscrowAddress:"BuyNFT",keyId:db,
+                        NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
+                        ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
+                        TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                        Appid:location.state.alldata.Appid,valid:location.state.alldata.valid})
                         .then(()=>{                                                            
                             console.log("remove db");
                             setShowTestLoading(false)
