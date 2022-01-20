@@ -111,9 +111,9 @@ function Footer() {
                                         <li><Link to="/">Explore</Link></li>
                                         <li><Link to="/">Help center</Link></li>
                                         <li><Link to="/">Blog</Link></li>
-                                        <li><Link to="/">Jobs <Badge className='badge-red'>25</Badge></Link></li>
+                                        {/* <li><Link to="/">Jobs <Badge className='badge-red'>25</Badge></Link></li>
                                         <li><Link to="/">Become a partner</Link></li>
-                                        <li><Link to="/">Bug bounty</Link></li>
+                                        <li><Link to="/">Bug bounty</Link></li> */}
                                     </ul>
                                 </Col>
                                 <Col xs={6} sm={4}>
