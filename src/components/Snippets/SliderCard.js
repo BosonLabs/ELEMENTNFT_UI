@@ -14,17 +14,18 @@ const SlideCard = (props) => {
             pause={false}
             fade={true}
         >
+                                   
             <Carousel.Item>
-                <VideoCard title="Meridiem" subtitle="Blazing Futures ꜩ" url={props.image} />
+                <VideoCard title="Meridiem" subtitle="Blazing Futures ꜩ" url={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress}/>
             </Carousel.Item>
             <Carousel.Item>
-                <VideoCard title="SitDown LOL™️" url={props.image} />
+                <VideoCard title="SitDown LOL™️" url={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress} />
             </Carousel.Item>
             <Carousel.Item>
-                <ImageCard title="The Feast" image={props.image} />
+                <ImageCard title="The Feast" image={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress}/>
             </Carousel.Item>
             <Carousel.Item>
-                <ImageCard title="GoodBye" subtitle="Blazing Futures ꜩ" image={props.image} />
+                <ImageCard title="GoodBye" subtitle="Blazing Futures ꜩ" image={props.image}  dataall={props.dataall} ownerAddress={props.ownerAddress}/>
             </Carousel.Item>
         </Carousel>
     );
