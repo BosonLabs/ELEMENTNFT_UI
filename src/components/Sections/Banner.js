@@ -71,8 +71,8 @@ const Banner = () => {
                     <>                    
                     <div className='carousel-cell carousel-cell-40'><SlidesCard dataall={x} image={x.Imageurl}/></div>
                     <div className='carousel-cell carousel-cell-20'>                    
-                    <VideoCard title={x.NFTName} url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" dataall={x}/>
-                    <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x}/>
+                    <VideoCard title={x.NFTName} url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" dataall={x} ownerAddress={x.ownerAddress}/>
+                    <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
                     </div>
                     </>
                 )})}
