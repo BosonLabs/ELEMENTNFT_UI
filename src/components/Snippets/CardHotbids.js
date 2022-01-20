@@ -268,14 +268,21 @@ const CardHotbids = (props) => {
                     <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
-                        <Link to="/">
+                        <Link className='collection-item d-flex align-items-center' to={{
+                        pathname: "/profileviewothercopy2",            
+                        state:{ownerAddress:props.oAddress}}} >
                             <img src={getIPro1[0].Imageurl} alt="pic" />
                         </Link>
                     </OverlayTrigger>
                     <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
-                        <Link to="/">
+                        <Link className='collection-item d-flex align-items-center' to={{
+                        pathname: "/profileviewothercopy2",            
+                        state:{foAddress:props.pAddress}
+                        //title:props.title,amount:props.amount,appid:props.appid,assetid:props.assetid,escrowaddress:props.escrowaddress,historyaddress:props.historyaddress,imageurl:props.imageurl,ipfsurl:props.ipfsurl,nftdescription:props.nftdescription,TimeStamp:props.TimeStamp,keyId:props.keyId,ownerAddress:props.ownerAddress,previousaddress:props.previousaddress,userSymbol:props.userSymbol,valid:props.valid
+                        // ,follow:props.follow
+                        }}>        
                             <img src={getIPro[0].Imageurl} alt="pic" />
                             {getIPro1[0].valid === "validated" || getIPro[0].valid === "validated" ? (
                                 <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
