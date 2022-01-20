@@ -6,7 +6,7 @@ import {
 const VideoCard = (props) => {
     return (
         <Link className='card-media' to={{
-            pathname: "/profileviewothercopy2",            
+            pathname: "/profileviewothercopy3",            
             state:{ownerAddress:props.ownerAddress}
             // ,follow:props.follow
           }}> 

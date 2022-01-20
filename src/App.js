@@ -23,6 +23,7 @@ import Single from './components/Create/Single';
 import ProfileViewOther from "./components/ProfileViewOther";
 import ProfileViewOtherCopy from "./components/ProfileViewOtherCopy";
 import ProfileViewOtherCopy2 from "./components/ProfileViewOtherCopy2";
+import ProfileViewOtherCopy3 from "./components/ProfileViewOtherCopy3";
 import SingleLiveauction from "./components/SingleLiveauction";
 import Edit from "./components/Create/edit";
 import {Movie} from './Movie'
@@ -248,7 +249,9 @@ useEffect(()=>{dbcallPro()},[])
         <Route path="/profileviewothercopy2">
           <ProfileViewOtherCopy2 />
         </Route>
-        
+        <Route path="/profileviewothercopy3">
+          <ProfileViewOtherCopy3 />
+        </Route>                
         <Route path="/validornotvalid">
           <Validornotcheck />
         </Route>        
