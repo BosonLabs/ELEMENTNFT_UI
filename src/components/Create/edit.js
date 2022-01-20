@@ -8,6 +8,7 @@ import fireDb from '../../firebase';
 import { create } from 'ipfs-http-client';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
+import firebase from '../../firebase';
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 // const axios = require('axios');
@@ -16,7 +17,7 @@ const algosdk = require('algosdk');
 
 const Edit = () => {
     let history=useHistory();    
-    
+    const [proget,setpro] = useState([]);
     const [tname,setName] = useState("");
     const [tpurl,setPurl] = useState("");  
     const [tbio,setBio] = useState("");
@@ -63,19 +64,64 @@ const Edit = () => {
         }
         else{
         setshowTestLoading(true)
+        // if(fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`).orderByCalled_ === false ){
+
+        // let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+        // let dateset=new Date().toDateString();
+        // ref2.set({
+        // Imageurl:Img,bgurl:Img,
+        // UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
+        // TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:""})
+        // .then(()=>{             
+        //     setshowTestLoading(false)  
+        //     setShow(true)
+        // }).catch((err) => {                                    
+        //     setshowTestLoading(false)                     
+        //     console.log(err);
+        // });   
+
+        // }else{
         let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
         let dateset=new Date().toDateString();
+        let r=[];
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+            if (data) {                      
+                r.push({
+                  Bio:data.val().Bio,
+                  Customurl: data.val().Customurl,
+                  Email: data.val().Email,
+                  Imageurl:data.val().Imageurl,
+                  Personalsiteurl: data.val().Personalsiteurl,
+                  TimeStamp: data.val().TimeStamp,
+                  Twittername: data.val().Twittername,
+                  UserName: data.val().UserName,
+                  WalletAddress: data.val().WalletAddress,
+                  bgurl:data.val().bgurl,
+                  valid:data.val().valid
+                })                                                
+        console.log("InData",r)                      
+        console.log("bgu",r[0])
         ref2.set({
-        Imageurl:Img,bgurl:Img,
-        UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
-        TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:""})
-        .then(()=>{             
-            setshowTestLoading(false)  
-            setShow(true)
-        }).catch((err) => {                                    
-            setshowTestLoading(false)                     
-            console.log(err);
-        });   
+            Imageurl:Img,bgurl:r[0].bgurl,
+            UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
+            TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:r[0].valid})
+            .then(()=>{             
+                setshowTestLoading(false)  
+                setShow(true)
+            }).catch((err) => {                                    
+                setshowTestLoading(false)                     
+                console.log(err);
+            });   
+        }
+        //setpro(r)
+        })
+        
+        
+        
+        
+
+        //}
+        
     }    
     }
       const done=()=>{
