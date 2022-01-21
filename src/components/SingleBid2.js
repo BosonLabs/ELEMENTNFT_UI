@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Layout from './LayoutNoFooter';
 import {Container, Button, Dropdown, Row, Col, Tabs, Tab,Modal} from 'react-bootstrap';
 import {
@@ -65,7 +65,35 @@ const SingleBid = (props) => {
     const handleCloseTestDone = () => setshowTestDone(false);
     const handleCloseTestSale = () => setshowTestSale(false);
     const handleCloseshowShare = () => setshowShare(false);
+    let calc="";
+    const [algobalance, setalgobalance] = useState("");
+    console.log("calc",algobalance)
+
+    useEffect(() => {        
+        async function listenMMAccount() {
     
+          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
+          }
+          else{          
+            const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+            const port = "";            
+            const token = {            
+                'X-API-key' : cjson.purestakeapi,
+            }
+            let client = new algosdk.Algodv2(token, baseServer, port);                
+    ( async() => {
+      let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+      calc=JSON.stringify(account1_info.amount)/1000000;      
+      setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
+      localStorage.setItem("balget",account1_info);      
+  })().catch(e => {
+      console.log(e);
+  })                    
+        }        
+    }
+    listenMMAccount();
+      }, []);
+
     
     
     const waitForConfirmation = async function (algodclient, txId) {
@@ -103,31 +131,14 @@ const SingleBid = (props) => {
             {   
                 alert("you are owner so you does not purchase this token")             
             }            
-            else{
-
-            let calc = "";
-            const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
-            const port = "";            
-            const token = {            
-                'X-API-key' : cjson.purestakeapi,
-            }
-            let client = new algosdk.Algodv2(token, baseServer, port);                
-            ( async() => {
-            let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
-            calc=JSON.stringify(account1_info.amount)/1000000;                
-            })().catch(e => {
-            console.log(e);
-            })
-
-            if(calc > 0){
-
+            else{                    
+            if(algobalance === 0 || algobalance === ""){
                 alert("your balance below 1")
             }
-            else if(parseInt(location.state.alldata.NFTPrice) <= calc ){
+            else if(parseInt(location.state.alldata.NFTPrice) <= algobalance ){
                 alert("your balance not enough to purchase this nft")
             }
             else{
-
                 setShowTestLoading(true)  
                 let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
                 const algosdk = require('algosdk');  
