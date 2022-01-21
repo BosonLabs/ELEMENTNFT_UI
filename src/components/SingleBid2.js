@@ -45,6 +45,8 @@ import {
     WorkplaceIcon,
     EmailIcon,
   } from 'react-share';
+  import cjson from '../config.json'
+const algosdk = require('algosdk'); 
 const myAlgoWallet = new MyAlgoConnect();
 
 const SingleBid = (props) => {
@@ -93,14 +95,39 @@ const SingleBid = (props) => {
         }
 
         const buynow=async()=>{
+
             if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
             }
             else{          
             if(location.state.alldata.ownerAddress === localStorage.getItem("wallet"))
             {   
                 alert("you are owner so you does not purchase this token")             
+            }            
+            else{
+
+            let calc = "";
+            const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+            const port = "";            
+            const token = {            
+                'X-API-key' : cjson.purestakeapi,
+            }
+            let client = new algosdk.Algodv2(token, baseServer, port);                
+            ( async() => {
+            let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+            calc=JSON.stringify(account1_info.amount)/1000000;                
+            })().catch(e => {
+            console.log(e);
+            })
+
+            if(calc > 0){
+
+                alert("your balance below 1")
+            }
+            else if(parseInt(location.state.alldata.NFTPrice) <= calc ){
+                alert("your balance not enough to purchase this nft")
             }
             else{
+
                 setShowTestLoading(true)  
                 let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
                 const algosdk = require('algosdk');  
@@ -256,7 +283,8 @@ const SingleBid = (props) => {
               //db change end here
                 } catch (err) {
                   console.error(err);
-                }                                                                  
+                }                                                                                  
+            }                
             }
         }
         }

@@ -126,8 +126,11 @@ const CardCreate = (props) => {
 
     const setpricedb=async(b)=>{
         setShowTest(false)
-        if(getprices === null || getprices === undefined || getprices === ""){
+        var regExpr = new RegExp("^\d*\.?\d*$");
+        if(getprices === null || getprices === undefined || getprices === "" || !regExpr.test(getprices)){
+            alert("please valid number")
             setShowTest(true)
+            window.location.reload(false)
         }else{                    
             setShowTestLoading(true)    
             const algosdk = require('algosdk');  
@@ -364,11 +367,11 @@ const CardCreate = (props) => {
                 <Modal.Body>
                     <div className="text-center py-4">
                         <h3>Price </h3>
-                        <InputGroup className="mb-4 input-group-field" onChange={event => setprices( event.target.value)}>
+                        <InputGroup type="number" pattern="[0-9]*" className="mb-4 input-group-field" onChange={event => setprices( event.target.value)}>
                         <Form.Control
                             placeholder='Enter price'
                         />
-                </InputGroup>
+                        </InputGroup>
                     </div>
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>setpricedb(props.linkText)()}>SET PRICE</Button>
                 </Modal.Body>

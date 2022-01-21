@@ -122,10 +122,15 @@ const Start = () => {
       const onSubmitNFT = async (event) => {
         //event.preventDefault();  
           //new write below
+          var regex = new RegExp("^[a-zA-Z0-9]+$")
           if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
             console.log("Empty",localStorage.getItem("wallet"))
           }
+          else if(tdescription === "" || !regex.test(tdescription) || tname === "" || !regex.test(tname) || Img === null || Img === ""){
+            alert("please enter valid input")
+          }
           else{
+            try{            
           setshowTestLoading(true)
           let ta=tname;
           let tb='ELEM';
@@ -172,8 +177,13 @@ const Start = () => {
       let assetID = ptx["asset-index"];
       console.log("pendingass",assetID);        
       appoptin(assetID,response.txId,localStorage.getItem('wallet'))              
-          }
-      }
+    }catch (err) {
+        console.error(err);                        
+        setshowTestLoading(false)
+        window.location.reload(false)
+    }
+    }          
+    }
 
       const appoptin=async(assetID,responsetxId,addresseswall)=>{
         const algosdk = require('algosdk');  
