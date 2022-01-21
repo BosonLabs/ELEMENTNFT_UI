@@ -124,7 +124,8 @@ const Start = () => {
           //new write below
           var regex = new RegExp("^[a-zA-Z0-9]+$")
           if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
-            console.log("Empty",localStorage.getItem("wallet"))
+            
+            alert("please connect your wallet")
           }
           else if(tdescription === "" || !regex.test(tdescription) || tname === "" || !regex.test(tname) || Img === null || Img === ""){
             alert("please enter valid input")

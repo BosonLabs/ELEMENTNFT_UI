@@ -127,11 +127,15 @@ const CardCreate = (props) => {
     const setpricedb=async(b)=>{
         setShowTest(false)
         var regExpr = new RegExp("^\d*\.?\d*$");
-        if(getprices === null || getprices === undefined || getprices === "" || !regExpr.test(getprices)){
+        var regex = new RegExp("^[a-zA-Z0-9]+$")
+        if(getprices === null || getprices === undefined || getprices === "" || !regExpr.test(getprices) || !regex.test(getprices) || !/[0-9]/.test(getprices)){
             alert("please valid number")
             setShowTest(true)
             window.location.reload(false)
         }else{                    
+            try{
+
+            
             setShowTestLoading(true)    
             const algosdk = require('algosdk');  
             const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
@@ -261,8 +265,11 @@ const CardCreate = (props) => {
               console.error(err);
               setShowTestLoading(false)
             }        
+        }catch(err){
+            setShowTestLoading(false)
+            window.location.reload(false)
         }
-
+        }        
     }
     
 
