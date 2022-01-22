@@ -198,7 +198,8 @@ useEffect(()=>{dbcallother()},[])
                   NFTDescription:value.NFTDescription,
                   HistoryAddress:value.HistoryAddress,
                   Appid:value.Appid,
-                  valid:value.valid 
+                  valid:value.valid,                  
+                  CreatorAddress:value.CreatorAddress
                   }          
                 )
                 //image:images/content/card-pic-1.jpg

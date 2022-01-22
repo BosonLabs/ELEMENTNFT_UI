@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Layout from './LayoutNoFooter';
 import {Container, Button, Dropdown, Row, Col, Tabs, Tab,Modal} from 'react-bootstrap';
 import {
@@ -6,11 +6,14 @@ import {
   } from "react-router-dom";
 //import ElementIcon from '../assets/images/elementlogo.png'
 import AlgorandIcon from '../assets/images/Algo.png'
+import firebase from '../firebase';
 
 const SingleBid = (props) => {
     const location = useLocation();
     const [showShare,setshowShare] = React.useState(false); 
     const handleCloseshowShare = () => setshowShare(false);  
+    const[getIPro,setgetIPro]=useState([""]);
+    console.log("getIProprofiles",getIPro[0]) 
     //console.log("Biddata",props.state)
     console.log("Biddata",location.state)
     //https://img.rarible.com/prod/image/upload/t_big/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" alt="banner" 
@@ -18,6 +21,28 @@ const SingleBid = (props) => {
         console.log("SingleBid",location.state.alldata)
         setshowShare(true)
     }
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid
+              })                
+          }
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro()},[])
+
+    //location.state.alldata.
 
     return (
         <Layout>
@@ -32,10 +57,10 @@ const SingleBid = (props) => {
                             <div className="category">Auction</div>
                         </div>
                         <div className="ms-auto d-flex align-items-center">
-                            <Button variant='white' className='btn-count me-2 py-3 btn-rounded'>
+                            {/* <Button variant='white' className='btn-count me-2 py-3 btn-rounded'>
                                 <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye fDKaYE sc-cnHmbd lkEDtX"><path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path></svg>
                                 5
-                            </Button>
+                            </Button> */}
 
                             <Dropdown className='dropdown-noarrow'>
                                 <Dropdown.Toggle variant="white" className='btn-round'>
@@ -57,21 +82,22 @@ const SingleBid = (props) => {
 
                     <Row className="bid-users mb-4">
                         <Col>
-                            <h6><span>Creator</span> 10% royalties</h6>
+                            <h6><span>Creator</span> </h6>
+                            {/* 10% royalties */}
 
                             <Link to="/" className="avatar d-flex align-items-center text-truncate">
-                                <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
+                                <img src={getIPro[0].Imageurl} alt="avatar" />
                                 <span>Elena Moretti</span>
                             </Link>
                         </Col>
-                        <Col>
+                        {/* <Col>
                             <h6>Collection</h6>
 
                             <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                 <span>ELEMENT Singles</span>
                             </Link>
-                        </Col>
+                        </Col> */}
                     </Row>
 
                     <Tabs defaultActiveKey="details" id="bids-tabs" className="mb-4 nav-tabs-start">

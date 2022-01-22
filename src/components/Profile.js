@@ -171,7 +171,8 @@ function HomePage() {
                   NFTDescription:value.NFTDescription,
                   HistoryAddress:value.HistoryAddress,
                   Appid:value.Appid,
-                  valid:value.valid
+                  valid:value.valid,
+                  CreatorAddress:value.CreatorAddress
                   }          
                 )                
               });        
@@ -210,7 +211,8 @@ function HomePage() {
                     NFTDescription:value.NFTDescription,
                     HistoryAddress:value.HistoryAddress,
                     Appid:value.Appid,
-                    valid:value.valid   
+                    valid:value.valid,
+                    CreatorAddress:value.CreatorAddress  
                   },                
                 )
               });        
@@ -254,7 +256,8 @@ function HomePage() {
                     NFTDescription:value.NFTDescription,
                     HistoryAddress:value.HistoryAddress,
                     Appid:value.Appid,
-                    valid:value.valid   
+                    valid:value.valid,
+                    CreatorAddress:value.CreatorAddress
                   },                
                 )      
               });        

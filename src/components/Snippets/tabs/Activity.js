@@ -37,7 +37,8 @@ const OnSale = ({other,ownersend}) => {
                       NFTDescription:value.NFTDescription,
                       HistoryAddress:value.HistoryAddress,
                       Appid:value.Appid,
-                      valid:value.valid  
+                      valid:value.valid,
+                      CreatorAddress:value.CreatorAddress  
                       }          
                     )                
                   });        
@@ -71,7 +72,8 @@ const OnSale = ({other,ownersend}) => {
                       NFTDescription:value.NFTDescription,
                       HistoryAddress:value.HistoryAddress,
                       Appid:value.Appid,
-                      valid:value.valid   
+                      valid:value.valid,
+                      CreatorAddress:value.CreatorAddress  
                       }          
                     )                
                   });        

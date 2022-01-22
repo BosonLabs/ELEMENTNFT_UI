@@ -267,7 +267,8 @@ const SingleBid = (props) => {
                     NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
                     ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
                     TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
-                    Appid:location.state.alldata.Appid,valid:location.state.alldata.valid            
+                    Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
+                    CreatorAddress:location.state.alldata.CreatorAddress            
                       }).then(()=>{          
                         let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
                         const db = refactivity.push().key;                         
@@ -277,7 +278,9 @@ const SingleBid = (props) => {
                         NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
                         ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
                         TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
-                        Appid:location.state.alldata.Appid,valid:location.state.alldata.valid})
+                        Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
+                        CreatorAddress:location.state.alldata.CreatorAddress
+                    })
                         .then(()=>{                                                            
                             console.log("remove db");
                             setShowTestLoading(false)

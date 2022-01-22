@@ -54,7 +54,8 @@ const LiveAuctions = () => {
                   NFTDescription:a[b].NFTDescription,
                   HistoryAddress:a[b].HistoryAddress,
                   Appid:a[b].Appid,
-                  valid:a[b].valid 
+                  valid:a[b].valid,
+                  CreatorAddress:a[b].CreatorAddress 
                   })   
                 //})                                                                                                                
               })    

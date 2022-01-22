@@ -44,7 +44,9 @@ const Banner = () => {
                   TimeStamp:a[b].TimeStamp,
                   NFTDescription:a[b].NFTDescription,
                   HistoryAddress:a[b].HistoryAddress,
-                  Appid:a[b].Appid  
+                  Appid:a[b].Appid,
+                  valid:a[b].valid,
+                  CreatorAddress:a[b].CreatorAddress 
                   })   
                 })                                                                                                                
               })                                                                     

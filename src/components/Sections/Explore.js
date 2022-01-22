@@ -30,8 +30,8 @@ const Explore = () => {
     }
 
     const dbcallsaleal=async(index)=>{
-        console.log("hello ramachandran")        
-        console.log("inside dbcallsalealgo function")
+        //console.log("hello ramachandran")        
+        //console.log("inside dbcallsalealgo function")
         //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
           //alert("please connect your wallet")
         //}
@@ -65,7 +65,8 @@ const Explore = () => {
                   NFTDescription:a[b].NFTDescription,
                   HistoryAddress:a[b].HistoryAddress,
                   Appid:a[b].Appid,
-                  valid:a[b].valid  
+                  valid:a[b].valid,
+                  CreatorAddress:a[b].CreatorAddress
                   })   
                 })                                                                                                                
               })                                                                     
