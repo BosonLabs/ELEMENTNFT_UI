@@ -16,6 +16,8 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
 import firebase from '../../firebase';
 import { DataContext } from '../../Context/DataContext';
+import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
+import '../../toast-style-override.css'
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 // const axios = require('axios');
@@ -42,6 +44,7 @@ const Start = () => {
     const handleCloseTestLoading =()=> setshowTestLoading(false)
     // const handleShowTest = () => setShowTest(true);    
     const [Img,setImg] = useState("")
+    const [Imgname,setImgname] = useState("")
 
     const[getIPro,setgetIPro]=useState([""]);
     console.log("getIProprofile",getIPro[0].valid) 
@@ -78,6 +81,7 @@ const Start = () => {
         event.stopPropagation()
         event.preventDefault()
         const file = event.target.files[0]
+        setImgname(file.name)
         let reader = new window.FileReader()
         try{
         Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
@@ -126,12 +130,19 @@ const Start = () => {
           if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
             
             alert("please connect your wallet")
+          }          
+          else if(tname === "" ){
+            alert("please enter NFT Name")
           }
-          else if(tdescription === "" || !regex.test(tdescription) || tname === "" || !regex.test(tname) || Img === null || Img === ""){
-            alert("please enter valid input")
+          else if(!regex.test(tname)){
+            alert("please enter valid NFT Name")
           }
+          else if(Img === "" || Img === null || Img === undefined ){
+            alert("please upload image")
+          }          
           else{
             try{            
+          //toast.loading(`images uploading ipfs`);
           setshowTestLoading(true)
           let ta=tname;
           let tb='ELEM';
@@ -181,6 +192,7 @@ const Start = () => {
     }catch (err) {
         console.error(err);                        
         setshowTestLoading(false)
+        alert("you wallet raises some issues")
         window.location.reload(false)
     }
     }          
@@ -314,6 +326,9 @@ const Start = () => {
         console.log("assetId",assetID)
         console.log("Img",Img)
         console.log("tname",tname)  
+        //toast.success(Transaction Success ${response.txId});
+        // toast.loading(`images uploading ipfs`, {
+        //   onOpen: ('loading') });        
                     //db added here 
                     let appId="50714558";
                     let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
@@ -326,23 +341,7 @@ const Start = () => {
                                   console.log("dbcheck",db)
                                   console.log("dbcheckbefore",getIPro[0].valid)                                  
                                   if(getIPro[0].valid === "validated"){
-                                    ref2.child(db).set({
-                                        Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                        NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"})
-                                        .then(()=>{
-                                          refactivity.child(db).set({
-                                              Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                              NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"})
-                                              .then(()=>{                                        
-                                          ref22.child(db).set({
-                                          Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"
-                                            })
-                                        .then(()=>{     
-                      //add pinata here          
+                                    //add pinata here          
                       //pinata          
                       //const axios = require('axios');
                       // let pinataApiKey='88348e7ce84879e143e1';
@@ -374,9 +373,31 @@ const Start = () => {
                                           pinata.pinJSONToIPFS(body, options).then((result) => {
                                               //handle results here
                                               console.log(result);
-                                              console.log("jsonresult")                                            
-                                              setshowTestLoading(false)
-                                              setShowTest(true)                                        
+                                              console.log("jsonresult") 
+                                              //db add here
+                                              // toast.loading(`images uploading ipfs`, {
+                                              // onClose: ('loading') });        
+                                              ref2.child(db).set({
+                                                Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"})
+                                                .then(()=>{
+                                                  refactivity.child(db).set({
+                                                      Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                      TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"})
+                                                      .then(()=>{                                        
+                                                  ref22.child(db).set({
+                                                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true"
+                                                    })
+                                                .then(()=>{                                   
+                                                  setshowTestLoading(false)
+                                                  setShowTest(true)                                                                                          
+                                                })              
+                                                })
+                                              })                                                                                              
                                   // setIsOpens(false)
                                   // setIsOpen(true);
                                   //return appId;                                            
@@ -390,29 +411,9 @@ const Start = () => {
                                           });                  
                                           //end pinata          
                                   //end pinata here                      
-                                          
-                                        })              
-                                        })
-                                      })  
-
                                   }else{
-                                    ref2.child(db).set({
-                                        Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                        NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                        TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"})
-                                        .then(()=>{
-                                          refactivity.child(db).set({
-                                              Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                              NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                              TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"})
-                                              .then(()=>{                                        
-                                          ref22.child(db).set({
-                                          Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
-                                          TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"
-                                            })
-                                        .then(()=>{     
-                      //add pinata here          
+                     
+                                    //add pinata here          
                       //pinata          
                       //const axios = require('axios');
                       // let pinataApiKey='88348e7ce84879e143e1';
@@ -444,9 +445,30 @@ const Start = () => {
                                           pinata.pinJSONToIPFS(body, options).then((result) => {
                                               //handle results here
                                               console.log(result);
-                                              console.log("jsonresult")                                            
-                                              setshowTestLoading(false)
-                                              setShowTest(true)                                        
+                                              console.log("jsonresult")  
+                                              // toast.loading(`images uploading ipfs`, {
+                                              // onClose: ('loading') });                                                                                                
+                                              ref2.child(db).set({
+                                                Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"})
+                                                .then(()=>{
+                                                  refactivity.child(db).set({
+                                                      Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                      TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"})
+                                                      .then(()=>{                                        
+                                                  ref22.child(db).set({
+                                                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false"
+                                                    })
+                                                .then(()=>{                                   
+                                                  setshowTestLoading(false)
+                                                  setShowTest(true)                                                                                          
+                                                })              
+                                                })
+                                              })  
                                   // setIsOpens(false)
                                   // setIsOpen(true);
                                   //return appId;                                            
@@ -459,11 +481,7 @@ const Start = () => {
                                               console.log(err);
                                           });                  
                                           //end pinata          
-                                  //end pinata here                      
-                                          
-                                        })              
-                                        })
-                                      })  
+                                  //end pinata here  
 
                                   }                                                                        
       }
@@ -475,6 +493,7 @@ const Start = () => {
     return (
         <Layout>
             <Container fluid="md">
+            <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></>
                 <div className="py-md-5 py-4">
                     <Row className='mb-5'>
                         <Col md={12}>
@@ -488,10 +507,21 @@ const Start = () => {
 
                             <div className="upload px-2 py-5 text-center mb-5">
                                 <div>
+                                  {Img === "" || Img === null || Img === "" || Img === undefined ? (
+                                    <>
                                     <p className='mb-3'>PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</p>
-
                                     <input type="file" hidden name="upload" id='upload' onChange = {captureFile}/>
                                     <label htmlFor="upload" className='btn btn-light-blue'>Choose File</label>
+                                    </>
+                                  ):(
+                                    <>
+                                    <p className='mb-3'>Images Uploaded </p>
+                                    <p className='mb-3'>{Imgname}</p>
+                                    <input type="file" hidden name="upload" id='upload' onChange = {captureFile}/>
+                                    <label htmlFor="upload" className='btn btn-light-blue'>Choose File</label>
+                                    </>
+                                  )}
+                                    
                                 </div>
                             </div>                                        
                             <div className="mb-4">                        
@@ -588,7 +618,7 @@ const Start = () => {
                         <h3>Loading...</h3>
                     </div>                    
                 </Modal.Body>
-            </Modal>
+            </Modal>            
         </Layout>
     );
 };

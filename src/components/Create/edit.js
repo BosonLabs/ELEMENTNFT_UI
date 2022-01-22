@@ -33,16 +33,18 @@ const Edit = () => {
     const handleCloseTestLoading =()=> setshowTestLoading(false)
     // const handleShowTest = () => setShowTest(true);
     const [Img,setImg] = useState("")
+    const [Imgname,setImgname] = useState("")
     const captureFile =async(event) => {
         event.stopPropagation()
         event.preventDefault()
         const file = event.target.files[0]
+        setImgname(file.name)
         let reader = new window.FileReader()
         try{
         Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
         uri => {
           console.log("iuri",uri)
-          setImg(uri)
+          setImg(uri)          
         },
         'base64'
         );
@@ -55,8 +57,24 @@ const Edit = () => {
 
 
       const onSubmitNFT = async (event) => {
-        if(tname === "" || turl === "" || tTwitter === "" || temail === "" || tbio === "" || Img === "" || tpurl === ""){
-            alert("please fill required")
+        if(tname === ""){
+            alert("please enter profile name")
+        }
+        else if(turl === "" ){
+            alert("please enter url")
+        }
+        else if(tTwitter === "" ){
+            alert("please enter twitter username")
+        }else if(temail === ""){
+            alert("please enter gmail")
+        }else if(tbio === "" ){
+            alert("please enter Bio")
+        }
+        else if(Img === ""){
+            alert("please Upload Image")
+        }
+        else if(tpurl === ""){
+            alert("please enter personal url")
         }
         else if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === " " ){
             alert("Please Connect Wallet")
@@ -144,11 +162,22 @@ const Edit = () => {
                     <Row className='text-gray'>
                         <Col md={4} className='mb-4 order-md-2'>
                             <div className='text-center text-md-start'>
+                                {Img === null || Img === undefined || Img === "" ?(
+                                <>
                                 <img src={icon} alt="icon" className='update-pic mb-3' />
                                 <p className='mb-3'>We recommend an image <br />of at least 300x300. Gifs work too.</p>
-
                                 <input type="file" hidden name="upload" id='upload' onChange = {captureFile}/>
                                 <label htmlFor="upload" className='btn btn-light-blue'>Choose File</label>
+                                </>
+                                ):(
+                                <>
+                                <img src={Img} alt="icon" className='update-pic mb-3' />
+                                <p className='mb-3'>Image Uploaded <br />{Imgname}</p>
+                                <input type="file" hidden name="upload" id='upload' onChange = {captureFile}/>
+                                <label htmlFor="upload" className='btn btn-light-blue'>Choose File</label>
+                                </>
+                                )}
+                                
                             </div>
                         </Col>
                         <Col md={8} className='mb-4'>                                      

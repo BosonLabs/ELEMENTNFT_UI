@@ -128,11 +128,22 @@ const CardCreate = (props) => {
         setShowTest(false)
         var regExpr = new RegExp("^\d*\.?\d*$");
         var regex = new RegExp("^[a-zA-Z0-9]+$")
-        if(getprices === null || getprices === undefined || getprices === "" || !regExpr.test(getprices) || !regex.test(getprices) || !/[0-9]/.test(getprices)){
+        if(getprices === null || getprices === undefined || getprices === "" ){
+            alert("please enter price")
+            setShowTest(true)
+            //window.location.reload(false)
+        }else if(!regExpr.test(getprices) || !regex.test(getprices) || !/[0-9]/.test(getprices))
+        {
             alert("please valid number")
             setShowTest(true)
-            window.location.reload(false)
-        }else{                    
+            //window.location.reload(false)
+        }
+        else if(getprices === "0"){
+            alert("please enter above 0 price")
+            setShowTest(true)
+            //window.location.reload(false)
+        }
+        else{                    
             try{
 
             
