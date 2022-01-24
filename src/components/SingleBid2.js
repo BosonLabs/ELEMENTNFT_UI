@@ -74,7 +74,7 @@ const SingleBid = (props) => {
     let calc="";
     const [algobalance, setalgobalance] = useState("");
     console.log("calc",algobalance)
-
+    console.log("calcstart",parseInt(location.state.alldata.NFTPrice)/1000000)
     useEffect(() => {        
         async function listenMMAccount() {
     
@@ -185,7 +185,7 @@ const SingleBid = (props) => {
             if(algobalance === 0 || algobalance === ""){
                 alert("your balance below 1")
             }
-            else if(parseInt(location.state.alldata.NFTPrice) <= algobalance ){
+            else if((parseInt(location.state.alldata.NFTPrice)/1000000) >= algobalance ){
                 alert("your balance not enough to purchase this nft")
             }
             else{
