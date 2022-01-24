@@ -20,7 +20,7 @@ const Activity = (props) => {
             </div>
             <div className="activity-content">
                 {/* <h4><Link to="/activity">{props.dataall.NFTName}</Link></h4> */}
-                <p> <Link to="/activity"><img src={props.image} alt="icon" /> CryptoArt8</Link></p>
+                <p> <Link to="/activity"><img src={props.image} alt="icon" /> {props.dataall.NFTName}</Link></p>
                 {/* <div className="time">{props.dataall.TimeStamp}</div> */}
             </div>
         </div>
