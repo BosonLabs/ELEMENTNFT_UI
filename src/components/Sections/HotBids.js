@@ -81,7 +81,7 @@ const HotBids = () => {
             >
 
 
-{getI.map((x, index) => {
+                {getI.map((x, index) => {
                 // console.log("logo",x)
                 return(  
                     <>

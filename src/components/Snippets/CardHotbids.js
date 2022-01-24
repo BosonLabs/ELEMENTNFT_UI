@@ -45,7 +45,8 @@ const CardHotbids = (props) => {
           if (data) {                      
               r.push({                
                 Imageurl:data.val().Imageurl,                
-                valid:data.val().valid
+                valid:data.val().valid,
+                UserName:data.val().UserName
               })                
           }
           else{
@@ -66,7 +67,8 @@ const CardHotbids = (props) => {
           if (data) {                      
               r.push({                
                 Imageurl:data.val().Imageurl,                
-                valid:data.val().valid
+                valid:data.val().valid,
+                UserName:data.val().UserName
               })                
           }
           else{
@@ -266,7 +268,15 @@ const CardHotbids = (props) => {
             <Card.Header className='d-flex align-items-center'>
                 <div className="card-users d-flex align-items-center me-auto">
                     <OverlayTrigger
-                        overlay={<Tooltip>E-Element</Tooltip>}
+                        overlay={<Tooltip>
+                            {getIPro1[0] === "" || getIPro[0] === null || getIPro[0] === undefined ?(
+                                <>
+                                {getIPro1[0].UserName}
+                                </>
+                            ):(
+                                "Not Completed"
+                            )}                            
+                            </Tooltip>}
                     >
                         <Link className='collection-item d-flex align-items-center' to={{
                         pathname: "/profileviewothercopy2",            
