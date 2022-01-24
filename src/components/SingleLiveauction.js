@@ -1,22 +1,320 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Layout from './LayoutNoFooter';
 import {Container, Button, Dropdown, Row, Col, Tabs, Tab,Modal} from 'react-bootstrap';
 import {
     Link,useLocation
   } from "react-router-dom";
 //import ElementIcon from '../assets/images/elementlogo.png'
+import firebase from '../firebase';
+import fireDb from '../firebase';
+import dataescrow from "../escrow.js";
+import cjson from '../config.json'
+import configfile from '../config.json'
+import MyAlgoConnect from '@randlabs/myalgo-connect';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import AlgorandIcon from '../assets/images/Algo.png'
+const algosdk = require('algosdk'); 
 
 
 const SingleLiveauction = (props) => {
+    const history = useHistory();    
     const location = useLocation();
+    console.log("SingleBidlive",location.state.alldata)
     //console.log("Biddata",props.state)
     console.log("Biddata",location.state.alldata)
     const [showShare,setshowShare] = React.useState(false); 
     const handleCloseshowShare = () => setshowShare(false);  
+    const [algobalance, setalgobalance] = useState("");
+    console.log("calc",algobalance)
+    let calc="";
+    const [showTest, setShowTest] = React.useState(false);
+    const [showTestLoading, setShowTestLoading] = React.useState(false);    
+    const [showTestDone,setshowTestDone] = React.useState(false);   
+    const [showTestSale,setshowTestSale] = React.useState(false);   
+    const handleCloseTestLoading = () => setShowTestLoading(false);
+    const handleCloseTestDone = () => setshowTestDone(false);
+    const handleCloseTestSale = () => setshowTestSale(false);    
+    const[getIPro,setgetIPro]=useState([""]);
+    const[getIPro2,setgetIPro2]=useState([""]);
+    console.log("getIProprofiles",getIPro[0]) 
+    console.log("getIProprofiles2",getIPro2[0]) 
     //https://img.rarible.com/prod/image/upload/t_big/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" alt="banner" 
+    useEffect(() => {        
+        async function listenMMAccount() {
+    
+          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
+          }
+          else{          
+            const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+            const port = "";            
+            const token = {            
+                'X-API-key' : cjson.purestakeapi,
+            }
+            let client = new algosdk.Algodv2(token, baseServer, port);                
+    ( async() => {
+      let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+      calc=JSON.stringify(account1_info.amount)/1000000;      
+      setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
+      localStorage.setItem("balget",account1_info);      
+  })().catch(e => {
+      console.log(e);
+  })                    
+        }        
+    }
+    listenMMAccount();
+      }, []);
+
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(location.state.alldata.CreatorAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid,
+                UserName:data.val().UserName
+              })                
+          }
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro()},[])
+
+    const dbcallPro2=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid,
+                UserName:data.val().UserName
+              })                
+          }
+          else{
+            setgetIPro2([""]);  
+          }
+          setgetIPro2(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro2()},[])
 
     const sharebutton=()=>{            
         setshowShare(true)
+    }
+
+    const waitForConfirmation = async function (algodclient, txId) {
+        let status = (await algodclient.status().do());
+        let lastRound = status["last-round"];
+          while (true) {
+            const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
+            if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
+              //Got the completed Transaction
+              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              break;
+            }
+            lastRound++;
+            await algodclient.statusAfterBlock(lastRound).do();
+          }
+    };
+
+    const waitforOwnerAccept=()=>{
+        alert("Not Yet Accepted")
+    }
+
+    const buynow=async()=>{
+
+        if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
+        }
+        else{          
+        if(location.state.alldata.ownerAddress === localStorage.getItem("wallet"))
+        {   
+            alert("you are owner so you does not purchase this token")             
+        }            
+        else{                    
+        if(algobalance === 0 || algobalance === ""){
+            alert("your balance below 1")
+        }
+        else if(parseInt(location.state.alldata.NFTPrice) <= algobalance ){
+            alert("your balance not enough to purchase this nft")
+        }
+        else{
+            setShowTestLoading(true)  
+            let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
+            const algosdk = require('algosdk');  
+            const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');          
+            //const myAlgoConnect = new MyAlgoConnect();
+            //  let appId="50714558";
+            let appId=parseInt(configfile['appId']);                
+            let params = await algodclient.getTransactionParams().do();
+            //comment out the next two lines to use suggested fee
+            params.fee = 1000;
+            params.flatFee = true;  
+            //console.log("Global state", datedt);  
+          try {    
+            let convert95=(((parseInt(location.state.alldata.NFTPrice))/100)*95)
+            console.log("convert95",convert95)  
+            let convert5=(((parseInt(location.state.alldata.NFTPrice))/100)*5);
+            console.log("convert5",convert5)
+            const params = await algodclient.getTransactionParams().do();    
+            const myAlgoConnect = new MyAlgoConnect();
+            let results = await algodclient.compile(dataescrow).do();
+            console.log("Resultconsole = " + results);
+            console.log("Hash = " + results.hash);
+            console.log("Result = " + results.result);
+            //await sleep(20000)
+            let program = new Uint8Array(Buffer.from(results.result, "base64"));      
+            let lsig = algosdk.makeLogicSig(program);
+            //let tealSignPrint = tealSign(sk, data, lsig.address());
+            console.log("LSIG",lsig.address())
+            let appArgs = [];
+            appArgs.push(new Uint8Array(Buffer.from("Buynow")));
+            const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+            from: localStorage.getItem('wallet'),
+            to: localStorage.getItem('wallet'),
+            assetIndex: parseInt(location.state.alldata.Assetid),
+            note: undefined,
+            amount: 0,
+            suggestedParams: params
+            });
+          
+            const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
+            const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
+            console.log("optresponse",responseass)
+            
+              
+            const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
+              from:localStorage.getItem('wallet'), 
+              suggestedParams: params, 
+              appIndex: parseInt(appId), 
+              appArgs: appArgs
+          });
+          
+          const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+              suggestedParams:params,
+              from:localStorage.getItem('wallet'),
+              to: lsig.address(), 
+              amount: 2000
+          });
+          const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            suggestedParams:params,
+            from:localStorage.getItem('wallet'),
+            to: lsig.address(), 
+            amount: parseInt(location.state.alldata.NFTPrice)
+          });
+          
+            const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+              suggestedParams:params,
+              from: lsig.address(),
+              to:localStorage.getItem('wallet'), 
+              amount: 1,
+              assetIndex: parseInt(location.state.alldata.Assetid)
+            });
+          
+            
+            const txn5 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+              suggestedParams:params,
+              from: lsig.address(),
+              to: location.state.alldata.ownerAddress, 
+              amount: parseInt(convert95)
+          });
+          
+          const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
+            reKeyTo: undefined,
+            from : lsig.address(),
+            manager:localStorage.getItem('wallet'),
+            assetIndex: parseInt(location.state.alldata.Assetid),
+            suggestedParams:params,
+            strictEmptyAddressChecking:false
+            
+          })
+          
+          const txn7 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            suggestedParams:params,
+            from: lsig.address(),
+            to:"PSYRA3264OJABUAD4GWNUMGXGYDZHJRPGL5GX26SNF3OIDQQKSPWZGDWN4", 
+            amount: parseInt(convert5)
+          });
+          
+          const txnsToGroup = [ txn1, txn2 ,txn3, txn4, txn5, txn6, txn7];
+          const groupID = algosdk.computeGroupID(txnsToGroup)
+          txnsToGroup[0].group = groupID;
+          txnsToGroup[1].group = groupID;
+          txnsToGroup[2].group = groupID;
+          txnsToGroup[3].group = groupID;
+          txnsToGroup[4].group = groupID;
+          txnsToGroup[5].group = groupID;
+          txnsToGroup[6].group = groupID;
+          
+          const signedTx1 = await myAlgoConnect.signTransaction(txnsToGroup[0].toByte());
+          const signedTx2 = await myAlgoConnect.signTransaction(txnsToGroup[1].toByte());
+          const signedTx3 = await myAlgoConnect.signTransaction(txnsToGroup[2].toByte());
+          const signedTx4 = algosdk.signLogicSigTransaction(txnsToGroup[3], lsig);
+          const signedTx5 = algosdk.signLogicSigTransaction(txnsToGroup[4], lsig);
+          const signedTx6 = algosdk.signLogicSigTransaction(txnsToGroup[5], lsig);
+          const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);
+          
+          const response = await algodclient.sendRawTransaction([signedTx1.blob,signedTx2.blob,signedTx3.blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
+          console.log("TxID", JSON.stringify(response, null, 1));
+          await waitForConfirmation(algodclient, response.txId);
+          
+          //db change here
+          let dateset=new Date().toDateString();
+          fireDb.database().ref(`imagerefexploreoneAlgos/${location.state.alldata.ownerAddress}`).child(location.state.alldata.keyId).remove().then(()=>{
+            fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(location.state.alldata.keyId).set({
+                Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
+                EscrowAddress:location.state.alldata.EscrowAddress,keyId:location.state.alldata.keyId,
+                NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
+                ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
+                TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
+                CreatorAddress:location.state.alldata.CreatorAddress            
+                  }).then(()=>{          
+                    let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                    const db = refactivity.push().key;                         
+                    refactivity.child(db).set({
+                    Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
+                    EscrowAddress:"BuyNFT",keyId:db,
+                    NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
+                    ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
+                    TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                    Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
+                    CreatorAddress:location.state.alldata.CreatorAddress
+                })
+                    .then(()=>{                                                            
+                        console.log("remove db");
+                        setShowTestLoading(false)
+                        setshowTestSale(true)              
+                    })                        
+                    setShowTestLoading(false)  
+                    setshowTestSale(true)
+                }) 
+          })
+          .catch((e) => {
+          console.error(e);
+          setShowTestLoading(false)  
+          });                            
+          //db change end here
+            } catch (err) {
+              console.error(err);
+            }                                                                                  
+        }                
+        }
+    }
+    }
+    const refreshSale=()=>{
+        setshowTestSale(false)
+        history.push('/')
+        window.location.reload(false)            
     }
     return (
         <Layout>
@@ -44,11 +342,11 @@ const SingleLiveauction = (props) => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu className='link-flex dropdown-menu-right'>
-                                    <Dropdown.Item href="/">New bid</Dropdown.Item>
+                                    <Dropdown.Item href="/liveauction">New bid</Dropdown.Item>
                                     <Dropdown.Divider />
-                                    <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
+                                    <Dropdown.Item href="/liveauction">Refresh Metadata</Dropdown.Item>
                                     <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
-                                    <Dropdown.Item href="/">Report</Dropdown.Item>
+                                    <Dropdown.Item href="/liveauction">Report</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -56,36 +354,60 @@ const SingleLiveauction = (props) => {
 
                     <Row className="bid-users mb-4">
                         <Col>
-                            <h6><span>Creator</span> 10% royalties</h6>
+                            <h6><span>Creator</span> </h6>
 
-                            <Link to="/" className="avatar d-flex align-items-center text-truncate">
+                            {/* <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                 <span>Elena Moretti</span>
-                            </Link>
+                            </Link> */}
+                            {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined ?(
+                                    <Link className="avatar d-flex align-items-center text-truncate">
+                                    <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
+                                    <span>Not validated</span>
+                                    </Link>                                    
+                                    ):(
+                                    <Link className="avatar d-flex align-items-center text-truncate">
+                                    <img src={getIPro[0].Imageurl} alt="avatar" />
+                                    <span>{getIPro[0].UserName}</span>
+                                    </Link>
+                            )}
                         </Col>
-                        <Col>
+                        {/* <Col>
                             <h6>Collection</h6>
 
                             <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                 <span>ELEMENT Singles</span>
                             </Link>
-                        </Col>
+                        </Col> */}
                     </Row>
 
                     <Tabs defaultActiveKey="details" id="bids-tabs" className="mb-4 nav-tabs-start">
                         <Tab eventKey="details" title="Details">
                             <div className="mb-4">
                                 <h6 className='subheading'>Owner</h6>
-                                <Link to="/" className="avatar d-flex align-items-center text-truncate">
+                                {/* <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                     <span>Elena Moretti</span>
+                                </Link> */}
+                                
+                                
+                                {getIPro2[0] === null || getIPro2[0] === "" || getIPro2[0] === undefined || getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
+                                <Link  className="avatar d-flex align-items-center text-truncate">
+                                <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
+                                <span>{" Not Profile Completed "}</span>
                                 </Link>
+                                ):(
+                                <Link  className="avatar d-flex align-items-center text-truncate">
+                                <img src={getIPro2[0].Imageurl} alt="avatar" />
+                                <span>{getIPro2[0].UserName}</span>
+                                </Link>                                
+                                )}                                                                
                             </div>
                             <div className="mb-4">
                                 <h6 className='subheading'>Blockchain</h6>
                                 <div className="avatar d-flex align-items-center text-truncate">
-                                    <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
+                                <img src={AlgorandIcon} alt="avatar" />
                                     <span>Algorand</span>
                                 </div>
                             </div>
@@ -107,15 +429,33 @@ const SingleLiveauction = (props) => {
                     <div className="sticky-bottom mt-auto text-center">
                         <Row className='mb-3'>
                             <Col xs={6}>
-                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg'>Waiting for owner to accept</Button>
+                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>{waitforOwnerAccept()}}>Waiting for owner to accept</Button>
                             </Col>
                             <Col xs={6}>
-                                <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg'>Buy</Button>
+                                <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg' onClick={()=>{buynow()}}>Buy</Button>
                             </Col>
                         </Row>
                         <p>There's no bids yet. Be the first!</p>
                     </div>
-                <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
+                    <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>Loading...</h3>                                    
+                    </div>                    
+                </Modal.Body>
+            </Modal>                          
+                             
+            <Modal show={showTestSale} centered size="sm" onHide={handleCloseTestSale}>
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>Token Purchase Successfully</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
+                </Modal.Body>
+            </Modal>   
+            <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
                 <Modal.Header closeButton />
                 <Modal.Body>
                             

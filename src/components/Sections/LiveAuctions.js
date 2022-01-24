@@ -91,7 +91,7 @@ const LiveAuctions = () => {
                     <>
                     {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">               */}
                     <div className='carousel-cell carousel-cell-20' >
-                    <CardLiveA timer='19:10' img={x.Imageurl} verify={true} count="401" subTitle="$1,426,752" dataall={x}/> 
+                    <CardLiveA timer='19:10' pAddress={x.previousoaddress} oAddress={x.ownerAddress} img={x.Imageurl} verify={true} count="401" subTitle="$1,426,752" dataall={x}/> 
                     </div>                    
                     {/* </div> */}
                     </>                                                                                          

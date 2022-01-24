@@ -473,7 +473,7 @@ const SingleBid = (props) => {
                         </Row>
                     </div>
                 </div>
-                <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+            <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
