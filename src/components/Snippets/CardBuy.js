@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Card, Dropdown, Button, OverlayTrigger, Tooltip,Modal,Form, InputGroup } from 'react-bootstrap';
 import {
     Link
@@ -10,11 +10,9 @@ import EthereumIcon from '../../assets/images/Algo.png'
 import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
+import firebase from '../../firebase';
 import dataescrow from "../../escrow.js";
 const myAlgoWallet = new MyAlgoConnect();
-
-
-
 
 const CardBuy = (props) => {
     const [showShare,setshowShare] = React.useState(false); 
@@ -30,190 +28,95 @@ const CardBuy = (props) => {
     const handleCloseTestDone = () => setshowTestDone(false);
     const handleCloseTestSale = () => setshowTestSale(false);
     
-    
-    
-    const waitForConfirmation = async function (algodclient, txId) {
-        let status = (await algodclient.status().do());
-        let lastRound = status["last-round"];
-          while (true) {
-            const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
-            if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
-              //Got the completed Transaction
-              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
-              break;
-            }
-            lastRound++;
-            await algodclient.statusAfterBlock(lastRound).do();
+    const[getIPro1,setgetIPro1]=useState([""]);
+    const[getIPro,setgetIPro]=useState([""]);
+    console.log("getIProprofile",getIPro[0].Imageurl) 
+    console.log("getIProprofile1",getIPro1[0].Imageurl) 
+
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(props.pAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid
+              })                
           }
-        };        
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro()},[])
 
-        const refreshSale=()=>{
-            setshowTestSale(false)
-            window.location.reload(false)
-        }
-
-        const buynow=async()=>{
-            if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
-            }
-            else{          
-            if(props.dataall === localStorage.getItem("wallet"))
-            {   
-                alert("you are owner so you does not purchase this token")             
-            }
-            else{
-                setShowTestLoading(true)                
-                const algosdk = require('algosdk');  
-                const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');          
-                //const myAlgoConnect = new MyAlgoConnect();
-                //  let appId="50714558";
-                let appId=parseInt(configfile['appId']);                
-                let params = await algodclient.getTransactionParams().do();
-                //comment out the next two lines to use suggested fee
-                params.fee = 1000;
-                params.flatFee = true;  
-                //console.log("Global state", datedt);  
-              try {    
-                let convert95=(((parseInt(props.dataall.NFTPrice))/100)*95)
-                console.log("convert95",convert95)  
-                let convert5=(((parseInt(props.dataall.NFTPrice))/100)*5);
-                console.log("convert5",convert5)
-                const params = await algodclient.getTransactionParams().do();    
-                const myAlgoConnect = new MyAlgoConnect();
-                let results = await algodclient.compile(dataescrow).do();
-                console.log("Resultconsole = " + results);
-                console.log("Hash = " + results.hash);
-                console.log("Result = " + results.result);
-                //await sleep(20000)
-                let program = new Uint8Array(Buffer.from(results.result, "base64"));      
-                let lsig = algosdk.makeLogicSig(program);
-                //let tealSignPrint = tealSign(sk, data, lsig.address());
-                console.log("LSIG",lsig.address())
-                let appArgs = [];
-                appArgs.push(new Uint8Array(Buffer.from("Buynow")));
-                const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                from: localStorage.getItem('wallet'),
-                to: localStorage.getItem('wallet'),
-                assetIndex: parseInt(props.dataall.Assetid),
-                note: undefined,
-                amount: 0,
-                suggestedParams: params
-                });
-              
-                const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
-                const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
-                console.log("optresponse",responseass)
-                
-                  
-                const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
-                  from:localStorage.getItem('wallet'), 
-                  suggestedParams: params, 
-                  appIndex: parseInt(appId), 
-                  appArgs: appArgs
-              });
-              
-              const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-                  suggestedParams:params,
-                  from:localStorage.getItem('wallet'),
-                  to: lsig.address(), 
-                  amount: 2000
-              });
-              const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-                suggestedParams:params,
-                from:localStorage.getItem('wallet'),
-                to: lsig.address(), 
-                amount: parseInt(props.dataall.NFTPrice)
-              });
-              
-                const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                  suggestedParams:params,
-                  from: lsig.address(),
-                  to:localStorage.getItem('wallet'), 
-                  amount: 1,
-                  assetIndex: parseInt(props.dataall.Assetid)
-                });
-              
-                
-                const txn5 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-                  suggestedParams:params,
-                  from: lsig.address(),
-                  to: props.dataall.ownerAddress, 
-                  amount: parseInt(convert95)
-              });
-              
-              const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
-                reKeyTo: undefined,
-                from : lsig.address(),
-                manager:localStorage.getItem('wallet'),
-                assetIndex: parseInt(props.dataall.Assetid),
-                suggestedParams:params,
-                strictEmptyAddressChecking:false
-                
-              })
-              
-              const txn7 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-                suggestedParams:params,
-                from: lsig.address(),
-                to:"PSYRA3264OJABUAD4GWNUMGXGYDZHJRPGL5GX26SNF3OIDQQKSPWZGDWN4", 
-                amount: parseInt(convert5)
-              });
-              
-              const txnsToGroup = [ txn1, txn2 ,txn3, txn4, txn5, txn6, txn7];
-              const groupID = algosdk.computeGroupID(txnsToGroup)
-              txnsToGroup[0].group = groupID;
-              txnsToGroup[1].group = groupID;
-              txnsToGroup[2].group = groupID;
-              txnsToGroup[3].group = groupID;
-              txnsToGroup[4].group = groupID;
-              txnsToGroup[5].group = groupID;
-              txnsToGroup[6].group = groupID;
-              
-              const signedTx1 = await myAlgoConnect.signTransaction(txnsToGroup[0].toByte());
-              const signedTx2 = await myAlgoConnect.signTransaction(txnsToGroup[1].toByte());
-              const signedTx3 = await myAlgoConnect.signTransaction(txnsToGroup[2].toByte());
-              const signedTx4 = algosdk.signLogicSigTransaction(txnsToGroup[3], lsig);
-              const signedTx5 = algosdk.signLogicSigTransaction(txnsToGroup[4], lsig);
-              const signedTx6 = algosdk.signLogicSigTransaction(txnsToGroup[5], lsig);
-              const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);
-              
-              const response = await algodclient.sendRawTransaction([signedTx1.blob,signedTx2.blob,signedTx3.blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
-              console.log("TxID", JSON.stringify(response, null, 1));
-              await waitForConfirmation(algodclient, response.txId);
-              
-              //db change here
-                    
-              fireDb.database().ref(`imagerefexploreoneAlgos/${props.dataall.ownerAddress}`).child(props.dataall.keyId).remove().then(()=>{
-                fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(props.dataall.keyId).set({
-                    Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
-                    NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:localStorage.getItem('wallet'),previousoaddress:props.dataall.ownerAddress,
-                    TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.ownerAddress,Appid:props.dataall.Appid,valid:props.dataall.valid            
-                      }).then(()=>{          
-                        setShowTestLoading(false)  
-                        setshowTestSale(true)
-                    }) 
-              })
-              .catch((e) => {
-              console.error(e);
-              setShowTestLoading(false)  
-              });                            
-              //db change end here
-                } catch (err) {
-                  console.error(err);
-                }                                                                  
-            }
-        }
-        }
-
-        const sharebutton=()=>{            
-            setshowShare(true)
-        }
+    const dbcallPro1=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(props.oAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid
+              })                
+          }
+          else{
+            setgetIPro1([""]);  
+          }
+          setgetIPro1(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro1()},[])
     
-    
+    const refreshSale=()=>{
+        setshowTestSale(false)
+        window.location.reload(false)
+    }
+
+    const sharebutton=()=>{            
+        setshowShare(true)
+    }
+        
     return (
         
         <Card >
             <Card.Header className='d-flex align-items-center'>
                 <div className="card-users d-flex align-items-center me-auto">
-                    <OverlayTrigger
+                <OverlayTrigger
+                        overlay={<Tooltip>E-Element</Tooltip>}
+                    >
+                        <Link className='collection-item d-flex align-items-center' to={{
+                        pathname: "/profileviewothercopy2",            
+                        state:{ownerAddress:props.oAddress,CreatorAddress:props.CreatorAddress}}} >
+                            <img src={getIPro1[0].Imageurl} alt="pic" />
+                        </Link>
+                </OverlayTrigger>
+                <OverlayTrigger
+                        overlay={<Tooltip>E-Element</Tooltip>}
+                    >
+                        <Link className='collection-item d-flex align-items-center' to={{
+                        pathname: "/profileviewothercopy2",            
+                        state:{ownerAddress:props.pAddress,CreatorAddress:props.CreatorAddress}
+                        //title:props.title,amount:props.amount,appid:props.appid,assetid:props.assetid,escrowaddress:props.escrowaddress,historyaddress:props.historyaddress,imageurl:props.imageurl,ipfsurl:props.ipfsurl,nftdescription:props.nftdescription,TimeStamp:props.TimeStamp,keyId:props.keyId,ownerAddress:props.ownerAddress,previousaddress:props.previousaddress,userSymbol:props.userSymbol,valid:props.valid
+                        // ,follow:props.follow
+                        }}>        
+                            <img src={getIPro[0].Imageurl} alt="pic" />
+                            {getIPro1[0].valid === "validated" || getIPro[0].valid === "validated" ? (
+                                <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fillRule="evenodd" clipRule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000">                                        
+                                    </path>
+                                </svg>
+                            ) : null}
+                        </Link>
+                </OverlayTrigger>
+                    {/* <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
                         <Link to="/">
@@ -239,7 +142,7 @@ const CardBuy = (props) => {
                                 <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fillRule="evenodd" clipRule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
                             ) : null}
                         </Link>
-                    </OverlayTrigger>
+                    </OverlayTrigger> */}
                 </div>
 
                 <Dropdown className='dropdown-noarrow'>

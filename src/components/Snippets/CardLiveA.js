@@ -108,8 +108,8 @@ const CardLiveA = (props) => {
                         state:{ownerAddress:props.oAddress,CreatorAddress:props.CreatorAddress}}} >
                             <img src={getIPro1[0].Imageurl} alt="pic" />
                         </Link>
-                    </OverlayTrigger>
-                    <OverlayTrigger
+                </OverlayTrigger>
+                <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
                         <Link className='collection-item d-flex align-items-center' to={{
@@ -126,7 +126,7 @@ const CardLiveA = (props) => {
                                 </svg>
                             ) : null}
                         </Link>
-                    </OverlayTrigger>
+                </OverlayTrigger>
                     {/* <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
