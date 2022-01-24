@@ -9,6 +9,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../firebase';
 import dataescrow from "../escrow.js";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import firebase from '../firebase';
 import {
     FacebookShareButton,
     GooglePlusShareButton,
@@ -46,6 +47,7 @@ import {
     EmailIcon,
   } from 'react-share';
   import cjson from '../config.json'
+  import AlgorandIcon from '../assets/images/Algo.png'
 const algosdk = require('algosdk'); 
 const myAlgoWallet = new MyAlgoConnect();
 
@@ -53,6 +55,10 @@ const SingleBid = (props) => {
     const history = useHistory();
     const location = useLocation();
     console.log("Biddata2",location.state.alldata)
+    const[getIPro,setgetIPro]=useState([""]);
+    const[getIPro2,setgetIPro2]=useState([""]);
+    console.log("getIProprofiles",getIPro[0]) 
+    console.log("getIProprofiles2",getIPro2[0]) 
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
@@ -92,7 +98,51 @@ const SingleBid = (props) => {
         }        
     }
     listenMMAccount();
-      }, []);
+    }, []);
+
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(location.state.alldata.CreatorAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid,
+                UserName:data.val().UserName
+              })                
+          }
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro()},[])
+
+    const dbcallPro2=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid,
+                UserName:data.val().UserName
+              })                
+          }
+          else{
+            setgetIPro2([""]);  
+          }
+          setgetIPro2(r);
+        });                  
+      } catch (error) {
+        console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro2()},[])
 
     
     
@@ -323,12 +373,12 @@ const SingleBid = (props) => {
                             <div className="category">From <span className='text-dark'>0.06 ALGO</span> · 474 of 500 available</div>
                         </div>
                         <div className="ms-auto d-flex align-items-center">
-                            <Button variant='white' className='btn-count me-2 py-3 btn-rounded'>
+                            {/* <Button variant='white' className='btn-count me-2 py-3 btn-rounded'>
                                 <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye fDKaYE sc-cnHmbd lkEDtX">
                                     <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2">
                                 </path></svg>
                                 50
-                            </Button>
+                            </Button> */}
 
                             <Dropdown className='dropdown-noarrow'>
                                 <Dropdown.Toggle variant="white" className='btn-round'>
@@ -354,25 +404,39 @@ const SingleBid = (props) => {
                         {/* <p>"Gas Station Pills" </p> */}
                     </div>
 
-                    {/* <Row className="bid-users mb-4">
+                    <Row className="bid-users mb-4">
                         <Col>
-                            <h6><span>Creator</span> 10% royalties</h6>
+                            <h6><span>Creator</span></h6>
 
-                            <Link to="/" className="avatar d-flex align-items-center text-truncate">
+                            {/* <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                 <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                 <span>HEX TOYS</span>
+                            </Link> */}
+                            <Link className="avatar d-flex align-items-center text-truncate">
+                                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined ?(
+                                    <Link className="avatar d-flex align-items-center text-truncate">
+                                    <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
+                                    <span>Not validated</span>
+                                    </Link>                                    
+                                    ):(
+                                    <Link className="avatar d-flex align-items-center text-truncate">
+                                    <img src={getIPro[0].Imageurl} alt="avatar" />
+                                    <span>{getIPro[0].UserName}</span>
+                                    </Link>
+                                    )}
+                                    
                             </Link>
                         </Col>
-                        <Col>
+                        {/* <Col>
                             <h6>Collection</h6>
 
                             <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                 <span>HEX TOYS</span>
                             </Link>
-                        </Col>
-                    </Row> */}
+                        </Col> */}
+                    </Row>
 
                     {/* <div className="mb-4 pt-2">
                         <Button className='w-100' size="lg" variant='light-grad'>
@@ -383,10 +447,22 @@ const SingleBid = (props) => {
                         </Button>
                     </div> */}
 
-                    {/* <Tabs defaultActiveKey="owners" id="bids-tabs" className="mb-4 nav-tabs-start">
+                    <Tabs defaultActiveKey="owners" id="bids-tabs" className="mb-4 nav-tabs-start">
                         <Tab eventKey="owners" title="Owners">
                             <div className="d-flex mb-4 align-items-center">
-                                <Link to="/" className="avatar d-flex align-items-center text-truncate">
+
+                            <Link  className="avatar d-flex align-items-center text-truncate">
+                                <img src={getIPro2[0].Imageurl} alt="avatar" />
+                                {getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
+                                <span>{" Not Profile Completed "}</span>
+                                ):(
+                                <span>{getIPro2[0].UserName}</span>
+                                )}
+                                
+                            </Link>
+
+                                
+                                {/* <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                     <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg>
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                     <div>
@@ -395,9 +471,9 @@ const SingleBid = (props) => {
                                     </div>
                                 </Link>
 
-                                <Button variant='primary' className='ms-auto'>Buy</Button>
+                                <Button variant='primary' className='ms-auto'>Buy</Button> */}
                             </div>
-                            <div className="d-flex mb-4 align-items-center">
+                            {/* <div className="d-flex mb-4 align-items-center">
                                 <Link to="/" className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                     <div>
@@ -414,24 +490,24 @@ const SingleBid = (props) => {
                                         <p>1 edition <span>not for sale</span></p>
                                     </div>
                                 </Link>
-                            </div>
+                            </div> */}
                         </Tab>
-                        <Tab eventKey="bids" title="Bids">
+                        {/* <Tab eventKey="bids" title="Bids">
                             <div className="no-found py-5p text-gray text-center">
                                 <svg viewBox="0 0 12 16" fill="none" width="38" height="38" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL mb-3 sc-hKwDye jggBKf"><path d="M7.00146 0V6H11.0015L4.00146 16V10H0.00146484L7.00146 0Z" fill="currentColor"></path></svg>
                                 <p className="lead mb-4">No active bids yet. Be the <br />first to make a bid!</p>
                             </div>
-                        </Tab>
+                        </Tab> */}
                         <Tab eventKey="details" title="Details">
                             <div className="mb-4">
                                 <h6 className='subheading'>Blockchain</h6>
                                 <div className="avatar d-flex align-items-center text-truncate">
-                                    <img src="https://rarible.com/9b703a21b9f93a1f0065.svg" alt="avatar" />
+                                <img src={AlgorandIcon} alt="avatar" />
                                     <span>Algorand</span>
                                 </div>
                             </div>
                         </Tab>
-                        <Tab eventKey="history" title="History">
+                        {/* <Tab eventKey="history" title="History">
                             <div className="d-flex mb-4 align-items-center">
                                 <div className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
@@ -459,17 +535,17 @@ const SingleBid = (props) => {
                                     </div>
                                 </div>
                             </div>
-                        </Tab>
-                    </Tabs> */}
+                        </Tab> */}
+                    </Tabs>
 
                     <div className="sticky-bottom mt-auto text-center">
                         <Row>
-                            <Col xs={6}>
+                            {/* <Col xs={6}> */}
                                 <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>buynow()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
-                            </Col>
-                            <Col xs={6}>
+                            {/* </Col> */}
+                            {/* <Col xs={6}>
                                 <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg'>Place a bid</Button>
-                            </Col>
+                            </Col> */}
                         </Row>
                     </div>
                 </div>

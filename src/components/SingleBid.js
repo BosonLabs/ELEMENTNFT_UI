@@ -380,7 +380,7 @@ const SingleBid = (props) => {
                                     </Link>
                                     )}
                                     
-                                </Link>
+                            </Link>
                             
                         </Col>
                         {/* <Col>
