@@ -540,8 +540,6 @@ useEffect(()=>{dbcallother()},[])
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-
-
                 <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
             </Container>
 

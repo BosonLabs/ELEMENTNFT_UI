@@ -200,8 +200,8 @@ const CardLiveA = (props) => {
 
                 <div className="card-info d-flex align-items-end justify-content-between">
                     <div>                        
-                        <h5 dangerouslySetInnerHTML={{__html: props.dataall.NFTPrice}} />
-                        <Link to="/" className='btn-link-grad'>{props.dataall.NFTPrice}</Link>
+                        <h5 dangerouslySetInnerHTML={{__html: (props.dataall.NFTPrice)/1000000}} />
+                        {/* <Link to="/" className='btn-link-grad'>{props.dataall.NFTPrice}</Link> */}
                         <span>{props.dataall.Assetid}</span>
                     </div>                    
                     

@@ -446,7 +446,8 @@ const SingleBid = (props) => {
                                 <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>{bidding()}}>Place a bid</Button>
                             </Col>
                             <Col xs={6}>
-                                <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg' onClick={()=>{buynow()}}>Buy</Button>
+                                <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg' >Buy</Button>
+                                {/* onClick={()=>{buynow()}} */}
                             </Col>
                         </Row>
                         <p>There's no bids yet. Be the first!</p>
