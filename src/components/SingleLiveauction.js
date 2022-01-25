@@ -320,7 +320,7 @@ const SingleLiveauction = (props) => {
         <Layout>
             <Container fluid className='d-md-flex'>
                 <div className="content-left d-flex">
-                    <img src={location.state.alldata.Imageurl} alt="test"/>
+                    <img src={location.state.alldata.Imageurl} style={{width:"500px",height:"500px"}} alt="test"/>
                 </div>
                 <div className="content-right d-flex flex-column ms-auto">
                     <div className="d-flex mb-4">

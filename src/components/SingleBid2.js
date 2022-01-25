@@ -364,7 +364,7 @@ const SingleBid = (props) => {
             <Container fluid className='d-md-flex'>
                 <div className="content-left d-flex">
                     {/* <video playsInline={true} autoPlay={true} controls={true} loop={true} src="https://img.rarible.com/prod/video/upload/t_big/prod-itemAnimations/0x5c3daa7a35d7def65bfd9e99120d5fa07f63f555:10061/271db129"></video> */}
-                    <img src={location.state.alldata.Imageurl} alt="test"/>
+                    <img src={location.state.alldata.Imageurl} style={{width:"500px",height:"500px"}} alt="test"/>
                 </div>
                 <div className="content-right d-flex flex-column ms-auto">
                     <div className="d-flex align-items-start mb-4">
