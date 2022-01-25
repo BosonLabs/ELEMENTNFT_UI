@@ -242,12 +242,19 @@ const CardCreate = (props) => {
           txs[4].group = groupID;
           
                     
-          const signedTx1 = await myAlgoConnect.signTransaction(txs[0].toByte());
-          const signedTx2 = await myAlgoConnect.signTransaction(txs[1].toByte());
+          //const signedTx1 = await myAlgoConnect.signTransaction([txnsToGroup[0].toByte(),txnsToGroup[1].toByte(),txnsToGroup[2].toByte()]);
+          const signedTx1 = await myAlgoConnect.signTransaction([txs[0].toByte(),txs[1].toByte(),txs[3].toByte(),txs[4].toByte()]);          
+          //const signedTx2 = await myAlgoConnect.signTransaction();
           const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);
-          const signedTx4 = await myAlgoConnect.signTransaction(txs[3].toByte());
-          const signedTx5 = await myAlgoConnect.signTransaction(txs[4].toByte());
-          const response = await algodclient.sendRawTransaction([ signedTx1.blob, signedTx2.blob, signedTx3.blob, signedTx4.blob,signedTx5.blob]).do();
+          //const signedTx4 = await myAlgoConnect.signTransaction();
+          //const signedTx5 = await myAlgoConnect.signTransaction();
+          const response = await algodclient.sendRawTransaction([ signedTx1[0].blob, signedTx1[1].blob, signedTx3.blob, signedTx1[2].blob,signedTx1[3].blob]).do();
+        //   const signedTx1 = await myAlgoConnect.signTransaction(txs[0].toByte());
+        //   const signedTx2 = await myAlgoConnect.signTransaction(txs[1].toByte());
+        //   const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);
+        //   const signedTx4 = await myAlgoConnect.signTransaction(txs[3].toByte());
+        //   const signedTx5 = await myAlgoConnect.signTransaction(txs[4].toByte());
+        //   const response = await algodclient.sendRawTransaction([ signedTx1.blob, signedTx2.blob, signedTx3.blob, signedTx4.blob,signedTx5.blob]).do();
           console.log("TxID", JSON.stringify(response, null, 1));
           await waitForConfirmation(algodclient, response.txId);
   
