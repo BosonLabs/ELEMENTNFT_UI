@@ -79,17 +79,17 @@ const Explore = () => {
     const filterdata=()=>{
       if(getprice1 > 0  && getprice2 > 0){
         
-        let data=getI.filter((val)=> val.NFTPrice >= getprice1 && val.NFTPrice <= getprice2)
+        let data=getI.filter((val)=> (val.NFTPrice/1000000) >= getprice1 && (val.NFTPrice/1000000) <= getprice2)
         console.log("filtercall1",data)
         return data;
       }
       if(getrecent === "Low to High"){
-        let data=getI.sort((a,b)=>{ return parseInt(a.NFTPrice) - parseInt(b.NFTPrice)})
+        let data=getI.sort((a,b)=>{ return parseInt(a.NFTPrice/1000000) - parseInt(b.NFTPrice/1000000)})
         console.log("filtercall1",data)
         return data;
       }
       if(getrecent ===  "High to Low"){
-        let data=getI.sort((a,b)=>{ return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)})
+        let data=getI.sort((a,b)=>{ return parseInt(b.NFTPrice/1000000) - parseInt(a.NFTPrice/1000000)})
         console.log("filtercall1",data)
         return data;
       }
