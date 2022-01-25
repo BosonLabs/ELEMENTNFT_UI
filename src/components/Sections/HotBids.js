@@ -18,7 +18,7 @@ const HotBids = () => {
         //else{  imagerefAlgo                      
           axios({
             method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefbuy.json',
+            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
             responseType: 'stream'
           })
             .then(function (response) {
