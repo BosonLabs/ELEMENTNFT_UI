@@ -136,6 +136,11 @@ const Start = () => {
           else if(tname === "" ){
             alert("please enter NFT Name")
           }
+          else if(!/\S/.test(tname)){
+
+            alert("only space not allowed")
+
+          }
           else if(format.test(tname)){
             alert("please enter valid NFT Name special character not allowed")
           }
