@@ -110,17 +110,17 @@ const OnSaleOther = (data) => {
     const filterdata=()=>{
         if(getprice1 > 0  && getprice2 > 0){
           
-          let datas=data.data.filter((val)=> val.NFTPrice >= getprice1 && val.NFTPrice <= getprice2)
+          let datas=data.data.filter((val)=> (val.NFTPrice)/1000000 >= getprice1 && (val.NFTPrice)/1000000 <= getprice2)
           console.log("filtercall1",datas)
           return datas;
         }
         if(getrecent === "Low to High"){
-          let datas=data.data.sort((a,b)=>{ return parseInt(a.NFTPrice) - parseInt(b.NFTPrice)})
+          let datas=data.data.sort((a,b)=>{ return parseInt((a.NFTPrice)/1000000) - parseInt((b.NFTPrice)/1000000)})
           console.log("filtercall1",datas)
           return datas;
         }
         if(getrecent ===  "High to Low"){
-          let datas=data.data.sort((a,b)=>{ return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)})
+          let datas=data.data.sort((a,b)=>{ return parseInt((b.NFTPrice)/1000000) - parseInt((a.NFTPrice)/1000000)})
           console.log("filtercall1",datas)
           return datas;
         }
