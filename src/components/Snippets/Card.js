@@ -382,11 +382,11 @@ const CardCreate = (props) => {
                     </Button> */}
 
                     {props.linkText === undefined || props.linkText === null || props.linkText === " " || props.linkText === 0 ? (<>
-                    <Button variant='default' className='btn-count float-end' onClick={()=>onshow1()}>                        
+                    <Button variant='primary' className='btn-count float-end' onClick={()=>onshow1()}>                        
                         <span>Set Price</span>
                     </Button>
                      </>) : (<>
-                    <Button variant='default' className='btn-count float-end' onClick={()=>onshow2()}>   
+                    <Button variant='primary' className='btn-count float-end' onClick={()=>onshow2()}>   
                         <span>Sale NFT</span>
                     </Button>
                     </>)}    
