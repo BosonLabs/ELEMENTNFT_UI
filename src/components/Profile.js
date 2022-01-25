@@ -302,7 +302,7 @@ function HomePage() {
                       ):(
                         <>
                         <Link to="/settings" className='profile-pic'>
-                          <img src={getPro[0].bgurl} alt="pic" /><span>Edit</span>
+                          <img src={getPro[0].Imageurl} alt="pic" /><span>Edit</span>
                           </Link>
                         </>
                       )}

@@ -192,7 +192,7 @@ const Edit = () => {
                                 <h3>Custom URL</h3>    
                                 <InputGroup className="mb-4 input-group-field" onChange={event => setUrl( event.target.value)}>
                                     <InputGroup.Text className='ps-0 font-weight-normal'>
-                                        rarible.com/
+                                        element.com/
                                     </InputGroup.Text>
                                     <Form.Control placeholder="Enter your custom URL" />
                                 </InputGroup>     
