@@ -127,6 +127,8 @@ const Start = () => {
         //event.preventDefault();  
           //new write below
           var regex = new RegExp("^[a-zA-Z0-9]+$")
+          var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+          //!regex.test(tname)
           if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
             
             alert("please connect your wallet")
@@ -134,8 +136,8 @@ const Start = () => {
           else if(tname === "" ){
             alert("please enter NFT Name")
           }
-          else if(!regex.test(tname)){
-            alert("please enter valid NFT Name")
+          else if(format.test(tname)){
+            alert("please enter valid NFT Name special character not allowed")
           }
           else if(Img === "" || Img === null || Img === undefined ){
             alert("please upload image")
@@ -519,7 +521,8 @@ const Start = () => {
                                 <div>
                                   {Img === "" || Img === null || Img === "" || Img === undefined ? (
                                     <>
-                                    <p className='mb-3'>PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</p>
+                                     {/* GIF, WEBP, MP4 or MP3. Max 100mb. */}
+                                    <p className='mb-3'>PNG,IMG,JPG</p>
                                     <input type="file" hidden name="upload" id='upload' onChange = {captureFile}/>
                                     <label htmlFor="upload" className='btn btn-light-blue'>Choose File</label>
                                     </>
@@ -538,14 +541,14 @@ const Start = () => {
                                 <h3>Name</h3>
                                 <InputGroup className="mb-4 input-group-field" onChange={event => setName(event.target.value)}>
                                     <Form.Control
-                                        placeholder='e. g. "Redeemable T-Shirt with logo"'
+                                        placeholder='e. g. "Redeemable Shirt  "'
                                     />
                                 </InputGroup>
 
                                 <h3>Description <small>(Optional)</small></h3>
                                 <InputGroup className="mb-2 input-group-field" onChange={event => setDescription(event.target.value)}>
                                     <Form.Control
-                                        placeholder='e. g. "After purchasing you’ll be able to get the real T-Shirt"'
+                                        placeholder='e. g. "After purchasing you’ll be able to get the real Shirt"'
                                     />
                                 </InputGroup>                                
                             </div>
