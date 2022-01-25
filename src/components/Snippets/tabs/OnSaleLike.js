@@ -220,8 +220,8 @@ const OnSaleLike = (data) => {
                     <>                    
                     <div className='col mb-4' >
                     <CardSale img={x.Imageurl} 
-                    title={x.NFTName} count="4012" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
-                    linkText={parseInt(x.NFTPrice/1000000)} dataall={x}
+                    title={x.NFTName}
+                    dataall={x}
                     />
                     </div>                    
                     </>                                                                                          

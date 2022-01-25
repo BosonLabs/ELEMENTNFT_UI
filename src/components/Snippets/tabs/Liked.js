@@ -13,38 +13,37 @@ import CardLike from "../CardLike";
 const animatedComponents = makeAnimated();
 
 const OnLiked = (data) => {
-    console.log("datalike",data)
+    console.log("datalike",data.data)
     const[getImgreffalgo,setgetImgreffalgo]=useState([]);
     console.log("getImgalgo",getImgreffalgo)
-    const dbcallalgo=async()=>{
-        console.log("inside dbcallalgo function")  
+    const dbcallalgo=async()=>{    
         let req = [];
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
         }
         else{
           let getalgo=localStorage.getItem("wallet");              
-          firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+          firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
                 let value=d.val();
                 req.push(            
                   {
-                      Assetid:value.Assetid,
-                      Imageurl:value.Imageurl,
-                      NFTPrice:value.NFTPrice,
-                      EscrowAddress:value.EscrowAddress,
-                      keyId:value.keyId,
-                      NFTName:value.NFTName,
-                      userSymbol:value.userSymbol,
-                      Ipfsurl:value.Ipfsurl,
-                      ownerAddress:value.ownerAddress,
-                      previousoaddress:value.previousoaddress,
-                      TimeStamp:value.TimeStamp,
-                      NFTDescription:value.NFTDescription,
-                      HistoryAddress:value.HistoryAddress,
-                      Appid:value.Appid,
-                      valid:value.valid,
-                      CreatorAddress:value.CreatorAddress                      
+                    Assetid:data.val().Assetid,
+                    Imageurl:data.val().Imageurl,
+                    NFTPrice:data.val().NFTPrice,
+                    keyId:data.val().keyId,
+                    NFTName:data.val().NFTName,
+                    userSymbol:data.val().userSymbol,
+                    Ipfsurl:data.val().Ipfsurl,
+                    ownerAddress:data.val().ownerAddress,
+                    previousoaddress:data.val().previousoaddress,
+                    TimeStamp:data.val().TimeStamp,
+                    NFTDescription:data.val().NFTDescription,
+                    HistoryAddress:data.val().HistoryAddress,
+                    Appid:data.val().Appid,
+                    valid:data.val().valid,
+                    CreatorAddress:data.val().CreatorAddress,
+                    like:data.val().like
                   },          
                 )                
               });        
@@ -53,7 +52,7 @@ const OnLiked = (data) => {
           });                  
         }
         //console.log("acc",getalgo)
-      }
+    }
       
     useEffect(()=>{dbcallalgo()},[])
     const colourStyles = {
@@ -219,7 +218,7 @@ const OnLiked = (data) => {
                 
                 <div className="col mb-4" >
                 {data.data.map((x, index) => {
-                console.log("loglike",x)
+                console.log("loglikep",x)
                 return(  
                     <>
                     <CardLike dataall={x}

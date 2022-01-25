@@ -38,6 +38,45 @@ function HomePage() {
     const handleFollowers = () => setFollowers(true);
     const handleFollowing = () => setFollowing(true);
     const handleCloseL = () => setShowL(false);
+
+
+    const[getdbLike,setdbLike]=useState([]);
+    console.log("getdbLike",getdbLike)
+    const dbLike=async()=>{    
+        let req = [];
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+        }
+        else{
+          let getalgo=localStorage.getItem("wallet");              
+          firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
+            if (data) {
+              data.forEach((d) => {                                             
+                req.push(            
+                  {
+                    Assetid:d.val().Assetid,
+                    Imageurl:d.val().Imageurl,
+                    NFTPrice:d.val().NFTPrice,
+                    keyId:d.val().keyId,
+                    NFTName:d.val().NFTName,
+                    userSymbol:d.val().userSymbol,
+                    Ipfsurl:d.val().Ipfsurl,
+                    ownerAddress:d.val().ownerAddress,
+                    previousoaddress:d.val().previousoaddress,
+                    TimeStamp:d.val().TimeStamp,
+                    NFTDescription:d.val().NFTDescription,
+                    HistoryAddress:d.val().HistoryAddress,
+                    Appid:d.val().Appid,
+                    valid:d.val().valid,
+                    CreatorAddress:d.val().CreatorAddress,
+                    like:d.val().like
+                  })                
+              });        
+              setdbLike(req);
+            }            
+          });                  
+        }        
+    }
+    useEffect(()=>{dbLike()},[])
     
     const captureFile =async(event) => {
       event.stopPropagation()
@@ -397,7 +436,7 @@ function HomePage() {
                 </div>
 
 
-                <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null}/>
+                <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike}/>
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>

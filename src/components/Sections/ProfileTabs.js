@@ -16,6 +16,7 @@ const ProfileTabs = (create) => {
     console.log("bsale",create.sale) 
     console.log("bbuyed",create.buyed)     
     console.log("Logp1",create.owner)     
+    console.log("Logp2",create.likes)     
 
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">
@@ -32,10 +33,10 @@ const ProfileTabs = (create) => {
                 <Collection />
             </Tab> */}
             <Tab eventKey="liked" title="Liked">
-                <OnSaleLike data={create.sale}/>
+                <OnSaleLike data={create.likes}/>
             </Tab>
             {/* <Tab eventKey="liked" title="Liked">
-                <Liked data={create.create}/>
+                <Liked data={create.likes}/>
             </Tab> */}
             <Tab eventKey="activity" title="Activity">
                 <Activity data={create.create} other={"local"} ownersend={create.owner}/>
