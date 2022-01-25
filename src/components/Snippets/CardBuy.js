@@ -32,6 +32,9 @@ const CardBuy = (props) => {
     const[getIPro,setgetIPro]=useState([""]);
     console.log("getIProprofile",getIPro[0].Imageurl) 
     console.log("getIProprofile1",getIPro1[0].Imageurl) 
+    const[getdblike,setdblike]=useState([""]);
+    console.log("getdblike",getdblike[0].Imageurl) 
+    
 
     const dbcallPro=async()=>{            
         let r=[];
@@ -84,40 +87,40 @@ const CardBuy = (props) => {
         setshowShare(true)
     }
 
-    const dbliked=async()=>{            
-        let r=[];
-        try {         
-        firebase.database().ref("dblike").child(localStorage.getItem('wallet')).on("value", (data) => {          
-          if (data) {                      
-              r.push({                
-                Assetid:data.val().Assetid,
-                Imageurl:data.val().Imageurl,
-                NFTPrice:data.val().NFTPrice,
-                keyId:data.val().keyId,
-                NFTName:data.val().NFTName,
-                userSymbol:data.val().userSymbol,
-                Ipfsurl:data.val().Ipfsurl,
-                ownerAddress:data.val().ownerAddress,
-                previousoaddress:data.val().previousoaddress,
-                TimeStamp:data.val().TimeStamp,
-                NFTDescription:data.val().NFTDescription,
-                HistoryAddress:data.val().HistoryAddress,
-                Appid:data.val().Appid,
-                valid:data.val().valid,
-                CreatorAddress:data.val().CreatorAddress,
-                like:data.val().like
-              })                
-          }
-          else{
-            setgetIPro([""]);  
-          }
-          setgetIPro(r);
-        });                  
-      } catch (error) {
-        console.log('error occured during search', error);    
-      }                
-      }    
-    useEffect(()=>{dbliked()},[])
+    // const dbliked=async()=>{            
+    //     let r=[];
+    //     try {         
+    //     firebase.database().ref("dblike").child(localStorage.getItem('wallet')).on("value", (data) => {          
+    //       if (data) {                      
+    //           r.push({                
+    //             Assetid:data.val().Assetid,
+    //             Imageurl:data.val().Imageurl,
+    //             NFTPrice:data.val().NFTPrice,
+    //             keyId:data.val().keyId,
+    //             NFTName:data.val().NFTName,
+    //             userSymbol:data.val().userSymbol,
+    //             Ipfsurl:data.val().Ipfsurl,
+    //             ownerAddress:data.val().ownerAddress,
+    //             previousoaddress:data.val().previousoaddress,
+    //             TimeStamp:data.val().TimeStamp,
+    //             NFTDescription:data.val().NFTDescription,
+    //             HistoryAddress:data.val().HistoryAddress,
+    //             Appid:data.val().Appid,
+    //             valid:data.val().valid,
+    //             CreatorAddress:data.val().CreatorAddress,
+    //             like:data.val().like
+    //           })                
+    //       }
+    //       else{
+    //         setdblike([""]);  
+    //       }
+    //       setdblike(r);
+    //     });                  
+    //   } catch (error) {
+    //     console.log('error occured during search', error);    
+    //   }                
+    //   }    
+    // useEffect(()=>{dbliked()},[])
 
     const likeadd=(dataall)=>{
         if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined) {
@@ -143,7 +146,7 @@ const CardBuy = (props) => {
             <Card.Header className='d-flex align-items-center'>
                 <div className="card-users d-flex align-items-center me-auto">
                 <OverlayTrigger
-                        // overlay={<Tooltip>E-Element</Tooltip>}
+                        overlay={<Tooltip>E-Element</Tooltip>}
                     >
                         <Link className='collection-item d-flex align-items-center' to={{
                         pathname: "/profileviewothercopy2",            
@@ -152,7 +155,7 @@ const CardBuy = (props) => {
                         </Link>
                 </OverlayTrigger>
                 <OverlayTrigger
-                        // overlay={<Tooltip>E-Element</Tooltip>}
+                        overlay={<Tooltip>E-Element</Tooltip>}
                     >
                         <Link className='collection-item d-flex align-items-center' to={{
                         pathname: "/profileviewothercopy2",            
@@ -245,10 +248,24 @@ const CardBuy = (props) => {
                         {/* <Link to="/" className='btn-link-grad'>{props.linkText}</Link> */}
                     </div>                    
                     
-                    <Button variant='default' className='btn-count float-end' onClick={()=>{likeadd(props.dataall)}}>
-                        <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye bZjZGw"><path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" strokeWidth="2"></path></svg>
-                        {/* <span>{props.count}</span> */}
+                    {getdblike[0] === null || getdblike[0] === undefined || getdblike[0] === "" ? (
+                    <Button variant='default' className='btn-count float-end' onClick={()=>{likeadd(props.dataall)}}>                        
+                    <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye bZjZGw"><path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" strokeWidth="2"></path></svg>
+                    {/* <span>{props.count}</span> */}
                     </Button>                    
+                    ):(
+                        <>
+                        {/* {getdblike[0].Assetid === props.Assetid?(
+                            <img src={getIPro[0].Imageurl} alt="pic" />
+                        ):(
+                            <Button variant='default' className='btn-count float-end' onClick={()=>{likeadd(props.dataall)}}>                        
+                            <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye bZjZGw"><path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" strokeWidth="2"></path></svg>
+                            <span>{props.count}</span>
+                            </Button>                    
+                        )} */}
+                    </>
+                    )}
+                    
                 
             <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
                 <Modal.Header  />

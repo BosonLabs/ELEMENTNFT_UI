@@ -122,7 +122,7 @@ const Explore = () => {
                 return(  
                     <>
                     <div className='col mb-4'>
-                    <CardBuy verify={true} pAddress={x.previousoaddress} oAddress={x.ownerAddress} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>${x.NFTPrice/1000000}</span>`} linkText={x.NFTPrice} dataall={x}/>  
+                    <CardBuy verify={true} pAddress={x.previousoaddress} oAddress={x.ownerAddress} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>${x.NFTPrice/1000000}</span>`} linkText={x.NFTPrice} dataall={x} Assetid={x.Assetid}/>  
                     </div>
                     </>                                                                                          
               )})}                              
