@@ -296,15 +296,14 @@ const SingleBid = (props) => {
               txnsToGroup[5].group = groupID;
               txnsToGroup[6].group = groupID;
               
-              const signedTx1 = await myAlgoConnect.signTransaction(txnsToGroup[0].toByte());
-              const signedTx2 = await myAlgoConnect.signTransaction(txnsToGroup[1].toByte());
-              const signedTx3 = await myAlgoConnect.signTransaction(txnsToGroup[2].toByte());
+              const signedTx1 = await myAlgoConnect.signTransaction([txnsToGroup[0].toByte(),txnsToGroup[1].toByte(),txnsToGroup[2].toByte()]);
+            //   const signedTx2 = await myAlgoConnect.signTransaction();
+            //   const signedTx3 = await myAlgoConnect.signTransaction();
               const signedTx4 = algosdk.signLogicSigTransaction(txnsToGroup[3], lsig);
               const signedTx5 = algosdk.signLogicSigTransaction(txnsToGroup[4], lsig);
               const signedTx6 = algosdk.signLogicSigTransaction(txnsToGroup[5], lsig);
-              const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);
-              
-              const response = await algodclient.sendRawTransaction([signedTx1.blob,signedTx2.blob,signedTx3.blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
+              const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);              
+              const response = await algodclient.sendRawTransaction([signedTx1[0].blob,signedTx1[1].blob,signedTx1[2].blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
               console.log("TxID", JSON.stringify(response, null, 1));
               await waitForConfirmation(algodclient, response.txId);
               
