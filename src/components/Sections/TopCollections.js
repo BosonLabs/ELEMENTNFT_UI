@@ -41,7 +41,8 @@ const TopCollections = () => {
                         NFTDescription:a[b].NFTDescription,
                         HistoryAddress:a[b].HistoryAddress,
                         Appid:a[b].Appid,
-                        valid:a[b].valid  
+                        valid:a[b].valid,
+                        CreatorAddress:a[b].CreatorAddress 
                     })                    
             })            
         });        
@@ -112,7 +113,7 @@ const TopCollections = () => {
               <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
             {filterdata().map((x, index) => (     
                 <li className='mb-3'>                    
-                    <CollectionItemCopy verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} />   
+                    <CollectionItemCopy Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} />   
                     {/* <CollectionItem verify={true} count={index} title={x.NFTName} amount={x.NFTPrice} />*/}
                 </li>                                 
             ))}
