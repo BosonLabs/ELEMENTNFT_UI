@@ -329,10 +329,10 @@ const SingleLiveauction = (props) => {
                             <div className="category">Auction</div>
                         </div>
                         <div className="ms-auto d-flex align-items-center">
-                            <Button variant='white' className='btn-count me-2 py-3 btn-rounded'>
+                            {/* <Button variant='white' className='btn-count me-2 py-3 btn-rounded'>
                                 <svg viewBox="0 0 17 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye fDKaYE sc-cnHmbd lkEDtX"><path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path></svg>
                                 5
-                            </Button>
+                            </Button> */}
 
                             <Dropdown className='dropdown-noarrow'>
                                 <Dropdown.Toggle variant="white" className='btn-round'>
@@ -360,10 +360,10 @@ const SingleLiveauction = (props) => {
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                 <span>Elena Moretti</span>
                             </Link> */}
-                            {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined ?(
+                            {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0].UserName === undefined || getIPro[0].UserName === "" || getIPro[0].UserName === null?(
                                     <Link className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
-                                    <span>Not validated</span>
+                                    <span>Profile Not Completed</span>
                                     </Link>                                    
                                     ):(
                                     <Link className="avatar d-flex align-items-center text-truncate">
@@ -395,7 +395,7 @@ const SingleLiveauction = (props) => {
                                 {getIPro2[0] === null || getIPro2[0] === "" || getIPro2[0] === undefined || getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
                                 <Link  className="avatar d-flex align-items-center text-truncate">
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
-                                <span>{" Not Profile Completed "}</span>
+                                <span>Profile Not Completed</span>
                                 </Link>
                                 ):(
                                 <Link  className="avatar d-flex align-items-center text-truncate">

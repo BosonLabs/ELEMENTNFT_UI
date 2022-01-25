@@ -414,10 +414,10 @@ const SingleBid = (props) => {
                                 <span>HEX TOYS</span>
                             </Link> */}
                             <Link className="avatar d-flex align-items-center text-truncate">
-                                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined ?(
+                                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0].UserName === undefined || getIPro[0].UserName === "" || getIPro[0].UserName === null?(
                                     <Link className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
-                                    <span>Not validated</span>
+                                    <span>Profile Not Completed</span>
                                     </Link>                                    
                                     ):(
                                     <Link className="avatar d-flex align-items-center text-truncate">
@@ -451,15 +451,21 @@ const SingleBid = (props) => {
                         <Tab eventKey="owners" title="Owners">
                             <div className="d-flex mb-4 align-items-center">
 
-                            <Link  className="avatar d-flex align-items-center text-truncate">
-                                <img src={getIPro2[0].Imageurl} alt="avatar" />
-                                {getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
-                                <span>{" Not Profile Completed "}</span>
+                            
+                                {getIPro2[0] === null || getIPro2[0] === "" || getIPro2[0] === undefined || getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
+                                <Link  className="avatar d-flex align-items-center text-truncate">
+                                <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar"/>
+                                <span>Profile Not Completed</span>
+                                </Link>
                                 ):(
+                                <Link  className="avatar d-flex align-items-center text-truncate">
+                                <img src={getIPro2[0].Imageurl} alt="avatar" />
                                 <span>{getIPro2[0].UserName}</span>
+                                </Link>
+                                
                                 )}
                                 
-                            </Link>
+                            
 
                                 
                                 {/* <Link to="/" className="avatar d-flex align-items-center text-truncate">

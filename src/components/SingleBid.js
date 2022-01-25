@@ -371,7 +371,7 @@ const SingleBid = (props) => {
                                     {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined ?(
                                     <Link className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
-                                    <span>Not validated</span>
+                                    <span>Profile Not Completed</span>
                                     </Link>                                    
                                     ):(
                                     <Link className="avatar d-flex align-items-center text-truncate">
@@ -405,7 +405,7 @@ const SingleBid = (props) => {
                                 {getIPro2[0] === "" || getIPro2[0] === null || getIPro2[0] === undefined || getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
                                     <Link  className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
-                                    <span>{" Not Profile Completed "}</span>
+                                    <span> Profile Not Completed </span>
                                     </Link>
                                 ):(
                                 <Link  className="avatar d-flex align-items-center text-truncate">
