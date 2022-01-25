@@ -60,7 +60,7 @@ const setaddwallet=async(a)=>{
         let r=[];
         if(snapshot.val()){            
              console.log("firstaddress1  ",snapshot.val()[a])
-                    r.push({
+                  r.push({
                   Bio:snapshot.val()[a].Bio,
                   Customurl: snapshot.val()[a].Customurl,
                   Email: snapshot.val()[a].Email,
@@ -75,7 +75,7 @@ const setaddwallet=async(a)=>{
                 })                                                
                 console.log("InData",r)        
                 firebase.database().ref("userprofile").child(a).update({
-                Imageurl:r[0].Bio,bgurl:r[0].bgurl,
+                Imageurl:r[0].Imageurl,bgurl:r[0].bgurl,
                 UserName:r[0].UserName,Customurl:r[0].Customurl,WalletAddress:a,
                 TimeStamp:r[0].TimeStamp,Twittername:r[0].Twittername,Personalsiteurl:r[0].Personalsiteurl,Email:r[0].Email,Bio:r[0].Bio,valid:r[0].valid
                 }).then(()=>{
