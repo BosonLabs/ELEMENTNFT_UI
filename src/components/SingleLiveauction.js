@@ -434,10 +434,10 @@ const SingleLiveauction = (props) => {
 
                     <div className="sticky-bottom mt-auto text-center">
                         <Row className='mb-3'>
-                            <Col xs={6}>
+                            <Col sm={6} md={8} xl={6} className='mb-sm-0 mb-2'>
                                 <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>{waitforOwnerAccept()}}>Waiting for owner to accept</Button>
                             </Col>
-                            <Col xs={6}>
+                            <Col sm={6} md={4} xl={6}>
                                 <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg' >Buy</Button>
                                 {/* onClick={()=>{buynow()}} */}
                             </Col>

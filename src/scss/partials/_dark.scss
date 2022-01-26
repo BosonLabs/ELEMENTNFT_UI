@@ -20,7 +20,7 @@ body.dark-mode{
         }
     }
 
-    h5{
+    h5, .avatar, .avatar span, .bid-users h6, .bid-users h6 span{
         color: $white;
     }
 
@@ -66,6 +66,18 @@ body.dark-mode{
         &-default{
             background-color: $dark-29;
             color: rgba($white, 0.6);
+        }
+
+        &-light{
+            &-blue{
+                &:hover{
+                    color: $white !important;
+                }
+            }
+        }
+
+        &-copy-code{
+            color: $white !important;
         }
     }
 
@@ -195,16 +207,26 @@ body.dark-mode{
         background-color: $dark;
         color: $color-8c;
 
+        .dropdown-toggle{
+            color: $white;
+        }
+
+        a{
+            color: $white;
+        }
+
         &-title{
             color: $white;
-            
-            a{
-                color: $white;
-            }
         }
 
         h5{
             color: $color-8c;
+        }
+    }
+
+    .sticky{
+        &-bottom{
+            background-color: rgba($white, 0);
         }
     }
 

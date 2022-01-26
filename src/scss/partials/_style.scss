@@ -524,6 +524,10 @@ h6{
 			right: -5px;
 			z-index: 10;
 		}
+
+		.collection-item + .collection-item{
+			margin-top: 0 !important;
+		}
 	}
 
 	&-image{
@@ -531,10 +535,10 @@ h6{
 		border-radius: 6px;
 		object-fit: cover;
 		height: 170px;
+		width: 100%;
 
 		@include maxDevice(575px){
 			height: auto;
-			width: 100%;
 		}
 	}
 
@@ -1139,6 +1143,13 @@ h6{
 		position: relative;
 		border-radius: 16px;
 		background-color: rgba($dark, 0.03);
+
+		img{
+			object-fit: cover;
+			width: 100% !important;
+			object-position: center;
+			height: 100% !important;
+		}
 	}
 
 	&-pic{
@@ -1157,6 +1168,8 @@ h6{
 		img{
 			width: 100%;
 			height: 100%;
+			object-fit: cover;
+			object-position: center;
 		}
 
 		&:hover{
@@ -1576,6 +1589,18 @@ h6{
     backdrop-filter: blur(20px);
 	padding: 32px 15px;
 	border-top: 1px solid rgba($dark, .1);
+
+	@include maxDevice(767px){
+		padding: 25px 15px;
+		margin-left: -24px;
+		margin-right: -24px;
+	}
+
+	@include maxDevice(575px){
+		padding: 15px;
+		margin-left: -15px;
+		margin-right: -15px;
+	}
 }
 
 .mw-auto{
