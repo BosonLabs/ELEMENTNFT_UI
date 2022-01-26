@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useContext} from 'react';
 import Layout from './LayoutNoFooter';
 import {Container, Button, Dropdown, Row, Col, Tabs, Tab,Modal} from 'react-bootstrap';
 import {
@@ -13,9 +13,12 @@ import cjson from '../config.json'
 import configfile from '../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { DataContext } from '../Context/DataContext';
 const algosdk = require('algosdk'); 
 
 const SingleBid = (props) => {
+    const {algobalanceApp}=useContext(DataContext)
+    console.log("algobalanceAppSingle",algobalanceApp)
     const history = useHistory();    
     const location = useLocation();
     console.log("SingleBidp",location.state.alldata)
@@ -148,6 +151,9 @@ const SingleBid = (props) => {
         }
         else if(parseInt(location.state.alldata.NFTPrice) <= algobalance ){
             alert("your balance not enough to purchase this nft")
+        }
+        else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
+            alert("Insufficient balance to create NFT")
         }
         else{
             setShowTestLoading(true)  

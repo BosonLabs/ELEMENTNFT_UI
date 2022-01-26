@@ -30,7 +30,9 @@ import {Movie} from './Movie'
 import Validornotcheck from "./Validornotcheck";
 import {DataContext} from './Context/DataContext'
 import firebase from './firebase';
+import cjson from './config.json'
 const axios = require('axios');
+const algosdk = require('algosdk'); 
 
 
 function App() {
@@ -43,6 +45,32 @@ function App() {
     const[getIexplore,setgetIexplore]=useState([]);  
     console.log("App1",getI)
     console.log("App2",getIexplore)
+    const [algobalanceApp, setalgobalanceApp] = useState("");
+    console.log("calcappjs",algobalanceApp)    
+  useEffect(() => {        
+    async function listenMMAccount() {    
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
+    setalgobalanceApp("");      
+    }
+    else{          
+    const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+    const port = "";            
+    const token = {            
+    'X-API-key' : cjson.purestakeapi,
+    }
+    let client = new algosdk.Algodv2(token, baseServer, port);                
+    ( async() => {
+    let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+    // calc=JSON.stringify(account1_info.amount)/1000000;      
+    setalgobalanceApp(JSON.stringify(account1_info.amount)/1000000);      
+    localStorage.setItem("balget",JSON.stringify(account1_info.amount)/1000000);      
+  })().catch(e => {
+    console.log(e);
+  })                    
+  }        
+  }
+  listenMMAccount();
+  }, []);
     const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',
@@ -193,7 +221,7 @@ useEffect(()=>{dbcallPro()},[])
 
   return (
     
-    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2}}>      
+    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp}}>      
     <Router>
       <Switch>          
         <Route path="/connect">

@@ -15,7 +15,8 @@ const animatedComponents = makeAnimated();
 
 const Created = (data) => {
         
-    console.log("getdata",data.data)            
+    console.log("getdata",data.data)      
+          
     const colourStyles = {
         option: (styles, { isFocused }) => {
           // const color = chroma(data.color);

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import Layout from './LayoutNoFooter';
 import {Container, Button, Dropdown, Row, Col, Tabs, Tab,Modal} from 'react-bootstrap';
 import {
@@ -10,6 +10,7 @@ import fireDb from '../firebase';
 import dataescrow from "../escrow.js";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import firebase from '../firebase';
+import { DataContext } from '../Context/DataContext';
 import {
     FacebookShareButton,
     GooglePlusShareButton,
@@ -52,6 +53,8 @@ const algosdk = require('algosdk');
 const myAlgoWallet = new MyAlgoConnect();
 
 const SingleBid = (props) => {
+    const {algobalanceApp}=useContext(DataContext)
+    console.log("algobalanceAppSingle",algobalanceApp)
     const history = useHistory();
     const location = useLocation();
     console.log("Biddata2",location.state.alldata)
@@ -187,6 +190,9 @@ const SingleBid = (props) => {
             }
             else if((parseInt(location.state.alldata.NFTPrice)/1000000) >= algobalance ){
                 alert("your balance not enough to purchase this nft")
+            }
+            else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
+                alert("Insufficient balance to create NFT")
             }
             else{
                 setShowTestLoading(true)  

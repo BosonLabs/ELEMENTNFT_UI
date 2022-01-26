@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import {Card, Dropdown, Button, OverlayTrigger, Tooltip,Modal,Form, InputGroup } from 'react-bootstrap';
 import {
     Link
@@ -48,9 +48,12 @@ import {
     EmailIcon,
   } from 'react-share';
 
+import { DataContext } from '../../Context/DataContext';
 const myAlgoWallet = new MyAlgoConnect();
 
 const CardCreate = (props) => {
+    const {algobalanceApp}=useContext(DataContext)
+    console.log("algobalanceAppSingle",algobalanceApp)
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
@@ -145,6 +148,9 @@ const CardCreate = (props) => {
             alert("please enter above 0 price")
             setShowTest(true)
             //window.location.reload(false)
+        }
+        else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
+            alert("Insufficient balance to create NFT")
         }
         else{                    
             try{            

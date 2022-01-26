@@ -25,6 +25,8 @@ const algosdk = require('algosdk');
 
 
 const Start = () => {
+    const {algobalanceApp}=useContext(DataContext)
+    console.log("algobalanceAppSingle",algobalanceApp)
     //const[getIPro2]=useContext(DataContext);
     //console.log("getIProprofile",getIPro2[0].valid) 
     let history=useHistory();
@@ -32,11 +34,8 @@ const Start = () => {
     console.log("Newipfs",fileUrl)
     const [show, setShow] = React.useState(false);
     const [tname,setName] = useState("");
-    const [tdescription,setDescription] = useState("");  
-    const [algobalance, setalgobalance] = useState("");
-
-    const handleClose = () => setShow(false);    
-    
+    const [tdescription,setDescription] = useState("");      
+    const handleClose = () => setShow(false);        
     // const handleShow = () => setShow(true);
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setshowTestLoading] = React.useState(false);    
@@ -122,11 +121,12 @@ const Start = () => {
         };
 
 
+      
 
       const onSubmitNFT = async (event) => {
         //event.preventDefault();  
           //new write below
-          var regex = new RegExp("^[a-zA-Z0-9]+$")
+          //var regex = new RegExp("^[a-zA-Z0-9]+$")
           var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
           //!regex.test(tname)
           if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
@@ -147,32 +147,28 @@ const Start = () => {
           else if(Img === "" || Img === null || Img === undefined ){
             alert("please upload image")
           }          
+          else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
+            alert("Insufficient balance to create NFT")
+          }
           else{
-            try{            
-          //toast.loading(`images uploading ipfs`);
+            try{                    
           setshowTestLoading(true)
           let ta=tname;
           let tb='ELEM';
-          let te=1000;
-        //   let idget="";
+          let te=1000;        
           console.log("uploadonecheck",ta);
           console.log("uploadtwocheck",tb);
-          console.log("uploadtwocheck",te);
-          //setVisibleModal(false)                              
-      //setIsOpens(true)
-      const server = "https://testnet-algorand.api.purestake.io/ps2";
-      const port = "";  
-      const token = {
+          console.log("uploadtwocheck",te);          
+          const server = "https://testnet-algorand.api.purestake.io/ps2";
+          const port = "";  
+          const token = {
             'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
-      }
-      let algodclient = new algosdk.Algodv2(token, server, port);
+          }
+          let algodclient = new algosdk.Algodv2(token, server, port);
       const params = await algodclient.getTransactionParams().do();
       params.fee = 1000;
       params.flatFee = true;
-      const myAlgoConnect = new MyAlgoConnect();
-      //const accountswall = await myAlgoWallet.connect();
-      //crypto-js@latest
-      //const addresseswall = accountswall.map(accountswall => accountswall.address);
+      const myAlgoConnect = new MyAlgoConnect();      
       const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
         from:localStorage.getItem('wallet'),
         assetName: tname,
@@ -210,11 +206,7 @@ const Start = () => {
         const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
         const myAlgoConnect = new MyAlgoConnect();
         let appId="50714558";
-        try {
-          //const accounts = await myAlgoWallet.connect();
-          //const addresses = accounts.map(account => account.address);
-          //console.log("addressget",addresses)
-          //localStorage.getItem('wallet',addresses[0])
+        try {          
           const params = await algodclient.getTransactionParams().do();
           let transoptin = algosdk.makeApplicationOptInTxnFromObject({
           from: localStorage.getItem('wallet'),      
@@ -233,106 +225,16 @@ const Start = () => {
           storedb(assetID,responsetxId,addresseswall);
         }
       }
-    //   const storedb=async(assetID,responsetxId,addresseswall)=>{
-
-    //     console.log("addresswall",addresseswall)
-    //     console.log("assetId",assetID)
-    //     console.log("Img",Img)
-    //     console.log("tname",tname)  
-    //                 //db added here 
-    //                 let appId="50714558";
-    //                 let data = {
-    //                     id:assetID,
-    //                     imageUrl:Img,
-    //                     priceSet:"",
-    //                     cAddress:"",
-    //                     keyId:db,
-    //                     userName:tname,
-    //                     userSymbol:"ELEM",            
-    //                     ipfsUrl:Img,
-    //                     ownerAddress:addresseswall,
-    //                     soldd:"",
-    //                     extra1:"",
-    //                     previousoaddress:"",
-    //                     datesets:dateset,
-    //                     whois:'',                    
-    //                     description:tdescription,
-    //                     history:"",
-    //                     Mnemonic:"",
-    //                     applicationid:appId,
-    //                     usdcids:assetID,
-    //                     escrowaddress:""
-    //                 }
-    //                 axios({
-    //                     method: 'get',
-    //                     url: ('https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos/.json',data),
-    //                     responseType: 'stream'
-    //                   })
-    //                     .then(function (response) {
-
-    //                         let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
-    //                         let ref22=fireDb.database().ref(`imagerefAlgolt`);   
-    //                                       let dateset=new Date().toDateString();
-    //                                       console.log("dateget",dateset)
-    //                                       const db = ref2.push().key;                         
-    //                                       //const db2 = ref22.push().key;                         
-    //                                       console.log("dbcheck",db)
-                                          
-    //                     //add pinata here          
-    //                     //pinata                          
-    //                     // let pinataApiKey='88348e7ce84879e143e1';
-    //                     // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
-    //                     const pinataApiKey = "221cfff25de18e88d3d0";
-    //                     const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
-    //                     const pinataSDK = require('@pinata/sdk');
-    //                     const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
-    //                                 pinata.testAuthentication().then((result) => {
-    //                                 //handle successful authentication here
-    //                                 console.log(result);  
-    //                                 let ge=fileUrl;
-    //                                 console.log("ipfsHash",fileUrl);
-    //                                         const body = {
-    //                                             message: ge
-    //                                         };
-    //                                         const options = {
-    //                                             pinataMetadata: {
-    //                                                 name: tname,
-    //                                                 keyvalues: {
-    //                                                     customKey: 'customValue',
-    //                                                     customKey2: 'customValue2'
-    //                                                 }
-    //                                             },
-    //                                             pinataOptions: {
-    //                                                 cidVersion: 0
-    //                                             }
-    //                                         };
-    //                                         pinata.pinJSONToIPFS(body, options).then((result) => {
-    //                                             //handle results here
-    //                                             console.log(result);
-    //                                             console.log("jsonresult")                                            
-    //                                 //setIsOpens(false)
-    //                                 //setIsOpen(true);
-    //                                 //return appId;                                            
-    //                                           }).catch((err) => {
-    //                                               //handle error here
-    //                                               console.log(err);
-    //                                           });                        
-    //                                         }).catch((err) => {
-    //                                             //handle error here
-    //                                             console.log(err);
-    //                                         });                                                          
-                        
-    //                     //setgetI(req2)  
-    //                     });                    
-                
-    //   }
 
     const storedb=async(assetID,responsetxId,addresseswall)=>{
-
         console.log("addresswall",addresseswall)
         console.log("assetId",assetID)
         console.log("Img",Img)
         console.log("tname",tname)  
+        // toast.loading(`images uploading in ipfs`,{
+        //   onOpen:('loading')
+        // });
+        toast.info("images uploading in ipfs"); 
         //toast.success(Transaction Success ${response.txId});
         // toast.loading(`images uploading ipfs`, {
         //   onOpen: ('loading') });        
@@ -341,14 +243,11 @@ const Start = () => {
                     let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
                     let ref22=fireDb.database().ref(`imagerefAlgolt`);   
                     let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
-                                  let dateset=new Date().toDateString();
-                                  console.log("dateget",dateset)
-                                  const db = ref2.push().key;                         
-                                  //const db2 = ref22.push().key;                         
-                                  console.log("dbcheck",db)
-                                  console.log("dbcheckbefore",getIPro[0].valid)                                  
-                                  if(getIPro[0].valid === "validated"){
-                                    //add pinata here          
+                    let dateset=new Date().toDateString();
+                    console.log("dateget",dateset)
+                    const db = ref2.push().key;                                                                             
+                    if(getIPro[0].valid === "validated"){
+                      //add pinata here          
                       //pinata          
                       //const axios = require('axios');
                       // let pinataApiKey='88348e7ce84879e143e1';
@@ -405,8 +304,13 @@ const Start = () => {
                                                   CreatorAddress:addresseswall
                                                     })
                                                 .then(()=>{                                   
+                                                  //setshowTestLoading(false)
+                                                  //setShowTest(true)                                                                                         
+                                                  toast.dismiss(); 
+                                                  toast.success("image uploaded in ipfs")
+                                                  toast.dismiss();
                                                   setshowTestLoading(false)
-                                                  setShowTest(true)                                                                                          
+                                                  setShowTest(true)                                                                                         
                                                 })              
                                                 })
                                               })                                                                                              
@@ -423,9 +327,8 @@ const Start = () => {
                                           });                  
                                           //end pinata          
                                   //end pinata here                      
-                                  }else{
-                     
-                                    //add pinata here          
+                    }else{
+                      //add pinata here          
                       //pinata          
                       //const axios = require('axios');
                       // let pinataApiKey='88348e7ce84879e143e1';
@@ -481,8 +384,16 @@ const Start = () => {
                                                   CreatorAddress:addresseswall
                                                     })
                                                 .then(()=>{                                   
+                                                  //setshowTestLoading(false)
+                                                  //setShowTest(true)                                                                                          
+                                                  // toast.loading(`images uploaded in ipfs`,{
+                                                  //   onClose:('completed')
+                                                  // });
+                                                  toast.dismiss(); 
+                                                  toast.success("image uploaded in ipfs")
+                                                  //toast.dismiss();
                                                   setshowTestLoading(false)
-                                                  setShowTest(true)                                                                                          
+                                                  setShowTest(true)     
                                                 })              
                                                 })
                                               })  
@@ -499,8 +410,8 @@ const Start = () => {
                                           });                  
                                           //end pinata          
                                   //end pinata here  
-
-                                  }                                                                        
+                    }                                                                        
+                    
       }
 
       const done=()=>{
@@ -560,7 +471,7 @@ const Start = () => {
 
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
-                            </div>
+                            </div>                            
                         </Col>                        
                     </Row>
                 </div>
