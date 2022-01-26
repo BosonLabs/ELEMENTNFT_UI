@@ -553,7 +553,7 @@ useEffect(()=>{dbcallother()},[])
                 </div>
 
 
-                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress} likes={getdbLike}/>
+            <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress} likes={getdbLike}/>
             </Container>
 
             <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>

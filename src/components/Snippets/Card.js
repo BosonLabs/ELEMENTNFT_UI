@@ -305,6 +305,11 @@ const CardCreate = (props) => {
         //console.log("SingleBid",location.state.alldata)
         setshowShare(true)
     }
+
+
+    // const ReLoads=()=>{
+    //     browser.tabs.reload();
+    // }
     
     return (
         <Card>
