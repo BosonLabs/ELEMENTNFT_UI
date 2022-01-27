@@ -389,7 +389,7 @@ const filterdata=()=>{
                           <Link to="/connect" className='btn d-md-block d-none btn-white'>Sign in</Link>                            
                         ):(
                         
-                            <Link to="/connect" className='btn d-md-block d-none btn-grad'>Connected</Link>
+                            <Link to="/connect" className='btn d-md-block d-none btn-grad'>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)}</Link>
                         )}                        
                         
                         
@@ -569,7 +569,7 @@ const filterdata=()=>{
                           <Link to="/connect" className='btn d-block btn-white'>Sign in</Link>                            
                         ):(
                         
-                            <Link to="/connect" className='btn d-block btn-grad'>Connected</Link>
+                            <Link to="/connect" className='btn d-block btn-grad'>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)}</Link>
                         )}                                          
                                 </Col>
                             </Row>
