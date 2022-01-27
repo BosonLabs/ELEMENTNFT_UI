@@ -101,7 +101,8 @@ const CardCreateOtherView = (props) => {
                     </div>                    
                                     
                 
-            <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+                    {/* onHide={handleCloseTestLoading} */}
+            <Modal show={showTestLoading} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -111,7 +112,8 @@ const CardCreateOtherView = (props) => {
             </Modal>                          
             
             
-            <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
+            {/* onHide={handleCloseshowShare} */}
+            <Modal show={showShare} centered size="sm" >
                 <Modal.Header closeButton />
                 <Modal.Body>                        
                             <h3>&nbsp;&nbsp;Share link to this page</h3>                            

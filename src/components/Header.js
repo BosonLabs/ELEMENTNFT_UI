@@ -148,7 +148,8 @@ const filterdata=()=>{
     return (
         <>
             {/* convert modal */}
-            <Modal show={show} centered size="sm" onHide={handleConvert}>
+            {/* onHide={handleConvert} */}
+            <Modal show={show} centered size="sm" >
                 <Modal.Header closeButton>
                 <Modal.Title>Convert</Modal.Title>
                 </Modal.Header>

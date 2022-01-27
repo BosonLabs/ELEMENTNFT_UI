@@ -83,7 +83,7 @@ const Start = () => {
         setImgname(file.name)
         let reader = new window.FileReader()
         try{
-        Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
+        Compress.imageFileResizer(file, 500,500 , 'JPEG', 10, 0,
         uri => {
           console.log("iuri",uri)
           setImg(uri)
@@ -529,7 +529,8 @@ const Start = () => {
             </Modal>
 
 
-            <Modal show={showTest} centered size="sm" onHide={handleCloseTest}>
+            {/* onHide={handleCloseTest} */}
+            <Modal show={showTest} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -540,7 +541,8 @@ const Start = () => {
                 </Modal.Body>
             </Modal>
 
-            <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+            {/* onHide={handleCloseTestLoading} */}
+            <Modal show={showTestLoading} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">

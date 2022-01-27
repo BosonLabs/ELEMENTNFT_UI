@@ -444,7 +444,8 @@ const SingleLiveauction = (props) => {
                         </Row>
                         <p>There's no bids yet. Be the first!</p>
                     </div>
-                    <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+                    {/* onHide={handleCloseTestLoading} */}
+                    <Modal show={showTestLoading} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -453,7 +454,8 @@ const SingleLiveauction = (props) => {
                 </Modal.Body>
             </Modal>                          
                              
-            <Modal show={showTestSale} centered size="sm" onHide={handleCloseTestSale}>
+            {/* onHide={handleCloseTestSale} */}
+            <Modal show={showTestSale} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -462,7 +464,8 @@ const SingleLiveauction = (props) => {
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
                 </Modal.Body>
             </Modal>   
-            <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
+            {/* onHide={handleCloseshowShare} */}
+            <Modal show={showShare} centered size="sm" >
                 <Modal.Header closeButton />
                 <Modal.Body>
                             

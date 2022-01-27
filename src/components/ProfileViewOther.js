@@ -556,24 +556,27 @@ useEffect(()=>{dbcallother()},[])
             <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress} likes={getdbLike}/>
             </Container>
 
-            <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={show} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Update cover</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution
 
+                    {/* onClick={handleClose} */}
                     <div className="mt-3">
                         <input type="file" hidden id='uploadFile' />
                         <label htmlFor="uploadFile" className='mb-3 btn btn-primary btn-lg w-100'>Select file</label>
-                        <Button variant="white" className='w-100' size={'lg'} onClick={handleClose}>
+                        <Button variant="white" className='w-100' size={'lg'} >
                             Cancel
                         </Button>
                     </div>
                 </Modal.Body>
             </Modal>
 
-            <Modal show={followers} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={followers} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Followers</Modal.Title>
                 </Modal.Header>
@@ -583,7 +586,8 @@ useEffect(()=>{dbcallother()},[])
                     
                 </Modal.Body>
             </Modal>
-            <Modal show={following} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={following} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Following</Modal.Title>
                 </Modal.Header>

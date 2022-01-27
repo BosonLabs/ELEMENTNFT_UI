@@ -182,7 +182,8 @@ function Footer() {
                     <p>© ELEMENT, Inc. All rights reserved.</p>
                 </div>                
             </Container>
-            <Modal show={Done} centered size="sm" onHide={handleCloseTest}>
+            {/* onHide={handleCloseTest} */}
+            <Modal show={Done} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">

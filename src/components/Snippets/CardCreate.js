@@ -302,7 +302,8 @@ const CardInfo = (props) => {
                     </Button>
                     </>)}    
 
-                <Modal show={showTest} centered size="sm" onHide={handleCloseTest}>
+                    {/* onHide={handleCloseTest} */}
+                <Modal show={showTest} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -317,7 +318,8 @@ const CardInfo = (props) => {
                 </Modal.Body>
             </Modal>                          
 
-            <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+            {/* onHide={handleCloseTestLoading} */}
+            <Modal show={showTestLoading} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -325,7 +327,8 @@ const CardInfo = (props) => {
                     </div>                    
                 </Modal.Body>
             </Modal>                          
-            <Modal show={showTestDone} centered size="sm" onHide={handleCloseTestDone}>
+            {/* onHide={handleCloseTestDone} */}
+            <Modal show={showTestDone} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -334,7 +337,8 @@ const CardInfo = (props) => {
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>refresh()}>Done</Button>
                 </Modal.Body>
             </Modal>                          
-            <Modal show={showTestSale} centered size="sm" onHide={handleCloseTestSale}>
+            {/* onHide={handleCloseTestSale} */}
+            <Modal show={showTestSale} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">

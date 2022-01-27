@@ -545,7 +545,8 @@ useEffect(()=>{dbcallother()},[])
             <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
             </Container>
 
-            <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={show} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Update cover</Modal.Title>
                 </Modal.Header>
@@ -562,7 +563,8 @@ useEffect(()=>{dbcallother()},[])
                 </Modal.Body>
             </Modal>
 
-            <Modal show={followers} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={followers} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Followers</Modal.Title>
                 </Modal.Header>
@@ -572,7 +574,8 @@ useEffect(()=>{dbcallother()},[])
                     
                 </Modal.Body>
             </Modal>
-            <Modal show={following} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={following} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Following</Modal.Title>
                 </Modal.Header>

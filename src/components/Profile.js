@@ -84,7 +84,7 @@ function HomePage() {
       const file = event.target.files[0]
       let reader = new window.FileReader()
       try{
-      Compress.imageFileResizer (file, 300, 300, 'JPEG', 10, 0,
+      Compress.imageFileResizer (file,500, 500, 'JPEG', 10, 0,
       uri =>{
         console.log("iuri",uri)
         setImg(uri)      
@@ -439,7 +439,8 @@ function HomePage() {
                 <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike}/>
             </Container>
 
-            <Modal show={show} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={show} size="sm" className="modal-reset" centered >
                 <Modal.Header >
                 <Modal.Title>Update cover</Modal.Title>
                 </Modal.Header>
@@ -466,7 +467,8 @@ function HomePage() {
                 </Modal.Body>
             </Modal>
 
-            <Modal show={followers} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={followers} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Followers</Modal.Title>
                 </Modal.Header>
@@ -474,7 +476,8 @@ function HomePage() {
                     Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution                    
                 </Modal.Body>
             </Modal>
-            <Modal show={following} size="sm" className="modal-reset" centered onHide={handleClose}>
+            {/* onHide={handleClose} */}
+            <Modal show={following} size="sm" className="modal-reset" centered >
                 <Modal.Header closeButton>
                 <Modal.Title>Following</Modal.Title>
                 </Modal.Header>

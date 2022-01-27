@@ -560,7 +560,8 @@ const SingleBid = (props) => {
                         </Row>
                     </div>
                 </div>
-            <Modal show={showTestLoading} centered size="sm" onHide={handleCloseTestLoading}>
+                {/* onHide={handleCloseTestLoading} */}
+            <Modal show={showTestLoading} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -569,7 +570,8 @@ const SingleBid = (props) => {
                 </Modal.Body>
             </Modal>                          
                              
-            <Modal show={showTestSale} centered size="sm" onHide={handleCloseTestSale}>
+            {/* onHide={handleCloseTestSale} */}
+            <Modal show={showTestSale} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -579,7 +581,8 @@ const SingleBid = (props) => {
                 </Modal.Body>
             </Modal>                          
             
-            <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
+            {/* onHide={handleCloseshowShare} */}
+            <Modal show={showShare} centered size="sm" >
                 <Modal.Header closeButton />
                 <Modal.Body>
                             
