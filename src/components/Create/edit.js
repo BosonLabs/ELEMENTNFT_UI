@@ -76,19 +76,19 @@ const Edit = () => {
         else if(tpurl === ""){
             alert("please enter personal url")
         }
-        else if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === " " ){
+        else if(sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === "" || sessionStorage.getItem('wallet') === " " ){
             alert("Please Connect Wallet")
             window.location.reload(false)
         }
         else{
         setshowTestLoading(true)
-        // if(fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`).orderByCalled_ === false ){
+        // if(fireDb.database().ref(`userprofile/${sessionStorage.getItem('wallet')}`).orderByCalled_ === false ){
 
-        // let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+        // let ref2=fireDb.database().ref(`userprofile/${sessionStorage.getItem('wallet')}`);                    
         // let dateset=new Date().toDateString();
         // ref2.set({
         // Imageurl:Img,bgurl:Img,
-        // UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
+        // UserName:tname,Customurl:turl,WalletAddress:sessionStorage.getItem('wallet'),
         // TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:""})
         // .then(()=>{             
         //     setshowTestLoading(false)  
@@ -99,10 +99,10 @@ const Edit = () => {
         // });   
 
         // }else{
-        let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+        let ref2=fireDb.database().ref(`userprofile/${sessionStorage.getItem('wallet')}`);                    
         let dateset=new Date().toDateString();
         let r=[];
-        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+        firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet')).on("value", (data) => {          
             if (data) {                      
                 r.push({
                   Bio:data.val().Bio,
@@ -121,7 +121,7 @@ const Edit = () => {
         console.log("bgu",r[0])
         ref2.set({
             Imageurl:Img,bgurl:r[0].bgurl,
-            UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
+            UserName:tname,Customurl:turl,WalletAddress:sessionStorage.getItem('wallet'),
             TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:r[0].valid})
             .then(()=>{             
                 setshowTestLoading(false)  

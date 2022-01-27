@@ -32,7 +32,7 @@ const Explore = () => {
     const dbcallsaleal=async(index)=>{
         //console.log("hello ramachandran")        
         //console.log("inside dbcallsalealgo function")
-        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+        //if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === '' || sessionStorage.getItem("wallet") === "0x"){
           //alert("please connect your wallet")
         //}
         //else{                        

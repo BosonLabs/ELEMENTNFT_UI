@@ -90,7 +90,7 @@ const CardBuy = (props) => {
     // const dbliked=async()=>{            
     //     let r=[];
     //     try {         
-    //     firebase.database().ref("dblike").child(localStorage.getItem('wallet')).on("value", (data) => {          
+    //     firebase.database().ref("dblike").child(sessionStorage.getItem('wallet')).on("value", (data) => {          
     //       if (data) {                      
     //           r.push({                
     //             Assetid:data.val().Assetid,
@@ -123,10 +123,10 @@ const CardBuy = (props) => {
     // useEffect(()=>{dbliked()},[])
 
     const likeadd=(dataall)=>{
-        if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined) {
+        if(sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === "" || sessionStorage.getItem('wallet') === undefined) {
             alert("please connect your wallet")            
         }else{
-        let ref2=fireDb.database().ref(`dblike/${localStorage.getItem('wallet')}`);
+        let ref2=fireDb.database().ref(`dblike/${sessionStorage.getItem('wallet')}`);
         let dateset=new Date().toDateString();        
         const db = ref2.push().key;                         
         ref2.child(db).set({

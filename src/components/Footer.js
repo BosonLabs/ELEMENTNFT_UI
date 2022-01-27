@@ -21,15 +21,15 @@ function Footer() {
 
         }
         else{
-            if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === ""){
+            if(sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === ""){
 
             }
             else{
-                let ref2=fireDb.database().ref(`storemailaddress/${localStorage.getItem('wallet')}`);
+                let ref2=fireDb.database().ref(`storemailaddress/${sessionStorage.getItem('wallet')}`);
                 let dateset=new Date().toDateString();        
                 const db = ref2.push().key;   
                 ref2.child(db).set({
-                MailId:getMail,walletAddress:localStorage.getItem('wallet'),keyId:db,TimeStamp:dateset
+                MailId:getMail,walletAddress:sessionStorage.getItem('wallet'),keyId:db,TimeStamp:dateset
                 })
                 .then(()=>{ 
                 setDone(true)

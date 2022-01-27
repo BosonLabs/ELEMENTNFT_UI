@@ -105,10 +105,10 @@ const CardHotbids = (props) => {
         }
 
         const buynow=async()=>{
-            if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
+            if(sessionStorage.getItem("wallet") === null || sessionStorage.getItem("wallet") === "0x" || sessionStorage.getItem("wallet") === undefined || sessionStorage.getItem("wallet") === ''){
             }
             else{          
-            if(props.dataall === localStorage.getItem("wallet"))
+            if(props.dataall === sessionStorage.getItem("wallet"))
             {   
                 alert("you are owner so you does not purchase this token")             
             }
@@ -143,8 +143,8 @@ const CardHotbids = (props) => {
                 let appArgs = [];
                 appArgs.push(new Uint8Array(Buffer.from("Buynow")));
                 const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                from: localStorage.getItem('wallet'),
-                to: localStorage.getItem('wallet'),
+                from: sessionStorage.getItem('wallet'),
+                to: sessionStorage.getItem('wallet'),
                 assetIndex: parseInt(props.dataall.Assetid),
                 note: undefined,
                 amount: 0,
@@ -157,7 +157,7 @@ const CardHotbids = (props) => {
                 
                   
                 const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
-                  from:localStorage.getItem('wallet'), 
+                  from:sessionStorage.getItem('wallet'), 
                   suggestedParams: params, 
                   appIndex: parseInt(appId), 
                   appArgs: appArgs
@@ -165,13 +165,13 @@ const CardHotbids = (props) => {
               
               const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                   suggestedParams:params,
-                  from:localStorage.getItem('wallet'),
+                  from:sessionStorage.getItem('wallet'),
                   to: lsig.address(), 
                   amount: 2000
               });
               const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                 suggestedParams:params,
-                from:localStorage.getItem('wallet'),
+                from:sessionStorage.getItem('wallet'),
                 to: lsig.address(), 
                 amount: parseInt(props.dataall.NFTPrice)
               });
@@ -179,7 +179,7 @@ const CardHotbids = (props) => {
                 const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                   suggestedParams:params,
                   from: lsig.address(),
-                  to:localStorage.getItem('wallet'), 
+                  to:sessionStorage.getItem('wallet'), 
                   amount: 1,
                   assetIndex: parseInt(props.dataall.Assetid)
                 });
@@ -195,7 +195,7 @@ const CardHotbids = (props) => {
               const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
                 reKeyTo: undefined,
                 from : lsig.address(),
-                manager:localStorage.getItem('wallet'),
+                manager:sessionStorage.getItem('wallet'),
                 assetIndex: parseInt(props.dataall.Assetid),
                 suggestedParams:params,
                 strictEmptyAddressChecking:false
@@ -234,9 +234,9 @@ const CardHotbids = (props) => {
               //db change here
                     
               fireDb.database().ref(`imagerefexploreoneAlgos/${props.dataall.ownerAddress}`).child(props.dataall.keyId).remove().then(()=>{
-                fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(props.dataall.keyId).set({
+                fireDb.database().ref(`imagerefbuy/${sessionStorage.getItem("wallet")}`).child(props.dataall.keyId).set({
                     Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
-                    NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:localStorage.getItem('wallet'),previousoaddress:props.dataall.ownerAddress,
+                    NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:sessionStorage.getItem('wallet'),previousoaddress:props.dataall.ownerAddress,
                     TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.ownerAddress,Appid:props.dataall.Appid,valid:props.dataall.valid            
                       }).then(()=>{          
                         setShowTestLoading(false)  

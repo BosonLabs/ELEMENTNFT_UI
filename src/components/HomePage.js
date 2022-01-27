@@ -25,7 +25,7 @@ function HomePage() {
     // console.log("gethome",getI)        
 
     // const dbcallsaleal=async(index)=>{        
-    //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+    //     if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === '' || sessionStorage.getItem("wallet") === "0x"){
     //     }
     //     else{                        
     //       axios({
