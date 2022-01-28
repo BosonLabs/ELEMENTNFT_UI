@@ -129,6 +129,7 @@ const CardCreate = (props) => {
         setShowTest(false)
         var regExpr = new RegExp("^\d*\.?\d*$");
         var regex = new RegExp("^[a-zA-Z]+$")
+        console.log("Lenget",getprices.length)
         if(getprices === null || getprices === undefined || getprices === "" ){
             alert("please enter price")
             setShowTest(true)
@@ -144,6 +145,12 @@ const CardCreate = (props) => {
             setShowTest(true)
             //window.location.reload(false)
         }
+        else if(getprices === "00" || getprices === "000" || getprices === "0000" || getprices === "00000"){
+            alert("you are entered zeros")
+        }
+        else if(getprices.length >= 5 ){                                    
+            alert("you are entered Maximum Values")
+        }
         else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
             alert("Insufficient balance to create NFT")
         }
@@ -158,7 +165,7 @@ const CardCreate = (props) => {
             let assetidgetc=parseInt(props.dataall.Assetid)    
             //console.log("letasset",x.title)
         try {            
-        let amountmul=(parseInt(getprices)*1000000);
+        let amountmul=(parseFloat(getprices)*1000000);
         console.log("amountmul",amountmul)
         const params = await algodclient.getTransactionParams().do();            
         const myAlgoConnect = new MyAlgoConnect();
@@ -230,7 +237,7 @@ const CardCreate = (props) => {
         //db here          
         let dateset=new Date().toDateString();
         fireDb.database().ref(`imagerefAlgo/${sessionStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
-            Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseInt(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
+            Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'),
             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
             CreatorAddress:props.dataall.CreatorAddress
@@ -238,7 +245,7 @@ const CardCreate = (props) => {
             let refactivity=fireDb.database().ref(`activitytable/${sessionStorage.getItem('wallet')}`);   
             const db = refactivity.push().key;                         
             refactivity.child(db).set({
-                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseInt(amountmul),EscrowAddress:"priceupdated",keyId:db,
+                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
                 NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'),
                 TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
                 CreatorAddress:props.dataall.CreatorAddress
@@ -359,7 +366,7 @@ const CardCreate = (props) => {
                 <Modal.Body>
                     <div className="text-center py-4">
                         <h3>Price </h3>
-                        <InputGroup type="number" pattern="[0-9]*" className="mb-4 input-group-field" onChange={event => setprices( event.target.value)}>
+                        <InputGroup type="number" pattern="[0-9]*" className="mb-4 input-group-field" maxlength="5" onChange={event => setprices( event.target.value)}>
                         <Form.Control
                             placeholder='Enter price'
                         />

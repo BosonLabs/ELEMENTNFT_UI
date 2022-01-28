@@ -232,7 +232,7 @@ const CreatedViewOther = (data) => {
                     <div className='col mb-4' >
                     <CardCreateOtherView img={x.Imageurl} 
                     title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
-                    linkText={parseInt(x.NFTPrice/1000000)} dataall={x}
+                    linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
                     />
                     </div>                    
                     </>                                                                                          

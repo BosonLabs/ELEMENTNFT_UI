@@ -16,16 +16,16 @@ const SlideCard = (props) => {
         >
                                    
             <Carousel.Item>
-                <VideoCard title="Meridiem" subtitle="Blazing Futures ꜩ" url={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress}/>
+                <VideoCard title={props.title} subtitle={props.description} url={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress}/>
             </Carousel.Item>
             <Carousel.Item>
-                <VideoCard title="SitDown LOL™️" url={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress} />
+                <VideoCard title={props.title} subtitle={props.description} url={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress} />
             </Carousel.Item>
             <Carousel.Item>
-                <ImageCard title="The Feast" image={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress}/>
+                <ImageCard title={props.title} subtitle={props.description} image={props.image} dataall={props.dataall} ownerAddress={props.ownerAddress}/>
             </Carousel.Item>
             <Carousel.Item>
-                <ImageCard title="GoodBye" subtitle="Blazing Futures ꜩ" image={props.image}  dataall={props.dataall} ownerAddress={props.ownerAddress}/>
+                <ImageCard title={props.title} subtitle={props.description} image={props.image}  dataall={props.dataall} ownerAddress={props.ownerAddress}/>
             </Carousel.Item>
         </Carousel>
     );
