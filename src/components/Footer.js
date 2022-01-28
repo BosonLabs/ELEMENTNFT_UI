@@ -19,10 +19,12 @@ function Footer() {
 
         if(getMail === null || getMail === undefined || getMail === ""){
 
+            alert("please enter your E-mail Address")
         }
         else{
             if(sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === ""){
 
+                alert("please connect your wallet")
             }
             else{
                 let ref2=fireDb.database().ref(`storemailaddress/${sessionStorage.getItem('wallet')}`);
