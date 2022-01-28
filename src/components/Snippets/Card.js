@@ -58,17 +58,13 @@ const CardCreate = (props) => {
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
     const [showTestSale,setshowTestSale] = React.useState(false);   
-    const [showShare,setshowShare] = React.useState(false);   
-         
+    const [showShare,setshowShare] = React.useState(false);            
     const [getprices,setprices]=useState(null)
     const handleCloseTest = () => setShowTest(false);
     const handleCloseTestLoading = () => setShowTestLoading(false);
     const handleCloseTestDone = () => setshowTestDone(false);
     const handleCloseTestSale = () => setshowTestSale(false);
-    const handleCloseshowShare = () => setshowShare(false);
-    
-    
-    
+    const handleCloseshowShare = () => setshowShare(false);            
     const waitForConfirmation = async function (algodclient, txId) {
         let status = (await algodclient.status().do());
         let lastRound = status["last-round"];
@@ -86,15 +82,15 @@ const CardCreate = (props) => {
 
         
 
-        const refreshSale=()=>{
-            setshowTestSale(false)
-            window.location.reload(false)
-        }
+    const refreshSale=()=>{
+        setshowTestSale(false)
+        window.location.reload(false)
+    }
 
-        const refresh=()=>{
-            setshowTestDone(false)
-            window.location.reload(false)                        
-        }
+    const refresh=()=>{
+        setshowTestDone(false)
+        window.location.reload(false)                        
+    }
     const onshow2=()=>{
         setShowTestLoading(true)
         console.log("sale",props.dataall);
@@ -122,8 +118,7 @@ const CardCreate = (props) => {
                 })                        
                   
               })
-        }
-        
+        }        
     }
 
     const onshow1=()=>{
@@ -162,137 +157,103 @@ const CardCreate = (props) => {
             //let idget=assetidgetc;
             let assetidgetc=parseInt(props.dataall.Assetid)    
             //console.log("letasset",x.title)
-          try {            
-            let amountmul=(parseInt(getprices)*1000000);
-            console.log("amountmul",amountmul)
-          const params = await algodclient.getTransactionParams().do();            
-          const myAlgoConnect = new MyAlgoConnect();
-          let results = await algodclient.compile(dataescrow).do();
-              console.log("Resultconsole = " + results);
-              console.log("Hash = " + results.hash);
-              console.log("Result = " + results.result);
-              //await sleep(20000)
-              let program = new Uint8Array(Buffer.from(results.result, "base64"));      
-              let lsig = algosdk.makeLogicSig(program);
-              //let tealSignPrint = tealSign(sk, data, lsig.address());
-              console.log("LSIG",lsig.address())
-          let appArgs = [];
-          appArgs.push(new Uint8Array(Buffer.from("createlisting")));
-          appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));
-      console.log("ssk",props.dataall.keyId)
-      console.log("ssa",props.dataall.Assetid)
-      console.log("ssi",props.dataall.Imageurl)
-      console.log("ass",parseInt(amountmul))
-      console.log("lss",lsig.address())
-      console.log("namess",props.dataall.NFTName)
-      console.log("urlss",props.dataall.Ipfsurl)
-      console.log("ownerss",props.dataall.ownerAddress)
-      console.log("ipfsss",props.dataall.Ipfsurl)
-      console.log("press",props.dataall.previousoaddress)
-      console.log("timess",props.dataall.TimeStamp)
-      console.log("desss",props.dataall.NFTDescription)
-      console.log("hisss",props.dataall.HistoryAddress)
-      console.log("appss",props.dataall.Appid)      
-      console.log("userss",props.dataall.userSymbol)      
-      console.log("validss",props.dataall.valid)      
-          let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
+        try {            
+        let amountmul=(parseInt(getprices)*1000000);
+        console.log("amountmul",amountmul)
+        const params = await algodclient.getTransactionParams().do();            
+        const myAlgoConnect = new MyAlgoConnect();
+        let results = await algodclient.compile(dataescrow).do();
+        console.log("Resultconsole = " + results);
+        console.log("Hash = " + results.hash);
+        console.log("Result = " + results.result);
+        //await sleep(20000)
+        let program = new Uint8Array(Buffer.from(results.result, "base64"));      
+        let lsig = algosdk.makeLogicSig(program);
+        //let tealSignPrint = tealSign(sk, data, lsig.address());
+        console.log("LSIG",lsig.address())
+        let appArgs = [];
+        appArgs.push(new Uint8Array(Buffer.from("createlisting")));
+        appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));        
+        let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
             from:sessionStorage.getItem('wallet'), 
             suggestedParams:params, 
             appIndex:parseInt(appId), 
             appArgs:appArgs
-          })
+        })
   
-          let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+        let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
           from: sessionStorage.getItem('wallet'),
           to: lsig.address(),
           amount: Number(parseInt(3000)),
           note: undefined,
           suggestedParams: params
-          });
+        });
                   
-          const transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+        const transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: lsig.address(),
           to: lsig.address(),
           assetIndex: parseInt(assetidgetc),
           note: undefined,
           amount: 0,
           suggestedParams: params
-          });
+        });
           
-          const transaction4= algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+        const transaction4= algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: sessionStorage.getItem('wallet'),
           to: lsig.address(),
           assetIndex: parseInt(assetidgetc),
           note: undefined,
           amount: 1,
           suggestedParams: params
-          });
+        });
   
-          const txn5 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
+        const txn5 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
             reKeyTo: undefined,
             from : sessionStorage.getItem('wallet'),
             manager: lsig.address(),
             assetIndex:parseInt(assetidgetc),
             suggestedParams:params,
-            strictEmptyAddressChecking:false
-            
-          })
-          
-          
-          const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4,txn5]);
-          const txs = [ transaction1, transaction2, transaction3, transaction4,txn5 ];
-          txs[0].group = groupID;
-          txs[1].group = groupID;
-          txs[2].group = groupID;
-          txs[3].group = groupID;
-          txs[4].group = groupID;
-          
-                    
-          //const signedTx1 = await myAlgoConnect.signTransaction([txnsToGroup[0].toByte(),txnsToGroup[1].toByte(),txnsToGroup[2].toByte()]);
-          const signedTx1 = await myAlgoConnect.signTransaction([txs[0].toByte(),txs[1].toByte(),txs[3].toByte(),txs[4].toByte()]);          
-          //const signedTx2 = await myAlgoConnect.signTransaction();
-          const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);
-          //const signedTx4 = await myAlgoConnect.signTransaction();
-          //const signedTx5 = await myAlgoConnect.signTransaction();
-          const response = await algodclient.sendRawTransaction([ signedTx1[0].blob, signedTx1[1].blob, signedTx3.blob, signedTx1[2].blob,signedTx1[3].blob]).do();
-        //   const signedTx1 = await myAlgoConnect.signTransaction(txs[0].toByte());
-        //   const signedTx2 = await myAlgoConnect.signTransaction(txs[1].toByte());
-        //   const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);
-        //   const signedTx4 = await myAlgoConnect.signTransaction(txs[3].toByte());
-        //   const signedTx5 = await myAlgoConnect.signTransaction(txs[4].toByte());
-        //   const response = await algodclient.sendRawTransaction([ signedTx1.blob, signedTx2.blob, signedTx3.blob, signedTx4.blob,signedTx5.blob]).do();
-          console.log("TxID", JSON.stringify(response, null, 1));
-          await waitForConfirmation(algodclient, response.txId);
-  
-          //db here
-          
-
-          let dateset=new Date().toDateString();
-          fireDb.database().ref(`imagerefAlgo/${sessionStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
+            strictEmptyAddressChecking:false            
+        })                    
+        const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4,txn5]);
+        const txs = [ transaction1, transaction2, transaction3, transaction4,txn5 ];
+        txs[0].group = groupID;
+        txs[1].group = groupID;
+        txs[2].group = groupID;
+        txs[3].group = groupID;
+        txs[4].group = groupID;                                      
+        const signedTx1 = await myAlgoConnect.signTransaction([txs[0].toByte(),txs[1].toByte(),txs[3].toByte(),txs[4].toByte()]);                    
+        const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);          
+        const response = await algodclient.sendRawTransaction([ signedTx1[0].blob, signedTx1[1].blob, signedTx3.blob, signedTx1[2].blob,signedTx1[3].blob]).do();        
+        console.log("TxID", JSON.stringify(response, null, 1));
+        await waitForConfirmation(algodclient, response.txId);  
+        //db here          
+        let dateset=new Date().toDateString();
+        fireDb.database().ref(`imagerefAlgo/${sessionStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseInt(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'),
             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
             CreatorAddress:props.dataall.CreatorAddress
-          }).then(()=>{  
-                let refactivity=fireDb.database().ref(`activitytable/${sessionStorage.getItem('wallet')}`);   
-                const db = refactivity.push().key;                         
-                refactivity.child(db).set({
+        }).then(()=>{  
+            let refactivity=fireDb.database().ref(`activitytable/${sessionStorage.getItem('wallet')}`);   
+            const db = refactivity.push().key;                         
+            refactivity.child(db).set({
                 Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseInt(amountmul),EscrowAddress:"priceupdated",keyId:db,
                 NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'),
                 TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
                 CreatorAddress:props.dataall.CreatorAddress
-            })
-                .then(()=>{                                        
-                setShowTestLoading(true)
-                setshowTestDone(true)
-                })                        
-          })
+        })
+        .then(()=>{                                        
+            setShowTestLoading(true)
+            setshowTestDone(true)
+            })                        
+        })
             
-          //db end here
-            } catch (err) {
-              console.error(err);
-              setShowTestLoading(false)
-            }        
+        //db end here
+        } catch (err) {
+            console.error(err);
+            setShowTestLoading(false)
+        }        
         }catch(err){
             setShowTestLoading(false)
             window.location.reload(false)
@@ -300,21 +261,14 @@ const CardCreate = (props) => {
         }        
     }
     
-
-    const sharebutton=()=>{
-        //console.log("SingleBid",location.state.alldata)
+    const sharebutton=()=>{    
         setshowShare(true)
     }
-
-
-    // const ReLoads=()=>{
-    //     browser.tabs.reload();
-    // }
     
     return (
         <Card>
             <Card.Header className='d-flex align-items-center'>
-                <div className="card-users d-flex align-items-center me-auto">
+            <div className="card-users d-flex align-items-center me-auto">
                     {/* <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
@@ -342,15 +296,13 @@ const CardCreate = (props) => {
                             ) : null}
                         </Link>
                     </OverlayTrigger> */}
-                </div>
-
-                <Dropdown className='dropdown-noarrow'>
+            </div>
+            <Dropdown className='dropdown-noarrow'>
                     <Dropdown.Toggle variant="reset">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">
                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                     </svg>
                     </Dropdown.Toggle>
-
                     <Dropdown.Menu className='link-flex dropdown-menu-right'>
                         {/* <Dropdown.Item href="/">Buy now</Dropdown.Item> */}
                         <Dropdown.Divider />
@@ -358,19 +310,18 @@ const CardCreate = (props) => {
                         <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
                         <Dropdown.Item href="/profile">Report</Dropdown.Item>
                     </Dropdown.Menu>
-                </Dropdown>
+            </Dropdown>
             </Card.Header>
             <Card.Body className='p-0'>
-                <div className="position-relative">
-                    <img src={props.img} className='img-fluid card-image' alt="Preview" />
-                    
-                    {props.timer ? (
-                        <div className="timer">
+            <div className="position-relative">
+            <img src={props.img} className='img-fluid card-image' alt="Preview" />                    
+            {props.timer ? (
+            <div className="timer">
                             <div>{props.timer} <span>left</span> <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@6.0.1/img/apple/64/1f525.png" alt="fire" /></div></div>
                     ) : null}
-                </div>
+            </div>
 
-                <div className="card-title justify-content-between d-flex align-items-start">
+            <div className="card-title justify-content-between d-flex align-items-start">
                     <Link to="/">{props.title}</Link>
 
                     <OverlayTrigger
@@ -378,9 +329,9 @@ const CardCreate = (props) => {
                     >
                         <img src={EthereumIcon} alt="icon" />
                     </OverlayTrigger>
-                </div>  
+            </div>  
 
-                <div className="card-info d-flex align-items-end justify-content-between">
+            <div className="card-info d-flex align-items-end justify-content-between">
                     <div>
                         {/* <h5 dangerouslySetInnerHTML={{__html: props.subTitle}} /> */}
                         {/* <Link  className='btn-link-grad'>{props.linkText}</Link> */}
@@ -403,7 +354,7 @@ const CardCreate = (props) => {
                     </>)}    
 
                 {/* onHide={handleCloseTest} */}
-                <Modal show={showTest} centered size="sm" >
+            <Modal show={showTest} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
@@ -447,7 +398,6 @@ const CardCreate = (props) => {
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
                 </Modal.Body>
             </Modal>       
-
             {/* onHide={handleCloseshowShare} */}
                 <Modal show={showShare} centered size="sm" >
                 <Modal.Header closeButton />
@@ -476,40 +426,11 @@ const CardCreate = (props) => {
                                 </a>                            
                                 <div>                                    
                                 </div>
-                            </div>                        
-                            {/* <FacebookShareButton
-                            url={window.location.href}
-                            // quote={props.joke.setup + props.joke.punchline}
-                            hashtag="#programing joke">
-                            <FacebookIcon logoFillColor="white" size={32} round={true}/>
-                            </FacebookShareButton>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <WhatsappShareButton
-                            url={window.location.href}
-                            // quote={props.joke.setup + props.joke.punchline}
-                            hashtag="#programing joke">
-                            <WhatsappIcon logoFillColor="white" size={32} round={true}/>
-                            </WhatsappShareButton>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <TwitterShareButton
-                            url={window.location.href}
-                            // quote={props.joke.setup + props.joke.punchline}
-                            hashtag="#programing joke">
-                            <TwitterIcon logoFillColor="white" size={32} round={true}/>
-                            </TwitterShareButton>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <EmailShareButton
-                            url={window.location.href}
-                            // quote={props.joke.setup + props.joke.punchline}
-                            hashtag="#programing joke">
-                            <EmailIcon logoFillColor="white" size={32} round={true}/>
-                            </EmailShareButton>                                                         */}
+                            </div>                                                    
                 </Modal.Body>
             </Modal>                      
-                </div>                   
-                
-            </Card.Body>
-            
+            </div>                                   
+            </Card.Body>            
         </Card>
     );
 };

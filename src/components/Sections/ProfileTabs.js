@@ -12,11 +12,13 @@ import Card from '../Snippets/Card';
 
 const ProfileTabs = (create) => {
 
+    console.log("sets",create.setMax)    
     console.log("bcreate",create.create)    
     console.log("bsale",create.sale) 
     console.log("bbuyed",create.buyed)     
     console.log("Logp1",create.owner)     
-    console.log("Logp2",create.likes)     
+    console.log("Logp2",create.likes)   
+
 
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">

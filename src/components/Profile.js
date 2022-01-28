@@ -16,7 +16,8 @@ function HomePage() {
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);
     // });
-
+    
+    const [showRefresh, setShowRefresh] = React.useState(false);
     const[getPro,setgetPro]=useState([""]);
     console.log("setgetPro",getPro)
     let history=useHistory();    
@@ -181,21 +182,19 @@ function HomePage() {
   useEffect(()=>{dbgetcover()},[])
 
 
-    const dbcallalgo=async()=>{
-        console.log("inside dbcallalgo function")  
-        let req = [];
-        if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){
-        }
-        else{
-          let getalgo=sessionStorage.getItem("wallet");    
-          //let kreq =[];
-          firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {
-                //console.log("keycheck",d.key)
-                let value=d.val();
-                req.push(            
-                  {
+  const dbcallalgo=async()=>{
+      console.log("inside dbcallalgo function")  
+      let req = [];
+      if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){
+      }
+      else{
+      let getalgo=sessionStorage.getItem("wallet");              
+        firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+          if (data) {
+            data.forEach((d) => {                
+              let value=d.val();
+              req.push(            
+                {
                   Assetid:value.Assetid,
                   Imageurl:value.Imageurl,
                   NFTPrice:value.NFTPrice,
@@ -212,8 +211,7 @@ function HomePage() {
                   Appid:value.Appid,
                   valid:value.valid,
                   CreatorAddress:value.CreatorAddress
-                  }          
-                )                
+                })                
               });        
             }
             setgetImgreffalgo(req);
@@ -309,13 +307,14 @@ function HomePage() {
       }      
     useEffect(()=>{dbcallalgobuy()},[])
 
-    const done=()=>{
-      //history.push("/profile")
-      //window.location.reload(false);    
+    const done=()=>{      
+    }
+
+    if(showRefresh === true){
+      dbcallalgo()
     }
       
-
-    return (
+  return (
         <Layout>
             <Container fluid="lg">
                 <div className="profile-banner">
@@ -368,7 +367,16 @@ function HomePage() {
                   
                 </center>
 
-                <div className="mb-36 text-center">
+                {sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined === sessionStorage.getItem('wallet') === "" ?(
+                <>
+                {
+                  <div className="mb-4 text-center d-flex align-items-center justify-content-center">
+                  <Link to="/connect" className='btn btn-white'>Connect wallet</Link>                
+                  </div>    
+                }
+                </>
+                ):(
+                  <div className="mb-36 text-center">
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(sessionStorage.getItem('wallet')); setToast(true)}}>
                         <img src={Logo} alt="icon" />
                         {!toast ? <span>{sessionStorage.getItem('wallet').slice(0,8)}....{sessionStorage.getItem('wallet').slice(52,58)}</span> : (
@@ -378,6 +386,8 @@ function HomePage() {
                         )}
                     </Button>                    
                 </div>
+                )}
+                
 
                 <div className="mb-32 d-flex align-items-center justify-content-center">
                     <Button variant='link' onClick={handleFollowers} className='btn-reset'><span>0</span> <span className='ms-1 text-gray'>followers</span></Button>
@@ -436,7 +446,7 @@ function HomePage() {
                 </div>
 
 
-                <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike}/>
+            <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike} setMax ={(value)=>setShowRefresh(value)}/>
             </Container>
 
             {/* onHide={handleClose} */}
