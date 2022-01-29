@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useContext,useCallback} from 'react';
 import {Card, Dropdown, Button, OverlayTrigger, Tooltip,Modal,Form, InputGroup } from 'react-bootstrap';
 import {
     Link
@@ -11,47 +11,14 @@ import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
-import {
-    FacebookShareButton,
-    GooglePlusShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    TelegramShareButton,
-    WhatsappShareButton,
-    PinterestShareButton,
-    VKShareButton,
-    OKShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    ViberShareButton,
-    WorkplaceShareButton,
-    EmailShareButton,
-  } from 'react-share';
-import {
-    FacebookIcon,
-    TwitterIcon,
-    TelegramIcon,
-    WhatsappIcon,
-    GooglePlusIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    VKIcon,
-    OKIcon,
-    RedditIcon,
-    TumblrIcon,
-    LivejournalIcon,
-    MailruIcon,
-    ViberIcon,
-    WorkplaceIcon,
-    EmailIcon,
-  } from 'react-share';
-
 import { DataContext } from '../../Context/DataContext';
 const myAlgoWallet = new MyAlgoConnect();
 
 const CardCreate = (props) => {
+    console.log("cprint",props.onNameChange)
+    const handleInputChange = useCallback(event => {
+        props.onNameChange(props.onNameChange)
+    }, [props.onNameChange])
     const {algobalanceApp}=useContext(DataContext)
     console.log("algobalanceAppSingle",algobalanceApp)
     const [showTest, setShowTest] = React.useState(false);

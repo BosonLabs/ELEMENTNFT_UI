@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useCallback} from 'react';
 import {Tabs, Tab} from 'react-bootstrap'
 import OnSale from '../Snippets/tabs/OnSale';
 import OnSaleLike from '../Snippets/tabs/OnSaleLike';
@@ -12,13 +12,15 @@ import Card from '../Snippets/Card';
 
 const ProfileTabs = (create) => {
 
-    console.log("sets",create.setMax)    
+    console.log("sets",create.onNameChange)    
     console.log("bcreate",create.create)    
     console.log("bsale",create.sale) 
     console.log("bbuyed",create.buyed)     
     console.log("Logp1",create.owner)     
-    console.log("Logp2",create.likes)   
-
+    console.log("Logp2",create.likes)  
+    
+    
+    
 
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">
@@ -29,7 +31,7 @@ const ProfileTabs = (create) => {
                 <Owned data={create.buyed}/>
             </Tab>                        
             <Tab eventKey="created" title="Created">                
-                <Created data={create.create}/>
+                <Created data={create.create} onNameChange={create.onNameChange}/>
             </Tab>                
             {/* <Tab eventKey="collections" title={<span>Collections <span class="badge badge-new">new</span></span>}>
                 <Collection />

@@ -16,6 +16,7 @@ const animatedComponents = makeAnimated();
 const Created = (data) => {
         
     console.log("getdata",data.data)      
+    console.log("createddata2",data.onNameChange)      
           
     const colourStyles = {
         option: (styles, { isFocused }) => {
@@ -181,7 +182,7 @@ const Created = (data) => {
                     <>
                     {/* onClick={()=>getprice(x)} */}
                     <div className='col mb-4' >
-                    <CardCreate img={x.Imageurl} 
+                    <CardCreate img={x.Imageurl} onNameChange={data.onNameChange}
                     title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
                     linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
                     />

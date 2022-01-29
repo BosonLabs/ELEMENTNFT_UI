@@ -310,9 +310,9 @@ function HomePage() {
     const done=()=>{      
     }
 
-    if(showRefresh === true){
-      dbcallalgo()
-    }
+    // if(showRefresh === true){
+    //   dbcallalgo()
+    // }
       
   return (
         <Layout>
@@ -446,7 +446,7 @@ function HomePage() {
                 </div>
 
 
-            <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike} setMax ={(value)=>setShowRefresh(value)}/>
+            <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike} onNameChange={setgetImgreffalgo}/>
             </Container>
 
             {/* onHide={handleClose} */}

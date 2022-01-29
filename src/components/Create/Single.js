@@ -279,7 +279,10 @@ const Start = () => {
                                           pinata.pinJSONToIPFS(body, options).then((result) => {
                                               //handle results here
                                               console.log(result);
-                                              console.log("jsonresult") 
+                                              console.log("jsonresult2",result.IpfsHash) 
+                                              //toast.dismiss(); 
+                                              //toast.info("image uploaded in ipfs",result.IpfsHash)
+                                              toast.success(`Image uploaded in ipfs ${result.IpfsHash}`);
                                               //db add here
                                               // toast.loading(`images uploading ipfs`, {
                                               // onClose: ('loading') });        
@@ -306,8 +309,9 @@ const Start = () => {
                                                 .then(()=>{                                   
                                                   //setshowTestLoading(false)
                                                   //setShowTest(true)                                                                                         
-                                                  toast.dismiss(); 
-                                                  toast.success("image uploaded in ipfs")
+                                                  toast.info("minting your image")
+                                                  //toast.dismiss(); 
+                                                  toast.success("minting successfully")
                                                   toast.dismiss();
                                                   setshowTestLoading(false)
                                                   setShowTest(true)                                                                                         
@@ -360,7 +364,10 @@ const Start = () => {
                                           pinata.pinJSONToIPFS(body, options).then((result) => {
                                               //handle results here
                                               console.log(result);
-                                              console.log("jsonresult")  
+                                              console.log("jsonresult3",result.IpfsHash) 
+                                              //toast.dismiss();  
+                                              // toast.info("image uploaded in ipfs",result.IpfsHash)
+                                              toast.success(`Image uploaded in ipfs ${result.IpfsHash}`);
                                               // toast.loading(`images uploading ipfs`, {
                                               // onClose: ('loading') });                                                                                                
                                               ref2.child(db).set({
@@ -389,9 +396,11 @@ const Start = () => {
                                                   // toast.loading(`images uploaded in ipfs`,{
                                                   //   onClose:('completed')
                                                   // });
-                                                  toast.dismiss(); 
-                                                  toast.success("image uploaded in ipfs")
-                                                  //toast.dismiss();
+                                                  toast.info("minting your image")
+                                                  //toast.dismiss(); 
+                                                  toast.success("minting successfully")
+                                                  //toast.dismiss();                                               
+                                                  toast.dismiss();
                                                   setshowTestLoading(false)
                                                   setShowTest(true)     
                                                 })              
