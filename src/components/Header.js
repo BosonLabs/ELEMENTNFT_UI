@@ -42,7 +42,7 @@ function Header() {
     useEffect(() => {        
         async function listenMMAccount() {
     
-          if(sessionStorage.getItem("wallet") === null || sessionStorage.getItem("wallet") === "0x" || sessionStorage.getItem("wallet") === undefined || sessionStorage.getItem("wallet") === ''){                  
+          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
           }
           else{          
             const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
@@ -52,10 +52,10 @@ function Header() {
             }
             let client = new algosdk.Algodv2(token, baseServer, port);                
     ( async() => {
-      let account1_info = (await client.accountInformation(sessionStorage.getItem('wallet')).do());      
+      let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
       let calc=JSON.stringify(account1_info.amount)/1000000;      
       setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
-      sessionStorage.setItem("balget",account1_info);      
+      localStorage.setItem("balget",account1_info);      
   })().catch(e => {
       console.log(e);
   })                    
@@ -75,14 +75,14 @@ function Header() {
     console.log("log1",client);
 
 ( async() => {
-let account1_info = (await client.accountInformation(sessionStorage.getItem('wallet')).do());
+let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());
 console.log("accinfo",account1_info)
 console.log("accinfoamount",account1_info.amount)
 let calc=JSON.stringify(account1_info.amount)/1000000;
 //console.log("calc",calc)
 setalgobalance(JSON.stringify(account1_info.amount)/1000000);
 //console.log("Balance of account 1: " + JSON.stringify(account1_info.amount));
-sessionStorage.setItem("balget",account1_info);
+localStorage.setItem("balget",account1_info);
 // let account2_info = (await client.accountInformation().do());
 // console.log("Balance of account 2: " + JSON.stringify(account2_info.amount));
 })().catch(e => {
@@ -91,7 +91,7 @@ console.log(e);
 
 
 const signoutlocal=async()=>{
-    sessionStorage.setItem('wallet',"");
+    localStorage.setItem('wallet',"");
     window.location.reload(false)
 }
 
@@ -384,12 +384,12 @@ const filterdata=()=>{
                             </Dropdown.Menu>
                         </Dropdown> */}
                         <Link to="/create/single" className='btn d-md-block d-none btn-grad'>Create</Link>
-                        {sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === "" ?(
+                        {localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" ?(
                           
                           <Link to="/connect" className='btn d-md-block d-none btn-white'>Sign in</Link>                            
                         ):(
                         
-                            <Link to="/connect" className='btn d-md-block d-none btn-grad'>{sessionStorage.getItem('wallet').slice(0,8)}....{sessionStorage.getItem('wallet').slice(52,58)}</Link>
+                            <Link to="/connect" className='btn d-md-block d-none btn-grad'>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)}</Link>
                         )}                        
                         
                         
@@ -402,7 +402,7 @@ const filterdata=()=>{
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu className='dropdown-menu-right dropdown-menu-info'>
-                                {sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === null ? (
+                                {localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === null ? (
 
                             <Button variant='copy-code-lg' className="w-100 mb-2 justify-content-start"  onClick={() => { navigator.clipboard.writeText('0x31dB2A...aB9d'); setToast(true)}}>
                                     {!toast ? <span>0x31dB2A...aB9d <svg viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 8.25H2C1.86193 8.25 1.75 8.13807 1.75 8V2C1.75 1.86193 1.86193 1.75 2 1.75H8C8.13807 1.75 8.25 1.86193 8.25 2V3.25H5C4.0335 3.25 3.25 4.0335 3.25 5V8.25ZM3.25 9.75H2C1.0335 9.75 0.25 8.9665 0.25 8V2C0.25 1.0335 1.0335 0.25 2 0.25H8C8.9665 0.25 9.75 1.0335 9.75 2V3.25H11C11.9665 3.25 12.75 4.0335 12.75 5V11C12.75 11.9665 11.9665 12.75 11 12.75H5C4.0335 12.75 3.25 11.9665 3.25 11V9.75ZM11.25 11C11.25 11.1381 11.1381 11.25 11 11.25H5C4.86193 11.25 4.75 11.1381 4.75 11V5C4.75 4.86193 4.86193 4.75 5 4.75H11C11.1381 4.75 11.25 4.86193 11.25 5V11Z" fill="currentColor"></path></svg></span> : (
@@ -414,8 +414,8 @@ const filterdata=()=>{
 
                                 ):(
 
-                                    <Button variant='copy-code-lg' className="w-100 mb-2 justify-content-start"  onClick={() => { navigator.clipboard.writeText(sessionStorage.getItem('wallet')); setToast(true)}}>
-                                    {!toast ? <span>{sessionStorage.getItem('wallet').slice(0,8)}....{sessionStorage.getItem('wallet').slice(52,58)} <svg viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 8.25H2C1.86193 8.25 1.75 8.13807 1.75 8V2C1.75 1.86193 1.86193 1.75 2 1.75H8C8.13807 1.75 8.25 1.86193 8.25 2V3.25H5C4.0335 3.25 3.25 4.0335 3.25 5V8.25ZM3.25 9.75H2C1.0335 9.75 0.25 8.9665 0.25 8V2C0.25 1.0335 1.0335 0.25 2 0.25H8C8.9665 0.25 9.75 1.0335 9.75 2V3.25H11C11.9665 3.25 12.75 4.0335 12.75 5V11C12.75 11.9665 11.9665 12.75 11 12.75H5C4.0335 12.75 3.25 11.9665 3.25 11V9.75ZM11.25 11C11.25 11.1381 11.1381 11.25 11 11.25H5C4.86193 11.25 4.75 11.1381 4.75 11V5C4.75 4.86193 4.86193 4.75 5 4.75H11C11.1381 4.75 11.25 4.86193 11.25 5V11Z" fill="currentColor"></path></svg></span> : (
+                                    <Button variant='copy-code-lg' className="w-100 mb-2 justify-content-start"  onClick={() => { navigator.clipboard.writeText(localStorage.getItem('wallet')); setToast(true)}}>
+                                    {!toast ? <span>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)} <svg viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 8.25H2C1.86193 8.25 1.75 8.13807 1.75 8V2C1.75 1.86193 1.86193 1.75 2 1.75H8C8.13807 1.75 8.25 1.86193 8.25 2V3.25H5C4.0335 3.25 3.25 4.0335 3.25 5V8.25ZM3.25 9.75H2C1.0335 9.75 0.25 8.9665 0.25 8V2C0.25 1.0335 1.0335 0.25 2 0.25H8C8.9665 0.25 9.75 1.0335 9.75 2V3.25H11C11.9665 3.25 12.75 4.0335 12.75 5V11C12.75 11.9665 11.9665 12.75 11 12.75H5C4.0335 12.75 3.25 11.9665 3.25 11V9.75ZM11.25 11C11.25 11.1381 11.1381 11.25 11 11.25H5C4.86193 11.25 4.75 11.1381 4.75 11V5C4.75 4.86193 4.86193 4.75 5 4.75H11C11.1381 4.75 11.25 4.86193 11.25 5V11Z" fill="currentColor"></path></svg></span> : (
                                         <Toast className='toast-text' onClose={() => {setToast(false);}} show={toast} autohide delay={1500}>
                                             <Toast.Body>Copied! <svg viewBox="0 0 20 15" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye ieSfBq sc-dHxrtn eHkirg"><path d="M2 7L7.33333 12L18 2" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path></svg></Toast.Body>
                                         </Toast>  
@@ -433,7 +433,7 @@ const filterdata=()=>{
                                             </path></svg> */}
                                             <img src={Logo} style={{height:"55 px" ,width:"55 px"}}alt="logo" />                                       
                                             <div className='ms-3'>
-                                                {sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === "" ? (
+                                                {localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" ? (
                                                 <>
                                                 <h6 className='mb-1'>Balance</h6>
                                                 <h5 className='mb-0'>0 Algo</h5>
@@ -564,12 +564,12 @@ const filterdata=()=>{
                                 </Col>
                                 <Col>
 
-                                {sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === "" ?(
+                                {localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" ?(
                           
                           <Link to="/connect" className='btn d-block btn-white'>Sign in</Link>                            
                         ):(
                         
-                            <Link to="/connect" className='btn d-block btn-grad'>{sessionStorage.getItem('wallet').slice(0,8)}....{sessionStorage.getItem('wallet').slice(52,58)}</Link>
+                            <Link to="/connect" className='btn d-block btn-grad'>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)}</Link>
                         )}                                          
                                 </Col>
                             </Row>

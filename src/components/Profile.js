@@ -11,6 +11,7 @@ import firebase from '../firebase';
 import Compress from "react-image-file-resizer";
 import Logo from '../assets/images/Algo.png';
 import { useHistory } from "react-router-dom";
+import logogif from '../assets/images/gif1.svg';
 
 function HomePage() {
     // React.useEffect(() => {
@@ -45,10 +46,10 @@ function HomePage() {
     console.log("getdbLike",getdbLike)
     const dbLike=async()=>{    
         let req = [];
-        if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
         }
         else{
-          let getalgo=sessionStorage.getItem("wallet");              
+          let getalgo=localStorage.getItem("wallet");              
           firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                                             
@@ -105,13 +106,13 @@ function HomePage() {
     const updatecover=async(u)=>{
       setShow(false)
       setShowL(true)            
-      console.log("logtrue",firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet')))
-      // if(firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet')).orderByCalled_ === false){ 
-      //       let ref2=firebase.database().ref(`userprofile/${sessionStorage.getItem('wallet')}`);                    
+      console.log("logtrue",firebase.database().ref("userprofile").child(localStorage.getItem('wallet')))
+      // if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).orderByCalled_ === false){ 
+      //       let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
       //       let dateset=new Date().toDateString();                
       //       ref2.set({
       //       Imageurl:u,bgurl:u,
-      //       UserName:"",Customurl:"",WalletAddress:sessionStorage.getItem('wallet'),
+      //       UserName:"",Customurl:"",WalletAddress:localStorage.getItem('wallet'),
       //       TimeStamp:dateset,Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""})
       //       .then(()=>{          
       //       setShowL(false)                                    
@@ -124,14 +125,14 @@ function HomePage() {
       //     });         
       // }
       // else{
-        firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet')).on("value", (data) => {          
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
           if (data) {                        
-          let ref2=firebase.database().ref(`userprofile/${sessionStorage.getItem('wallet')}`);                    
+          let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
           let dateset=new Date().toDateString();                
           console.log("data",data.val())
           ref2.update({
           Imageurl:data.val().Imageurl,bgurl:u,
-          UserName:data.val().UserName,Customurl:data.val().Customurl,WalletAddress:sessionStorage.getItem('wallet'),
+          UserName:data.val().UserName,Customurl:data.val().Customurl,WalletAddress:localStorage.getItem('wallet'),
           TimeStamp:dateset,Twittername:data.val().Twittername,Personalsiteurl:data.val().Personalsiteurl,Email:data.val().Email,Bio:data.val().Bio,valid:data.val().valid})
           .then(()=>{          
             setShowL(false)                                    
@@ -151,11 +152,11 @@ function HomePage() {
 
     const dbgetcover=async()=>{      
       let req = [];
-      if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){
+      if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
         setgetPro([])
       }
-      else if(firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet'))){
-          firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet')).on("value", (data) => {          
+      else if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet'))){
+          firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
             if (data) {              
             console.log("pdata2",data.val())
                 req.push({
@@ -185,10 +186,10 @@ function HomePage() {
   const dbcallalgo=async()=>{
       console.log("inside dbcallalgo function")  
       let req = [];
-      if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){
+      if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
       }
       else{
-      let getalgo=sessionStorage.getItem("wallet");              
+      let getalgo=localStorage.getItem("wallet");              
         firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
           if (data) {
             data.forEach((d) => {                
@@ -223,9 +224,9 @@ function HomePage() {
     const dbcallsalealgo=async()=>{
         console.log("inside dbcallsalealgo function")        
         let req = [];      
-        if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === '' || sessionStorage.getItem("wallet") === "0x"){      
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
         }else{      
-          let getalgo=sessionStorage.getItem("wallet");          
+          let getalgo=localStorage.getItem("wallet");          
           //let kreq =[];
           firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
             if (data) {
@@ -267,10 +268,10 @@ function HomePage() {
     const dbcallalgobuy=async()=>{
         console.log("inside dbcallalgobuy function")  
         let req = [];      
-        if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){      
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
         }
         else{              
-          let getalgo=sessionStorage.getItem("wallet");          
+          let getalgo=localStorage.getItem("wallet");          
           //let kreq =[];
           firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {      
             if (data) {
@@ -367,7 +368,7 @@ function HomePage() {
                   
                 </center>
 
-                {sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined === sessionStorage.getItem('wallet') === "" ?(
+                {localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined === localStorage.getItem('wallet') === "" ?(
                 <>
                 {
                   <div className="mb-4 text-center d-flex align-items-center justify-content-center">
@@ -377,9 +378,9 @@ function HomePage() {
                 </>
                 ):(
                   <div className="mb-36 text-center">
-                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(sessionStorage.getItem('wallet')); setToast(true)}}>
+                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(localStorage.getItem('wallet')); setToast(true)}}>
                         <img src={Logo} alt="icon" />
-                        {!toast ? <span>{sessionStorage.getItem('wallet').slice(0,8)}....{sessionStorage.getItem('wallet').slice(52,58)}</span> : (
+                        {!toast ? <span>{localStorage.getItem('wallet').slice(0,8)}....{localStorage.getItem('wallet').slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
@@ -456,7 +457,7 @@ function HomePage() {
                 </Modal.Header>
                 <Modal.Body>                    
                     <div className="mt-3">
-                      {sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === undefined || sessionStorage.getItem('wallet') === "" ? (
+                      {localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" ? (
                       <>
                       <Link to="/connect">
                       <label htmlFor="uploadFile" className='mb-3 btn btn-primary btn-lg w-100'>Please Connect Wallet</label>
@@ -499,7 +500,8 @@ function HomePage() {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>
+                        {/* <h3>Loading...</h3> */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>

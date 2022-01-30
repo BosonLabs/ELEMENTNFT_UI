@@ -11,6 +11,7 @@ import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
+import logogif from '../../assets/images/gif1.svg';
 import firebase from '../../firebase';
 const myAlgoWallet = new MyAlgoConnect();
 
@@ -105,10 +106,10 @@ const CardHotbids = (props) => {
         }
 
         const buynow=async()=>{
-            if(sessionStorage.getItem("wallet") === null || sessionStorage.getItem("wallet") === "0x" || sessionStorage.getItem("wallet") === undefined || sessionStorage.getItem("wallet") === ''){
+            if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
             }
             else{          
-            if(props.dataall === sessionStorage.getItem("wallet"))
+            if(props.dataall === localStorage.getItem("wallet"))
             {   
                 alert("you are owner so you does not purchase this token")             
             }
@@ -143,8 +144,8 @@ const CardHotbids = (props) => {
                 let appArgs = [];
                 appArgs.push(new Uint8Array(Buffer.from("Buynow")));
                 const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                from: sessionStorage.getItem('wallet'),
-                to: sessionStorage.getItem('wallet'),
+                from: localStorage.getItem('wallet'),
+                to: localStorage.getItem('wallet'),
                 assetIndex: parseInt(props.dataall.Assetid),
                 note: undefined,
                 amount: 0,
@@ -157,7 +158,7 @@ const CardHotbids = (props) => {
                 
                   
                 const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
-                  from:sessionStorage.getItem('wallet'), 
+                  from:localStorage.getItem('wallet'), 
                   suggestedParams: params, 
                   appIndex: parseInt(appId), 
                   appArgs: appArgs
@@ -165,13 +166,13 @@ const CardHotbids = (props) => {
               
               const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                   suggestedParams:params,
-                  from:sessionStorage.getItem('wallet'),
+                  from:localStorage.getItem('wallet'),
                   to: lsig.address(), 
                   amount: 2000
               });
               const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                 suggestedParams:params,
-                from:sessionStorage.getItem('wallet'),
+                from:localStorage.getItem('wallet'),
                 to: lsig.address(), 
                 amount: parseInt(props.dataall.NFTPrice)
               });
@@ -179,7 +180,7 @@ const CardHotbids = (props) => {
                 const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                   suggestedParams:params,
                   from: lsig.address(),
-                  to:sessionStorage.getItem('wallet'), 
+                  to:localStorage.getItem('wallet'), 
                   amount: 1,
                   assetIndex: parseInt(props.dataall.Assetid)
                 });
@@ -195,7 +196,7 @@ const CardHotbids = (props) => {
               const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
                 reKeyTo: undefined,
                 from : lsig.address(),
-                manager:sessionStorage.getItem('wallet'),
+                manager:localStorage.getItem('wallet'),
                 assetIndex: parseInt(props.dataall.Assetid),
                 suggestedParams:params,
                 strictEmptyAddressChecking:false
@@ -234,9 +235,9 @@ const CardHotbids = (props) => {
               //db change here
                     
               fireDb.database().ref(`imagerefexploreoneAlgos/${props.dataall.ownerAddress}`).child(props.dataall.keyId).remove().then(()=>{
-                fireDb.database().ref(`imagerefbuy/${sessionStorage.getItem("wallet")}`).child(props.dataall.keyId).set({
+                fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(props.dataall.keyId).set({
                     Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
-                    NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:sessionStorage.getItem('wallet'),previousoaddress:props.dataall.ownerAddress,
+                    NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:localStorage.getItem('wallet'),previousoaddress:props.dataall.ownerAddress,
                     TimeStamp:props.dataall.TimeStamp,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.ownerAddress,Appid:props.dataall.Appid,valid:props.dataall.valid            
                       }).then(()=>{          
                         setShowTestLoading(false)  
@@ -384,7 +385,8 @@ const CardHotbids = (props) => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>                                    
+                        {/* <h3>Loading...</h3>                                     */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>                          

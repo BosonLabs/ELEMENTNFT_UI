@@ -15,10 +15,10 @@ function ActivityPage() {
     const dbcallalgo=async()=>{
         console.log("inside dbcallalgo function")  
         let req = [];
-        if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
         }
         else{
-          let getalgo=sessionStorage.getItem("wallet");    
+          let getalgo=localStorage.getItem("wallet");    
           firebase.database().ref("activitytable").child(getalgo).on("value", (data) => {
             if (data) {
               data.forEach((d) => {

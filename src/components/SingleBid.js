@@ -14,6 +14,7 @@ import configfile from '../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { DataContext } from '../Context/DataContext';
+import logogif from '../assets/images/gif1.svg';
 const algosdk = require('algosdk'); 
 
 const SingleBid = (props) => {
@@ -43,7 +44,7 @@ const SingleBid = (props) => {
     useEffect(() => {        
         async function listenMMAccount() {
     
-          if(sessionStorage.getItem("wallet") === null || sessionStorage.getItem("wallet") === "0x" || sessionStorage.getItem("wallet") === undefined || sessionStorage.getItem("wallet") === ''){                  
+          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
           }
           else{          
             const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
@@ -53,10 +54,10 @@ const SingleBid = (props) => {
             }
             let client = new algosdk.Algodv2(token, baseServer, port);                
     ( async() => {
-      let account1_info = (await client.accountInformation(sessionStorage.getItem('wallet')).do());      
+      let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
       calc=JSON.stringify(account1_info.amount)/1000000;      
       setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
-      sessionStorage.setItem("balget",account1_info);      
+      localStorage.setItem("balget",account1_info);      
   })().catch(e => {
       console.log(e);
   })                    
@@ -138,10 +139,10 @@ const SingleBid = (props) => {
 
     const buynow=async()=>{
 
-        if(sessionStorage.getItem("wallet") === null || sessionStorage.getItem("wallet") === "0x" || sessionStorage.getItem("wallet") === undefined || sessionStorage.getItem("wallet") === ''){
+        if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
         }
         else{          
-        if(location.state.alldata.ownerAddress === sessionStorage.getItem("wallet"))
+        if(location.state.alldata.ownerAddress === localStorage.getItem("wallet"))
         {   
             alert("you are owner so you does not purchase this token")             
         }            
@@ -157,7 +158,7 @@ const SingleBid = (props) => {
         }
         else{
             setShowTestLoading(true)  
-            let a=location.state.alldata.HistoryAddress.concat(sessionStorage.getItem('wallet'));              
+            let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
             const algosdk = require('algosdk');  
             const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');          
             //const myAlgoConnect = new MyAlgoConnect();
@@ -187,8 +188,8 @@ const SingleBid = (props) => {
             let appArgs = [];
             appArgs.push(new Uint8Array(Buffer.from("Buynow")));
             const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: sessionStorage.getItem('wallet'),
-            to: sessionStorage.getItem('wallet'),
+            from: localStorage.getItem('wallet'),
+            to: localStorage.getItem('wallet'),
             assetIndex: parseInt(location.state.alldata.Assetid),
             note: undefined,
             amount: 0,
@@ -201,7 +202,7 @@ const SingleBid = (props) => {
             
               
             const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
-              from:sessionStorage.getItem('wallet'), 
+              from:localStorage.getItem('wallet'), 
               suggestedParams: params, 
               appIndex: parseInt(appId), 
               appArgs: appArgs
@@ -209,13 +210,13 @@ const SingleBid = (props) => {
           
           const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
               suggestedParams:params,
-              from:sessionStorage.getItem('wallet'),
+              from:localStorage.getItem('wallet'),
               to: lsig.address(), 
               amount: 2000
           });
           const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
             suggestedParams:params,
-            from:sessionStorage.getItem('wallet'),
+            from:localStorage.getItem('wallet'),
             to: lsig.address(), 
             amount: parseInt(location.state.alldata.NFTPrice)
           });
@@ -223,7 +224,7 @@ const SingleBid = (props) => {
             const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
               suggestedParams:params,
               from: lsig.address(),
-              to:sessionStorage.getItem('wallet'), 
+              to:localStorage.getItem('wallet'), 
               amount: 1,
               assetIndex: parseInt(location.state.alldata.Assetid)
             });
@@ -239,7 +240,7 @@ const SingleBid = (props) => {
           const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
             reKeyTo: undefined,
             from : lsig.address(),
-            manager:sessionStorage.getItem('wallet'),
+            manager:localStorage.getItem('wallet'),
             assetIndex: parseInt(location.state.alldata.Assetid),
             suggestedParams:params,
             strictEmptyAddressChecking:false
@@ -278,22 +279,22 @@ const SingleBid = (props) => {
           //db change here
           let dateset=new Date().toDateString();
           fireDb.database().ref(`imagerefexploreoneAlgos/${location.state.alldata.ownerAddress}`).child(location.state.alldata.keyId).remove().then(()=>{
-            fireDb.database().ref(`imagerefbuy/${sessionStorage.getItem("wallet")}`).child(location.state.alldata.keyId).set({
+            fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(location.state.alldata.keyId).set({
                 Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
                 EscrowAddress:location.state.alldata.EscrowAddress,keyId:location.state.alldata.keyId,
                 NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
-                ownerAddress:sessionStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
+                ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
                 TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
                 Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
                 CreatorAddress:location.state.alldata.CreatorAddress            
                   }).then(()=>{          
-                    let refactivity=fireDb.database().ref(`activitytable/${sessionStorage.getItem('wallet')}`);   
+                    let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
                     const db = refactivity.push().key;                         
                     refactivity.child(db).set({
                     Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
                     EscrowAddress:"BuyNFT",keyId:db,
                     NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
-                    ownerAddress:location.state.alldata.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'), 
+                    ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
                     TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
                     Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
                     CreatorAddress:location.state.alldata.CreatorAddress
@@ -465,7 +466,8 @@ const SingleBid = (props) => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>                                    
+                        {/* <h3>Loading...</h3>                                     */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>                          

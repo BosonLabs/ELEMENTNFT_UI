@@ -50,10 +50,10 @@ function HomePage(props) {
     console.log("getdbLike",getdbLike)
     const dbLike=async()=>{    
         let req = [];
-        if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === ''){
+        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
         }
         else{
-          let getalgo=sessionStorage.getItem("wallet");              
+          let getalgo=localStorage.getItem("wallet");              
           firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                                             
@@ -151,12 +151,12 @@ function HomePage(props) {
   const dbcallother=async()=>{    
     let reqo = [];    
       try {  
-        if(firebase.database().ref("followings").child(sessionStorage.getItem("wallet")) === undefined)       
+        if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
         {          
           alert("nono2")                
         }
         else{
-        firebase.database().ref("followings").child(sessionStorage.getItem("wallet")).on("value", (data) => {
+        firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
         if (data) {        
           
           reqo.push({
@@ -182,7 +182,7 @@ useEffect(()=>{dbcallother()},[])
 
     // const dbcallsaleal=async(index)=>{        
     //     let req2 = [];
-    //     if(sessionStorage.getItem("wallet")  === null || sessionStorage.getItem("wallet")  === "" || sessionStorage.getItem("wallet")  === " " || sessionStorage.getItem("wallet") === 'undefined' || sessionStorage.getItem("wallet") === '' || sessionStorage.getItem("wallet") === "0x"){
+    //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
     //     }
     //     else{                        
     //       axios({
@@ -324,15 +324,15 @@ useEffect(()=>{dbcallother()},[])
       
     const followstart=async()=>{                      
       if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
-        let ref2=firebase.database().ref(`followings/${sessionStorage.getItem('wallet')}`);
+        let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
         let ref22=firebase.database().ref(`followings/${location.state.ownerAddress}`);
         let dateset=new Date().toDateString();                                         
         let arr1=[];
         let arr11=[];
         arr1.push(location.state.ownerAddress)
-        arr11.push(sessionStorage.getItem('wallet'))
+        arr11.push(localStorage.getItem('wallet'))
         ref2.set({        
-          walletAddress:sessionStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
           .then(()=>{
             ref22.set({        
               walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr11})
@@ -346,12 +346,12 @@ useEffect(()=>{dbcallother()},[])
         //local null && owner entry
         let dateset=new Date().toDateString();      
         console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${sessionStorage.getItem('wallet')}`);
+        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
         let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
         //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
         //let allarr11=getIfl[0].follower
         let allarr2=getIfo[0].following 
-        let allarr22=getIfo[0].follower.concat(sessionStorage.getItem('wallet'))
+        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
         //let chars1 = allarr1
         //let uniqueChars1 = new Set(chars1);
         //console.log("uni1",uniqueChars1);//ramfollowing local
@@ -367,7 +367,7 @@ useEffect(()=>{dbcallother()},[])
         let arr1=[]        
         arr1.push(location.state.ownerAddress)        
         ref1.set({  
-          walletAddress:sessionStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
           .then(()=>{    
             ref11.update({        
               walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
@@ -381,12 +381,12 @@ useEffect(()=>{dbcallother()},[])
         //owner null && local entry
         let dateset=new Date().toDateString();      
         console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${sessionStorage.getItem('wallet')}`);
+        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
         let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
         let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
         let allarr11=getIfl[0].follower
         //let allarr2=getIfo[0].following 
-        //let allarr22=getIfo[0].follower.concat(sessionStorage.getItem('wallet'))
+        //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
         let chars1 = allarr1
         let uniqueChars1 = new Set(chars1);
         console.log("uni1",uniqueChars1);//ramfollowing local
@@ -400,9 +400,9 @@ useEffect(()=>{dbcallother()},[])
         //let uniqueChars22 = new Set(chars22);
         //console.log("uni22",uniqueChars22);//thiru follow
         let arr1=[]        
-        arr1.push(sessionStorage.getItem('wallet'))        
+        arr1.push(localStorage.getItem('wallet'))        
         ref1.set({  
-          walletAddress:sessionStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
           .then(()=>{    
             ref11.set({        
               walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr1})
@@ -414,12 +414,12 @@ useEffect(()=>{dbcallother()},[])
       else{
         let dateset=new Date().toDateString();      
         console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${sessionStorage.getItem('wallet')}`);
+        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
         let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
         let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
         let allarr11=getIfl[0].follower
         let allarr2=getIfo[0].following 
-        let allarr22=getIfo[0].follower.concat(sessionStorage.getItem('wallet'))
+        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
         let chars1 = allarr1
         let uniqueChars1 = new Set(chars1);
         console.log("uni1",uniqueChars1);//ramfollowing local
@@ -434,7 +434,7 @@ useEffect(()=>{dbcallother()},[])
         console.log("uni22",uniqueChars22);//thiru follow
 
         ref1.update({  
-          walletAddress:sessionStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
           .then(()=>{    
             ref11.update({        
               walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})

@@ -11,6 +11,7 @@ import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
+import logogif from '../../assets/images/gif1.svg';
 import { DataContext } from '../../Context/DataContext';
 const myAlgoWallet = new MyAlgoConnect();
 
@@ -61,20 +62,20 @@ const CardCreate = (props) => {
     const onshow2=()=>{
         setShowTestLoading(true)
         console.log("sale",props.dataall);
-        if(sessionStorage.getItem('wallet') === props.dataall.ownerAddress){      
+        if(localStorage.getItem('wallet') === props.dataall.ownerAddress){      
             let dateset=new Date().toDateString();      
-            fireDb.database().ref(`imagerefexploreoneAlgos/${sessionStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
+            fireDb.database().ref(`imagerefexploreoneAlgos/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
                 Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
                 NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:props.dataall.previousoaddress,
                 TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
                 CreatorAddress:props.dataall.CreatorAddress
               }).then(()=>{
-                fireDb.database().ref(`imagerefAlgo/${sessionStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
-                let refactivity=fireDb.database().ref(`activitytable/${sessionStorage.getItem('wallet')}`);   
+                fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
+                let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
                 const db = refactivity.push().key;                         
                 refactivity.child(db).set({
                 Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
-                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'),                
+                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),                
                 TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
                 CreatorAddress:props.dataall.CreatorAddress
             })
@@ -149,14 +150,14 @@ const CardCreate = (props) => {
         appArgs.push(new Uint8Array(Buffer.from("createlisting")));
         appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));        
         let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
-            from:sessionStorage.getItem('wallet'), 
+            from:localStorage.getItem('wallet'), 
             suggestedParams:params, 
             appIndex:parseInt(appId), 
             appArgs:appArgs
         })
   
         let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-          from: sessionStorage.getItem('wallet'),
+          from: localStorage.getItem('wallet'),
           to: lsig.address(),
           amount: Number(parseInt(3000)),
           note: undefined,
@@ -173,7 +174,7 @@ const CardCreate = (props) => {
         });
           
         const transaction4= algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: sessionStorage.getItem('wallet'),
+          from: localStorage.getItem('wallet'),
           to: lsig.address(),
           assetIndex: parseInt(assetidgetc),
           note: undefined,
@@ -183,7 +184,7 @@ const CardCreate = (props) => {
   
         const txn5 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
             reKeyTo: undefined,
-            from : sessionStorage.getItem('wallet'),
+            from : localStorage.getItem('wallet'),
             manager: lsig.address(),
             assetIndex:parseInt(assetidgetc),
             suggestedParams:params,
@@ -203,17 +204,17 @@ const CardCreate = (props) => {
         await waitForConfirmation(algodclient, response.txId);  
         //db here          
         let dateset=new Date().toDateString();
-        fireDb.database().ref(`imagerefAlgo/${sessionStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
+        fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
-            NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'),
+            NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
             CreatorAddress:props.dataall.CreatorAddress
         }).then(()=>{  
-            let refactivity=fireDb.database().ref(`activitytable/${sessionStorage.getItem('wallet')}`);   
+            let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
             const db = refactivity.push().key;                         
             refactivity.child(db).set({
                 Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
-                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:sessionStorage.getItem('wallet'),
+                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
                 TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
                 CreatorAddress:props.dataall.CreatorAddress
         })
@@ -348,7 +349,8 @@ const CardCreate = (props) => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>                                    
+                        {/* <h3>Loading...</h3>                                     */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>                          

@@ -18,6 +18,7 @@ import firebase from '../../firebase';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import '../../toast-style-override.css'
+import logogif from '../../assets/images/gif1.svg';
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 // const axios = require('axios');
@@ -50,7 +51,7 @@ const Start = () => {
     const dbcallPro=async()=>{            
         let r=[];
         try {         
-        firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet')).on("value", (data) => {          
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
           if (data) {                      
               r.push({
                 Bio:data.val().Bio,
@@ -129,7 +130,7 @@ const Start = () => {
           //var regex = new RegExp("^[a-zA-Z0-9]+$")
           var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
           //!regex.test(tname)
-          if(sessionStorage.getItem("wallet") === null || sessionStorage.getItem("wallet") === "0x" || sessionStorage.getItem("wallet") === undefined || sessionStorage.getItem("wallet") === ''){
+          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
             
             alert("please connect your wallet")
           }          
@@ -170,17 +171,17 @@ const Start = () => {
       params.flatFee = true;
       const myAlgoConnect = new MyAlgoConnect();      
       const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
-        from:sessionStorage.getItem('wallet'),
+        from:localStorage.getItem('wallet'),
         assetName: tname,
         unitName: tb,
         total: 1,
         decimals: 0,
         note: undefined,
         //manager:lsig.address(),
-        manager:sessionStorage.getItem('wallet'),
-        reserve:sessionStorage.getItem('wallet'),
-        freeze:sessionStorage.getItem('wallet'),
-        clawback:sessionStorage.getItem('wallet'),
+        manager:localStorage.getItem('wallet'),
+        reserve:localStorage.getItem('wallet'),
+        freeze:localStorage.getItem('wallet'),
+        clawback:localStorage.getItem('wallet'),
         suggestedParams: params
       });
       
@@ -191,7 +192,7 @@ const Start = () => {
       let ptx = await algodclient.pendingTransactionInformation(response.txId).do();
       let assetID = ptx["asset-index"];
       console.log("pendingass",assetID);        
-      appoptin(assetID,response.txId,sessionStorage.getItem('wallet'))              
+      appoptin(assetID,response.txId,localStorage.getItem('wallet'))              
     }catch (err) {
         console.error(err);                        
         setshowTestLoading(false)
@@ -209,7 +210,7 @@ const Start = () => {
         try {          
           const params = await algodclient.getTransactionParams().do();
           let transoptin = algosdk.makeApplicationOptInTxnFromObject({
-          from: sessionStorage.getItem('wallet'),      
+          from: localStorage.getItem('wallet'),      
           appIndex:parseInt(appId),
           note: undefined,
           suggestedParams: params
@@ -554,8 +555,8 @@ const Start = () => {
             <Modal show={showTestLoading} centered size="sm" >
                 <Modal.Header  />
                 <Modal.Body>
-                    <div className="text-center py-4">
-                        <h3>Loading...</h3>
+                    <div className="text-center py-4">                        
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>            

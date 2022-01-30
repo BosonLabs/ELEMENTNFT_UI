@@ -4,6 +4,7 @@ import {
     Link
   } from "react-router-dom";
 import EthereumIcon from '../../assets/images/Algo.png'
+import logogif from '../../assets/images/gif1.svg';
 import {
     FacebookShareButton,
     GooglePlusShareButton,
@@ -106,7 +107,8 @@ const CardCreateOtherView = (props) => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>                                    
+                        {/* <h3>Loading...</h3>                                     */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>                          

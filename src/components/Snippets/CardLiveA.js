@@ -12,6 +12,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 import firebase from '../../firebase';
+import logogif from '../../assets/images/gif1.svg';
 const myAlgoWallet = new MyAlgoConnect();
 
 
@@ -215,7 +216,8 @@ const CardLiveA = (props) => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>                                    
+                        {/* <h3>Loading...</h3>                                     */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>                          

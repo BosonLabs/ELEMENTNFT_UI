@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import logogif from '../../assets/images/gif1.svg';
 import {Card, Dropdown, Button, OverlayTrigger, Tooltip,Modal} from 'react-bootstrap';
 import {
     Link
@@ -143,7 +144,8 @@ return (
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>                                    
+                        {/* <h3>Loading...</h3>                                     */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>                          

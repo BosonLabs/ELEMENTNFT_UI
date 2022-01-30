@@ -49,7 +49,7 @@ function App() {
     console.log("calcappjs",algobalanceApp)    
   useEffect(() => {        
     async function listenMMAccount() {    
-    if(sessionStorage.getItem("wallet") === null || sessionStorage.getItem("wallet") === "0x" || sessionStorage.getItem("wallet") === undefined || sessionStorage.getItem("wallet") === ''){                  
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
     setalgobalanceApp("");      
     }
     else{          
@@ -60,10 +60,10 @@ function App() {
     }
     let client = new algosdk.Algodv2(token, baseServer, port);                
     ( async() => {
-    let account1_info = (await client.accountInformation(sessionStorage.getItem('wallet')).do());      
+    let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
     // calc=JSON.stringify(account1_info.amount)/1000000;      
     setalgobalanceApp(JSON.stringify(account1_info.amount)/1000000);      
-    sessionStorage.setItem("balget",JSON.stringify(account1_info.amount)/1000000);      
+    localStorage.setItem("balget",JSON.stringify(account1_info.amount)/1000000);      
   })().catch(e => {
     console.log(e);
   })                    
@@ -192,7 +192,7 @@ useEffect(()=>{dbcallPro()},[])
     const dbcallPro2=async()=>{            
         let r=[];
         try {         
-        firebase.database().ref("userprofile").child(sessionStorage.getItem('wallet')).on("value", (data) => {          
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
           if (data) {                      
               r.push({
                 Bio:data.val().Bio,

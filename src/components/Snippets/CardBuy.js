@@ -12,6 +12,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import firebase from '../../firebase';
 import dataescrow from "../../escrow.js";
+import logogif from '../../assets/images/gif1.svg';
 const myAlgoWallet = new MyAlgoConnect();
 
 const CardBuy = (props) => {
@@ -90,7 +91,7 @@ const CardBuy = (props) => {
     // const dbliked=async()=>{            
     //     let r=[];
     //     try {         
-    //     firebase.database().ref("dblike").child(sessionStorage.getItem('wallet')).on("value", (data) => {          
+    //     firebase.database().ref("dblike").child(localStorage.getItem('wallet')).on("value", (data) => {          
     //       if (data) {                      
     //           r.push({                
     //             Assetid:data.val().Assetid,
@@ -123,10 +124,10 @@ const CardBuy = (props) => {
     // useEffect(()=>{dbliked()},[])
 
     const likeadd=(dataall)=>{
-        if(sessionStorage.getItem('wallet') === null || sessionStorage.getItem('wallet') === "" || sessionStorage.getItem('wallet') === undefined) {
+        if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined) {
             alert("please connect your wallet")            
         }else{
-        let ref2=fireDb.database().ref(`dblike/${sessionStorage.getItem('wallet')}`);
+        let ref2=fireDb.database().ref(`dblike/${localStorage.getItem('wallet')}`);
         let dateset=new Date().toDateString();        
         const db = ref2.push().key;                         
         ref2.child(db).set({
@@ -272,7 +273,8 @@ const CardBuy = (props) => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Loading...</h3>                                    
+                        {/* <h3>Loading...</h3>                                     */}
+                        <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
             </Modal>                          
