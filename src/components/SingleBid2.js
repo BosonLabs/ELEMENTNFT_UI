@@ -141,6 +141,10 @@ const SingleBid = (props) => {
             console.log("lol",a)
         }
 
+        const pleasewait=()=>{
+            alert("please wait your balance has checking....")
+        }
+
         const buynow=async()=>{
 
             if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
@@ -154,15 +158,15 @@ const SingleBid = (props) => {
             else{                    
             if(algobalanceApp === 0 || algobalanceApp === ""){
               alert("your balance below 1")                
-              window.location.reload(false)                
+              //window.location.reload(false)                
             }
             else if((parseInt(location.state.alldata.NFTPrice)/1000000) >= algobalance ){
                 alert("your balance not enough to purchase this nft")
-                window.location.reload(false)                
+                //window.location.reload(false)                
             }
             else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
                 alert("Insufficient balance to create NFT")
-                window.location.reload(false)                
+                //window.location.reload(false)                
             }
             else{
                 setShowTestLoading(true)  
@@ -527,7 +531,12 @@ const SingleBid = (props) => {
                     <div className="sticky-bottom mt-auto text-center">
                         <Row>
                             {/* <Col xs={6}> */}
+                            {algobalanceApp === "0" || algobalanceApp === "" || algobalanceApp === undefined ? (
                                 <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>buynow()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
+                            ):(
+                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>pleasewait()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
+                            )}
+                                
                             {/* </Col> */}
                             {/* <Col xs={6}>
                                 <Button variant='light-blue' className='w-100 mw-auto px-0' size='lg'>Place a bid</Button>
