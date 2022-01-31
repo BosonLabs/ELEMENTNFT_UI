@@ -149,16 +149,20 @@ const SingleBid = (props) => {
             if(location.state.alldata.ownerAddress === localStorage.getItem("wallet"))
             {   
                 alert("you are owner so you does not purchase this token")             
+                window.location.reload(false)                
             }            
             else{                    
             if(algobalance === 0 || algobalance === ""){
-                alert("your balance below 1")
+              alert("your balance below 1")                
+              window.location.reload(false)                
             }
             else if((parseInt(location.state.alldata.NFTPrice)/1000000) >= algobalance ){
                 alert("your balance not enough to purchase this nft")
+                window.location.reload(false)                
             }
             else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
                 alert("Insufficient balance to create NFT")
+                window.location.reload(false)                
             }
             else{
                 setShowTestLoading(true)  
@@ -314,6 +318,8 @@ const SingleBid = (props) => {
               .catch((e) => {
               console.error(e);
               setShowTestLoading(false)  
+              alert("you wallet raises some issues")
+              window.location.reload(false)                
               });                            
               //db change end here
                 } catch (err) {
@@ -330,7 +336,7 @@ const SingleBid = (props) => {
 
         const sharebutton=()=>{
             console.log("SingleBid",location.state.alldata)
-            setshowShare(true)
+            setshowShare(true)            
         }
         
     return (
