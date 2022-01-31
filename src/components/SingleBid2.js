@@ -13,42 +13,6 @@ import firebase from '../firebase';
 import { DataContext } from '../Context/DataContext';
 //import logogif from '../assets/images/gif1.svg';
 import logogif from '../assets/images/gif4.webp';
-import {
-    FacebookShareButton,
-    GooglePlusShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    TelegramShareButton,
-    WhatsappShareButton,
-    PinterestShareButton,
-    VKShareButton,
-    OKShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    ViberShareButton,
-    WorkplaceShareButton,
-    EmailShareButton,
-  } from 'react-share';
-import {
-    FacebookIcon,
-    TwitterIcon,
-    TelegramIcon,
-    WhatsappIcon,
-    GooglePlusIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    VKIcon,
-    OKIcon,
-    RedditIcon,
-    TumblrIcon,
-    LivejournalIcon,
-    MailruIcon,
-    ViberIcon,
-    WorkplaceIcon,
-    EmailIcon,
-  } from 'react-share';
   import cjson from '../config.json'
   import AlgorandIcon from '../assets/images/Algo.png'
 const algosdk = require('algosdk'); 
@@ -209,7 +173,7 @@ const SingleBid = (props) => {
                 params.fee = 1000;
                 params.flatFee = true;  
                 //console.log("Global state", datedt);  
-              try {    
+            try {    
                 let convert95=(((parseInt(location.state.alldata.NFTPrice))/100)*95)
                 console.log("convert95",convert95)  
                 let convert5=(((parseInt(location.state.alldata.NFTPrice))/100)*5);
@@ -226,58 +190,58 @@ const SingleBid = (props) => {
                 //let tealSignPrint = tealSign(sk, data, lsig.address());
                 console.log("LSIG",lsig.address())
                 let appArgs = [];
-                appArgs.push(new Uint8Array(Buffer.from("Buynow")));
-                const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+            appArgs.push(new Uint8Array(Buffer.from("Buynow")));
+            const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                 from: localStorage.getItem('wallet'),
                 to: localStorage.getItem('wallet'),
                 assetIndex: parseInt(location.state.alldata.Assetid),
                 note: undefined,
                 amount: 0,
                 suggestedParams: params
-                });
+            });
               
-                const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
-                const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
-                console.log("optresponse",responseass)
+            const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
+            const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
+            console.log("optresponse",responseass)
                 
                   
-                const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
+            const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
                   from:localStorage.getItem('wallet'), 
                   suggestedParams: params, 
                   appIndex: parseInt(appId), 
                   appArgs: appArgs
-              });
+            });
               
-              const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                   suggestedParams:params,
                   from:localStorage.getItem('wallet'),
                   to: lsig.address(), 
                   amount: 2000
-              });
-              const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            });
+            const txn3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                 suggestedParams:params,
                 from:localStorage.getItem('wallet'),
                 to: lsig.address(), 
                 amount: parseInt(location.state.alldata.NFTPrice)
-              });
+            });
               
-                const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+            const txn4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                   suggestedParams:params,
                   from: lsig.address(),
                   to:localStorage.getItem('wallet'), 
                   amount: 1,
                   assetIndex: parseInt(location.state.alldata.Assetid)
-                });
+            });
               
                 
-                const txn5 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            const txn5 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                   suggestedParams:params,
                   from: lsig.address(),
                   to: location.state.alldata.ownerAddress, 
                   amount: parseInt(convert95)
-              });
+            });
               
-              const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
+            const txn6 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
                 reKeyTo: undefined,
                 from : lsig.address(),
                 manager:localStorage.getItem('wallet'),
@@ -285,14 +249,14 @@ const SingleBid = (props) => {
                 suggestedParams:params,
                 strictEmptyAddressChecking:false
                 
-              })
+            })
               
-              const txn7 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            const txn7 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                 suggestedParams:params,
                 from: lsig.address(),
                 to:"PSYRA3264OJABUAD4GWNUMGXGYDZHJRPGL5GX26SNF3OIDQQKSPWZGDWN4", 
                 amount: parseInt(convert5)
-              });
+            });
               
               const txnsToGroup = [ txn1, txn2 ,txn3, txn4, txn5, txn6, txn7];
               const groupID = algosdk.computeGroupID(txnsToGroup)
@@ -353,7 +317,10 @@ const SingleBid = (props) => {
               });                            
               //db change end here
                 } catch (err) {
-                  console.error(err);
+                console.error(err);                
+                setShowTestLoading(false)
+                alert("you wallet raises some issues")
+                window.location.reload(false)                
                 }                                                                                  
             }                
             }

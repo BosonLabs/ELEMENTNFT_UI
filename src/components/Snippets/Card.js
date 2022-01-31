@@ -96,8 +96,8 @@ const CardCreate = (props) => {
 
     const setpricedb=async(b)=>{
         setShowTest(false)
-        var regExpr = new RegExp("^\d*\.?\d*$");
-        var regex = new RegExp("^[a-zA-Z]+$")
+        //var regExpr = new RegExp("^\d*\.?\d*$");
+        //var regex = new RegExp("^[a-zA-Z]+$")
         console.log("Lenget",getprices.length)
         if(getprices === null || getprices === undefined || getprices === "" ){
             alert("please enter price")
@@ -124,15 +124,15 @@ const CardCreate = (props) => {
             alert("Insufficient balance to create NFT")
         }
         else{                    
-            try{            
-            setShowTestLoading(true)    
-            const algosdk = require('algosdk');  
-            const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-            // const myAlgoConnect = new MyAlgoConnect();
-            let appId=parseInt(configfile['appId']);
-            //let idget=assetidgetc;
-            let assetidgetc=parseInt(props.dataall.Assetid)    
-            //console.log("letasset",x.title)
+        try{            
+        setShowTestLoading(true)    
+        const algosdk = require('algosdk');  
+        const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
+        // const myAlgoConnect = new MyAlgoConnect();
+        let appId=parseInt(configfile['appId']);
+        //let idget=assetidgetc;
+        let assetidgetc=parseInt(props.dataall.Assetid)    
+        //console.log("letasset",x.title)
         try {            
         let amountmul=(parseFloat(getprices)*1000000);
         console.log("amountmul",amountmul)
@@ -149,23 +149,41 @@ const CardCreate = (props) => {
         console.log("LSIG",lsig.address())
         let appArgs = [];
         appArgs.push(new Uint8Array(Buffer.from("createlisting")));
-        appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));        
-        let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
+        appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));     
+        let transaction1=""
+        let transaction2=""
+        let transaction3=""
+        let transaction4=""
+        let txn5=""
+    try{        
+    transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
             from:localStorage.getItem('wallet'), 
             suggestedParams:params, 
             appIndex:parseInt(appId), 
             appArgs:appArgs
         })
-  
-        let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+    }catch(err){
+        setShowTestLoading(false)
+        alert("you wallet raises some issues")
+        window.location.reload(false)
+    }           
+                
+    try{            
+        transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
           from: localStorage.getItem('wallet'),
           to: lsig.address(),
           amount: Number(parseInt(3000)),
           note: undefined,
           suggestedParams: params
         });
+    }catch(err){
+        setShowTestLoading(false)
+        alert("you wallet raises some issues")
+        window.location.reload(false)
+    }           
                   
-        const transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+    try{            
+        transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: lsig.address(),
           to: lsig.address(),
           assetIndex: parseInt(assetidgetc),
@@ -173,8 +191,14 @@ const CardCreate = (props) => {
           amount: 0,
           suggestedParams: params
         });
+    }catch(err){
+        setShowTestLoading(false)
+        alert("you wallet raises some issues")
+        window.location.reload(false)
+    }           
           
-        const transaction4= algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+    try{            
+        transaction4= algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: localStorage.getItem('wallet'),
           to: lsig.address(),
           assetIndex: parseInt(assetidgetc),
@@ -182,8 +206,14 @@ const CardCreate = (props) => {
           amount: 1,
           suggestedParams: params
         });
+    }catch(err){
+        setShowTestLoading(false)
+        alert("you wallet raises some issues")
+        window.location.reload(false)
+    }           
   
-        const txn5 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
+    try{            
+        txn5 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
             reKeyTo: undefined,
             from : localStorage.getItem('wallet'),
             manager: lsig.address(),
@@ -191,6 +221,11 @@ const CardCreate = (props) => {
             suggestedParams:params,
             strictEmptyAddressChecking:false            
         })                    
+    }catch(err){
+        setShowTestLoading(false)
+        alert("you wallet raises some issues")
+        window.location.reload(false)
+    }           
         const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4,txn5]);
         const txs = [ transaction1, transaction2, transaction3, transaction4,txn5 ];
         txs[0].group = groupID;
@@ -198,11 +233,18 @@ const CardCreate = (props) => {
         txs[2].group = groupID;
         txs[3].group = groupID;
         txs[4].group = groupID;                                      
+    try{            
         const signedTx1 = await myAlgoConnect.signTransaction([txs[0].toByte(),txs[1].toByte(),txs[3].toByte(),txs[4].toByte()]);                    
         const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);          
         const response = await algodclient.sendRawTransaction([ signedTx1[0].blob, signedTx1[1].blob, signedTx3.blob, signedTx1[2].blob,signedTx1[3].blob]).do();        
         console.log("TxID", JSON.stringify(response, null, 1));
         await waitForConfirmation(algodclient, response.txId);  
+    }catch(err){
+        setShowTestLoading(false)
+        alert("you wallet raises some issues")
+        window.location.reload(false)
+    }           
+    
         //db here          
         let dateset=new Date().toDateString();
         fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
@@ -228,10 +270,12 @@ const CardCreate = (props) => {
         //db end here
         } catch (err) {
             console.error(err);
+            alert("you wallet raises some issues")
             setShowTestLoading(false)
         }        
         }catch(err){
             setShowTestLoading(false)
+            alert("you wallet raises some issues")
             window.location.reload(false)
         }
         }        
