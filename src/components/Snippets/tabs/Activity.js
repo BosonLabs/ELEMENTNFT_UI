@@ -86,6 +86,14 @@ const OnSale = ({other,ownersend}) => {
     useEffect(()=>{dbcallalgo()},[])
     return (
         <div className='mb-4'>
+          {getImgreffalgo[0] === null || getImgreffalgo[0] === "" || getImgreffalgo[0] === undefined ? (
+            <div className="no-found py-5p text-center">
+                        <h2>Nothing to look at</h2>
+                        <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
+                        <Link to="/profile" className='btn btn-primary'>Browse marketplace</Link>
+            </div>
+           ):(
+             
             <Row>
                 <Col md="8" lg="9">
                     {/* <div className="no-found d-none py-5 text-center">
@@ -93,8 +101,8 @@ const OnSale = ({other,ownersend}) => {
                         <p className="lead mb-4">Looks like there's still nothing. Activity will <br />be shown here</p>
                         <Link to="/" className='btn btn-primary'>Explore ELEMENT</Link>
                     </div> */}
-
-                    {getImgreffalgo.map((x, index) => {
+          
+          {getImgreffalgo.map((x, index) => {
                                     console.log("xvalue",x)
                                     return(  
                                     <>
@@ -118,7 +126,7 @@ const OnSale = ({other,ownersend}) => {
                     <Filter />
                 </Col> */}
             </Row>
-            
+          )}
         </div>
     );
 };

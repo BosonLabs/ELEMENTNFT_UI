@@ -15,7 +15,7 @@ const animatedComponents = makeAnimated();
 
 const Created = (data) => {
         
-    console.log("getdata",data.data)      
+    console.log("getdatacreate",data.data)      
     console.log("createddata2",data.onNameChange)      
           
     const colourStyles = {
@@ -175,11 +175,18 @@ const Created = (data) => {
                     </Dropdown>
                 </div> */}
             </div>
+            {data.data[0] === null || data.data[0] === "" || data.data[0] === undefined ? (
+            <div className="no-found py-5p text-center">
+                        <h2>Nothing to look at</h2>
+                        <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
+                        <Link to="/profile" className='btn btn-primary'>Browse marketplace</Link>
+            </div>
+           ):(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
-            {data.data.map((x, index) => {
-                console.log("xvalue",x)
+            {data.data.map((x, index) => {                
                 return(  
                     <>
+                    {console.log("xvalue",x)}
                     {/* onClick={()=>getprice(x)} */}
                     <div className='col mb-4' >
                     <CardCreate img={x.Imageurl} onNameChange={data.onNameChange}
@@ -190,6 +197,7 @@ const Created = (data) => {
                     </>                                                                                          
               )})}                                                                      
             </div>                                
+           )}
             {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
                 <div className='col mb-4'>
                     
