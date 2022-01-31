@@ -532,9 +532,9 @@ const SingleBid = (props) => {
                         <Row>
                             {/* <Col xs={6}> */}
                             {algobalanceApp === "0" || algobalanceApp === "" || algobalanceApp === undefined ? (
-                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>buynow()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
-                            ):(
                                 <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>pleasewait()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
+                            ):(
+                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>buynow()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
                             )}
                                 
                             {/* </Col> */}
