@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import { Offline, Online } from "react-detect-offline";
 
 import Home from './components/HomePage';
 import Login from './components/Connect';
@@ -220,10 +221,11 @@ useEffect(()=>{dbcallPro()},[])
     useEffect(()=>{dbcallPro2()},[])
 
   return (
-    
+    <>
+    <Online>
     <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp}}>      
     <Router>
-      <Switch>          
+      <Switch>                
         <Route path="/connect">
           <Login />
         </Route>
@@ -289,11 +291,13 @@ useEffect(()=>{dbcallPro()},[])
         </Route>        
         <Route path="/">
           <Home />
-        </Route>        
+        </Route>         
       </Switch>
-    </Router>
-    </DataContext.Provider>     
-
+    </Router>    
+    </DataContext.Provider>         
+    </Online>        
+    {/* <Offline>{alert("please connect your Internet")}</Offline>        */}
+    </>
   );
 }
 
