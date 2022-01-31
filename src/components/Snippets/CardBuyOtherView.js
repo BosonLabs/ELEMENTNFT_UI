@@ -1,46 +1,11 @@
 import React,{useState} from 'react';
-import logogif from '../../assets/images/gif1.svg';
+//import logogif from '../../assets/images/gif1.svg';
+import logogif from '../../assets/images/gif4.webp';
 import {Card, Dropdown, Button, OverlayTrigger, Tooltip,Modal} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
 import EthereumIcon from '../../assets/images/Algo.png'
-import {
-    FacebookShareButton,
-    GooglePlusShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    TelegramShareButton,
-    WhatsappShareButton,
-    PinterestShareButton,
-    VKShareButton,
-    OKShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    ViberShareButton,
-    WorkplaceShareButton,
-    EmailShareButton,
-  } from 'react-share';
-import {
-    FacebookIcon,
-    TwitterIcon,
-    TelegramIcon,
-    WhatsappIcon,
-    GooglePlusIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    VKIcon,
-    OKIcon,
-    RedditIcon,
-    TumblrIcon,
-    LivejournalIcon,
-    MailruIcon,
-    ViberIcon,
-    WorkplaceIcon,
-    EmailIcon,
-  } from 'react-share';
 
 const CardBuyOtherView = (props) => {    
     const [showTestLoading, setShowTestLoading] = React.useState(false);  

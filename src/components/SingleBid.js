@@ -14,7 +14,8 @@ import configfile from '../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { DataContext } from '../Context/DataContext';
-import logogif from '../assets/images/gif1.svg';
+//import logogif from '../assets/images/gif1.svg';
+import logogif from '../assets/images/gif4.webp';
 const algosdk = require('algosdk'); 
 
 const SingleBid = (props) => {

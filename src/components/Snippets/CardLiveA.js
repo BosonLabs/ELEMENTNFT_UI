@@ -12,7 +12,8 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 import firebase from '../../firebase';
-import logogif from '../../assets/images/gif1.svg';
+//import logogif from '../../assets/images/gif1.svg';
+import logogif from '../../assets/images/gif4.webp';
 const myAlgoWallet = new MyAlgoConnect();
 
 

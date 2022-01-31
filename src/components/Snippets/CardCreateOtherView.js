@@ -4,45 +4,8 @@ import {
     Link
   } from "react-router-dom";
 import EthereumIcon from '../../assets/images/Algo.png'
-import logogif from '../../assets/images/gif1.svg';
-import {
-    FacebookShareButton,
-    GooglePlusShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    TelegramShareButton,
-    WhatsappShareButton,
-    PinterestShareButton,
-    VKShareButton,
-    OKShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    ViberShareButton,
-    WorkplaceShareButton,
-    EmailShareButton,
-  } from 'react-share';
-import {
-    FacebookIcon,
-    TwitterIcon,
-    TelegramIcon,
-    WhatsappIcon,
-    GooglePlusIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    VKIcon,
-    OKIcon,
-    RedditIcon,
-    TumblrIcon,
-    LivejournalIcon,
-    MailruIcon,
-    ViberIcon,
-    WorkplaceIcon,
-    EmailIcon,
-  } from 'react-share';
-
-
+//import logogif from '../../assets/images/gif1.svg';
+import logogif from '../../assets/images/gif4.webp';
 const CardCreateOtherView = (props) => {
     const [showTestLoading, setShowTestLoading] = React.useState(false);            
     const [showShare,setshowShare] = React.useState(false);                  

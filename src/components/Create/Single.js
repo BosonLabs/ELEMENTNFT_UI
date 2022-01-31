@@ -18,7 +18,8 @@ import firebase from '../../firebase';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import '../../toast-style-override.css'
-import logogif from '../../assets/images/gif1.svg';
+//import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.webp';
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 // const axios = require('axios');

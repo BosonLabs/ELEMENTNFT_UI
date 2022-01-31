@@ -11,7 +11,8 @@ import dataescrow from "../escrow.js";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import firebase from '../firebase';
 import { DataContext } from '../Context/DataContext';
-import logogif from '../assets/images/gif1.svg';
+//import logogif from '../assets/images/gif1.svg';
+import logogif from '../assets/images/gif4.webp';
 import {
     FacebookShareButton,
     GooglePlusShareButton,
