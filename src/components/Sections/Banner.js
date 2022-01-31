@@ -71,14 +71,16 @@ const Banner = () => {
                 console.log("logo",x)
                 return(  
                     <>                    
-                    <div className='carousel-cell carousel-cell-40'><SlidesCard title={x.NFTName} description={x.NFTDescription} dataall={x} image={x.Imageurl} ownerAddress={x.ownerAddress}/></div>
+                    <div className='carousel-cell carousel-cell-40'>
+                    <SlidesCard title={x.NFTName} description={x.NFTDescription} dataall={x} image={x.Imageurl} ownerAddress={x.ownerAddress}/></div>
                     <div className='carousel-cell carousel-cell-20'>                    
-                    <VideoCard title={x.NFTName} description={x.NFTDescription} url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" dataall={x} ownerAddress={x.ownerAddress}/>
+                    <VideoCard title={x.NFTName} description={x.NFTDescription} url={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
                     <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
                     </div>
                     </>
                 )})}
                                 
+                {/* url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" */}
                 {/* <div className='carousel-cell carousel-cell-40'><SlidesCard /></div> */}
                 {/* <div className='carousel-cell carousel-cell-20'>
                     <VideoCard title="BALEX SPECIALS 1/1" url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" />

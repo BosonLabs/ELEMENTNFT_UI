@@ -14,7 +14,8 @@ const VideoCard = (props) => {
                 <h3>{props.title}</h3>
                 {props.subtitle ? <h4>{props.subtitle}</h4> : null}
             </div>
-            <video playsInline={true} autoPlay={true} loop={true} src={props.url}></video>
+            {/* <video playsInline={true} autoPlay={true} loop={true} src={props.url}></video> */}
+            <img src={props.url} alt="pic" />
         </Link>
     );
 };
