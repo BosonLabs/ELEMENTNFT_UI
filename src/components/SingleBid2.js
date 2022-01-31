@@ -152,7 +152,7 @@ const SingleBid = (props) => {
                 window.location.reload(false)                
             }            
             else{                    
-            if(algobalance === 0 || algobalance === ""){
+            if(algobalanceApp === 0 || algobalanceApp === ""){
               alert("your balance below 1")                
               window.location.reload(false)                
             }
