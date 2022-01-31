@@ -236,7 +236,7 @@ const Start = () => {
         // toast.loading(`images uploading in ipfs`,{
         //   onOpen:('loading')
         // });
-        toast.info("images uploading in ipfs"); 
+        toast.info("images uploading in ipfs",{autoClose: 5000}); 
         //toast.success(Transaction Success ${response.txId});
         // toast.loading(`images uploading ipfs`, {
         //   onOpen: ('loading') });        
@@ -284,7 +284,7 @@ const Start = () => {
                                               console.log("jsonresult2",result.IpfsHash) 
                                               //toast.dismiss(); 
                                               //toast.info("image uploaded in ipfs",result.IpfsHash)
-                                              toast.success(`Image uploaded in ipfs ${result.IpfsHash}`);
+                                              toast.success(`Image uploaded in ipfs ${result.IpfsHash}`,{autoClose: 8000});
                                               //db add here
                                               // toast.loading(`images uploading ipfs`, {
                                               // onClose: ('loading') });        
@@ -311,10 +311,10 @@ const Start = () => {
                                                 .then(()=>{                                   
                                                   //setshowTestLoading(false)
                                                   //setShowTest(true)                                                                                         
-                                                  toast.info("minting your image")
+                                                  toast.info("minting your image",{autoClose: 5000})
                                                   //toast.dismiss(); 
-                                                  toast.success("minting successfully")
-                                                  toast.dismiss();
+                                                  toast.success("minting successfully",{autoClose: 5000})
+                                                  //toast.dismiss();
                                                   setshowTestLoading(false)
                                                   setShowTest(true)                                                                                         
                                                 })              
@@ -369,7 +369,7 @@ const Start = () => {
                                               console.log("jsonresult3",result.IpfsHash) 
                                               //toast.dismiss();  
                                               // toast.info("image uploaded in ipfs",result.IpfsHash)
-                                              toast.success(`Image uploaded in ipfs ${result.IpfsHash}`);
+                                              toast.success(`Image uploaded in ipfs ${result.IpfsHash}`,{autoClose: 8000});
                                               // toast.loading(`images uploading ipfs`, {
                                               // onClose: ('loading') });                                                                                                
                                               ref2.child(db).set({
@@ -398,11 +398,11 @@ const Start = () => {
                                                   // toast.loading(`images uploaded in ipfs`,{
                                                   //   onClose:('completed')
                                                   // });
-                                                  toast.info("minting your image")
+                                                  toast.info("minting your image",{autoClose: 5000})
                                                   //toast.dismiss(); 
-                                                  toast.success("minting successfully")
+                                                  toast.success("minting successfully",{autoClose: 5000})
                                                   //toast.dismiss();                                               
-                                                  toast.dismiss();
+                                                  //toast.dismiss();
                                                   setshowTestLoading(false)
                                                   setShowTest(true)     
                                                 })              

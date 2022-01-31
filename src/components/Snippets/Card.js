@@ -14,6 +14,8 @@ import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
 import logogif from '../../assets/images/gif4.webp';
 import { DataContext } from '../../Context/DataContext';
+import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
+import '../../toast-style-override.css'
 const myAlgoWallet = new MyAlgoConnect();
 
 const CardCreate = (props) => {
@@ -91,7 +93,7 @@ const CardCreate = (props) => {
     }
 
     const onshow1=()=>{
-        setShowTest(true)        
+        setShowTest(true)                
     }
 
     const setpricedb=async(b)=>{
@@ -123,9 +125,10 @@ const CardCreate = (props) => {
         else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
             alert("Insufficient balance to create NFT")
         }
-        else{                    
-        try{            
-        setShowTestLoading(true)    
+        else{                   
+        try{                    
+        setShowTestLoading(true)        
+        toast.info("Price updated starting",{autoClose:5000});           
         const algosdk = require('algosdk');  
         const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
         // const myAlgoConnect = new MyAlgoConnect();
@@ -239,9 +242,11 @@ const CardCreate = (props) => {
         const response = await algodclient.sendRawTransaction([ signedTx1[0].blob, signedTx1[1].blob, signedTx3.blob, signedTx1[2].blob,signedTx1[3].blob]).do();        
         console.log("TxID", JSON.stringify(response, null, 1));
         await waitForConfirmation(algodclient, response.txId);  
+        toast.success(`Price updated Sucessfully ${response.txId}`,{autoClose: 8000});              
     }catch(err){
         setShowTestLoading(false)
         alert("you wallet raises some issues")
+        toast.dismiss();
         window.location.reload(false)
     }           
     
@@ -272,11 +277,13 @@ const CardCreate = (props) => {
             console.error(err);
             alert("you wallet raises some issues")
             setShowTestLoading(false)
+            toast.dismiss();
         }        
         }catch(err){
             setShowTestLoading(false)
             alert("you wallet raises some issues")
             window.location.reload(false)
+            toast.dismiss();
         }
         }        
     }
@@ -286,8 +293,9 @@ const CardCreate = (props) => {
     }
     
     return (
-        <Card>
-            <Card.Header className='d-flex align-items-center'>
+        <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
+        <Card>            
+            <Card.Header className='d-flex align-items-center'>            
             <div className="card-users d-flex align-items-center me-auto">
                     {/* <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
@@ -453,6 +461,7 @@ const CardCreate = (props) => {
             </div>                                   
             </Card.Body>            
         </Card>
+        </>
     );
 };
 

@@ -13,8 +13,10 @@ import firebase from '../firebase';
 import { DataContext } from '../Context/DataContext';
 //import logogif from '../assets/images/gif1.svg';
 import logogif from '../assets/images/gif4.webp';
-  import cjson from '../config.json'
-  import AlgorandIcon from '../assets/images/Algo.png'
+import cjson from '../config.json'
+import AlgorandIcon from '../assets/images/Algo.png'
+import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
+import '../toast-style-override.css'
 const algosdk = require('algosdk'); 
 const myAlgoWallet = new MyAlgoConnect();
 
@@ -170,6 +172,7 @@ const SingleBid = (props) => {
             }
             else{
                 setShowTestLoading(true)  
+                
                 let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
                 const algosdk = require('algosdk');  
                 const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');          
@@ -180,7 +183,8 @@ const SingleBid = (props) => {
                 //comment out the next two lines to use suggested fee
                 params.fee = 1000;
                 params.flatFee = true;  
-                //console.log("Global state", datedt);  
+                //console.log("Global state", datedt); 
+            toast.info("Buying started",{autoClose: 5000});  
             try {    
                 let convert95=(((parseInt(location.state.alldata.NFTPrice))/100)*95)
                 console.log("convert95",convert95)  
@@ -211,7 +215,8 @@ const SingleBid = (props) => {
             const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
             const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
             console.log("optresponse",responseass)
-                
+            
+            toast.success(`Asset Opted Successfully ${responseass.txId}`,{autoClose: 8000});
                   
             const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
                   from:localStorage.getItem('wallet'), 
@@ -286,7 +291,7 @@ const SingleBid = (props) => {
               const response = await algodclient.sendRawTransaction([signedTx1[0].blob,signedTx1[1].blob,signedTx1[2].blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
               console.log("TxID", JSON.stringify(response, null, 1));
               await waitForConfirmation(algodclient, response.txId);
-              
+              toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000});              
               //db change here
               let dateset=new Date().toDateString();
               fireDb.database().ref(`imagerefexploreoneAlgos/${location.state.alldata.ownerAddress}`).child(location.state.alldata.keyId).remove().then(()=>{
@@ -312,6 +317,7 @@ const SingleBid = (props) => {
                     })
                         .then(()=>{                                                            
                             console.log("remove db");
+                            toast.success(`Buy Successfully`,{autoClose: 8000});
                             setShowTestLoading(false)
                             setshowTestSale(true)              
                         })                        
@@ -323,6 +329,7 @@ const SingleBid = (props) => {
               console.error(e);
               setShowTestLoading(false)  
               alert("you wallet raises some issues")
+              toast.dismiss();
               window.location.reload(false)                
               });                            
               //db change end here
@@ -330,6 +337,7 @@ const SingleBid = (props) => {
                 console.error(err);                
                 setShowTestLoading(false)
                 alert("you wallet raises some issues")
+                toast.dismiss();
                 window.location.reload(false)                
                 }                                                                                  
             }                
@@ -346,6 +354,7 @@ const SingleBid = (props) => {
     return (
         <Layout>
             <Container fluid className='d-md-flex'>
+            <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></>
                 <div className="content-left d-flex">
                     {/* <video playsInline={true} autoPlay={true} controls={true} loop={true} src="https://img.rarible.com/prod/video/upload/t_big/prod-itemAnimations/0x5c3daa7a35d7def65bfd9e99120d5fa07f63f555:10061/271db129"></video> */}
                     <img src={location.state.alldata.Imageurl} style={{width:"500px",height:"500px"}} alt="test"/>
