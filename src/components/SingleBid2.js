@@ -184,7 +184,7 @@ const SingleBid = (props) => {
                 params.fee = 1000;
                 params.flatFee = true;  
                 //console.log("Global state", datedt); 
-            toast.info("Buying started",{autoClose: 5000});  
+            toast.info("Buy Starting",{autoClose: 5000});  
             try {    
                 let convert95=(((parseInt(location.state.alldata.NFTPrice))/100)*95)
                 console.log("convert95",convert95)  
@@ -291,7 +291,7 @@ const SingleBid = (props) => {
               const response = await algodclient.sendRawTransaction([signedTx1[0].blob,signedTx1[1].blob,signedTx1[2].blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
               console.log("TxID", JSON.stringify(response, null, 1));
               await waitForConfirmation(algodclient, response.txId);
-              toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000});              
+              //toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000});              
               //db change here
               let dateset=new Date().toDateString();
               fireDb.database().ref(`imagerefexploreoneAlgos/${location.state.alldata.ownerAddress}`).child(location.state.alldata.keyId).remove().then(()=>{
@@ -317,7 +317,7 @@ const SingleBid = (props) => {
                     })
                         .then(()=>{                                                            
                             console.log("remove db");
-                            toast.success(`Buy Successfully`,{autoClose: 8000});
+                            toast.success(`NFT Purchase Successful`,{autoClose: 8000});
                             setShowTestLoading(false)
                             setshowTestSale(true)              
                         })                        

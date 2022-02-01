@@ -128,7 +128,7 @@ const CardCreate = (props) => {
         else{                   
         try{                    
         setShowTestLoading(true)        
-        toast.info("Price updated starting",{autoClose:5000});           
+        toast.info("NFT Price update starting",{autoClose:5000});           
         const algosdk = require('algosdk');  
         const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
         // const myAlgoConnect = new MyAlgoConnect();
@@ -242,7 +242,7 @@ const CardCreate = (props) => {
         const response = await algodclient.sendRawTransaction([ signedTx1[0].blob, signedTx1[1].blob, signedTx3.blob, signedTx1[2].blob,signedTx1[3].blob]).do();        
         console.log("TxID", JSON.stringify(response, null, 1));
         await waitForConfirmation(algodclient, response.txId);  
-        toast.success(`Price updated Sucessfully ${response.txId}`,{autoClose: 8000});              
+        toast.success(`NFT Price updated Sucessfully ${response.txId}`,{autoClose: 8000});              
     }catch(err){
         setShowTestLoading(false)
         alert("you wallet raises some issues")
