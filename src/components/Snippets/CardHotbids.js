@@ -404,7 +404,7 @@ const CardHotbids = (props) => {
             </Modal>           
 
             {/* onHide={handleCloseshowShare} */}
-            <Modal show={showShare} centered size="sm" >
+            <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
                 <Modal.Header closeButton />
                 <Modal.Body>
                             

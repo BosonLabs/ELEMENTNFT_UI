@@ -115,7 +115,7 @@ return (
                 </Modal.Body>
             </Modal>                          
             {/* onHide={handleCloseshowShare} */}
-            <Modal show={showShare} centered size="sm" >
+            <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
                 <Modal.Header closeButton />
                 <Modal.Body>                        
                             <h3>&nbsp;&nbsp;Share link to this page</h3>                            

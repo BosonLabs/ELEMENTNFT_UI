@@ -234,7 +234,7 @@ const CardLiveA = (props) => {
                 </Modal.Body>
             </Modal>        
             {/* onHide={handleCloseshowShare} */}
-            <Modal show={showShare} centered size="sm" >
+            <Modal show={showShare} centered size="sm" onHide={handleCloseshowShare}>
                 <Modal.Header closeButton />
                 <Modal.Body>
                             
