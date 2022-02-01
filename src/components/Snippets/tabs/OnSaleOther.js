@@ -260,7 +260,13 @@ const OnSaleOther = (data) => {
                 </div>
             </div>
 
-
+            {data.data[0] === null || data.data[0] === "" || data.data[0] === undefined || data.data === null || data.data === undefined || data.data === ""? (
+            <div className="no-found py-5p text-center">
+                        <h2>Nothing to look at</h2>
+                        <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
+                        <Link to="/profile" className='btn btn-primary'>Browse marketplace</Link>
+            </div>
+           ):(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
             {filterdata().map((x, index) => {
                 console.log("xvalue",x)
@@ -275,7 +281,11 @@ const OnSaleOther = (data) => {
                     </>                                                                                          
               )})}                                                  
                     
-                    </div>
+            </div>
+
+           )}
+
+            
 
             {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5">
                 <div className='col mb-4'>
