@@ -62,6 +62,7 @@ function Header() {
         }        
     }
     listenMMAccount();
+    window.scrollTo(0, 0)
       }, []);
 
     const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
