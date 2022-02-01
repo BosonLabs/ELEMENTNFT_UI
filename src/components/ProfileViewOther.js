@@ -576,7 +576,7 @@ useEffect(()=>{dbcallother()},[])
             </Modal>
 
             {/* onHide={handleClose} */}
-            <Modal show={followers} size="sm" className="modal-reset" centered >
+            <Modal show={followers} size="sm" className="modal-reset" centered onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Followers</Modal.Title>
                 </Modal.Header>
@@ -587,7 +587,7 @@ useEffect(()=>{dbcallother()},[])
                 </Modal.Body>
             </Modal>
             {/* onHide={handleClose} */}
-            <Modal show={following} size="sm" className="modal-reset" centered >
+            <Modal show={following} size="sm" className="modal-reset" centered onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Following</Modal.Title>
                 </Modal.Header>

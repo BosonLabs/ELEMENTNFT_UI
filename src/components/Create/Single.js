@@ -29,6 +29,8 @@ const algosdk = require('algosdk');
 const Start = () => {
     const {algobalanceApp}=useContext(DataContext)
     console.log("algobalanceAppSingle",algobalanceApp)
+    const { getI } = useContext(DataContext)
+    console.log("NameSingle", getI)
     //const[getIPro2]=useContext(DataContext);
     //console.log("getIProprofile",getIPro2[0].valid) 
     let history=useHistory();
