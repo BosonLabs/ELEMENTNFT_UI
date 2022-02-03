@@ -18,6 +18,9 @@ function HomePage() {
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);
     // });
+    React.useEffect(() => {
+      window.scrollTo(0, 0);     
+    });
     
     const [showRefresh, setShowRefresh] = React.useState(false);
     const[getPro,setgetPro]=useState([""]);
@@ -87,7 +90,7 @@ function HomePage() {
       const file = event.target.files[0]
       let reader = new window.FileReader()
       try{
-      Compress.imageFileResizer (file,500, 500, 'JPEG', 10, 0,
+      Compress.imageFileResizer (file,1500, 260, 'JPEG', 300, 0,
       uri =>{
         console.log("iuri",uri)
         setImg(uri)      
@@ -466,7 +469,7 @@ function HomePage() {
                       </>
                       ):(
                       <>
-                      Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution
+                      Upload new cover for your profile page. We recommend to upload images in 1500x260 resolution
                       <input type="file" hidden id='uploadFile' onChange = {captureFile}/>
                       <label htmlFor="uploadFile" className='mb-3 btn btn-primary btn-lg w-100'>Select file</label>
                       <Button variant="white" className='w-100' size={'lg'} onClick={handleClose}>
@@ -485,7 +488,7 @@ function HomePage() {
                 <Modal.Title>Followers</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution                    
+                    Upload new cover for your profile page. We recommend to upload images in 1500x260 resolution                    
                 </Modal.Body>
             </Modal>
             {/* onHide={handleClose} */}
@@ -494,7 +497,7 @@ function HomePage() {
                 <Modal.Title>Following</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Upload new cover for your profile page. We recommend to upload images in 1440x260 resolution                    
+                    Upload new cover for your profile page. We recommend to upload images in 1500x260 resolution                    
                 </Modal.Body>
             </Modal>
             <Modal show={showL} centered size="sm" >

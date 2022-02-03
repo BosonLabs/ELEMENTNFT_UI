@@ -14,6 +14,9 @@ import Algopng from '../assets/images/Algo.png'
 const axios = require('axios');
 
 function HomePage(props) { 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);     
+  });
     const location = useLocation(); 
     console.log("hotcollo",location.state)        
     //console.log("followlast",location.state.follow[0].follower)

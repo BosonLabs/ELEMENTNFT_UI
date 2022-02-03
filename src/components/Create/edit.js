@@ -18,6 +18,9 @@ const algosdk = require('algosdk');
 
 
 const Edit = () => {
+    React.useEffect(() => {
+        window.scrollTo(0, 0);     
+    });
     let history=useHistory();    
     const [proget,setpro] = useState([]);
     const [tname,setName] = useState("");
@@ -43,7 +46,7 @@ const Edit = () => {
         setImgname(file.name)
         let reader = new window.FileReader()
         try{
-        Compress.imageFileResizer(file, 240, 180, 'JPEG', 10, 0,
+        Compress.imageFileResizer(file, 500, 500, 'JPEG', 200, 0,
         uri => {
           console.log("iuri",uri)
           setImg(uri)          
@@ -167,7 +170,7 @@ const Edit = () => {
                                 {Img === null || Img === undefined || Img === "" ?(
                                 <>
                                 <img src={icon} alt="icon" className='update-pic mb-3' />
-                                <p className='mb-3'>We recommend an image <br />of at least 300x300. Gifs work too.</p>
+                                <p className='mb-3'>We recommend an image <br />of at least 500x500. Gifs work too.</p>
                                 <input type="file" hidden name="upload" id='upload' onChange = {captureFile}/>
                                 <label htmlFor="upload" className='btn btn-light-blue'>Choose File</label>
                                 </>

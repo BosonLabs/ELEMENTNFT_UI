@@ -11,6 +11,9 @@ import firebase from '../../firebase';
 import Card from '../Snippets/Card';
 
 const ProfileTabs = (create) => {
+    React.useEffect(() => {
+        window.scrollTo(0, 0);     
+    });
 
     console.log("sets",create.onNameChange)    
     console.log("bcreate",create.create)    
@@ -23,7 +26,7 @@ const ProfileTabs = (create) => {
     
 
     return (
-        <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">
+        <Tabs defaultActiveKey="onSale" id="profile-tabs" className='mb-4'>
             <Tab eventKey="onSale" title="On sale">
                 <OnSale data={create.sale}/>
             </Tab>
