@@ -260,7 +260,7 @@ const Edit = () => {
                 <Modal.Body>
                     <div className="text-center py-4">
                         {/* <h3>Loading...</h3> */}
-                        <img src={logogif} alt="loading..." />
+                        {/* <img src={logogif} alt="loading..." /> */}
                     </div>                    
                 </Modal.Body>
             </Modal>
