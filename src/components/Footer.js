@@ -130,7 +130,7 @@ function Footer() {
                                         <li><Link to="/">Subscribe</Link></li>
                                     </ul>
                                 </Col>
-                                <Col xs={6} sm={4} className='d-none d-sm-block'>
+                                {/* <Col xs={6} sm={4} className='d-none d-sm-block'>
                                     <h3>Language</h3>
 
                                     <Dropdown>
@@ -142,16 +142,16 @@ function Footer() {
                                                 English
                                                 <svg viewBox="0 0 14 11" fill="none" width="12" height="12" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye jVZlpM"><path d="M1 5L5 9L13 1" stroke="#0066ff" strokeWidth="2" strokeLinecap="round"></path></svg>
                                             </Dropdown.Item>
-                                            {/* <Dropdown.Item href="/">中文</Dropdown.Item>
+                                            <Dropdown.Item href="/">中文</Dropdown.Item>
                                             <Dropdown.Item href="/">한국어</Dropdown.Item>
-                                            <Dropdown.Item href="/">日本語</Dropdown.Item> */}
+                                            <Dropdown.Item href="/">日本語</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
 
                                     <div className="pt-4">
                                       <img src={CertifiedImage} alt="CertifiedImage" className='img-fluid dark-filter' />  
                                     </div>
-                                </Col>
+                                </Col> */}
                             </Row>
                         </Col>
                     </Row>
