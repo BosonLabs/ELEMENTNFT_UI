@@ -14,9 +14,9 @@ const axios = require('axios');
 
 
 function HomePage() {
-    React.useEffect(() => {
-        window.scrollTo(0, 0);     
-    });
+    // React.useEffect(() => {
+    //     window.scrollTo(0, 0);     
+    // });
     //const [mov,setmov] = useContext(MovieContext)
     //console.log("Movprint",mov)
 
