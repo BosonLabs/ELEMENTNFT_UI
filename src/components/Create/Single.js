@@ -20,8 +20,12 @@ import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import '../../toast-style-override.css'
 //import logogif from '../../assets/images/gif4.webp';
 import logogif from '../../assets/images/gif4.webp';
+import dataescrowprice from "../../escrowprice";
+import configfile from '../../config.json'
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
+const myAlgoConnect = new MyAlgoConnect();
+const myAlgoWallet = new MyAlgoConnect();
 // const axios = require('axios');
 
 
@@ -209,30 +213,68 @@ const Start = () => {
     }          
     }
 
-      const appoptin=async(assetID,responsetxId,addresseswall)=>{
-        const algosdk = require('algosdk');  
-        const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-        const myAlgoConnect = new MyAlgoConnect();
-        let appId="50714558";
-        try {          
-          const params = await algodclient.getTransactionParams().do();
-          let transoptin = algosdk.makeApplicationOptInTxnFromObject({
-          from: localStorage.getItem('wallet'),      
-          appIndex:parseInt(appId),
-          note: undefined,
-          suggestedParams: params
-          });
+    const appoptin=async(assetID,responsetxId,addresseswall)=>{
+      let index = parseInt(configfile['appIdPrice']);
+      const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');        
+      console.log("appId inside donate", index)                                
+      let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(assetID))
+      let results = await algodClient.compile(dataopreplace).do();                
+      let program = new Uint8Array(Buffer.from(results.result, "base64"));      
+      let lsig = algosdk.makeLogicSig(program);
+      try {                
+        const params = await algodClient.getTransactionParams().do();
+        let appArg = [];     
+        let t1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+          from:localStorage.getItem('wallet'),
+          suggestedParams:params,
+          to:results.hash,
+          amount:900000,
+          note: undefined
+        });     
+        const signedTx = await myAlgoConnect.signTransaction(t1.toByte());           
+        const response1 = await algodClient.sendRawTransaction(signedTx.blob).do();
+        await waitForConfirmation(algodClient, response1.txId);
+        let optinTranscation = algosdk.makeApplicationOptInTxnFromObject({
+          from : results.hash,
+          suggestedParams:params,
+          appIndex:index
+      });
+      const signedTx1 = await algosdk.signLogicSigTransaction(optinTranscation, lsig);
+      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
+      console.log("TxID", JSON.stringify(response, null, 1));
+      await waitForConfirmation(algodClient, response.txId);          
+      } catch (err) {
+        console.error(err);
+        setshowTestLoading(false)          
+        alert("you wallet raises some issues")
+        window.location.reload(false)
+      }    
+      storedb(assetID,responsetxId,addresseswall);      
+    }
+      // const appoptins=async(assetID,responsetxId,addresseswall)=>{
+      //   const algosdk = require('algosdk');  
+      //   const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
+      //   const myAlgoConnect = new MyAlgoConnect();
+      //   let appId="50714558";
+      //   try {          
+      //     const params = await algodclient.getTransactionParams().do();
+      //     let transoptin = algosdk.makeApplicationOptInTxnFromObject({
+      //     from: localStorage.getItem('wallet'),      
+      //     appIndex:parseInt(appId),
+      //     note: undefined,
+      //     suggestedParams: params
+      //     });
       
-        const signedTxn = await myAlgoConnect.signTransaction(transoptin.toByte());
-        const response = await algodclient.sendRawTransaction(signedTxn.blob).do();
-        console.log("optresponse",response)  
-        storedb(assetID,responsetxId,addresseswall);
-        }
-        catch (err) {
-          console.error(err);    
-          storedb(assetID,responsetxId,addresseswall);
-        }
-      }
+      //   const signedTxn = await myAlgoConnect.signTransaction(transoptin.toByte());
+      //   const response = await algodclient.sendRawTransaction(signedTxn.blob).do();
+      //   console.log("optresponse",response)  
+      //   storedb(assetID,responsetxId,addresseswall);
+      //   }
+      //   catch (err) {
+      //     console.error(err);    
+      //     storedb(assetID,responsetxId,addresseswall);
+      //   }
+      // }
 
     const storedb=async(assetID,responsetxId,addresseswall)=>{
         console.log("addresswall",addresseswall)
