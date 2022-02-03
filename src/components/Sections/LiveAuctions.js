@@ -8,6 +8,7 @@ const axios = require('axios');
 
 
 const LiveAuctions = () => {
+    
     const[getI,setgetI]=useState([]); 
     console.log("getImgLive",getI)    
     const check=()=>{

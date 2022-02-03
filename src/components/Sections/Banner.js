@@ -7,6 +7,7 @@ import {Row, Col} from 'react-bootstrap';
 const axios = require('axios');
 
 const Banner = () => {
+    
     const[getI,setgetI]=React.useState([]); 
     console.log("getImgal",getI)    
     const flickityOptions = {

@@ -8,6 +8,7 @@ const axios = require('axios');
 
 const Explore = () => {
 
+  
     const[getchain,setchain]=useState("Algorand");
     const[getcategory,setcategory]=useState("All");
     const[getsaletype,setsaletype]=useState("Fixed price");

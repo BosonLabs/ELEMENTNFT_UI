@@ -6,6 +6,9 @@ import CardLiveA from "../Snippets/CardLiveA";
 const axios = require('axios');
 
 const HotBids = () => {
+  // React.useEffect(() => {
+    //     window.scrollTo(0, 0);     
+    // });
     const[getI,setgetI]=useState([]); 
     console.log("getImgal",getI)        
 
