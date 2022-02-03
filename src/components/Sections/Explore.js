@@ -8,7 +8,9 @@ const axios = require('axios');
 
 const Explore = () => {
 
-  
+    React.useEffect(() => {
+    window.scrollTo(0, 0);     
+    });
     const[getchain,setchain]=useState("Algorand");
     const[getcategory,setcategory]=useState("All");
     const[getsaletype,setsaletype]=useState("Fixed price");

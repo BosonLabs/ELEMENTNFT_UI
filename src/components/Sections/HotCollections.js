@@ -7,9 +7,9 @@ const axios = require('axios');
 
 
 const HotBids = () => {  
-  // React.useEffect(() => {
-    //     window.scrollTo(0, 0);     
-    // });  
+    React.useEffect(() => {
+        window.scrollTo(0, 0);     
+    });  
   //const[getIProapp,setgetIProapp]=useContext(DataContext)
   // console.log("appget1",getIProapp)
     const[getI,setgetI]=useState([]); 
