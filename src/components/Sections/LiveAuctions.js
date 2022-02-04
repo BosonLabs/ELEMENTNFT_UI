@@ -8,9 +8,9 @@ const axios = require('axios');
 
 
 const LiveAuctions = () => {
-    React.useEffect(() => {
-        window.scrollTo(0, 0);     
-    });
+    // React.useEffect(() => {
+    //     window.scrollTo(0, 0);     
+    // });
     const[getI,setgetI]=useState([]); 
     console.log("getImgLive",getI)    
     const check=()=>{

@@ -31,9 +31,9 @@ const myAlgoWallet = new MyAlgoConnect();
 
 
 const Start = () => {
-  React.useEffect(() => {
-    window.scrollTo(0, 0);     
-  });
+  // React.useEffect(() => {
+  //   window.scrollTo(0, 0);     
+  // });
     const {algobalanceApp}=useContext(DataContext)
     console.log("algobalanceAppSingle",algobalanceApp)
     const { getI } = useContext(DataContext)
