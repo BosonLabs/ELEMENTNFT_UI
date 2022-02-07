@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,useRef} from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,6 +26,7 @@ import ProfileViewOtherCopy from "./components/ProfileViewOtherCopy";
 import ProfileViewOtherCopy2 from "./components/ProfileViewOtherCopy2";
 import ProfileViewOtherCopy3 from "./components/ProfileViewOtherCopy3";
 import SingleLiveauction from "./components/SingleLiveauction";
+//import useScrollToTop from "./ScrollToTop";
 import Edit from "./components/Create/edit";
 import {Movie} from './Movie'
 import Validornotcheck from "./Validornotcheck";
@@ -37,7 +38,10 @@ const algosdk = require('algosdk');
 
 
 function App() {
-
+  React.useEffect(() => {
+    window.scrollTo(0, 0);     
+  });
+    //const setScrollToTop = useScrollToTop(true);
     const[getIPro2,setgetIPro2]=useState([""]);
     console.log("getIProprofile",getIPro2[0].valid)   
     const[getIProapp,setgetIProapp]=useState([""]);
@@ -190,7 +194,7 @@ useEffect(()=>{dbcallPro()},[])
 
 
     
-    const dbcallPro2=async()=>{            
+const dbcallPro2=async()=>{            
         let r=[];
         try {         
         firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
@@ -218,13 +222,21 @@ useEffect(()=>{dbcallPro()},[])
         console.log('error occured during search', error);    
       }                
       }    
-    useEffect(()=>{dbcallPro2()},[])
+useEffect(()=>{dbcallPro2()},[])
+
+
+// useEffect(() => ref.current.scrollTo(0, 0));
+// const ref = useRef()
+//ref={ref}
+
+
 
   return (
     <>
-    <Online>
-    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp}}>      
+    <Online>    
+    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp}}>          
     <Router>
+    
       <Switch>                
         <Route path="/connect">
           <Login />
@@ -250,7 +262,7 @@ useEffect(()=>{dbcallPro()},[])
         <Route path="/activity">
           <ActivityPage />
         </Route>
-        <Route path="/liveauction">
+        <Route path="/liveauction" onUpdate={() => window.scrollTo(0, 0)}>
           <SingleLiveauction />
         </Route>
         <Route path="/bid">
@@ -289,12 +301,14 @@ useEffect(()=>{dbcallPro()},[])
         <Route path="/validornotvalid">
           <Validornotcheck />
         </Route>        
-        <Route path="/">
+        <Route path="/" onUpdate={() => window.scrollTo(0, 0)}>
           <Home />
         </Route>         
-      </Switch>
-    </Router>    
+      </Switch>      
+      
+    </Router>   
     </DataContext.Provider>         
+    
     </Online>        
     {/* <Offline>{alert("please connect your Internet")}</Offline>        */}
     </>

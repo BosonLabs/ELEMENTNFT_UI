@@ -1,6 +1,7 @@
 {
   "appId" : 50714558,
   "purestakeapi" : "SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin",
-  "appIdPrice" : 62303609
+  "appIdPrice" : 62303609,
+  "url":"http://18.117.76.243:42100/nft/v1"
 }
 

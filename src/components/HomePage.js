@@ -1,4 +1,4 @@
-import React,{ useState,useEffect, useContext } from 'react';
+import React,{ useState,useEffect, useContext,useRef } from 'react';
 import Layout from './Layout';
 import {Container} from 'react-bootstrap';
 import TopCollections from './Sections/TopCollections';
@@ -8,6 +8,7 @@ import LiveAuctions from './Sections/LiveAuctions';
 import HotCollections from './Sections/HotCollections';
 import Explore from './Sections/Explore';
 import Banner from './Sections/Banner';
+//import ScrollTop from '../ScrollToTop';
 import {MovieContext} from '../Movie';
 const axios = require('axios');
 
@@ -56,10 +57,18 @@ function HomePage() {
     //   } 
     // }
     // useEffect(()=>{dbcallsaleal()},[])
+//   const ref = useRef();
+//   useEffect(() => {
+//       ref.current.scrollIntoView()
+//   }, []);
+
+
+
+
 
     return (
         <Layout>
-            <Container fluid="lg">
+            <Container fluid="lg" >                
                 <Banner />
                 <TopCollections />
                 <HotBids />
@@ -67,7 +76,7 @@ function HomePage() {
                 {/* follow={getI} */}
                 <LiveAuctions />
                 <HotCollections />
-                <Explore />
+                <Explore />                
             </Container>
         </Layout>
     );
