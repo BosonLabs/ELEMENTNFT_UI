@@ -26,7 +26,7 @@ const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 const myAlgoConnect = new MyAlgoConnect();
 const myAlgoWallet = new MyAlgoConnect();
-// const axios = require('axios');
+const axios = require('axios');
 
 
 
@@ -34,6 +34,8 @@ const Start = () => {
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);     
   // });
+  let tempAddress=localStorage.getItem('wallet').slice(0,5);
+  console.log("TempAddess",tempAddress)
     const {algobalanceApp}=useContext(DataContext)
     console.log("algobalanceAppSingle",algobalanceApp)
     const { getI } = useContext(DataContext)
@@ -248,8 +250,9 @@ const Start = () => {
         setshowTestLoading(false)          
         alert("you wallet raises some issues")
         window.location.reload(false)
-      }    
-      storedb(assetID,responsetxId,addresseswall);      
+      } 
+      storedb(assetID,responsetxId,addresseswall)
+      //storedbApi(assetID,responsetxId,addresseswall);      
     }
       // const appoptins=async(assetID,responsetxId,addresseswall)=>{
       //   const algosdk = require('algosdk');  
@@ -276,6 +279,100 @@ const Start = () => {
       //   }
       // }
 
+
+    //   const storedbApi = async(assetID,responsetxId,addresseswall)=>{        
+    //     const pinataApiKey = "221cfff25de18e88d3d0";
+    //     const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
+    //     const pinataSDK = require('@pinata/sdk');
+    //     const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+    //     pinata.testAuthentication().then((result) => {          
+    //     console.log(result);  
+    //     let ge=fileUrl;
+    //     console.log("ipfsHash",fileUrl);
+    //               const body = {
+    //                   message: ge
+    //               };
+    //               const options = {
+    //                   pinataMetadata: {
+    //                       name: tname,
+    //                       keyvalues: {
+    //                           customKey: 'customValue',
+    //                           customKey2: 'customValue2'
+    //                       }
+    //               },
+    //               pinataOptions: {
+    //                   cidVersion: 0
+    //               }
+    //               };
+    //               pinata.pinJSONToIPFS(body, options).then(async(result) => {
+    //               //handle results here
+    //               console.log(result);
+    //               console.log("jsonresult2",result.IpfsHash) 
+    //               //toast.dismiss(); 
+    //               //toast.info("image uploaded in ipfs",result.IpfsHash)
+    //               toast.success(`Image Uploaded in IPFS ${result.IpfsHash}`,{autoClose: 8000});
+    //               //db add here                                            
+    //               //escrow,TimeStamp,historyAddress,valid:"true",CreatorAddress:addresseswall                  
+    //               let userjsonkey = ""
+    //               if(getIPro[0].valid === "validated"){
+    //                 userjsonkey={
+    //                   "algoAddress":tempAddress,
+    //                   "nftName":tname,
+    //                   "nftType":"true",
+    //                   "nftCount":1,
+    //                   "appId":configfile['appIdPrice'],
+    //                   "assetId":assetID,
+    //                   "ipfsHexUrl":result.IpfsHash,
+    //                   "crc32Checksum":tempAddress,
+    //                   "serverImagePath":"Img",
+    //                   "nftPrice":'0',
+    //                   "nftSymbol":'ELEM',
+    //                   "ownerAddress":tempAddress,
+    //                   "previousOwner":"",
+    //                   "nftDescription":tdescription,
+    //                   "nftHistoryAddresses":[tempAddress]
+    //                 }                    
+    //               }
+    //               else{
+    //                 userjsonkey={
+    //                   "algoAddress":tempAddress,
+    //                   "nftName":tname,
+    //                   "nftType":"false",
+    //                   "nftCount":1,
+    //                   "appId":configfile['appIdPrice'],
+    //                   "assetId":assetID,
+    //                   "ipfsHexUrl":result.IpfsHash,
+    //                   "crc32Checksum":tempAddress,
+    //                   "serverImagePath":"Img",
+    //                   "nftPrice":'0',
+    //                   "nftSymbol":'ELEM',
+    //                   "ownerAddress":tempAddress,
+    //                   "previousOwner":"",
+    //                   "nftDescription":tdescription,
+    //                   "nftHistoryAddresses":[tempAddress]
+    //                 }                    
+    //               }
+    //               console.log("JsonKeyPrint",userjsonkey)
+    //               await axios.post(`${configfile['url']}/nftPlain`,userjsonkey)
+    //                   .then(async(responseuser) => {
+    //                   console.log("uploadeduser",responseuser)                                      
+    //                   toast.success("NFT Minted successfully",{autoClose: 5000})
+    //                   //toast.dismiss();
+    //                   setshowTestLoading(false)
+    //                   setShowTest(true)        
+    //               })
+    //                 .catch((e) => {
+    //                 console.log("Err1",e);                      
+    //                 setshowTestLoading(false)
+    //               })                          
+    //               })                                                                                                        
+    //               }).catch((err) => {                        
+    //                   console.log(err);
+    //                   console.log("Err2",err);                      
+    //                   setshowTestLoading(false)
+    //               });                                                                                        
+    // }
+
     const storedb=async(assetID,responsetxId,addresseswall)=>{
         console.log("addresswall",addresseswall)
         console.log("assetId",assetID)
@@ -285,6 +382,7 @@ const Start = () => {
         //   onOpen:('loading')
         // });
         toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
+        
         //toast.success(Transaction Success ${response.txId});
         // toast.loading(`images uploading ipfs`, {
         //   onOpen: ('loading') });        
@@ -471,7 +569,7 @@ const Start = () => {
                                   //end pinata here  
                     }                                                                        
                     
-      }
+    }
 
       const done=()=>{
         history.push("/profile")
@@ -516,21 +614,23 @@ const Start = () => {
                                 <h3>Name</h3>
                                 <InputGroup className="mb-4 input-group-field" onChange={event => setName(event.target.value)}>
                                     <Form.Control
-                                        placeholder='e. g. "Redeemable Shirt  "'
+                                        placeholder='Enter Asset Title  '
                                     />
                                 </InputGroup>
 
                                 <h3>Description <small>(Optional)</small></h3>
                                 <InputGroup className="mb-2 input-group-field" onChange={event => setDescription(event.target.value)}>
                                     <Form.Control
-                                        placeholder='e. g. "After purchasing you’ll be able to get the real Shirt"'
+                                        placeholder=' Enter Description '
                                     />
                                 </InputGroup>                                
                             </div>
 
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
+                                {/* <Button variant='primary' size="lg" onClick={()=>storedbApi(10212,'a','b')}>Check Api</Button> */}
                             </div>                            
+                            
                         </Col>                        
                     </Row>
                 </div>

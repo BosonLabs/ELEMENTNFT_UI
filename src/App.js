@@ -32,6 +32,7 @@ import {Movie} from './Movie'
 import Validornotcheck from "./Validornotcheck";
 import {DataContext} from './Context/DataContext'
 import firebase from './firebase';
+import configfile from './config.json'
 import cjson from './config.json'
 const axios = require('axios');
 const algosdk = require('algosdk'); 
@@ -41,6 +42,8 @@ function App() {
   React.useEffect(() => {
     window.scrollTo(0, 0);     
   });
+    const[getApiData,setApiData]=useState([""]);
+    console.log("getApiData",getApiData)   
     //const setScrollToTop = useScrollToTop(true);
     const[getIPro2,setgetIPro2]=useState([""]);
     console.log("getIProprofile",getIPro2[0].valid)   
@@ -221,13 +224,21 @@ const dbcallPro2=async()=>{
       } catch (error) {
         console.log('error occured during search', error);    
       }                
-      }    
+}    
 useEffect(()=>{dbcallPro2()},[])
 
 
 // useEffect(() => ref.current.scrollTo(0, 0));
 // const ref = useRef()
-//ref={ref}
+//ref={ref}localStorage.getItem('wallet')
+
+useEffect(() => {        
+  async function apiData() {      
+    const res = await axios.get(`${configfile['url']}/nftPlain/${'RYS3A'}`)
+    setApiData(res.data)                
+  }
+  apiData();
+}, []);
 
 
 
