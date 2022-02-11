@@ -283,6 +283,7 @@ const OnSaleOther = (data) => {
                     <CardBuyOtherView img={x.Imageurl} 
                     title={x.NFTName} count="401" subTitle={x.AssetId} 
                     linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
+                    Assetid={x.Assetid}
                     />
                     </div>                    
                     </>                                                                                          

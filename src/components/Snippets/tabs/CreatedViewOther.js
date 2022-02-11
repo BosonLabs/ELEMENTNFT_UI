@@ -250,6 +250,7 @@ const CreatedViewOther = (data) => {
                     <CardCreateOtherView img={x.Imageurl} 
                     title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
                     linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
+                    Assetid={x.Assetid}
                     />
                     </div>                    
                     </>                                                                                          

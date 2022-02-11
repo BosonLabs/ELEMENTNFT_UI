@@ -354,6 +354,7 @@ const SingleLiveauction = (props) => {
                                     <Dropdown.Divider />
                                     <Dropdown.Item href="/liveauction">Refresh Metadata</Dropdown.Item>
                                     <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${location.state.alldata.Assetid}`)}>Explore</Dropdown.Item>
                                     <Dropdown.Item href="/liveauction">Report</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

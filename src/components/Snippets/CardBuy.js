@@ -151,7 +151,7 @@ const CardBuy = (props) => {
                     >
                         <Link className='collection-item d-flex align-items-center' to={{
                         pathname: "/profileviewothercopy2",            
-                        state:{ownerAddress:props.oAddress,CreatorAddress:props.CreatorAddress}}} >
+                        state:{ownerAddress:props.oAddress,CreatorAddress:props.CreatorAddress,Assetid:props.Assetid}}} >
                             <img src={getIPro1[0].Imageurl} alt="pic" />
                         </Link>
                 </OverlayTrigger>

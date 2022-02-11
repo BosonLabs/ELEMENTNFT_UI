@@ -62,7 +62,8 @@ return (
                         {/* <Dropdown.Item href="/bid-2" state={props.dataall}>Buy now</Dropdown.Item> */}
                         <Dropdown.Divider />
                         <Dropdown.Item href="/profileviewother">Refresh Metadata</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>                        
+                        <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${props.Assetid}`)}>Explore</Dropdown.Item>
                         <Dropdown.Item href="/profileviewother">Report</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

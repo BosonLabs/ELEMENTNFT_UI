@@ -546,6 +546,7 @@ const SingleBid = (props) => {
                                     <Dropdown.Divider />
                                     <Dropdown.Item href="/bid-2">Refresh Metadata</Dropdown.Item>
                                     <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${location.state.alldata.Assetid}`)}>Explore</Dropdown.Item>
                                     <Dropdown.Item href="/bid-2">Report</Dropdown.Item>                                    
                                     {/* href="/bid-2" */}
                                 </Dropdown.Menu>
