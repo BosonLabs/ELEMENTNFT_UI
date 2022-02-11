@@ -17,21 +17,17 @@ const Explore = () => {
     const[getprice1,setprice1]=useState(0);
     const[getprice2,setprice2]=useState(0);
     const[getrecent,setrecent]=useState("Recently added");
-    console.log("get1",getchain.value)    
-    console.log("get2",getcategory.value)    
-    console.log("get3",getsaletype.label)    
-    console.log("get4",getprice1) 
-    console.log("get5",getprice2)   
-    console.log("get6",getrecent)    
+    // console.log("get1",getchain.value)    
+    // console.log("get2",getcategory.value)    
+    // console.log("get3",getsaletype.label)    
+    // console.log("get4",getprice1) 
+    //console.log("get5",getprice2)   
+    //console.log("get6",getrecent)    
     
     const[getI,setgetI]=useState([]);   
-    console.log("getImgal",getI)    
+    //console.log("getImgal",getI)    
     const[pageSize,setPageSize]=useState(6); 
-    const check=()=>{
-
-        alert("check")
-    }
-
+    
     const dbcallsaleal=async(index)=>{
         //console.log("hello ramachandran")        
         //console.log("inside dbcallsalealgo function")
@@ -49,7 +45,7 @@ const Explore = () => {
             req.push(response.data)
             let req2 =[];
             req.forEach((l) => {              
-              console.log("D",l)              
+              //console.log("D",l)              
               Object.keys(l).map(async(k)=>{                                        
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    
@@ -80,22 +76,33 @@ const Explore = () => {
     //}
     useEffect(()=>{dbcallsaleal()},[])
     const filterdata=()=>{
+      let dateset=new Date().toDateString();
+      let today= new Date();
+      let weekdate=new Date(today.getFullYear(), today.getMonth(), today.getDate()-3).toDateString();
+      //console.log("DateExplore",weekdate)
+      //console.log("DateExplore2",dateset)
       if(getprice1 > 0  && getprice2 > 0){
         
         let data=getI.filter((val)=> (val.NFTPrice/1000000) >= getprice1 && (val.NFTPrice/1000000) <= getprice2)
-        console.log("filtercall1",data)
+        //console.log("filtercall1",data)
         return data;
+      }
+      if(getrecent === "Recently added"){
+        let data=getI.filter((val)=> (val.TimeStamp) >= weekdate || (val.TimeStamp) <= dateset)
+        //console.log("filtercall12",data)
+        return data;        
       }
       if(getrecent === "Low to High"){
         let data=getI.sort((a,b)=>{ return parseInt(a.NFTPrice/1000000) - parseInt(b.NFTPrice/1000000)})
-        console.log("filtercall1",data)
+        //console.log("filtercall1",data)
         return data;
       }
       if(getrecent ===  "High to Low"){
         let data=getI.sort((a,b)=>{ return parseInt(b.NFTPrice/1000000) - parseInt(a.NFTPrice/1000000)})
-        console.log("filtercall1",data)
+        //console.log("filtercall1",data)
         return data;
       }
+      
       return getI
     }
     return (
@@ -120,7 +127,7 @@ const Explore = () => {
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
                 
                 {filterdata().map((x, index) => {
-                console.log("logo",x)
+                //console.log("logo",x)
                 if(index<pageSize)
                 return(  
                     <>

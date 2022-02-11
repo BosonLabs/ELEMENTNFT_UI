@@ -16,7 +16,7 @@ const animatedComponents = makeAnimated();
 
 
 const CreatedViewOther = (data) => {        
-    console.log("getdata",data.data)
+    //console.log("getdata",data.data)
     const[getcategory,setcategory]=useState("All");
     const[getsaletype,setsaletype]=useState("Fixed price");
     const[getprice1,setprice1]=useState(0);
@@ -93,19 +93,29 @@ const CreatedViewOther = (data) => {
     ]
 
     const filterdata=()=>{
+        let dateset=new Date().toDateString();
+        let today= new Date();
+        let weekdate=new Date(today.getFullYear(), today.getMonth(), today.getDate()-3).toDateString();
+        //console.log("DateExplore",weekdate)
+        //console.log("DateExplore2",dateset)
         if(getprice1 > 0  && getprice2 > 0){          
           let datas=data.data.filter((val)=> (val.NFTPrice)/1000000 >= getprice1 && (val.NFTPrice)/1000000 <= getprice2)
-          console.log("filtercall1",datas)
+          //console.log("filtercall1",datas)
           return datas;
+        }
+        if(getrecent === "Recently added"){
+            let datas=data.data.filter((val)=> (val.TimeStamp) >= weekdate || (val.TimeStamp) <= dateset)
+            //console.log("filtercall12",datas)
+            return datas;        
         }
         if(getrecent === "Low to High"){
           let datas=data.data.sort((a,b)=>{ return parseInt((a.NFTPrice)/1000000) - parseInt((b.NFTPrice)/1000000)})
-          console.log("filtercall1",datas)
+          //console.log("filtercall1",datas)
           return datas;
         }
         if(getrecent ===  "High to Low"){
           let datas=data.data.sort((a,b)=>{ return parseInt((b.NFTPrice)/1000000) - parseInt((a.NFTPrice)/1000000)})
-          console.log("filtercall1",datas)
+          //console.log("filtercall1",datas)
           return datas;
         }
         return data.data
@@ -232,7 +242,7 @@ const CreatedViewOther = (data) => {
            ):(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
             {filterdata().map((x, index) => {
-                console.log("xvalue",x)
+                // console.log("xvalue",x)
                 return(  
                     <>
                     {/* onClick={()=>getprice(x)} */}

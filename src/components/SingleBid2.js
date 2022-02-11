@@ -23,14 +23,14 @@ const myAlgoWallet = new MyAlgoConnect();
 
 const SingleBid = (props) => {
     const {algobalanceApp}=useContext(DataContext)
-    console.log("algobalanceAppSingle",algobalanceApp)
+    //console.log("algobalanceAppSingle",algobalanceApp)
     const history = useHistory();
     const location = useLocation();
-    console.log("Biddata2",location.state.alldata)
+    ////console.log("Biddata2",location.state.alldata)
     const[getIPro,setgetIPro]=useState([""]);
     const[getIPro2,setgetIPro2]=useState([""]);
-    console.log("getIProprofiles",getIPro[0]) 
-    console.log("getIProprofiles2",getIPro2[0]) 
+    //console.log("getIProprofiles",getIPro[0]) 
+    //console.log("getIProprofiles2",getIPro2[0]) 
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
@@ -45,8 +45,8 @@ const SingleBid = (props) => {
     const handleCloseshowShare = () => setshowShare(false);
     let calc="";
     const [algobalance, setalgobalance] = useState("");
-    console.log("calc",algobalance)
-    console.log("calcstart",parseInt(location.state.alldata.NFTPrice)/1000000)
+    //console.log("calc",algobalance)
+    //console.log("calcstart",parseInt(location.state.alldata.NFTPrice)/1000000)
     useEffect(() => {        
         async function listenMMAccount() {
     
@@ -65,7 +65,7 @@ const SingleBid = (props) => {
       setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
       localStorage.setItem("balget",account1_info);      
   })().catch(e => {
-      console.log(e);
+      //console.log(e);
   })                    
         }        
     }
@@ -89,7 +89,7 @@ const SingleBid = (props) => {
           setgetIPro(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
@@ -111,7 +111,7 @@ const SingleBid = (props) => {
           setgetIPro2(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro2()},[])
@@ -125,7 +125,7 @@ const SingleBid = (props) => {
             const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
             if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
               //Got the completed Transaction
-              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              //console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
               break;
             }
             lastRound++;
@@ -141,7 +141,7 @@ const SingleBid = (props) => {
 
         const buynow2=async()=>{
             let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));
-            console.log("lol",a)
+            //console.log("lol",a)
         }
 
         const pleasewait=()=>{
@@ -184,27 +184,27 @@ const SingleBid = (props) => {
                 //comment out the next two lines to use suggested fee
                 params.fee = 1000;
                 params.flatFee = true;  
-                //console.log("Global state", datedt); 
+                ////console.log("Global state", datedt); 
                 toast.info("Buy Starting",{autoClose: 5000});  
                 try {    
                 let convert95=(((parseFloat(location.state.alldata.NFTPrice))/100)*95)
-                console.log("convert95",convert95)  
+                //console.log("convert95",convert95)  
                 let convert5=(((parseFloat(location.state.alldata.NFTPrice))/100)*5);
-                console.log("convert5",convert5)
-                console.log("AssBuy",parseInt(location.state.alldata.Assetid))
-                console.log("AppBuy",index)
+                //console.log("convert5",convert5)
+                //console.log("AssBuy",parseInt(location.state.alldata.Assetid))
+                //console.log("AppBuy",index)
                 const params = await algodClient.getTransactionParams().do();    
                 const myAlgoConnect = new MyAlgoConnect();
                 let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(location.state.alldata.Assetid))
                 let results = await algodClient.compile(dataopreplace).do();                
                 let program = new Uint8Array(Buffer.from(results.result, "base64"));      
                 let lsig = algosdk.makeLogicSig(program);                
-                console.log("Resultconsole = " + results);
-                console.log("Hash = " + results.hash);
-                console.log("Result = " + results.result);
+                //console.log("Result//console = " + results);
+                //console.log("Hash = " + results.hash);
+                //console.log("Result = " + results.result);
                 //await sleep(20000)                                
                 //let tealSignPrint = tealSign(sk, data, lsig.address());
-                console.log("LSIG",lsig.address())                                                    
+                //console.log("LSIG",lsig.address())                                                    
                 let recv_escrow = lsig.address();
                 let amount = 961000;
   
@@ -218,7 +218,7 @@ const SingleBid = (props) => {
                   });
                   const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
                   const responseass = await algodClient.sendRawTransaction(signedTxnass.blob).do();
-                  console.log("optresponse",responseass)            
+                  //console.log("optresponse",responseass)            
                   toast.success(`Asset Opted Successfully ${responseass.txId}`,{autoClose: 8000});
                 
                   let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
@@ -286,7 +286,7 @@ const SingleBid = (props) => {
                   const signedTx4 = algosdk.signLogicSigTransaction(txs[4], lsig);                  
                   const signedTx5 = algosdk.signLogicSigTransaction(txs[5], lsig);                                                
                   const response = await algodClient.sendRawTransaction([ signedTx1[0].blob, signedTx2.blob, signedTx1[1].blob, signedTx3.blob,signedTx4.blob,signedTx5.blob]).do();
-                  console.log("TxID", JSON.stringify(response, null, 1));
+                  //console.log("TxID", JSON.stringify(response, null, 1));
                   await waitForConfirmation(algodClient, response.txId);
                   toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000});              
                 //db change here
@@ -314,7 +314,7 @@ const SingleBid = (props) => {
                           CreatorAddress:location.state.alldata.CreatorAddress
                       })
                           .then(()=>{                                                            
-                              console.log("remove db");
+                              //console.log("remove db");
                               toast.success(`Buy Successfully`,{autoClose: 8000});
                               setShowTestLoading(false)
                               setshowTestSale(true)              
@@ -324,7 +324,7 @@ const SingleBid = (props) => {
                       }) 
                   })
                   } catch (err) {
-                      console.error(err);
+                      //console.error(err);
                       setShowTestLoading(false)
                       alert("you wallet raises some issues")
                       toast.dismiss();
@@ -344,24 +344,24 @@ const SingleBid = (props) => {
             //     //comment out the next two lines to use suggested fee
             //     params.fee = 1000;
             //     params.flatFee = true;  
-            //     //console.log("Global state", datedt); 
+            //     ////console.log("Global state", datedt); 
             // toast.info("Buy Starting",{autoClose: 5000});  
             // try {    
             //     let convert95=(((parseInt(location.state.alldata.NFTPrice))/100)*95)
-            //     console.log("convert95",convert95)  
+            //     //console.log("convert95",convert95)  
             //     let convert5=(((parseInt(location.state.alldata.NFTPrice))/100)*5);
-            //     console.log("convert5",convert5)
+            //     //console.log("convert5",convert5)
             //     const params = await algodclient.getTransactionParams().do();    
             //     const myAlgoConnect = new MyAlgoConnect();
             //     let results = await algodclient.compile(dataescrow).do();
-            //     console.log("Resultconsole = " + results);
-            //     console.log("Hash = " + results.hash);
-            //     console.log("Result = " + results.result);
+            //     //console.log("Result//console = " + results);
+            //     //console.log("Hash = " + results.hash);
+            //     //console.log("Result = " + results.result);
             //     //await sleep(20000)
             //     let program = new Uint8Array(Buffer.from(results.result, "base64"));      
             //     let lsig = algosdk.makeLogicSig(program);
             //     //let tealSignPrint = tealSign(sk, data, lsig.address());
-            //     console.log("LSIG",lsig.address())
+            //     //console.log("LSIG",lsig.address())
             //     let appArgs = [];
             // appArgs.push(new Uint8Array(Buffer.from("Buynow")));
             // const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
@@ -375,7 +375,7 @@ const SingleBid = (props) => {
               
             // const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
             // const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
-            // console.log("optresponse",responseass)
+            // //console.log("optresponse",responseass)
             
             // toast.success(`Asset Opted Successfully ${responseass.txId}`,{autoClose: 8000});
                   
@@ -450,7 +450,7 @@ const SingleBid = (props) => {
             //   const signedTx6 = algosdk.signLogicSigTransaction(txnsToGroup[5], lsig);
             //   const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);              
             //   const response = await algodclient.sendRawTransaction([signedTx1[0].blob,signedTx1[1].blob,signedTx1[2].blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
-            //   console.log("TxID", JSON.stringify(response, null, 1));
+            //   //console.log("TxID", JSON.stringify(response, null, 1));
             //   await waitForConfirmation(algodclient, response.txId);
             //   //toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000});              
             //   //db change here
@@ -477,7 +477,7 @@ const SingleBid = (props) => {
             //             CreatorAddress:location.state.alldata.CreatorAddress
             //         })
             //             .then(()=>{                                                            
-            //                 console.log("remove db");
+            //                 //console.log("remove db");
             //                 toast.success(`NFT Purchase Successful`,{autoClose: 8000});
             //                 setShowTestLoading(false)
             //                 setshowTestSale(true)              
@@ -487,7 +487,7 @@ const SingleBid = (props) => {
             //         }) 
             //   })
             //   .catch((e) => {
-            //   console.error(e);
+            //   //console.error(e);
             //   setShowTestLoading(false)  
             //   alert("you wallet raises some issues")
             //   toast.dismiss();
@@ -495,7 +495,7 @@ const SingleBid = (props) => {
             //   });                            
             //   //db change end here
             //     } catch (err) {
-            //     console.error(err);                
+            //     //console.error(err);                
             //     setShowTestLoading(false)
             //     alert("you wallet raises some issues")
             //     toast.dismiss();
@@ -508,7 +508,7 @@ const SingleBid = (props) => {
         
 
         const sharebutton=()=>{
-            console.log("SingleBid",location.state.alldata)
+            //console.log("SingleBid",location.state.alldata)
             setshowShare(true)            
         }
         

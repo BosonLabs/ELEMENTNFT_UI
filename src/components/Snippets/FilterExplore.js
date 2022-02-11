@@ -8,7 +8,7 @@ const animatedComponents = makeAnimated();
 
 const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype,getrecent}) => {
 
-    console.log("getrecent",getrecent)
+    //console.log("getrecent",getrecent)
     
     const blockChainOptions = [
         { value: 'Algorand', label: 'Algorand' },

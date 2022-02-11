@@ -3,7 +3,7 @@ import {Dropdown,DropdownButton} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
-import CollectionItem from '../Snippets/CollectionItem';
+//import CollectionItem from '../Snippets/CollectionItem';
 import moment from 'moment';
 import firebase from "../../firebase";
 import CollectionItemCopy from '../Snippets/CollectionItemCopy';
@@ -13,9 +13,9 @@ const TopCollections = () => {
     const dateOptions = ["1", "7", "30"];
     const [date, setDate] = useState(dateOptions[0]);    
     const[getIb,setgetIb]=useState([]);
-    console.log("getImgalbuy",getIb)
+    //console.log("getImgalbuy",getIb)
     const handleSelect=(e)=>{
-        console.log(e);
+        //console.log(e);
         setDate(e)
       }
 
@@ -61,22 +61,22 @@ const TopCollections = () => {
           let data = getIb.filter((val)=>{
           let currentdate=moment().format('ddd MMM DD YYYY')
           //let currentdate = moment(val.url);
-          console.log("currentdate",currentdate)
+          //console.log("currentdate",currentdate)
           let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
           return currentdate===createddate 
       })
-          console.log("B1Top",data)
+          //console.log("B1Top",data)
           return data;
     }    
         let data = getIb.filter((val)=>{
-        console.log("Buyers7Top",val)
-        console.log("Buyers7Top",val.TimeStamp)
+        //console.log("Buyers7Top",val)
+        //console.log("Buyers7Top",val.TimeStamp)
         let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
         let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
         //let createddate=moment(val.adddate)
         return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
       })
-        console.log("B7Top",data)
+        //console.log("B7Top",data)
         return data;            
   }
   useEffect(()=>{filterdata()},[])
@@ -114,7 +114,7 @@ const TopCollections = () => {
               <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
             {filterdata().map((x, index) => (     
                 <li className='mb-3'>                    
-                    <CollectionItemCopy Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} />   
+                    <CollectionItemCopy Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} Assetid={x.Assetid}/>   
                     {/* <CollectionItem verify={true} count={index} title={x.NFTName} amount={x.NFTPrice} />*/}
                 </li>                                 
             ))}

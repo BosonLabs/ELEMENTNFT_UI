@@ -9,11 +9,11 @@ import firebase from '../../../firebase';
 
 const OnSale = ({other,ownersend}) => {
     
-    console.log("otherp",other)
+    //console.log("otherp",other)
     const[getImgreffalgo,setgetImgreffalgo]=React.useState([]);
-    console.log("getImgalgo",getImgreffalgo)
+    //console.log("getImgalgo",getImgreffalgo)
     const dbcallalgo=async()=>{
-        console.log("inside dbcallalgo function")  
+        //console.log("inside dbcallalgo function")  
         let req = [];
         if(other === "other" && ownersend !== null){
             firebase.database().ref("activitytable").child(ownersend).on("value", (data) => {
@@ -103,7 +103,7 @@ const OnSale = ({other,ownersend}) => {
                     </div> */}
           
           {getImgreffalgo.map((x, index) => {
-                                    console.log("xvalue",x)
+                                    // console.log("xvalue",x)
                                     return(  
                                     <>
                                     <Col md={7}>

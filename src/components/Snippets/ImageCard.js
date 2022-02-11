@@ -4,7 +4,7 @@ import {
   } from "react-router-dom";
 
 const ImageCard = (props) => {
-    console.log("Icard",props.dataall)
+    //console.log("Icard",props.dataall)
     return (
         // <Link className='card-media' to={{
         //     pathname: "/profileviewother",

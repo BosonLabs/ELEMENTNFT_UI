@@ -14,19 +14,19 @@ const TopCollectionsSelles = (props) => {
     const directionOptions = ["Sellers", "Buyers"];
     const [date, setDate] = useState(dateOptions[0]);
     const [direction, setDirection] = useState(directionOptions[0]);
-    console.log("ses",direction);
-    console.log("sesd",date);
+    //console.log("ses",direction);
+    //console.log("sesd",date);
     const[getIb,setgetIb]=useState([]);
-    console.log("getImgalbuy",getIb)
+    //console.log("getImgalbuy",getIb)
     const[getImb,setgetImb]=useState([]);
-    console.log("getImgalgosssbuy",getImb)
+    //console.log("getImgalgosssbuy",getImb)
     //options={direction} onChange={(e) => setDirection(e.target.value)} value={direction}
     const handleSelect=(e)=>{
-        console.log(e);
+        //console.log(e);
         setDirection(e)
       }
     const handleSelect2=(e)=>{
-        console.log(e);
+        //console.log(e);
         setDate(e)
     }
     //buyers
@@ -101,33 +101,33 @@ const TopCollectionsSelles = (props) => {
         if(direction === 'Sellers') {
           if(date === '1')
           {
-              console.log("one")
+              //console.log("one")
               let data = getImb.filter((val)=>{
-              console.log("datainside",val)
+              // console.log("datainside",val)
               let currentdate=moment().format('ddd MMM DD YYYY')
               //let currentdate = moment(val.url);
-              console.log("currentdate",currentdate)
+              //console.log("currentdate",currentdate)
               let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
-              console.log("createddate",createddate)
+              //console.log("createddate",createddate)
               return currentdate === createddate 
             })
-              console.log("R1",data)
+              //console.log("R1",data)
               return data;              
           }    
               let data = getImb.filter((val)=>{
-              console.log("sellers7get",val)
-              console.log("sellers7",val.TimeStamp)
-              console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
+              //console.log("sellers7get",val)
+              //console.log("sellers7",val.TimeStamp)
+              //console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
               let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')
-              console.log("curr7",currentdate)
+              //console.log("curr7",currentdate)
               let weekdate=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
-              console.log("curr8",weekdate)                              
+              //console.log("curr8",weekdate)                              
               //return moment(val.TimeStamp).isBetween(weekdate,currentdate)
               //const dateTimeFormat = "ddd MMM DD YYYY";
-              console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
+              //console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
               return moment(val.TimeStamp).isBetween(weekdate, currentdate)                
             })
-            console.log("R7",data)            
+            //console.log("R7",data)            
             return data;    
         }
         if(date === '1')
@@ -135,22 +135,22 @@ const TopCollectionsSelles = (props) => {
               let data = getIb.filter((val)=>{
               let currentdate=moment().format('ddd MMM DD YYYY')
               //let currentdate = moment(val.url);
-              console.log("currentdate",currentdate)
+              //console.log("currentdate",currentdate)
               let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
               return currentdate===createddate 
           })
-              console.log("B1",data)
+              //console.log("B1",data)
               return data;
         }    
             let data = getIb.filter((val)=>{
-            console.log("Buyers7get",val)
-            console.log("Buyers7",val.TimeStamp)
+            //console.log("Buyers7get",val)
+            //console.log("Buyers7",val.TimeStamp)
             let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
             let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
             //let createddate=moment(val.adddate)
             return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
           })
-            console.log("B7",data)
+            //console.log("B7",data)
             return data;            
       }
   useEffect(()=>{filterdata()},[])
@@ -185,7 +185,7 @@ const TopCollectionsSelles = (props) => {
             {filterdata().map((x, index) => (                      
                 <li className='mb-3'>
                 {/* <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/> */}
-                        <CollectionItem Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} />   
+                        <CollectionItem Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} Assetid={x.Assetid}/>   
                 {/* follow={props.follow} */}
                 </li>
             ))}

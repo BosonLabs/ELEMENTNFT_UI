@@ -20,20 +20,20 @@ const algosdk = require('algosdk');
 
 const SingleBid = (props) => {
     const {algobalanceApp}=useContext(DataContext)
-    console.log("algobalanceAppSingle",algobalanceApp)
+    //console.log("algobalanceAppSingle",algobalanceApp)
     const history = useHistory();    
     const location = useLocation();
-    console.log("SingleBidp",location.state.alldata)
+    //console.log("SingleBidp",location.state.alldata)
     const [showShare,setshowShare] = React.useState(false); 
     const handleCloseshowShare = () => setshowShare(false);  
     const[getIPro,setgetIPro]=useState([""]);
     const[getIPro2,setgetIPro2]=useState([""]);
-    console.log("getIProprofiles",getIPro[0]) 
-    console.log("getIProprofiles2",getIPro2[0]) 
+    //console.log("getIProprofiles",getIPro[0]) 
+    //console.log("getIProprofiles2",getIPro2[0]) 
     //console.log("Biddata",props.state)
-    console.log("Biddata",location.state)
+    //console.log("Biddata",location.state)
     const [algobalance, setalgobalance] = useState("");
-    console.log("calc",algobalance)
+    //console.log("calc",algobalance)
     let calc="";
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
@@ -60,7 +60,7 @@ const SingleBid = (props) => {
       setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
       localStorage.setItem("balget",account1_info);      
   })().catch(e => {
-      console.log(e);
+      //console.log(e);
   })                    
         }        
     }
@@ -68,7 +68,7 @@ const SingleBid = (props) => {
       }, []);
     //https://img.rarible.com/prod/image/upload/t_big/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" alt="banner" 
     const sharebutton=()=>{
-        console.log("SingleBid",location.state.alldata)
+        //console.log("SingleBid",location.state.alldata)
         setshowShare(true)
     }
     const dbcallPro=async()=>{            
@@ -88,7 +88,7 @@ const SingleBid = (props) => {
           setgetIPro(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
@@ -110,7 +110,7 @@ const SingleBid = (props) => {
           setgetIPro2(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro2()},[])
@@ -130,7 +130,7 @@ const SingleBid = (props) => {
             const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
             if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
               //Got the completed Transaction
-              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              //console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
               break;
             }
             lastRound++;
@@ -172,20 +172,20 @@ const SingleBid = (props) => {
             //console.log("Global state", datedt);  
           try {    
             let convert95=(((parseInt(location.state.alldata.NFTPrice))/100)*95)
-            console.log("convert95",convert95)  
+            //console.log("convert95",convert95)  
             let convert5=(((parseInt(location.state.alldata.NFTPrice))/100)*5);
-            console.log("convert5",convert5)
+            //console.log("convert5",convert5)
             const params = await algodclient.getTransactionParams().do();    
             const myAlgoConnect = new MyAlgoConnect();
             let results = await algodclient.compile(dataescrow).do();
-            console.log("Resultconsole = " + results);
-            console.log("Hash = " + results.hash);
-            console.log("Result = " + results.result);
+            //console.log("Resultconsole = " + results);
+            //console.log("Hash = " + results.hash);
+            //console.log("Result = " + results.result);
             //await sleep(20000)
             let program = new Uint8Array(Buffer.from(results.result, "base64"));      
             let lsig = algosdk.makeLogicSig(program);
             //let tealSignPrint = tealSign(sk, data, lsig.address());
-            console.log("LSIG",lsig.address())
+            //console.log("LSIG",lsig.address())
             let appArgs = [];
             appArgs.push(new Uint8Array(Buffer.from("Buynow")));
             const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
@@ -199,7 +199,7 @@ const SingleBid = (props) => {
           
             const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
             const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
-            console.log("optresponse",responseass)
+            //console.log("optresponse",responseass)
             
               
             const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
@@ -274,7 +274,7 @@ const SingleBid = (props) => {
           const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);
           
           const response = await algodclient.sendRawTransaction([signedTx1.blob,signedTx2.blob,signedTx3.blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
-          console.log("TxID", JSON.stringify(response, null, 1));
+          //console.log("TxID", JSON.stringify(response, null, 1));
           await waitForConfirmation(algodclient, response.txId);
           
           //db change here
@@ -301,7 +301,7 @@ const SingleBid = (props) => {
                     CreatorAddress:location.state.alldata.CreatorAddress
                 })
                     .then(()=>{                                                            
-                        console.log("remove db");
+                        //console.log("remove db");
                         setShowTestLoading(false)
                         setshowTestSale(true)              
                     })                        
@@ -310,12 +310,12 @@ const SingleBid = (props) => {
                 }) 
           })
           .catch((e) => {
-          console.error(e);
+          //console.error(e);
           setShowTestLoading(false)  
           });                            
           //db change end here
             } catch (err) {
-              console.error(err);
+              //console.error(err);
             }                                                                                  
         }                
         }

@@ -39,22 +39,60 @@ const algosdk = require('algosdk');
 
 
 function App() {
-  React.useEffect(() => {
-    window.scrollTo(0, 0);     
-  });
+  // React.useEffect(() => {
+  //   window.scrollTo(0, 0);     
+  // });
     const[getApiData,setApiData]=useState([""]);
-    console.log("getApiData",getApiData)   
+    //console.log("getApiData",getApiData)   
     //const setScrollToTop = useScrollToTop(true);
     const[getIPro2,setgetIPro2]=useState([""]);
-    console.log("getIProprofile",getIPro2[0].valid)   
+    //console.log("getIProprofile",getIPro2[0].valid)   
     const[getIProapp,setgetIProapp]=useState([""]);
-    console.log("getIProapp",getIProapp) 
+    //console.log("getIProapp",getIProapp) 
     const[getI,setgetI]=useState([""]); 
     const[getIexplore,setgetIexplore]=useState([]);  
-    console.log("App1",getI)
-    console.log("App2",getIexplore)
+    //console.log("App1",getI)
+    //console.log("App2",getIexplore)
     const [algobalanceApp, setalgobalanceApp] = useState("");
-    console.log("calcappjs",algobalanceApp)    
+    //console.log("calcappjs",algobalanceApp)    
+    const[getHotCollection,setHotCollection]=useState([""]);
+    //console.log("getIPro",getHotCollection)     
+    const dbHotCollection=async()=>{            
+      let r=[];
+      try {         
+      firebase.database().ref("userprofile").on("value", (data) => {          
+        if (data) {             
+          let a=data.val()                   
+          Object.keys(a).map(async(k)=>{                                    
+            //console.log("proff",a[k])
+            r.push({
+              Bio:a[k].Bio,
+              Customurl: a[k].Customurl,
+              Email: a[k].Email,
+              Imageurl:a[k].Imageurl,
+              Personalsiteurl: a[k].Personalsiteurl,
+              TimeStamp: a[k].TimeStamp,
+              Twittername: a[k].Twittername,
+              UserName: a[k].UserName,
+              WalletAddress: a[k].WalletAddress,
+              bgurl:a[k].bgurl,
+              valid:a[k].valid
+            })                
+          })            
+        }
+        else{
+          setHotCollection([""]);  
+        }
+        setHotCollection(r);
+      });                  
+    } catch (error) {
+      //console.log('error occured during search', error);    
+    }                
+    }    
+  useEffect(()=>{dbHotCollection()},[])
+
+
+
   useEffect(() => {        
     async function listenMMAccount() {    
     if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
@@ -73,13 +111,13 @@ function App() {
     setalgobalanceApp(JSON.stringify(account1_info.amount)/1000000);      
     localStorage.setItem("balget",JSON.stringify(account1_info.amount)/1000000);      
   })().catch(e => {
-    console.log(e);
+    //console.log(e);
   })                    
   }        
   }
   listenMMAccount();
   }, []);
-    const dbcallsaleal=async(index)=>{                
+  const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',
         url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
@@ -90,7 +128,7 @@ function App() {
         req.push(response.data)
         let req2 =[];
         req.forEach((l) => {              
-          console.log("Dd",l)              
+          //console.log("Dd",l)              
           Object.keys(l).map(async(k)=>{                                        
             const a=l[k];
             Object.keys(a).map(async(b)=>{                    
@@ -131,7 +169,7 @@ const dbcallsalealexplore=async(index)=>{
         req.push(response.data)
         let req2 =[];
         req.forEach((l) => {              
-          console.log("D",l)              
+          //console.log("D",l)              
           Object.keys(l).map(async(k)=>{                                        
             const a=l[k];
             Object.keys(a).map(async(b)=>{                    
@@ -168,7 +206,7 @@ const dbcallPro=async()=>{
     if (data) {             
       let a=data.val()                   
       Object.keys(a).map(async(k)=>{                                    
-        console.log("proff",a[k])
+        //console.log("proff",a[k])
         r.push({
           Bio:a[k].Bio,
           Customurl: a[k].Customurl,
@@ -190,7 +228,7 @@ const dbcallPro=async()=>{
     setgetIProapp(r);
   });                  
 } catch (error) {
-  console.log('error occured during search', error);    
+  //console.log('error occured during search', error);    
 }                
 }    
 useEffect(()=>{dbcallPro()},[])
@@ -222,7 +260,7 @@ const dbcallPro2=async()=>{
           setgetIPro2(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
 }    
 useEffect(()=>{dbcallPro2()},[])
@@ -245,7 +283,7 @@ useEffect(() => {
   return (
     <>
     <Online>    
-    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp}}>          
+    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp,getHotCollection,setHotCollection}}>          
     <Router>
     
       <Switch>                

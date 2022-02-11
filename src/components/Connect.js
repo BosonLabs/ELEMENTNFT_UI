@@ -24,7 +24,7 @@ function Login() {
     //const [isOpen, setIsOpen] = useState(false);
     //const [addwallet, setaddwallet] = useState(null);
     const [isListtrys, setisListtrys] = useState([]);
-    console.log("islock",isListtrys)
+    //console.log("islock",isListtrys)
     const [show, setShow] = React.useState(false);
     const [showcall, setShowcall] = React.useState(false);
     // const handleClose = () => setShow(false);
@@ -38,9 +38,9 @@ const connect=async()=>{
   const myAlgoConnect = new MyAlgoConnect();
   const accountswall = await myAlgoWallet.connect();
   const addresseswall = accountswall.map(accountswall => accountswall.address);
-  console.log("one",myAlgoConnect)
-  console.log("oneacc",addresseswall[0])
-  console.log("oneadd",addresseswall) 
+  //console.log("one",myAlgoConnect)
+  //console.log("oneacc",addresseswall[0])
+  //console.log("oneadd",addresseswall) 
   localStorage.setItem('wallet',addresseswall[0])
   localStorage.setItem('wallet',addresseswall[0])
   //alert("Wallet Connect Successfully")
@@ -61,7 +61,7 @@ const setaddwallet=async(a)=>{
     firebase.database().ref("userprofile").orderByChild("WalletAddress").equalTo(a).once("value").then(snapshot =>{
         let r=[];
         if(snapshot.val()){            
-             console.log("firstaddress1  ",snapshot.val()[a])
+             //console.log("firstaddress1  ",snapshot.val()[a])
                   r.push({
                   Bio:snapshot.val()[a].Bio,
                   Customurl: snapshot.val()[a].Customurl,
@@ -75,7 +75,7 @@ const setaddwallet=async(a)=>{
                   bgurl:snapshot.val()[a].bgurl,
                   valid:snapshot.val()[a].valid
                 })                                                
-                console.log("InData",r)        
+                //console.log("InData",r)        
                 firebase.database().ref("userprofile").child(a).update({
                 Imageurl:r[0].Imageurl,bgurl:r[0].bgurl,
                 UserName:r[0].UserName,Customurl:r[0].Customurl,WalletAddress:a,
@@ -86,7 +86,7 @@ const setaddwallet=async(a)=>{
                 })                  
         }
         else{
-            console.log("firstaddress",snapshot.val())
+            //console.log("firstaddress",snapshot.val())
             firebase.database().ref("userprofile").child(a).set({
             Imageurl:logo,bgurl:logo,
             UserName:"",Customurl:"",WalletAddress:a,

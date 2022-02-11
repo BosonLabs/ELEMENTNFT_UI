@@ -18,10 +18,10 @@ const ProfileTabsOther = (create) => {
     window.scrollTo(0, 0);     
     });
 
-    console.log("bcreate",create.create)    
-    console.log("bsale",create.sale) 
-    console.log("bbuyed",create.buyed) 
-    console.log("Logp",create.owner)
+    // console.log("bcreate",create.create)    
+    // console.log("bsale",create.sale) 
+    // console.log("bbuyed",create.buyed) 
+    // console.log("Logp",create.owner)
     
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">

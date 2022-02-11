@@ -15,8 +15,8 @@ const animatedComponents = makeAnimated();
 
 const Created = (data) => {
         
-    console.log("getdatacreate",data.data)      
-    console.log("createddata2",data.onNameChange)      
+    //console.log("getdatacreate",data.data)      
+    //console.log("createddata2",data.onNameChange)      
           
     const colourStyles = {
         option: (styles, { isFocused }) => {
@@ -186,7 +186,7 @@ const Created = (data) => {
             {data.data.map((x, index) => {                
                 return(  
                     <>
-                    {console.log("xvalue",x)}
+                    {/* {console.log("xvalue",x)} */}
                     {/* onClick={()=>getprice(x)} */}
                     <div className='col mb-4' >
                     <CardCreate img={x.Imageurl} onNameChange={data.onNameChange}

@@ -15,12 +15,12 @@ const ProfileTabs = (create) => {
         window.scrollTo(0, 0);     
     });
 
-    console.log("sets",create.onNameChange)    
-    console.log("bcreate",create.create)    
-    console.log("bsale",create.sale) 
-    console.log("bbuyed",create.buyed)     
-    console.log("Logp1",create.owner)     
-    console.log("Logp2",create.likes)  
+    // console.log("sets",create.onNameChange)    
+    // console.log("bcreate",create.create)    
+    // console.log("bsale",create.sale) 
+    // console.log("bbuyed",create.buyed)     
+    // console.log("Logp1",create.owner)     
+    // console.log("Logp2",create.likes)  
     
     
     

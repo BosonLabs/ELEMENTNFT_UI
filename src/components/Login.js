@@ -3,9 +3,9 @@ import Layout from './Layout';
 
 
 function HomePage() {
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    });
+    // React.useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // });
 
     return (
         <Layout>

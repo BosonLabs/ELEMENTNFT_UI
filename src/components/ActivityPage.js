@@ -11,9 +11,9 @@ import firebase from '../firebase';
 
 function ActivityPage() {
     const[getImgreffalgo,setgetImgreffalgo]=React.useState([]);
-    console.log("getImgalgo",getImgreffalgo)
+    //console.log("getImgalgo",getImgreffalgo)
     const dbcallalgo=async()=>{
-        console.log("inside dbcallalgo function")  
+        //console.log("inside dbcallalgo function")  
         let req = [];
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
         }
@@ -22,7 +22,7 @@ function ActivityPage() {
           firebase.database().ref("activitytable").child(getalgo).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
-                //console.log("keycheck",d.key)
+                ////console.log("keycheck",d.key)
                 let value=d.val();
                 req.push(            
                   {
@@ -91,7 +91,7 @@ function ActivityPage() {
                         <Tab eventKey="created" title="My activity">
                                    <Row>                                      
                                    {getImgreffalgo.map((x, index) => {
-                                    console.log("xvalue",x)
+                                    // //console.log("xvalue",x)
                                     return(  
                                     <>
                                     <Col md={7}>

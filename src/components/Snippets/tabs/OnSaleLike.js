@@ -13,7 +13,7 @@ import CardSale from '../CardSale';
 const animatedComponents = makeAnimated();
 
 const OnSaleLike = (data) => {    
-    console.log("getdatasalelike",data.data)            
+    //console.log("getdatasalelike",data.data)            
     const colourStyles = {
         option: (styles, { isFocused }) => {          
           return {
@@ -222,7 +222,7 @@ const OnSaleLike = (data) => {
            ):(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
             {data.data.map((x, index) => {
-                console.log("xvalue",x)
+                // console.log("xvalue",x)
                 return(  
                     <>                    
                     <div className='col mb-4' >

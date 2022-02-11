@@ -6,7 +6,7 @@ import {
 import Icon from '../../assets/images/dummy-icon.svg';
 
 const CollectionItemCopy = (props) => {
-    console.log("propstops",props.title)
+    //console.log("propstops",props.title)
     //console.log("followcoll",props.follow)
     return (
         <Link className='collection-item d-flex align-items-center' to={{

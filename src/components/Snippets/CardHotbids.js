@@ -4,8 +4,8 @@ import {
     Link
   } from "react-router-dom";
 
-import User from '../../assets/images/dummy-icon.svg';
-import Preview from '../../assets/images/preview.jpg';
+//import User from '../../assets/images/dummy-icon.svg';
+//import Preview from '../../assets/images/preview.jpg';
 import EthereumIcon from '../../assets/images/Algo.png';
 import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
@@ -14,31 +14,27 @@ import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
 import logogif from '../../assets/images/gif4.webp';
 import firebase from '../../firebase';
-const myAlgoWallet = new MyAlgoConnect();
-
-
-
-
+//const myAlgoWallet = new MyAlgoConnect();
 const CardHotbids = (props) => {
-    console.log("HistoryAddressbidp",props.pAddress)
-    console.log("HistoryAddressbido",props.oAddress)
-    console.log("hotbidsop",props)
+    //console.log("HistoryAddressbidp",props.pAddress)
+    //console.log("HistoryAddressbido",props.oAddress)
+    //console.log("hotbidsop",props)
     const [showShare,setshowShare] = React.useState(false); 
     const handleCloseshowShare = () => setshowShare(false);  
-    const [showTest, setShowTest] = React.useState(false);
+    //const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
-    const [showTestDone,setshowTestDone] = React.useState(false);   
+    //const [showTestDone,setshowTestDone] = React.useState(false);   
     const [showTestSale,setshowTestSale] = React.useState(false);   
          
-    const [getprices,setprices]=useState(null)
-    const handleCloseTest = () => setShowTest(false);
-    const handleCloseTestLoading = () => setShowTestLoading(false);
-    const handleCloseTestDone = () => setshowTestDone(false);
-    const handleCloseTestSale = () => setshowTestSale(false);
+    //const [getprices,setprices]=useState(null)
+    //const handleCloseTest = () => setShowTest(false);
+    //const handleCloseTestLoading = () => setShowTestLoading(false);
+    //const handleCloseTestDone = () => setshowTestDone(false);
+    //const handleCloseTestSale = () => setshowTestSale(false);
     const[getIPro,setgetIPro]=useState([""]);
-    console.log("getIProprofile",getIPro[0].Imageurl) 
+    //console.log("getIProprofile",getIPro[0].Imageurl) 
     const[getIPro1,setgetIPro1]=useState([""]);
-    console.log("getIProprofile1",getIPro1[0].Imageurl) 
+    //console.log("getIProprofile1",getIPro1[0].Imageurl) 
 
     const dbcallPro=async()=>{            
         let r=[];
@@ -57,7 +53,7 @@ const CardHotbids = (props) => {
           setgetIPro(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
@@ -79,7 +75,7 @@ const CardHotbids = (props) => {
           setgetIPro1(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro1()},[])
@@ -93,7 +89,7 @@ const CardHotbids = (props) => {
             const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
             if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
               //Got the completed Transaction
-              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              //console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
               break;
             }
             lastRound++;
@@ -128,20 +124,20 @@ const CardHotbids = (props) => {
                 //console.log("Global state", datedt);  
               try {    
                 let convert95=(((parseInt(props.dataall.NFTPrice))/100)*95)
-                console.log("convert95",convert95)  
+                //console.log("convert95",convert95)  
                 let convert5=(((parseInt(props.dataall.NFTPrice))/100)*5);
-                console.log("convert5",convert5)
+                //console.log("convert5",convert5)
                 const params = await algodclient.getTransactionParams().do();    
                 const myAlgoConnect = new MyAlgoConnect();
                 let results = await algodclient.compile(dataescrow).do();
-                console.log("Resultconsole = " + results);
-                console.log("Hash = " + results.hash);
-                console.log("Result = " + results.result);
+                //console.log("Resultconsole = " + results);
+                //console.log("Hash = " + results.hash);
+                //console.log("Result = " + results.result);
                 //await sleep(20000)
                 let program = new Uint8Array(Buffer.from(results.result, "base64"));      
                 let lsig = algosdk.makeLogicSig(program);
                 //let tealSignPrint = tealSign(sk, data, lsig.address());
-                console.log("LSIG",lsig.address())
+                //console.log("LSIG",lsig.address())
                 let appArgs = [];
                 appArgs.push(new Uint8Array(Buffer.from("Buynow")));
                 const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
@@ -155,7 +151,7 @@ const CardHotbids = (props) => {
               
                 const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
                 const responseass = await algodclient.sendRawTransaction(signedTxnass.blob).do();
-                console.log("optresponse",responseass)
+                //console.log("optresponse",responseass)
                 
                   
                 const txn1 = algosdk.makeApplicationNoOpTxnFromObject({
@@ -230,7 +226,7 @@ const CardHotbids = (props) => {
               const signedTx7 = algosdk.signLogicSigTransaction(txnsToGroup[6], lsig);
               
               const response = await algodclient.sendRawTransaction([signedTx1.blob,signedTx2.blob,signedTx3.blob,signedTx4.blob,signedTx5.blob,signedTx6.blob,signedTx7.blob]).do();
-              console.log("TxID", JSON.stringify(response, null, 1));
+              //console.log("TxID", JSON.stringify(response, null, 1));
               await waitForConfirmation(algodclient, response.txId);
               
               //db change here
@@ -246,12 +242,12 @@ const CardHotbids = (props) => {
                     }) 
               })
               .catch((e) => {
-              console.error(e);
+              //console.error(e);
               setShowTestLoading(false)  
               });                            
               //db change end here
                 } catch (err) {
-                  console.error(err);
+                  //console.error(err);
                 }                                                                  
             }
         }
@@ -334,6 +330,7 @@ const CardHotbids = (props) => {
                         <Dropdown.Divider />
                         <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
                         <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
+                        <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${props.Assetid}`)}>Explore</Dropdown.Item>
                         <Dropdown.Item href="/">Report</Dropdown.Item>
                     </Dropdown.Menu>
                     

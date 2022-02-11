@@ -7,7 +7,7 @@ const ThemeChanger = () => {
   const handleChange = () => {
     setThemeState(!themeState);
     setTimeout(() => {
-      console.log(themeState)
+      //console.log(themeState)
       if(themeState) {
         localStorage.setItem('Theme', 'dark');
         document.body.classList.add('dark-mode');

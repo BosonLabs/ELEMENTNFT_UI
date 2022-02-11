@@ -5,7 +5,7 @@ import VideoCard from './VideoCard';
 
 
 const SlideCard = (props) => {
-    console.log("Slide1",props.dataall)
+    //console.log("Slide1",props.dataall)
     return (
         <Carousel 
             className='carousel-slider'

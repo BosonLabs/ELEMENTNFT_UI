@@ -25,7 +25,7 @@ const axios = require('axios');
 function Header() {
     const {getI,getIexplore}=useContext(DataContext)
     const [searchText, setSearchText] = React.useState('');
-    console.log("SeSet",searchText)
+    //console.log("SeSet",searchText)
     const [show, setShow] = React.useState(false);
     const [search, setSearch] = React.useState(false);
     const [menu, setMenu] = React.useState(false);
@@ -57,7 +57,7 @@ function Header() {
       setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
       localStorage.setItem("balget",account1_info);      
   })().catch(e => {
-      console.log(e);
+      //console.log(e);
   })                    
         }        
     }
@@ -73,21 +73,21 @@ function Header() {
         'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
     }
     let client = new algosdk.Algodv2(token, baseServer, port);  
-    console.log("log1",client);
+    //console.log("log1",client);
 
 ( async() => {
 let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());
-console.log("accinfo",account1_info)
-console.log("accinfoamount",account1_info.amount)
+//console.log("accinfo",account1_info)
+//console.log("accinfoamount",account1_info.amount)
 let calc=JSON.stringify(account1_info.amount)/1000000;
-//console.log("calc",calc)
+////console.log("calc",calc)
 setalgobalance(JSON.stringify(account1_info.amount)/1000000);
 //console.log("Balance of account 1: " + JSON.stringify(account1_info.amount));
 localStorage.setItem("balget",account1_info);
 // let account2_info = (await client.accountInformation().do());
 // console.log("Balance of account 2: " + JSON.stringify(account2_info.amount));
 })().catch(e => {
-console.log(e);
+//console.log(e);
 })
 
 
@@ -104,10 +104,10 @@ const filterdata=()=>{
     else{
             let data = getIexplore.filter((val)=>{
             let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
-            console.log("val1",val1)          
+            //console.log("val1",val1)          
             return val1            
         })
-        console.log("B1Top",data)
+        //console.log("B1Top",data)
         return data;
     }            
   }  
@@ -119,11 +119,11 @@ const filterdata=()=>{
     else{
             let data = getI.filter((val)=>{
                 let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
-                console.log("val1",val1)          
+                //console.log("val1",val1)          
                 return val1
             //return val
         })
-        console.log("B1Top",data)
+        //console.log("B1Top",data)
         return data;
     }            
   }
@@ -136,10 +136,10 @@ const filterdata=()=>{
     else{
             let data = getIexplore.filter((val)=>{
             let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
-            console.log("val1",val1)          
+            //console.log("val1",val1)          
             return val1
         })
-        console.log("B1Top",data)
+        //console.log("B1Top",data)
         return data;
     }            
   }

@@ -5,14 +5,14 @@ import {
 import firebase from './firebase';
 const Validornotcheck=()=>{
     const[getIPro,setgetIPro]=useState([""]);
-    console.log("getIPro",getIPro) 
+    ////console.log("getIPro",getIPro) 
     const dbcallPro=async()=>{            
         let r=[];
         try {         
         firebase.database().ref("userprofile").on("value", (data) => {                    
           if (data) {                                            
             Object.keys(data.val()).map(async(k)=>{ 
-                console.log("FireView2",data.val()[k])                                       
+                ////console.log("FireView2",data.val()[k])                                       
                 r.push({
                     Bio:data.val()[k].Bio,
                     Customurl: data.val()[k].Customurl,
@@ -34,13 +34,13 @@ const Validornotcheck=()=>{
           setgetIPro(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        ////console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
 
     const dbupdatecall=async(user)=>{
-      console.log("userche",user)
+      ////console.log("userche",user)
       firebase.database().ref("userprofile").child(user.WalletAddress).set({
         Imageurl:user.Imageurl,bgurl:user.bgurl,
         UserName:user.UserName,Customurl:user.Customurl,WalletAddress:user.WalletAddress,

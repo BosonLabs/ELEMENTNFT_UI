@@ -4,7 +4,7 @@ export const MovieContext = createContext();
 export const Movie = props =>{
     const[getI,setgetI]=useState([""]); 
     const[getIexplore,setgetIexplore]=useState([]);  
-    // console.log("gethome",getI)        
+    // ////console.log("gethome",getI)        
     // const [mov,setmov]=useState([
     //     {
     //         name:'hari',
@@ -31,7 +31,7 @@ export const Movie = props =>{
             req.push(response.data)
             let req2 =[];
             req.forEach((l) => {              
-              console.log("Dd",l)              
+              ////console.log("Dd",l)              
               Object.keys(l).map(async(k)=>{                                        
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    
@@ -72,7 +72,7 @@ export const Movie = props =>{
             req.push(response.data)
             let req2 =[];
             req.forEach((l) => {              
-              console.log("D",l)              
+              ////console.log("D",l)              
               Object.keys(l).map(async(k)=>{                                        
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    

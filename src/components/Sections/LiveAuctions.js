@@ -12,7 +12,7 @@ const LiveAuctions = () => {
     //     window.scrollTo(0, 0);     
     // });
     const[getI,setgetI]=useState([]); 
-    console.log("getImgLive",getI)    
+    //console.log("getImgLive",getI)    
     const check=()=>{
         alert("check")
     }
@@ -41,7 +41,7 @@ const LiveAuctions = () => {
             req.push(response.data)
             let req2 =[];
             req.forEach((l) => {              
-              console.log("D",l)              
+              //console.log("D",l)              
               Object.keys(l).map(async(k)=>{                                        
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    
@@ -138,13 +138,13 @@ const LiveAuctions = () => {
               
               
                 {getI.map((x, index) => {
-                console.log("logo",x)
+                //console.log("logo",x)
                 return(  
                     <>
                     {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">               */}
                     {/* subTitle="$1,426,752" */}
                     <div className='carousel-cell carousel-cell-20' >
-                    <CardLiveA timer='19:10' pAddress={x.previousoaddress} oAddress={x.ownerAddress} img={x.Imageurl} verify={true} count="401"  dataall={x}/> 
+                    <CardLiveA timer='19:10' pAddress={x.previousoaddress} oAddress={x.ownerAddress} img={x.Imageurl} verify={true} count="401"  dataall={x} Assetid={x.Assetid}/> 
                     </div>                    
                     {/* </div> */}
                     </>                                                                                          

@@ -4,38 +4,37 @@ import {
     Link
   } from "react-router-dom";
 
-import User from '../../assets/images/dummy-icon.svg';
-import Preview from '../../assets/images/preview.jpg';
+//import User from '../../assets/images/dummy-icon.svg';
+//import Preview from '../../assets/images/preview.jpg';
 import EthereumIcon from '../../assets/images/Algo.png'
-import configfile from '../../config.json'
-import MyAlgoConnect from '@randlabs/myalgo-connect';
+//import configfile from '../../config.json'
+//import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import firebase from '../../firebase';
-import dataescrow from "../../escrow.js";
+//import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
 import logogif from '../../assets/images/gif4.webp';
-const myAlgoWallet = new MyAlgoConnect();
+//const myAlgoWallet = new MyAlgoConnect();
 
 const CardBuy = (props) => {
     const [showShare,setshowShare] = React.useState(false); 
     const handleCloseshowShare = () => setshowShare(false);  
-    const [showTest, setShowTest] = React.useState(false);
+    //const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
-    const [showTestDone,setshowTestDone] = React.useState(false);   
-    const [showTestSale,setshowTestSale] = React.useState(false);   
-         
-    const [getprices,setprices]=useState(null)
-    const handleCloseTest = () => setShowTest(false);
-    const handleCloseTestLoading = () => setShowTestLoading(false);
-    const handleCloseTestDone = () => setshowTestDone(false);
-    const handleCloseTestSale = () => setshowTestSale(false);
+    //const [showTestDone,setshowTestDone] = React.useState(false);   
+    const [showTestSale,setshowTestSale] = React.useState(false);            
+    //const [getprices,setprices]=useState(null)
+    //const handleCloseTest = () => setShowTest(false);
+    //const handleCloseTestLoading = () => setShowTestLoading(false);
+    //const handleCloseTestDone = () => setshowTestDone(false);
+    //const handleCloseTestSale = () => setshowTestSale(false);
     
     const[getIPro1,setgetIPro1]=useState([""]);
     const[getIPro,setgetIPro]=useState([""]);
-    console.log("getIProprofile",getIPro[0].Imageurl) 
-    console.log("getIProprofile1",getIPro1[0].Imageurl) 
+    //console.log("getIProprofile",getIPro[0].Imageurl) 
+    //console.log("getIProprofile1",getIPro1[0].Imageurl) 
     const[getdblike,setdblike]=useState([""]);
-    console.log("getdblike",getdblike[0].Imageurl) 
+    //console.log("getdblike",getdblike[0].Imageurl) 
     
 
     const dbcallPro=async()=>{            
@@ -54,7 +53,7 @@ const CardBuy = (props) => {
           setgetIPro(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
@@ -75,7 +74,7 @@ const CardBuy = (props) => {
           setgetIPro1(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro1()},[])
@@ -216,6 +215,7 @@ const CardBuy = (props) => {
                         <Dropdown.Divider />
                         <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
                         <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
+                        <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${props.Assetid}`)}>Explore</Dropdown.Item>
                         <Dropdown.Item href="/">Report</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

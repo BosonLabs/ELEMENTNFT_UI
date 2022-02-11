@@ -18,7 +18,7 @@ function HomePage(props) {
     window.scrollTo(0, 0);     
   });
     const location = useLocation(); 
-    console.log("hotcollo",location.state)        
+    //console.log("hotcollo",location.state)        
     //console.log("followlast",location.state.follow[0].follower)
     //console.log("followlast2",location.state.follow[0].following)
     
@@ -28,12 +28,12 @@ function HomePage(props) {
     const [following, setFollowing] = React.useState(false);
     const[getImgreffalgo,setgetImgreffalgo]=useState([]);
     const[getIPro,setgetIPro]=useState([""]);
-    console.log("getIPro",getIPro) 
-    console.log("getImgalgo",getImgreffalgo)
+    //console.log("getIPro",getIPro) 
+    //console.log("getImgalgo",getImgreffalgo)
     const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
-    console.log("getImgalgosale",getImgreffalgosale)
+    //console.log("getImgalgosale",getImgreffalgosale)
     const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
-    console.log("getImgalgobuy",getImgreffalgobuy)
+    //console.log("getImgalgobuy",getImgreffalgobuy)
 
     const handleClose = () => {setShow(false); setFollowers(false); setFollowing(false)};
     const handleShow = () => setShow(true);
@@ -43,14 +43,14 @@ function HomePage(props) {
     //title:props.NFTName,amount:props.NFTPrice,appid:props.Appid,assetid:props.Assetid,escrowaddress:props.EscrowAddress,historyaddress:props.HistoryAddress,imageurl:props.Imageurl,ipfsurl:props.Ipfsurl,nftdescription:props.NFTDescription,TimeStamp:props.TimeStamp,keyId:props.keyId,ownerAddress:props.ownerAddress,previousaddress:props.previousaddress,userSymbol:props.userSymbol
 
     //const[getIf,setgetIf]=useState([""]); 
-    //console.log("gethome",getIf)        
+    ////console.log("gethome",getIf)        
     const[getIfo,setgetIfo]=useState([null]); 
-    console.log("gethomeo",getIfo)        
+    //console.log("gethomeo",getIfo)        
     const[getIfl,setgetIfl]=useState([null]); 
-    console.log("gethomefl",getIfl)   
+    //console.log("gethomefl",getIfl)   
     
     const[getdbLike,setdbLike]=useState([]);
-    console.log("getdbLike",getdbLike)
+    //console.log("getdbLike",getdbLike)
     const dbLike=async()=>{    
         let req = [];
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
@@ -112,7 +112,7 @@ function HomePage(props) {
         setgetIPro(r);
       });                  
     } catch (error) {
-      console.log('error occured during search', error);    
+      //console.log('error occured during search', error);    
     }                
     }    
   useEffect(()=>{dbcallPro()},[])
@@ -120,7 +120,7 @@ function HomePage(props) {
 
 
     const dbcallowner=async()=>{      
-      console.log("Insowner",location.state.ownerAddress)    
+      //console.log("Insowner",location.state.ownerAddress)    
       let reqoo = [];      
       try {
         if(firebase.database().ref("followings").child(location.state.ownerAddress) === undefined){
@@ -128,9 +128,9 @@ function HomePage(props) {
         }
         else{
           firebase.database().ref("followings").child(location.state.ownerAddress).on("value", (data) => {
-            console.log("Insowners",data)
+            //console.log("Insowners",data)
             if (data) {                            
-              console.log("tataam",data.val())
+              //console.log("tataam",data.val())
               reqoo.push({
                 TimeStamp:data.val().TimeStamp,
                 follower:data.val().follower,
@@ -145,7 +145,7 @@ function HomePage(props) {
           }) 
         }          
       } catch (error) {
-        console.log('error occured during search', error);
+        //console.log('error occured during search', error);
       }          
     }
     
@@ -177,7 +177,7 @@ function HomePage(props) {
       }
       
     } catch (error) {
-      console.log('error occured during search', error);    
+      //console.log('error occured during search', error);    
     }          
   }  
 useEffect(()=>{dbcallother()},[])
@@ -218,12 +218,12 @@ useEffect(()=>{dbcallother()},[])
 
 
     const dbcallalgo=async()=>{
-        console.log("inside dbcallalgo function")  
+        //console.log("inside dbcallalgo function")  
         let req = [];        
           firebase.database().ref("imagerefAlgo").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
-                //console.log("keycheck",d.key)
+                ////console.log("keycheck",d.key)
                 let value=d.val();
                 req.push(            
                   {
@@ -289,7 +289,7 @@ useEffect(()=>{dbcallother()},[])
             }
             setgetImgreffalgosale(req);  
           });                  
-        console.log("accsale",getImgreffalgosale)      
+        //console.log("accsale",getImgreffalgosale)      
     }      
     useEffect(()=>{dbcallsalealgo()},[])
 
@@ -348,7 +348,7 @@ useEffect(()=>{dbcallother()},[])
 
         //local null && owner entry
         let dateset=new Date().toDateString();      
-        console.log("nullnew1","null1")                  
+        //console.log("nullnew1","null1")                  
         let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
         let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
         //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
@@ -363,10 +363,10 @@ useEffect(()=>{dbcallother()},[])
         //console.log("uni11",uniqueChars11);//ramfollow local
         let chars2 = allarr2      
         let uniqueChars2 = new Set(chars2);
-        console.log("uni2",uniqueChars2);//thiru following
+        //console.log("uni2",uniqueChars2);//thiru following
         let chars22 = allarr22        
         let uniqueChars22 = new Set(chars22);
-        console.log("uni22",uniqueChars22);//thiru follow
+        //console.log("uni22",uniqueChars22);//thiru follow
         let arr1=[]        
         arr1.push(location.state.ownerAddress)        
         ref1.set({  
@@ -383,7 +383,7 @@ useEffect(()=>{dbcallother()},[])
 
         //owner null && local entry
         let dateset=new Date().toDateString();      
-        console.log("nullnew1","null1")                  
+        //console.log("nullnew1","null1")                  
         let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
         let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
         let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
@@ -392,10 +392,10 @@ useEffect(()=>{dbcallother()},[])
         //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
         let chars1 = allarr1
         let uniqueChars1 = new Set(chars1);
-        console.log("uni1",uniqueChars1);//ramfollowing local
+        //console.log("uni1",uniqueChars1);//ramfollowing local
         let chars11 = allarr11                
         let uniqueChars11 = new Set(chars11);
-        console.log("uni11",uniqueChars11);//ramfollow local
+        //console.log("uni11",uniqueChars11);//ramfollow local
         //let chars2 = allarr2      
         //let uniqueChars2 = new Set(chars2);
         //console.log("uni2",uniqueChars2);//thiru following
@@ -416,7 +416,7 @@ useEffect(()=>{dbcallother()},[])
       }
       else{
         let dateset=new Date().toDateString();      
-        console.log("nullnew1","null1")                  
+        //console.log("nullnew1","null1")                  
         let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
         let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
         let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
@@ -425,16 +425,16 @@ useEffect(()=>{dbcallother()},[])
         let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
         let chars1 = allarr1
         let uniqueChars1 = new Set(chars1);
-        console.log("uni1",uniqueChars1);//ramfollowing local
+        //console.log("uni1",uniqueChars1);//ramfollowing local
         let chars11 = allarr11                
         let uniqueChars11 = new Set(chars11);
-        console.log("uni11",uniqueChars11);//ramfollow local
+        //console.log("uni11",uniqueChars11);//ramfollow local
         let chars2 = allarr2      
         let uniqueChars2 = new Set(chars2);
-        console.log("uni2",uniqueChars2);//thiru following
+        //console.log("uni2",uniqueChars2);//thiru following
         let chars22 = allarr22        
         let uniqueChars22 = new Set(chars22);
-        console.log("uni22",uniqueChars22);//thiru follow
+        //console.log("uni22",uniqueChars22);//thiru follow
 
         ref1.update({  
           walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})

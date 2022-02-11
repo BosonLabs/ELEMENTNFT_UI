@@ -24,7 +24,7 @@ const Edit = () => {
     //     window.scrollTo(0, 0);     
     // });
     const [getresponse, setresponse] = useState([]);
-    console.log("NU2",getresponse)
+    //console.log("NU2",getresponse)
     useEffect(() => {
         const fetchPosts = async () => {      
             //algoAddress2
@@ -62,15 +62,15 @@ const Edit = () => {
         try{
         Compress.imageFileResizer(file, 500, 500, 'JPEG', 200, 0,
         uri => {
-          console.log("iuri",uri)
+          //console.log("iuri",uri)
           setImg(uri)          
         },
         'base64'
         );
         reader.readAsArrayBuffer(file)
-        console.log(reader)    
+        //console.log(reader)    
       }catch (err) {
-        console.error(err);    
+        //console.error(err);    
         }
       };
 
@@ -102,10 +102,10 @@ const Edit = () => {
         }
         else if(getresponse[0] === null || getresponse[0] === "" || getresponse[0] === undefined || getresponse === null || getresponse === undefined || getresponse === ""){
             setshowTestLoading(true)
-            console.log("NU1",getresponse)
+            //console.log("NU1",getresponse)
             //alert("response null")
             let dateset=new Date().toDateString();            
-            console.log("Temp",tempaddress)
+            //console.log("Temp",tempaddress)
             const userjsonkey= {
                 "userKey":"userKey3",
                 "algoAddress":tempaddress,
@@ -131,19 +131,19 @@ const Edit = () => {
             //     "bio":"bio1",
             //     "profileImagePath":"profileImagePath1",
             //     "coverImagePath":"coverImagePath1"}
-            console.log("formDatafinal1",userjsonkey)
+            //console.log("formDatafinal1",userjsonkey)
             //localStorage.getItem('wallet')
             //`${configfile['url']}/userinfo/aaaa`
             //http://18.117.76.243:42100/nft/v1/userinfo
             
             await axios.post(`${configfile['url']}/userinfo`,userjsonkey)
             .then(async(responseuser) => {
-              console.log("uploadeduser",responseuser)                                      
+              //console.log("uploadeduser",responseuser)                                      
               setshowTestLoading(false)  
               setShow(true)
             })
             .catch((e) => {
-              console.log("Err",e);  
+              //console.log("Err",e);  
               setshowTestLoading(false)                     
             })                                          
         }
@@ -235,12 +235,12 @@ const Edit = () => {
         //'http://18.117.76.243:42100/nft/v1/userinfo'
         await axios.post(`${configfile['url']}/userinfo`,userjsonkey)
             .then(async(responseuser) => {
-              console.log("uploadeduser",responseuser)                                      
+              //console.log("uploadeduser",responseuser)                                      
               setshowTestLoading(false)  
               setShow(true)
             })
             .catch((e) => {
-              console.log(e);  
+              //console.log(e);  
               setshowTestLoading(false)                     
             })                                                  
     }    

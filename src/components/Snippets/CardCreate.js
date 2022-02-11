@@ -39,7 +39,7 @@ const CardInfo = (props) => {
             const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
             if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
               //Got the completed Transaction
-              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              //console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
               break;
             }
             lastRound++;
@@ -60,7 +60,7 @@ const CardInfo = (props) => {
         }
     const onshow2=()=>{
         setShowTestLoading(true)
-        console.log("sale",props.dataall);
+        //console.log("sale",props.dataall);
         if(localStorage.getItem('wallet') === props.dataall.ownerAddress){      
             let dateset=new Date().toDateString();      
             fireDb.database().ref(`imagerefexploreoneAlgos/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
@@ -70,7 +70,7 @@ const CardInfo = (props) => {
                 CreatorAddress:props.dataall.CreatorAddress
               }).then(()=>{
                 fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
-                  console.log("remove db");
+                  //console.log("remove db");
                   setShowTestLoading(false)
                   setshowTestSale(true)              
               })
@@ -97,36 +97,36 @@ const CardInfo = (props) => {
             //console.log("letasset",x.title)
           try {            
             let amountmul=(parseInt(getprices)*1000000);
-            console.log("amountmul",amountmul)
+            //console.log("amountmul",amountmul)
           const params = await algodclient.getTransactionParams().do();            
           const myAlgoConnect = new MyAlgoConnect();
           let results = await algodclient.compile(dataescrow).do();
-              console.log("Resultconsole = " + results);
-              console.log("Hash = " + results.hash);
-              console.log("Result = " + results.result);
+              //console.log("Resultconsole = " + results);
+              //console.log("Hash = " + results.hash);
+              //console.log("Result = " + results.result);
               //await sleep(20000)
               let program = new Uint8Array(Buffer.from(results.result, "base64"));      
               let lsig = algosdk.makeLogicSig(program);
               //let tealSignPrint = tealSign(sk, data, lsig.address());
-              console.log("LSIG",lsig.address())
+              //console.log("LSIG",lsig.address())
           let appArgs = [];
           appArgs.push(new Uint8Array(Buffer.from("createlisting")));
           appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));
-      console.log("ssk",props.dataall.keyId)
-      console.log("ssa",props.dataall.Assetid)
-      console.log("ssi",props.dataall.Imageurl)
-      console.log("ass",parseInt(amountmul))
-      console.log("lss",lsig.address())
-      console.log("namess",props.dataall.NFTName)
-      console.log("urlss",props.dataall.Ipfsurl)
-      console.log("ownerss",props.dataall.ownerAddress)
-      console.log("ipfsss",props.dataall.Ipfsurl)
-      console.log("press",props.dataall.previousoaddress)
-      console.log("timess",props.dataall.TimeStamp)
-      console.log("desss",props.dataall.NFTDescription)
-      console.log("hisss",props.dataall.HistoryAddress)
-      console.log("appss",props.dataall.Appid)      
-      console.log("userss",props.dataall.userSymbol)      
+    //   console.log("ssk",props.dataall.keyId)
+    //   console.log("ssa",props.dataall.Assetid)
+    //   console.log("ssi",props.dataall.Imageurl)
+    //   console.log("ass",parseInt(amountmul))
+    //   console.log("lss",lsig.address())
+    //   console.log("namess",props.dataall.NFTName)
+    //   console.log("urlss",props.dataall.Ipfsurl)
+    //   console.log("ownerss",props.dataall.ownerAddress)
+    //   console.log("ipfsss",props.dataall.Ipfsurl)
+    //   console.log("press",props.dataall.previousoaddress)
+    //   console.log("timess",props.dataall.TimeStamp)
+    //   console.log("desss",props.dataall.NFTDescription)
+    //   console.log("hisss",props.dataall.HistoryAddress)
+    //   console.log("appss",props.dataall.Appid)      
+      //console.log("userss",props.dataall.userSymbol)      
           let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
             from:localStorage.getItem('wallet'), 
             suggestedParams:params, 
@@ -186,7 +186,7 @@ const CardInfo = (props) => {
           const signedTx4 = await myAlgoConnect.signTransaction(txs[3].toByte());
           const signedTx5 = await myAlgoConnect.signTransaction(txs[4].toByte());
           const response = await algodclient.sendRawTransaction([ signedTx1.blob, signedTx2.blob, signedTx3.blob, signedTx4.blob,signedTx5.blob]).do();
-          console.log("TxID", JSON.stringify(response, null, 1));
+          //console.log("TxID", JSON.stringify(response, null, 1));
           await waitForConfirmation(algodclient, response.txId);
   
           //db here
@@ -206,7 +206,7 @@ const CardInfo = (props) => {
             
           //db end here
             } catch (err) {
-              console.error(err);
+              //console.error(err);
               setShowTestLoading(false)
             }        
         }

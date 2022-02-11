@@ -13,7 +13,7 @@ import CardSale from '../CardSale';
 const animatedComponents = makeAnimated();
 
 const OnSale = (data) => {    
-    console.log("getdatasale",data.data)            
+    //console.log("getdatasale",data.data)            
     const colourStyles = {
         option: (styles, { isFocused }) => {
           // const color = chroma(data.color);
@@ -223,7 +223,7 @@ const OnSale = (data) => {
            ):(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
             {data.data.map((x, index) => {
-                console.log("xvalue",x)
+                // console.log("xvalue",x)
                 return(  
                     <>                    
                     <div className='col mb-4' >

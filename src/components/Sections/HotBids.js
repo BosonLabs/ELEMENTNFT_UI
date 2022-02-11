@@ -13,7 +13,7 @@ const HotBids = () => {
     //   window.scrollTo(0, 0);     
     // });
     const[getI,setgetI]=useState([]); 
-    console.log("getImgal",getI)        
+    //console.log("getImgal",getI)        
 
     const dbcallsaleal=async(index)=>{
         //console.log("hello ramachandran")        
@@ -32,7 +32,7 @@ const HotBids = () => {
             req.push(response.data)
             let req2 =[];
             req.forEach((l) => {              
-              console.log("Dd",l)              
+              //console.log("Dd",l)              
               Object.keys(l).map(async(k)=>{                                        
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    
@@ -94,7 +94,7 @@ const HotBids = () => {
                     {/* <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1">
                     <div className='col mb-4'> */}
                     <div className='carousel-cell carousel-cell-20'>
-                      <CardHotbids HistoryAddress={x.HistoryAddress} pAddress={x.previousoaddress} oAddress={x.ownerAddress} verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} />
+                      <CardHotbids HistoryAddress={x.HistoryAddress} pAddress={x.previousoaddress} oAddress={x.ownerAddress} verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x} Assetid={x.Assetid}/>
                     </div>
                     {/* </div>                    
                     </div> */}

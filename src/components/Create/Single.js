@@ -35,16 +35,16 @@ const Start = () => {
   //   window.scrollTo(0, 0);     
   // });
   let tempAddress=localStorage.getItem('wallet').slice(0,5);
-  console.log("TempAddess",tempAddress)
+  //console.log("TempAddess",tempAddress)
     const {algobalanceApp}=useContext(DataContext)
-    console.log("algobalanceAppSingle",algobalanceApp)
+    //console.log("algobalanceAppSingle",algobalanceApp)
     const { getI } = useContext(DataContext)
-    console.log("NameSingle", getI)
+    //console.log("NameSingle", getI)
     //const[getIPro2]=useContext(DataContext);
     //console.log("getIProprofile",getIPro2[0].valid) 
     let history=useHistory();
     const [fileUrl, updateFileUrl] = useState(``)
-    console.log("Newipfs",fileUrl)
+    //console.log("Newipfs",fileUrl)
     const [show, setShow] = React.useState(false);
     const [tname,setName] = useState("");
     const [tdescription,setDescription] = useState("");      
@@ -52,14 +52,14 @@ const Start = () => {
     // const handleShow = () => setShow(true);
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setshowTestLoading] = React.useState(false);    
-    const handleCloseTest = () => setShowTest(false);
-    const handleCloseTestLoading =()=> setshowTestLoading(false)
+    //const handleCloseTest = () => setShowTest(false);
+    //const handleCloseTestLoading =()=> setshowTestLoading(false)
     // const handleShowTest = () => setShowTest(true);    
     const [Img,setImg] = useState("")
     const [Imgname,setImgname] = useState("")
 
     const[getIPro,setgetIPro]=useState([""]);
-    console.log("getIProprofile",getIPro[0].valid) 
+    //console.log("getIProprofile",getIPro[0].valid) 
     const dbcallPro=async()=>{            
         let r=[];
         try {         
@@ -85,7 +85,7 @@ const Start = () => {
           setgetIPro(r);
         });                  
       } catch (error) {
-        console.log('error occured during search', error);    
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
@@ -98,7 +98,7 @@ const Start = () => {
         try{
         Compress.imageFileResizer(file, 500,500 , 'JPEG', 200, 0,
         uri => {
-          console.log("iuri",uri)
+          //console.log("iuri",uri)
           setImg(uri)
         },
         'base64'
@@ -109,11 +109,11 @@ const Start = () => {
             const url = `https://ipfs.infura.io/ipfs/${added.path}`            
             updateFileUrl(url)
           } catch (error) {
-            console.log('Error uploading file: ', error)
+            //console.log('Error uploading file: ', error)
           }          
-        console.log(reader)    
+        //console.log(reader)    
       }catch (err) {
-        console.error(err);    
+        //console.error(err);    
         }
       };
 
@@ -125,7 +125,7 @@ const Start = () => {
             const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
             if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
               //Got the completed Transaction
-              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              //console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
               break;
             }
             lastRound++;
@@ -169,9 +169,9 @@ const Start = () => {
           let ta=tname;
           let tb='ELEM';
           let te=1000;        
-          console.log("uploadonecheck",ta);
-          console.log("uploadtwocheck",tb);
-          console.log("uploadtwocheck",te);          
+          // console.log("uploadonecheck",ta);
+          // console.log("uploadtwocheck",tb);
+          // console.log("uploadtwocheck",te);          
           const server = "https://testnet-algorand.api.purestake.io/ps2";
           const port = "";  
           const token = {
@@ -200,14 +200,14 @@ const Start = () => {
       
       const signedTxn = await myAlgoConnect.signTransaction(txn.toByte());
       const response = await algodclient.sendRawTransaction(signedTxn.blob).do();
-      console.log("optresponse",response)
+      //console.log("optresponse",response)
       await waitForConfirmation(algodclient,response.txId);
       let ptx = await algodclient.pendingTransactionInformation(response.txId).do();
       let assetID = ptx["asset-index"];
-      console.log("pendingass",assetID);        
+      //console.log("pendingass",assetID);        
       appoptin(assetID,response.txId,localStorage.getItem('wallet'))              
     }catch (err) {
-        console.error(err);                        
+        //console.error(err);                        
         setshowTestLoading(false)
         alert("you wallet raises some issues")
         window.location.reload(false)
@@ -218,7 +218,7 @@ const Start = () => {
     const appoptin=async(assetID,responsetxId,addresseswall)=>{
       let index = parseInt(configfile['appIdPrice']);
       const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');        
-      console.log("appId inside donate", index)                                
+      //console.log("appId inside donate", index)                                
       let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(assetID))
       let results = await algodClient.compile(dataopreplace).do();                
       let program = new Uint8Array(Buffer.from(results.result, "base64"));      
@@ -243,10 +243,10 @@ const Start = () => {
       });
       const signedTx1 = await algosdk.signLogicSigTransaction(optinTranscation, lsig);
       const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
-      console.log("TxID", JSON.stringify(response, null, 1));
+      //console.log("TxID", JSON.stringify(response, null, 1));
       await waitForConfirmation(algodClient, response.txId);          
       } catch (err) {
-        console.error(err);
+        //console.error(err);
         setshowTestLoading(false)          
         alert("you wallet raises some issues")
         window.location.reload(false)
@@ -374,10 +374,10 @@ const Start = () => {
     // }
 
     const storedb=async(assetID,responsetxId,addresseswall)=>{
-        console.log("addresswall",addresseswall)
-        console.log("assetId",assetID)
-        console.log("Img",Img)
-        console.log("tname",tname)  
+        // console.log("addresswall",addresseswall)
+        // console.log("assetId",assetID)
+        // console.log("Img",Img)
+        // console.log("tname",tname)  
         // toast.loading(`images uploading in ipfs`,{
         //   onOpen:('loading')
         // });
@@ -392,7 +392,7 @@ const Start = () => {
                     let ref22=fireDb.database().ref(`imagerefAlgolt`);   
                     let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
                     let dateset=new Date().toDateString();
-                    console.log("dateget",dateset)
+                    //console.log("dateget",dateset)
                     const db = ref2.push().key;                                                                             
                     if(getIPro[0].valid === "validated"){
                       //add pinata here          
@@ -406,9 +406,9 @@ const Start = () => {
                       const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
                                   pinata.testAuthentication().then((result) => {
                                   //handle successful authentication here
-                                  console.log(result);  
+                                  //console.log(result);  
                                   let ge=fileUrl;
-                                  console.log("ipfsHash",fileUrl);
+                                  //console.log("ipfsHash",fileUrl);
                                           const body = {
                                               message: ge
                                           };
@@ -426,8 +426,8 @@ const Start = () => {
                                           };
                                           pinata.pinJSONToIPFS(body, options).then((result) => {
                                               //handle results here
-                                              console.log(result);
-                                              console.log("jsonresult2",result.IpfsHash) 
+                                              //console.log(result);
+                                              //console.log("jsonresult2",result.IpfsHash) 
                                               //toast.dismiss(); 
                                               //toast.info("image uploaded in ipfs",result.IpfsHash)
                                               toast.success(`Image Uploaded in IPFS ${result.IpfsHash}`,{autoClose: 8000});
@@ -471,11 +471,11 @@ const Start = () => {
                                   //return appId;                                            
                                             }).catch((err) => {
                                                 //handle error here
-                                                console.log(err);
+                                                //console.log(err);
                                             });                        
                                           }).catch((err) => {
                                               //handle error here
-                                              console.log(err);
+                                              //console.log(err);
                                           });                  
                                           //end pinata          
                                   //end pinata here                      
@@ -491,9 +491,9 @@ const Start = () => {
                       const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
                                   pinata.testAuthentication().then((result) => {
                                   //handle successful authentication here
-                                  console.log(result);  
+                                  //console.log(result);  
                                   let ge=fileUrl;
-                                  console.log("ipfsHash",fileUrl);
+                                  //console.log("ipfsHash",fileUrl);
                                           const body = {
                                               message: ge
                                           };
@@ -511,8 +511,8 @@ const Start = () => {
                                           };
                                           pinata.pinJSONToIPFS(body, options).then((result) => {
                                               //handle results here
-                                              console.log(result);
-                                              console.log("jsonresult3",result.IpfsHash) 
+                                              //console.log(result);
+                                              //console.log("jsonresult3",result.IpfsHash) 
                                               //toast.dismiss();  
                                               // toast.info("image uploaded in ipfs",result.IpfsHash)
                                               toast.success(`Image Uploaded in IPFS ${result.IpfsHash}`,{autoClose: 8000});
@@ -559,11 +559,11 @@ const Start = () => {
                                   //return appId;                                            
                                             }).catch((err) => {
                                                 //handle error here
-                                                console.log(err);
+                                                //console.log(err);
                                             });                        
                                           }).catch((err) => {
                                               //handle error here
-                                              console.log(err);
+                                              //console.log(err);
                                           });                  
                                           //end pinata          
                                   //end pinata here  

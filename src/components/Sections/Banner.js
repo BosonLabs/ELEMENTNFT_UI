@@ -9,7 +9,7 @@ const axios = require('axios');
 const Banner = () => {
     
     const[getI,setgetI]=React.useState([]); 
-    console.log("getImgal",getI)    
+    // console.log("getImgal",getI)    
     const flickityOptions = {
         initialIndex: 0,
         groupCells: true,
@@ -27,7 +27,7 @@ const Banner = () => {
             req.push(response.data)
             let req2 =[];
             req.forEach((l) => {              
-              console.log("D",l)              
+            //   console.log("D",l)              
               Object.keys(l).map(async(k)=>{                                        
                 const a=l[k];
                 Object.keys(a).map(async(b)=>{                    
@@ -69,7 +69,7 @@ const Banner = () => {
             >
 
                {getI.map((x, index) => {
-                console.log("logo",x)
+                // console.log("logo",x)
                 return(  
                     <>                    
                     <div className='carousel-cell carousel-cell-40'>

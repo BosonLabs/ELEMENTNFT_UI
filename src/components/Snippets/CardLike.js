@@ -13,7 +13,7 @@ import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 const myAlgoWallet = new MyAlgoConnect();
 const CardLike = (props) => {   
-    console.log("likeprops",props.dataall)   
+    //console.log("likeprops",props.dataall)   
     return (
         <>
         <h1>{props.Appid}</h1>                

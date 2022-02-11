@@ -21,22 +21,22 @@ const myAlgoWallet = new MyAlgoConnect();
 const algosdk = require('algosdk'); 
 
 const CardCreate = (props) => {
-    console.log("cprint",props.onNameChange)
-    const handleInputChange = useCallback(event => {
-        props.onNameChange(props.onNameChange)
-    }, [props.onNameChange])
+    //console.log("cprint",props.onNameChange)
+    // const handleInputChange = useCallback(event => {
+    //     props.onNameChange(props.onNameChange)
+    // }, [props.onNameChange])
     const {algobalanceApp}=useContext(DataContext)
-    console.log("algobalanceAppSingle",algobalanceApp)
+    //console.log("algobalanceAppSingle",algobalanceApp)
     const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
     const [showTestSale,setshowTestSale] = React.useState(false);   
     const [showShare,setshowShare] = React.useState(false);            
     const [getprices,setprices]=useState(null)
-    const handleCloseTest = () => setShowTest(false);
-    const handleCloseTestLoading = () => setShowTestLoading(false);
-    const handleCloseTestDone = () => setshowTestDone(false);
-    const handleCloseTestSale = () => setshowTestSale(false);
+    //const handleCloseTest = () => setShowTest(false);
+    //const handleCloseTestLoading = () => setShowTestLoading(false);
+    //const handleCloseTestDone = () => setshowTestDone(false);
+    //const handleCloseTestSale = () => setshowTestSale(false);
     const handleCloseshowShare = () => setshowShare(false);            
     const waitForConfirmation = async function (algodclient, txId) {
         let status = (await algodclient.status().do());
@@ -45,7 +45,7 @@ const CardCreate = (props) => {
             const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
             if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
               //Got the completed Transaction
-              console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              //console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
               break;
             }
             lastRound++;
@@ -68,7 +68,7 @@ const CardCreate = (props) => {
     
     const onshow2=()=>{
         setShowTestLoading(true)
-        console.log("sale",props.dataall);
+        //console.log("sale",props.dataall);
         if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === " "){
             alert("please connect your wallet")
         }else if(localStorage.getItem('wallet') === props.dataall.ownerAddress){                  
@@ -89,7 +89,7 @@ const CardCreate = (props) => {
                 CreatorAddress:props.dataall.CreatorAddress
             })
                 .then(()=>{                                                            
-                    console.log("remove db");
+                    //console.log("remove db");
                     setShowTestLoading(false)
                     setshowTestSale(true)              
                 })                        
@@ -106,7 +106,7 @@ const CardCreate = (props) => {
         setShowTest(false)
         //var regExpr = new RegExp("^\d*\.?\d*$");
         //var regex = new RegExp("^[a-zA-Z]+$")
-        console.log("Lenget",getprices.length)
+        //console.log("Lenget",getprices.length)
         if(getprices === null || getprices === undefined || getprices === "" ){
             alert("please enter price")
             setShowTest(true)
@@ -158,7 +158,7 @@ const CardCreate = (props) => {
              //
              appArg.push(new Uint8Array(Buffer.from("createlisting")));       
              appArg.push(algosdk.encodeUint64(parseFloat(amountmul))); 
-             console.log("Apparg",parseFloat(amountmul))      
+             //console.log("Apparg",parseFloat(amountmul))      
               const transaction2 = algosdk.makeApplicationNoOpTxnFromObject({
                  from: recv_escrow, 
                  appIndex: index,
@@ -196,7 +196,7 @@ const CardCreate = (props) => {
           const signedTx2 = algosdk.signLogicSigTransaction(txs[1], lsig);
           const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);      
           const response = await algodClient.sendRawTransaction([ signedTx1[0].blob, signedTx2.blob, signedTx3.blob, signedTx1[1].blob]).do();
-          console.log("TxID", JSON.stringify(response, null, 1));
+          //console.log("TxID", JSON.stringify(response, null, 1));
           await waitForConfirmation(algodClient, response.txId);
           toast.success(`Create Listing Sucessfully ${response.txId}`,{autoClose: 8000});            
 
@@ -225,7 +225,7 @@ const CardCreate = (props) => {
         //db end here
                   
           } catch (err) {
-            console.error(err);
+            //console.error(err);
             setShowTestLoading(false)
             toast.dismiss();
             alert("you wallet raises some issues")

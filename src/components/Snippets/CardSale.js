@@ -13,7 +13,7 @@ import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 const myAlgoWallet = new MyAlgoConnect();
 const CardSale = (props) => {   
-    console.log("likeprops",props)                     
+    //console.log("likeprops",props)                     
     return (
         <Card>
             {/* <Card.Header className='d-flex align-items-center'>

@@ -18,13 +18,13 @@ function HomePage() {
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);
     // });
-    React.useEffect(() => {
-      window.scrollTo(0, 0);     
-    });
+    // React.useEffect(() => {
+    //   window.scrollTo(0, 0);     
+    // });
     
     const [showRefresh, setShowRefresh] = React.useState(false);
     const[getPro,setgetPro]=useState([""]);
-    console.log("setgetPro",getPro)
+    //console.log("setgetPro",getPro)
     let history=useHistory();    
     const [show, setShow] = React.useState(false);
     const [showL,setShowL] = React.useState(false);
@@ -33,11 +33,11 @@ function HomePage() {
     const [followers, setFollowers] = React.useState(false);
     const [following, setFollowing] = React.useState(false);
     const[getImgreffalgo,setgetImgreffalgo]=useState([]);
-    console.log("getImgalgo",getImgreffalgo)
+    //console.log("getImgalgo",getImgreffalgo)
     const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
-    console.log("getImgalgosale",getImgreffalgosale)
+    //console.log("getImgalgosale",getImgreffalgosale)
     const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
-    console.log("getImgalgobuy",getImgreffalgobuy)
+    //console.log("getImgalgobuy",getImgreffalgobuy)
     const [Img,setImg] = useState("")
     const handleClose = () => {setShow(false); setFollowers(false); setFollowing(false)};
     const handleShow = () => setShow(true);
@@ -47,7 +47,7 @@ function HomePage() {
 
 
     const[getdbLike,setdbLike]=useState([]);
-    console.log("getdbLike",getdbLike)
+    //console.log("getdbLike",getdbLike)
     const dbLike=async()=>{    
         let req = [];
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
@@ -92,7 +92,7 @@ function HomePage() {
       try{
       Compress.imageFileResizer (file,1500, 260, 'JPEG', 300, 0,
       uri =>{
-        console.log("iuri",uri)
+        //console.log("iuri",uri)
         setImg(uri)      
         //setShow(false)
         //setShowL(true)            
@@ -101,16 +101,16 @@ function HomePage() {
       'base64'
       );
       reader.readAsArrayBuffer(file)
-      console.log(reader)          
+      //console.log(reader)          
     }catch (err) {
-      console.error(err);    
+      //console.error(err);    
       }
     };
 
     const updatecover=async(u)=>{
       setShow(false)
       setShowL(true)            
-      console.log("logtrue",firebase.database().ref("userprofile").child(localStorage.getItem('wallet')))
+      //console.log("logtrue",firebase.database().ref("userprofile").child(localStorage.getItem('wallet')))
       // if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).orderByCalled_ === false){ 
       //       let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
       //       let dateset=new Date().toDateString();                
@@ -133,7 +133,7 @@ function HomePage() {
           if (data) {                        
           let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
           let dateset=new Date().toDateString();                
-          console.log("data",data.val())
+          //console.log("data",data.val())
           ref2.update({
           Imageurl:data.val().Imageurl,bgurl:u,
           UserName:data.val().UserName,Customurl:data.val().Customurl,WalletAddress:localStorage.getItem('wallet'),
@@ -145,7 +145,7 @@ function HomePage() {
           }).catch((err) => {                                    
             setShowL(false)              
             window.location.reload(false)       
-            console.log(err);
+            //console.log(err);
           });   
           }          
         })
@@ -162,7 +162,7 @@ function HomePage() {
       else if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet'))){
           firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
             if (data) {              
-            console.log("pdata2",data.val())
+            //console.log("pdata2",data.val())
                 req.push({
                   Bio:data.val().Bio,
                   Customurl: data.val().Customurl,
@@ -188,7 +188,7 @@ function HomePage() {
 
 
   const dbcallalgo=async()=>{
-      console.log("inside dbcallalgo function")  
+      //console.log("inside dbcallalgo function")  
       let req = [];
       if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
       }
@@ -226,7 +226,7 @@ function HomePage() {
     useEffect(()=>{dbcallalgo()},[])
 
     const dbcallsalealgo=async()=>{
-        console.log("inside dbcallsalealgo function")        
+        //console.log("inside dbcallsalealgo function")        
         let req = [];      
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
         }else{      
@@ -263,14 +263,14 @@ function HomePage() {
           });
           
         }
-        console.log("accsale",getImgreffalgosale)
+        //console.log("accsale",getImgreffalgosale)
       
       }
       
     useEffect(()=>{dbcallsalealgo()},[])
 
     const dbcallalgobuy=async()=>{
-        console.log("inside dbcallalgobuy function")  
+        //console.log("inside dbcallalgobuy function")  
         let req = [];      
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
         }

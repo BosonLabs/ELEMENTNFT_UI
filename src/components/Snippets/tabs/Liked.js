@@ -13,9 +13,9 @@ import CardLike from "../CardLike";
 const animatedComponents = makeAnimated();
 
 const OnLiked = (data) => {
-    console.log("datalike",data.data)
+    //console.log("datalike",data.data)
     const[getImgreffalgo,setgetImgreffalgo]=useState([]);
-    console.log("getImgalgo",getImgreffalgo)
+    //console.log("getImgalgo",getImgreffalgo)
     const dbcallalgo=async()=>{    
         let req = [];
         if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
@@ -218,7 +218,7 @@ const OnLiked = (data) => {
                 
                 <div className="col mb-4" >
                 {data.data.map((x, index) => {
-                console.log("loglikep",x)
+                //console.log("loglikep",x)
                 return(  
                     <>
                     <CardLike dataall={x}
