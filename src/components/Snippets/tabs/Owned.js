@@ -222,13 +222,15 @@ const Owned = (data) => {
             {data.data.map((x, index) => {
                 // console.log("xvalue",x)
                 return(  
-                    <>                    
+                    <>         
+                    {x.status === "owned" && (
                     <div className='col mb-4' >
-                    <CardOwn img={x.Imageurl} 
-                    title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
-                    linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
+                    <CardOwn img={x.nftImageAsString} 
+                    title={x.nftName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
+                    linkText={parseFloat(x.nftPrice/1000000)} dataall={x}
                     />
                     </div>                    
+                    )}
                     </>                                                                                          
               )})}                                                  
                     

@@ -20,7 +20,7 @@ function FollowingPage() {
                         <div className='h1 w-100 d-flex align-items-center'>
                         Following
                         </div>
-                        <FilterExplore />
+                        {/* <FilterExplore /> */}
                     </div>
 
                     <div className="no-found py-5p text-center">

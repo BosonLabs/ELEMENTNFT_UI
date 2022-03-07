@@ -74,7 +74,7 @@ function HomePage() {
                 <HotBids />
                 <TopCollectionsSellers />
                 {/* follow={getI} */}
-                <LiveAuctions />
+                {/* <LiveAuctions /> */}
                 <HotCollections />
                 <Explore />                
             </Container>

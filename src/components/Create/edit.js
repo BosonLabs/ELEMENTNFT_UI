@@ -1,17 +1,18 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import Layout from '../Layout';
 import {Container, Row, Col, Form, InputGroup, Button, Modal} from 'react-bootstrap';
 import icon from '../../assets/images/dummy-icon.svg'
 import Compress from "react-image-file-resizer";
-import fireDb from '../../firebase';
+//import fireDb from '../../firebase';
 //import ipfs from "./ipfs";
 import { create } from 'ipfs-http-client';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
-import firebase from '../../firebase';
+//import firebase from '../../firebase';
 import configfile from '../../config.json'
 //import logogif from '../../assets/images/gif1.svg';
 import logogif from '../../assets/images/gif4.webp';
+import { DataContext } from '../../Context/DataContext';
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 const axios = require('axios');
@@ -19,24 +20,25 @@ const axios = require('axios');
 
 
 const Edit = () => {
-    let tempaddress=localStorage.getItem('wallet').slice(0,5);
+    //let tempaddress=localStorage.getItem('wallet').slice(0,50);
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);     
     // });
-    const [getresponse, setresponse] = useState([]);
-    //console.log("NU2",getresponse)
-    useEffect(() => {
-        const fetchPosts = async () => {      
-            //algoAddress2
-            //
-          //localStorage.getItem('wallet')
-          const res = await axios.get(`${configfile['url']}/userinfo/${tempaddress}`)
-          setresponse(res.data)          
-        };    
-    fetchPosts();
-    }, []);
+    const {getApiDataProfileNFT,setApiDataprofile}=useContext(DataContext)
+    // const [getresponse, setresponse] = useState([]);
+    // console.log("GetResponseUserInfo",getresponse)
+    // useEffect(() => {
+    //     const fetchPosts = async () => {     
+    //     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
+    //     }else{                                        
+    //     const res = await axios.get(`${configfile['url']}/userinfo/${localStorage.getItem('wallet')}`)          
+    //       setresponse(res.data)          
+    //     }
+    //     };            
+    // fetchPosts();
+    // }, []);
     let history=useHistory();    
-    const [proget,setpro] = useState([]);
+    //const [proget,setpro] = useState([]);
     const [tname,setName] = useState("");
     const [tpurl,setPurl] = useState("");  
     const [tbio,setBio] = useState("");
@@ -48,8 +50,8 @@ const Edit = () => {
     //const [showTest, setShowTest] = React.useState(false);
     const [showTestLoading, setshowTestLoading] = React.useState(false);    
     const [show, setShow] = React.useState(false);
-    const handleCloseTest = () => setShow(false);
-    const handleCloseTestLoading =()=> setshowTestLoading(false)
+    //const handleCloseTest = () => setShow(false);
+    //const handleCloseTestLoading =()=> setshowTestLoading(false)
     // const handleShowTest = () => setShowTest(true);
     const [Img,setImg] = useState("")
     const [Imgname,setImgname] = useState("")
@@ -62,13 +64,13 @@ const Edit = () => {
         try{
         Compress.imageFileResizer(file, 500, 500, 'JPEG', 200, 0,
         uri => {
-          //console.log("iuri",uri)
-          setImg(uri)          
+          console.log("iuri",uri)
+          setImg(uri)              
         },
         'base64'
         );
         reader.readAsArrayBuffer(file)
-        //console.log(reader)    
+        console.log(reader)    
       }catch (err) {
         //console.error(err);    
         }
@@ -100,144 +102,93 @@ const Edit = () => {
             alert("Please Connect Wallet")
             window.location.reload(false)
         }
-        else if(getresponse[0] === null || getresponse[0] === "" || getresponse[0] === undefined || getresponse === null || getresponse === undefined || getresponse === ""){
+        else if(getApiDataProfileNFT === null || getApiDataProfileNFT === undefined || getApiDataProfileNFT === "" || getApiDataProfileNFT.algoAddress === null || getApiDataProfileNFT.algoAddress === undefined || getApiDataProfileNFT.algoAddress === "" || getApiDataProfileNFT.length === 0){            
             setshowTestLoading(true)
-            //console.log("NU1",getresponse)
-            //alert("response null")
-            let dateset=new Date().toDateString();            
-            //console.log("Temp",tempaddress)
+            var date = new Date();
+            let dateset=date.toJSON().slice(0,10).replace(new RegExp("-", 'g'),"/" ).split("/").reverse().join("")+""+date.toJSON().slice(11,9)        
+
+           
             const userjsonkey= {
-                "userKey":"userKey3",
-                "algoAddress":tempaddress,
-                "creationTime":dateset,
-                "accountType":tpurl,
-                "profileName":tname,
-                "twitterName":tTwitter,
-                "profileURL":turl,
-                "bio":tbio,
-                "profileImagePath":"null",
-                "coverImagePath":"",
-                // "followers":"",
-                // "following": ""
-            }
-            // const userjsonkey={
-            //     "userKey":"userKey1",
-            //     "algoAddress":"",
-            //     "creationTime":"creationTime1",
-            //     "accountType":"accountType1",
-            //     "profileName":"profileName1",
-            //     "twitterName":"twitterName1",
-            //     "profileURL":"profileURL1",
-            //     "bio":"bio1",
-            //     "profileImagePath":"profileImagePath1",
-            //     "coverImagePath":"coverImagePath1"}
-            //console.log("formDatafinal1",userjsonkey)
-            //localStorage.getItem('wallet')
-            //`${configfile['url']}/userinfo/aaaa`
-            //http://18.117.76.243:42100/nft/v1/userinfo
-            
+            "userKey":"",
+            "algoAddress":localStorage.getItem('wallet'),
+            "creationTime":dateset,
+            "accountType":"test",
+            "profileName":tname,
+            "twitterName":tTwitter,
+            "profileURL":tpurl,
+            "bio":tbio,
+            "profileImagePath":Img,
+            "bgvImagePath":"",
+            "profileImageAsString":Img,
+            "bgvImageAsString": Img,
+            "following":[""],
+             "followers":[""],
+             "validuser":0,            
+            }            
             await axios.post(`${configfile['url']}/userinfo`,userjsonkey)
-            .then(async(responseuser) => {
-              //console.log("uploadeduser",responseuser)                                      
-              setshowTestLoading(false)  
-              setShow(true)
+            .then(async(responseuser) => {              
+                let activity={
+                    "ipAddress": "profile update",
+                    "algoAddress": localStorage.getItem('wallet'),
+                    "networkType": dateset,
+                    "walletType": "image"
+                  }
+                  axios.post(`${configfile['url']}/visitinfo`,activity)
+                  .then(async(responseuser) => {
+                    setshowTestLoading(false)  
+                    setShow(true)                    
+                  })                           
             })
-            .catch((e) => {
-              //console.log("Err",e);  
+            .catch((e) => {              
               setshowTestLoading(false)                     
             })                                          
         }
         else{
-        setshowTestLoading(true)
-        // if(fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`).orderByCalled_ === false ){
+        setshowTestLoading(true)        
+        var results = [];
+        for (var i = 0, len = getApiDataProfileNFT.followers; i < len; i++)
+        {            
+            results.push(getApiDataProfileNFT[i]);
+        }
+        var resultss = [];
+        for (var j = 0, lens = getApiDataProfileNFT.following; j < lens; j++)
+        {            
+            resultss.push(getApiDataProfileNFT[i]);
+        }
 
-        // let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
-        // let dateset=new Date().toDateString();
-        // ref2.set({
-        // Imageurl:Img,bgurl:Img,
-        // UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
-        // TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:""})
-        // .then(()=>{             
-        //     setshowTestLoading(false)  
-        //     setShow(true)
-        // }).catch((err) => {                                    
-        //     setshowTestLoading(false)                     
-        //     console.log(err);
-        // });   
-
-        // }else{                
-        // let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
-        // let dateset=new Date().toDateString();
-        // let r=[];
-        // firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
-        //     if (data) {                      
-        //         r.push({
-        //           Bio:data.val().Bio,
-        //           Customurl: data.val().Customurl,
-        //           Email: data.val().Email,
-        //           Imageurl:data.val().Imageurl,
-        //           Personalsiteurl: data.val().Personalsiteurl,
-        //           TimeStamp: data.val().TimeStamp,
-        //           Twittername: data.val().Twittername,
-        //           UserName: data.val().UserName,
-        //           WalletAddress: data.val().WalletAddress,
-        //           bgurl:data.val().bgurl,
-        //           valid:data.val().valid
-        //         })                                                
-        // console.log("InData",r)                      
-        // console.log("bgu",r[0])
-        // ref2.set({
-        //     Imageurl:Img,bgurl:r[0].bgurl,
-        //     UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
-        //     TimeStamp:dateset,Twittername:tTwitter,Personalsiteurl:tpurl,Email:temail,Bio:tbio,valid:r[0].valid})
-        //     .then(()=>{             
-        //         setshowTestLoading(false)  
-        //         setShow(true)
-        //     }).catch((err) => {                                    
-        //         setshowTestLoading(false)                     
-        //         console.log(err);
-        //     });   
-        //}
-        //setpro(r)
-        //})
-        //}
-
-        let dateset=new Date().toDateString();
-        //localStorage.getItem('wallet')
+        var dates = new Date();
+        let dateset=dates.toJSON().slice(0,10).replace(new RegExp("-", 'g'),"/" ).split("/").reverse().join("")+""+dates.toJSON().slice(11,9)                
         const userjsonkey= {
-                "userKey":"userKey1",
-                "algoAddress":tempaddress,
+                "userKey":"",
+                "algoAddress":localStorage.getItem('wallet'),
                 "creationTime":dateset,
                 "accountType":tpurl,
                 "profileName":tname,
                 "twitterName":tTwitter,
                 "profileURL":turl,
                 "bio":tbio,
-                "profileImagePath":"",
-                "coverImagePath":getresponse.coverImagePath,
-                // "followers":getresponse.followers,
-                // "following": getresponse.following
-        }
-        // const userjsonkey={
-        //     "userKey":"userKey1",
-        //     "algoAddress":"RYS3A55",
-        //     "creationTime":"creationTime1",
-        //     "accountType":"accountType1",
-        //     "profileName":"profileName1",
-        //     "twitterName":"twitterName1",
-        //     "profileURL":"profileURL1",
-        //     "bio":"bio1",
-        //     "profileImagePath":"profileImagePath1",
-        //     "coverImagePath":"coverImagePath1"}
-        //localStorage.getItem('wallet')
-        //http://18.117.76.243:42100/nft/v1
-        //`${configfile['url']}/userinfo/aaa`
-        //'http://18.117.76.243:42100/nft/v1/userinfo'
-        await axios.post(`${configfile['url']}/userinfo`,userjsonkey)
+                "profileImagePath":Img,                
+                "bgvImagePath":getApiDataProfileNFT.coverImagePath,
+                "profileImageAsString":Img,
+                "bgvImageAsString": getApiDataProfileNFT.coverImagePath,
+                "following":resultss,
+                "followers":results,
+                "validuser":0
+        }                
+        await axios.put(`${configfile['url']}/userinfo`,userjsonkey)
             .then(async(responseuser) => {
-              //console.log("uploadeduser",responseuser)                                      
-              setshowTestLoading(false)  
-              setShow(true)
+              //console.log("uploadeduser",responseuser)   
+              let activity={
+                "ipAddress": "profile update",
+                "algoAddress": localStorage.getItem('wallet').slice(0,50),
+                "networkType": dateset,
+                "walletType": "image"
+              }
+              axios.post(`${configfile['url']}/visitinfo`,activity)
+              .then(async(responseuser) => {
+                setshowTestLoading(false)  
+                setShow(true)
+              })                                                 
             })
             .catch((e) => {
               //console.log(e);  

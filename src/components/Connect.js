@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useContext, useState} from 'react';
 // import {
 //     Link
 //   } from "react-router-dom";
@@ -13,11 +13,15 @@ import { useHistory } from "react-router-dom";
 //import ModalList from "../components/ModalList";
 //import FolowStepsList from "../components/FolowStepList";
 import ElementIcon from '../assets/images/elementlogo.png'
-import firebase from '../firebase';
+//import firebase from '../firebase';
+import { DataContext } from '../Context/DataContext';
+import configfile from '../config.json'
 const myAlgoWallet = new MyAlgoConnect();
+const axios = require('axios');
 
 
 function Login() {
+    const{getApiDataProfileNFT,setApiDataprofile}=useContext(DataContext)
     let history=useHistory();
     //const [isListtry, setisListtry] = useState([]);
     //const [isOpenlisttry, setIsOpenlisttry] = useState(false);
@@ -57,46 +61,121 @@ const setaddwallet=async(a)=>{
     localStorage.setItem('wallet',a)
     localStorage.setItem('wallet',a)    
     let logo = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAUDc8RjwyUEZBRlpVUF94yIJ4bm549a+5kcj////////////////////////////////////////////////////bAEMBVVpaeGl464KC6//////////////////////////////////////////////////////////////////////////AABEIAKkBLAMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIDBP/EAC4QAAICAQMDAwIGAwEBAAAAAAABAhEhEjFBA1FhM3GBIjIEEyNCkaFDUrFi4f/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABkRAQEBAQEBAAAAAAAAAAAAAAABESExUf/aAAwDAQACEQMRAD8AlFAMgQoAAAACgCApAABQICgIhRaGAABaCoKBLAtCgmtSTLJaXnYm9wxmgW/AsqAI2LAAWLAAWLAoIQClJZLwBQCXQFFEsAUCxYUAsWAAFhACwAsABQABDcAoEBQAjcrSq13Gt8wQ6XqsgVVUlLSsrhsmv/wXpffIlAHHXFyjhriyxevp+UOj+4zF6J+GZv1VIamqeNmQ1LrKUUgKAAAAAAAAAAAWLGAAsAARg0CKzdC/BoAS8FA2AmSlIAAKEQFVEAAFAgLYwBmDrqmnuYT/AFcGg1fDpP8AVaBmD/VZoFOk6lJEkrQ6b/UaNAqw+uFcmSReifhnSa/cuTM5cKwADTIAABCgCD4LYAgKAAAAgsoAgFCvIUAAAoAAAABYoAAGgAACAAoA5pfqm3uSC/VZprLC1iHrM1Zeml+aHuCs9P1WasnSS/NZWgVJK0b6DU4ODWTNE1PpS1Je5UHgGpfUtS2ZmiACkAAAAACgAAAAIAAAACmAA5FAAGgAIUUAAoUAAruKAoJRaYE+S/IFASHrMsnTZIKuqaa+phU6fqh7sdP1Q07eGA6fqsPdjpquqHFpugBJLUmjVPsRxfYIz0JZcH8GmqdHLqJ9OanR6HU4qcSqwBTQ0siIC6S0BkGtPsSsgQFoV7AQFaYSwBAWhRRpJUNK7FoBUpdty6UOQBKS4LS7FAEpCl2GC0BKQ0oPwAFIDcUAFcjgUBMgtDIGF6xt7mF6puW5BmPrGndmV6yNPdgYXrG29zH+ZG3uwFk1DYqaKMdRKcHH+Cfhp09D2OmOxymtM9S5yB2kqZDSeuBn5AfBALILkhSFAewADgUCAANygVAUyAaslkryWsALFjSKAXZLLQSAXYFeRQEF2aoUBkWWgBPgX4G5JzXTWf4QGf8AKjo92eb89a1JxdHoU1NaosYIvVRqS+pmf8qNy3ZBz26qNv7jD9WJuW4CvJKLgXkolWSUbj/w0AMdGVOjpJZtbM4TTUrrHc7wlqiBKfIqlkckvyBaDsWu435Al2CsfwBK8CigCAu4AYwLIKAoJRaAXjdC3QoUA+QKKBAUAZuijbYewDgDcAZnJQi28nklNydt5Z2/FPEVZzl0XFK2sq1RYjlZvpTcZ4fuF09S+l262MqLbxuUeuU6kp7o6W3msM8cZTW2fB2/Dynp0OL8OiYa23fUizo9zElTibf3GVSsEd8F4BRMjID3wBmcdcaZnpTUZVwdMnLq9N3qXyB3ec8kM9Kdqnualh7+wAEryKzdgUBEAoIALYtAleAA+QTAFsWS0LQFTHyS0LVgUNk1Ial3AtiyNx7jUgNWPYzqRbT8gWxZlyrhjX4/oDl+KVxT7M4p2qfB6ZNTi008+DySThKmixG7qVq0Wf1/UsSW9f8ATEpJ5jhdhbtSRRpV1N2oy78M79FOMa001/ZwcVPNpP8ApnWOuKSyKOjf232r/huTeoxJO1vRtvODKpb7BukLfYNvsAvyNyW62Ga4/kC5GexE2M9v7AxKLi7Wx1i9ca5MXLsRKcZXFJJgbaaGRl/c8l+QJtyLDinh5CSSAnIsuBi6YETtFFLuMMDTSe1MjxxREqLlvNMCfIs1Ud7oy15AX3F+wob8ogX7CxS7hLyAuuxbQaRK8lC/DI5vsy15FLuBHOX+rJrl/q/5NYGEgMa5f6f2ZmtazD5s3t/9KnjYDyvoTTxkq6Uk/c9GGORpjh+TJ9kdIwp5e2xsWNMVMPAvwT4ICZUZaTd0NgrXwDNl4AoM58otvgC5Jsi2yXgIZLkEVgLeRmslsX4AmRkNuuRbS2YD6h9fcWT3CtBMq+0nYIAq+4j2KGwywti8IgIcZQRXsBCKyoLdgH7EK90AMjgr3RnkKu5cEXJANY25BzfJoClVEWwewC+EW0QoB1Wwqwi8gZotDuOAFMtAchEa5FcGuCcgSgUcARpjIXI/cBGnwR2aQ4Cs5LfgvAQH/9k='
-    try {                    
-    firebase.database().ref("userprofile").orderByChild("WalletAddress").equalTo(a).once("value").then(snapshot =>{
-        let r=[];
-        if(snapshot.val()){            
-             //console.log("firstaddress1  ",snapshot.val()[a])
-                  r.push({
-                  Bio:snapshot.val()[a].Bio,
-                  Customurl: snapshot.val()[a].Customurl,
-                  Email: snapshot.val()[a].Email,
-                  Imageurl:snapshot.val()[a].Imageurl,
-                  Personalsiteurl: snapshot.val()[a].Personalsiteurl,
-                  TimeStamp: snapshot.val()[a].TimeStamp,
-                  Twittername: snapshot.val()[a].Twittername,
-                  UserName: snapshot.val()[a].UserName,
-                  WalletAddress: snapshot.val()[a].WalletAddress,
-                  bgurl:snapshot.val()[a].bgurl,
-                  valid:snapshot.val()[a].valid
-                })                                                
-                //console.log("InData",r)        
-                firebase.database().ref("userprofile").child(a).update({
-                Imageurl:r[0].Imageurl,bgurl:r[0].bgurl,
-                UserName:r[0].UserName,Customurl:r[0].Customurl,WalletAddress:a,
-                TimeStamp:r[0].TimeStamp,Twittername:r[0].Twittername,Personalsiteurl:r[0].Personalsiteurl,Email:r[0].Email,Bio:r[0].Bio,valid:r[0].valid
-                }).then(()=>{
+    try {     
+    if(getApiDataProfileNFT === null || getApiDataProfileNFT === undefined || getApiDataProfileNFT === ""){
+        var date = new Date();
+        let dateset=date.toJSON().slice(0,10).replace(new RegExp("-", 'g'),"/" ).split("/").reverse().join("")+""+date.toJSON().slice(11,9)               
+        const userjsonkey= {
+        "userKey":"",
+        "algoAddress":localStorage.getItem('wallet'),
+        "creationTime":"",
+        "accountType":"",
+        "profileName":"",
+        "twitterName":"",
+        "profileURL":"",
+        "bio":"",
+        "profileImagePath":"",
+        "bgvImagePath":"",
+        "profileImageAsString":"",
+        "bgvImageAsString": "",
+        "following":[""],
+         "followers":[""],
+         "validuser":0,            
+        }            
+        await axios.post(`${configfile['url']}/userinfo`,userjsonkey)
+        .then(async(responseuser) => {              
+            let activity={
+                "ipAddress": "connect wallet",
+                "algoAddress": localStorage.getItem('wallet').slice(0,50),
+                "networkType": dateset,
+                "walletType": "image"
+              }
+              axios.post(`${configfile['url']}/visitinfo`,activity)
+              .then(async(responseuser) => {
                 setShow(false)
                 setShowcall(true)    
-                })                  
-        }
-        else{
-            //console.log("firstaddress",snapshot.val())
-            firebase.database().ref("userprofile").child(a).set({
-            Imageurl:logo,bgurl:logo,
-            UserName:"",Customurl:"",WalletAddress:a,
-            TimeStamp:"",Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""
-            }).then(()=>{
+              })                           
+        })
+        .catch((e) => {              
             setShow(false)
-            setShowcall(true)    
-            })    
-        }
-    })    
+        })    
+    }else{
+        var dates = new Date();
+        let datesets=dates.toJSON().slice(0,10).replace(new RegExp("-", 'g'),"/" ).split("/").reverse().join("")+""+dates.toJSON().slice(11,9)               
+        const userjsonkey= {
+        "userKey":"",
+        "algoAddress":localStorage.getItem('wallet'),
+        "creationTime":datesets,
+        "accountType":getApiDataProfileNFT.accountType,
+        "profileName":getApiDataProfileNFT.profileName,
+        "twitterName":getApiDataProfileNFT.twitterName,
+        "profileURL":getApiDataProfileNFT.profileURL,
+        "bio":getApiDataProfileNFT.bio,
+        "profileImagePath":getApiDataProfileNFT.profileImagePath,
+        "bgvImagePath":getApiDataProfileNFT.bgvImagePath,
+        "profileImageAsString":getApiDataProfileNFT.profileImageAsString,
+        "bgvImageAsString": getApiDataProfileNFT.bgvImageAsString,
+        "following":getApiDataProfileNFT.following,
+         "followers":getApiDataProfileNFT.followers,
+         "validuser":getApiDataProfileNFT.validuser,            
+        }            
+        await axios.put(`${configfile['url']}/userinfo`,userjsonkey)
+        .then(async(responseuser) => {              
+            let activity={
+                "ipAddress": "connect wallet",
+                "algoAddress": localStorage.getItem('wallet').slice(0,50),
+                "networkType": datesets,
+                "walletType": "image"
+              }
+              axios.post(`${configfile['url']}/visitinfo`,activity)
+              .then(async(responseuser) => {
+                setShow(false)
+                setShowcall(true)    
+              })                           
+        })
+        .catch((e) => {              
+            setShow(false)
+        })            
+    }
+    // firebase.database().ref("userprofile").orderByChild("WalletAddress").equalTo(a).once("value").then(snapshot =>{
+    //     let r=[];
+    //     if(snapshot.val()){            
+    //          //console.log("firstaddress1  ",snapshot.val()[a])
+    //               r.push({
+    //               Bio:snapshot.val()[a].Bio,
+    //               Customurl: snapshot.val()[a].Customurl,
+    //               Email: snapshot.val()[a].Email,
+    //               Imageurl:snapshot.val()[a].Imageurl,
+    //               Personalsiteurl: snapshot.val()[a].Personalsiteurl,
+    //               TimeStamp: snapshot.val()[a].TimeStamp,
+    //               Twittername: snapshot.val()[a].Twittername,
+    //               UserName: snapshot.val()[a].UserName,
+    //               WalletAddress: snapshot.val()[a].WalletAddress,
+    //               bgurl:snapshot.val()[a].bgurl,
+    //               valid:snapshot.val()[a].valid
+    //             })                                                
+    //             //console.log("InData",r)        
+    //             firebase.database().ref("userprofile").child(a).update({
+    //             Imageurl:r[0].Imageurl,bgurl:r[0].bgurl,
+    //             UserName:r[0].UserName,Customurl:r[0].Customurl,WalletAddress:a,
+    //             TimeStamp:r[0].TimeStamp,Twittername:r[0].Twittername,Personalsiteurl:r[0].Personalsiteurl,Email:r[0].Email,Bio:r[0].Bio,valid:r[0].valid
+    //             }).then(()=>{
+    //             setShow(false)
+    //             setShowcall(true)    
+    //             })                  
+    //     }
+    //     else{
+    //         //console.log("firstaddress",snapshot.val())
+    //         firebase.database().ref("userprofile").child(a).set({
+    //         Imageurl:logo,bgurl:logo,
+    //         UserName:"",Customurl:"",WalletAddress:a,
+    //         TimeStamp:"",Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""
+    //         }).then(()=>{
+    //         setShow(false)
+    //         setShowcall(true)    
+    //         })    
+    //     }
+    // })    
     } catch (error) {
         
         alert("no data")

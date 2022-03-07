@@ -49,31 +49,31 @@ const SingleBid = () => {
 
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Multi-chain NFT marketplace</strong> with Algorand, Flow and Tezos integrated</p>
+                        <p>Multi-chain NFT marketplace with Algorand, Flow and Tezos integrated</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>A platform for diverse creators and brands,</strong> including LIRONA, Pak, The Watcher, eBoy, Aavegotchi, Twitter, Lindsay Lohan and Floyd Mayweather Jr</p>
+                        <p>A platform for diverse creators and brands, including LIRONA, Pak, The Watcher, eBoy, Aavegotchi, Twitter, Lindsay Lohan and Floyd Mayweather Jr</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Features include multiple edition NFTs, timed auctions, royalties, messenger, personalized activity feed, and much more</strong></p>
+                        <p>Features include multiple edition NFTs, timed auctions, royalties, messenger, personalized activity feed, and much more</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>A safe place to trade digital art, collectibles, music and video NFTs, domain names, metaverse lands and wearables, and more</strong></p>
+                        <p>A safe place to trade digital art, collectibles, music and video NFTs, domain names, metaverse lands and wearables, and more</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>On a mission to environmental sustainability,</strong> encouragyting users to remove carbon footprint via partnership with <Link to="/">Nori</Link></p>
+                        <p>On a mission to environmental sustainability, encouragyting users to remove carbon footprint via partnership with <Link to="/">Nori</Link></p>
                     </div>
                     <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Launched the <Link to="/">ELEMENT Protocol</Link>,</strong> a public, DAO-governed set of open-source tools for developers and businesses to build their own NFT projects and deploy customized NFT storefronts</p>
+                        <p>Launched the <Link to="/">ELEMENT Protocol</Link>, a public, DAO-governed set of open-source tools for developers and businesses to build their own NFT projects and deploy customized NFT storefronts</p>
                     </div>
                 </div>
 
-                <div className="py-5 mt-md-5 text-center">
+                {/* <div className="py-5 mt-md-5 text-center">
                     <h2 className='display-6 mb-5 font-bold'>Team</h2>
 
                     <Row>
@@ -106,9 +106,9 @@ const SingleBid = () => {
                     <div className="py-3 about-text">
                         <p className='lead'><Link to="/">We are Hiring</Link></p>
                     </div>
-                </div>
+                </div> */}
 
-                <div className="py-5 mt-md-5 text-center">
+                {/* <div className="py-5 mt-md-5 text-center">
                     <h2 className='display-6 mb-5 font-bold'>Backed by</h2>
 
                     <Row>
@@ -143,7 +143,7 @@ const SingleBid = () => {
                             </Card>
                         </Col>
                     </Row>
-                </div>
+                </div> */}
             </Container>
         </Layout>
     );

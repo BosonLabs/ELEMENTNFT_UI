@@ -44,13 +44,37 @@ function Footer() {
         history.push("/")
         window.location.reload(false);    
     }
-    
+
+//     <Col lg={3}>
+//     <div className="footer-line d-lg-none"></div>
+//     {/* <div className="qr-frame d-none d-lg-block">
+//         <img src={QrCode} alt="iocn" />
+//     </div> */}
+// </Col>
+// <Col lg={3}>
+//     {/* <h3>Download the Element app to explore any NFTs</h3>
+//     <Link to="apple.com" target="_blank"><img style={{maxWidth: '118px'}} className='dark-filter' src={AppleIcon} alt="icon" /></Link> */}
+// </Col>
     return (
         <div className="footer">
             <Container>
                 <div className="footer-top">
                     <Row>
-                        <Col lg={5}>
+                    <Col md={5} >
+                            <h3>Get the latest Element updates</h3>
+
+                            <Form action="/">
+                                <InputGroup className="input-group-newsletter" onChange={event => setMail( event.target.value)}>
+                                    <Form.Control
+                                        placeholder="Your e-mail"
+                                    />
+                                    <Button variant="dark" id="button-addon2" onClick={()=>{saveEmail()}}>
+                                        I’m in
+                                    </Button>
+                                </InputGroup>
+                            </Form>
+                        </Col>         
+                        <Col lg={5} className='mb-md-0 mb-4'>
                             <h3>Join Element Community</h3>
 
                             <div className="footer-social d-flex align-items-center">                                
@@ -73,37 +97,15 @@ function Footer() {
                                     <svg viewBox="0 0 18 12" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye gVaYHr"><path d="M5.07644 11.25C7.88022 11.25 10.1531 8.89939 10.1531 5.99991C10.1531 3.10043 7.88004 0.75 5.07644 0.75C2.27284 0.75 0 3.09972 0 5.99991C0 8.9001 2.27267 11.25 5.07644 11.25Z" fill="currentColor"></path><path d="M13.1839 10.9419C14.5857 10.9419 15.7222 8.72942 15.7222 5.99991C15.7222 3.27111 14.5857 1.0579 13.1839 1.0579C11.7821 1.0579 10.6455 3.27111 10.6455 5.99991C10.6455 8.72871 11.7821 10.9419 13.1839 10.9419Z" fill="currentColor"></path><path d="M17.1072 10.4277C17.6003 10.4277 18 8.44542 18 5.99991C18 3.55458 17.6006 1.57207 17.1074 1.57207C16.6142 1.57207 16.2145 3.55511 16.2145 5.99991C16.2145 8.44471 16.6142 10.4277 17.1072 10.4277Z" fill="currentColor"></path></svg>
                                 </a>
                             </div>
-                        </Col>
-                        <Col lg={3}>
-                            <div className="footer-line d-lg-none"></div>
-                            {/* <div className="qr-frame d-none d-lg-block">
-                                <img src={QrCode} alt="iocn" />
-                            </div> */}
-                        </Col>
-                        <Col lg={3}>
-                            {/* <h3>Download the Element app to explore any NFTs</h3>
-                            <Link to="apple.com" target="_blank"><img style={{maxWidth: '118px'}} className='dark-filter' src={AppleIcon} alt="icon" /></Link> */}
-                        </Col>
+                        </Col>         
+                           
                     </Row>
                     <br></br>
                 </div>
 
-                <div className="footer-middle">
+                <div className="footer-top">
                     <Row>
-                        <Col md={5} className='mb-md-0 mb-4'>
-                            <h3>Get the latest Element updates</h3>
-
-                            <Form action="/">
-                                <InputGroup className="input-group-newsletter" onChange={event => setMail( event.target.value)}>
-                                    <Form.Control
-                                        placeholder="Your e-mail"
-                                    />
-                                    <Button variant="dark" id="button-addon2" onClick={()=>{saveEmail()}}>
-                                        I’m in
-                                    </Button>
-                                </InputGroup>
-                            </Form>
-                        </Col>
+                      
                         <Col md={7}>
                             <Row>
                                 <Col xs={6} sm={4}>
@@ -123,10 +125,10 @@ function Footer() {
 
                                     <ul>
                                         <li><Link to="/about">About</Link></li>
-                                        <li><Link to="/">Blog</Link></li>
-                                        <li><Link to="/">ELEMENT Token</Link></li>
+                                        {/* <li><Link to="/">Blog</Link></li> */}
+                                        {/* <li><Link to="/">ELEMENT Token</Link></li> */}
                                         <li><Link to="/">Suggest feature</Link></li>
-                                        <li><Link to="/">Element protocol</Link></li>
+                                        {/* <li><Link to="/">Element protocol</Link></li> */}
                                         <li><Link to="/">Subscribe</Link></li>
                                     </ul>
                                 </Col>

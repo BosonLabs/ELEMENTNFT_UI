@@ -6,7 +6,7 @@ import Liked from '../Snippets/tabs/Liked';
 import Collection from '../Snippets/tabs/Collection';
 import Activity from '../Snippets/tabs/Activity';
 import Owned from '../Snippets/tabs/Owned';
-import firebase from '../../firebase';
+//import firebase from '../../firebase';
 import Card from '../Snippets/Card';
 import OnSaleLike from '../Snippets/tabs/OnSaleLike';
 import OnSaleOther from '../Snippets/tabs/OnSaleOther';
@@ -14,9 +14,9 @@ import CreatedViewOther from '../Snippets/tabs/CreatedViewOther';
 
 
 const ProfileTabsOther = (create) => {
-    React.useEffect(() => {
-    window.scrollTo(0, 0);     
-    });
+    // React.useEffect(() => {
+    // window.scrollTo(0, 0);     
+    // });
 
     // console.log("bcreate",create.create)    
     // console.log("bsale",create.sale) 
@@ -41,7 +41,7 @@ const ProfileTabsOther = (create) => {
             <OnSaleLike data={create.likes}/>
         </Tab>        
         <Tab eventKey="activity" title="Activity">
-            <Activity data={create.create} other={"other"} ownersend={create.owner}/>
+            <Activity datas={create.create} other={"other"} ownersend={create.owner}/>
         </Tab>
     </Tabs>
  

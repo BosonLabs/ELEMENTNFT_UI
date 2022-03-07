@@ -1,5 +1,5 @@
 /* eslint-disable use-isnan */
-import React, { useState,useEffect} from "react";
+import React, { useState,useEffect,useContext} from "react";
 import Layout from './Layout';
 import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
 import {
@@ -7,12 +7,15 @@ import {
   } from "react-router-dom";
 import DummyPic from '../assets/images/dummy-icon.svg';
 import ProfileTabs from './Sections/ProfileTabs';
-import firebase from '../firebase';
+//import firebase from '../firebase';
 import Compress from "react-image-file-resizer";
 import Logo from '../assets/images/Algo.png';
 import { useHistory } from "react-router-dom";
 //import logogif from '../assets/images/gif1.svg';
 import logogif from '../assets/images/gif4.webp';
+import { DataContext } from '../Context/DataContext';
+import cjson from '../config.json'
+const axios = require('axios');
 
 function HomePage() {
     // React.useEffect(() => {
@@ -20,12 +23,22 @@ function HomePage() {
     // });
     // React.useEffect(() => {
     //   window.scrollTo(0, 0);     
-    // });
+    // });getApiDataProfileNFT,setApiDataprofile
     
-    const [showRefresh, setShowRefresh] = React.useState(false);
-    const[getPro,setgetPro]=useState([""]);
+    
+    const {getApiDataProfileActivity,setApiDataProfileActivity}=useContext(DataContext)
+    console.log("getApiDataProActivity",getApiDataProfileActivity)   
+    const {getApiDataProfileNFT,setApiDataprofile}=useContext(DataContext)
+    console.log("getApiDataProfile1",getApiDataProfileNFT)   
+    console.log("getApiDataProfile2",getApiDataProfileNFT.nftImageAsString)   
+    const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
+    console.log("getApiDataALLNFTPro",getApiDataNftFull)       
+    const {getApiDataProfile,setApiDataProfile}=useContext(DataContext)
+    console.log("getApiDataNFTPro",getApiDataProfile)   
+    //const [showRefresh, setShowRefresh] = React.useState(false);
+    //const[getPro,setgetPro]=useState([""]);
     //console.log("setgetPro",getPro)
-    let history=useHistory();    
+    //let history=useHistory();    
     const [show, setShow] = React.useState(false);
     const [showL,setShowL] = React.useState(false);
     const [showDone,setShowDone] = React.useState(false);  
@@ -43,46 +56,58 @@ function HomePage() {
     const handleShow = () => setShow(true);
     const handleFollowers = () => setFollowers(true);
     const handleFollowing = () => setFollowing(true);
-    const handleCloseL = () => setShowL(false);
-
-
+    //const handleCloseL = () => setShowL(false);
     const[getdbLike,setdbLike]=useState([]);
     //console.log("getdbLike",getdbLike)
-    const dbLike=async()=>{    
-        let req = [];
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-        }
-        else{
-          let getalgo=localStorage.getItem("wallet");              
-          firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                                             
-                req.push(            
-                  {
-                    Assetid:d.val().Assetid,
-                    Imageurl:d.val().Imageurl,
-                    NFTPrice:d.val().NFTPrice,
-                    keyId:d.val().keyId,
-                    NFTName:d.val().NFTName,
-                    userSymbol:d.val().userSymbol,
-                    Ipfsurl:d.val().Ipfsurl,
-                    ownerAddress:d.val().ownerAddress,
-                    previousoaddress:d.val().previousoaddress,
-                    TimeStamp:d.val().TimeStamp,
-                    NFTDescription:d.val().NFTDescription,
-                    HistoryAddress:d.val().HistoryAddress,
-                    Appid:d.val().Appid,
-                    valid:d.val().valid,
-                    CreatorAddress:d.val().CreatorAddress,
-                    like:d.val().like
-                  })                
-              });        
-              setdbLike(req);
-            }            
-          });                  
-        }        
-    }
-    useEffect(()=>{dbLike()},[])
+
+    //const[getApiUser,setApiUser]=useState([]);
+    //console.log("GetApiUser",getApiUser)
+
+    //let tempaddress=localStorage.getItem('wallet').slice(0,5);
+    //nftImageAsString
+    // useEffect(() => {        
+    //   async function apiData() {      
+    //     const res = await axios.get(`${cjson['url']}/userinfo/${localStorage.getItem('wallet')}`)
+    //     setApiUser(res.data)
+    //   }
+    //   apiData();
+    // }, []);
+
+    // const dbLike=async()=>{    
+    //     let req = [];
+    //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+    //     }
+    //     else{
+    //       let getalgo=localStorage.getItem("wallet");              
+    //       firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
+    //         if (data) {
+    //           data.forEach((d) => {                                             
+    //             req.push(            
+    //               {
+    //                 Assetid:d.val().Assetid,
+    //                 Imageurl:d.val().Imageurl,
+    //                 NFTPrice:d.val().NFTPrice,
+    //                 keyId:d.val().keyId,
+    //                 NFTName:d.val().NFTName,
+    //                 userSymbol:d.val().userSymbol,
+    //                 Ipfsurl:d.val().Ipfsurl,
+    //                 ownerAddress:d.val().ownerAddress,
+    //                 previousoaddress:d.val().previousoaddress,
+    //                 TimeStamp:d.val().TimeStamp,
+    //                 NFTDescription:d.val().NFTDescription,
+    //                 HistoryAddress:d.val().HistoryAddress,
+    //                 Appid:d.val().Appid,
+    //                 valid:d.val().valid,
+    //                 CreatorAddress:d.val().CreatorAddress,
+    //                 like:d.val().like
+    //               })                
+    //           });        
+    //           setdbLike(req);
+    //         }            
+    //       });                  
+    //     }        
+    // }
+    // useEffect(()=>{dbLike()},[])
     
     const captureFile =async(event) => {
       event.stopPropagation()
@@ -109,208 +134,236 @@ function HomePage() {
 
     const updatecover=async(u)=>{
       setShow(false)
-      setShowL(true)            
-      //console.log("logtrue",firebase.database().ref("userprofile").child(localStorage.getItem('wallet')))
-      // if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).orderByCalled_ === false){ 
-      //       let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
-      //       let dateset=new Date().toDateString();                
-      //       ref2.set({
-      //       Imageurl:u,bgurl:u,
-      //       UserName:"",Customurl:"",WalletAddress:localStorage.getItem('wallet'),
-      //       TimeStamp:dateset,Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""})
-      //       .then(()=>{          
-      //       setShowL(false)                                    
-      //       setShowDone(true)
-      //       //window.location.reload(false)
-      //     }).catch((err) => {                                    
-      //       setShowL(false)                     
-      //       console.log(err);
-      //       //window.location.reload(false)
-      //     });         
-      // }
-      // else{
-        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
-          if (data) {                        
-          let ref2=firebase.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
-          let dateset=new Date().toDateString();                
-          //console.log("data",data.val())
-          ref2.update({
-          Imageurl:data.val().Imageurl,bgurl:u,
-          UserName:data.val().UserName,Customurl:data.val().Customurl,WalletAddress:localStorage.getItem('wallet'),
-          TimeStamp:dateset,Twittername:data.val().Twittername,Personalsiteurl:data.val().Personalsiteurl,Email:data.val().Email,Bio:data.val().Bio,valid:data.val().valid})
-          .then(()=>{          
+      setShowL(true)                 
+      //api post add
+      //var dates = new Date();
+      //let dateset=dates.toJSON().slice(0,10).replace(new RegExp("-", 'g'),"/" ).split("/").reverse().join("")+""+dates.toJSON().slice(11,9)        
+      if(getApiDataProfileNFT === null || getApiDataProfileNFT === undefined || getApiDataProfileNFT === "" || getApiDataProfileNFT.algoAddress === null || getApiDataProfileNFT.algoAddress === undefined || getApiDataProfileNFT.algoAddress === "" || getApiDataProfileNFT.length === 0){
+        const userjsonkey= {
+          "userKey":"",
+          "algoAddress":localStorage.getItem('wallet'),
+          "creationTime":"",
+          "accountType":"test",
+          "profileName":"",
+          "twitterName":"",
+          "profileURL":"",
+          "bio":"",
+          "profileImagePath":"",
+          "bgvImagePath":u,
+          "profileImageAsString":"",
+          "bgvImageAsString": u,
+          "following":[""],
+          "followers":[""],
+          "validuser":0,            
+          }            
+          await axios.post(`${cjson['url']}/userinfo`,userjsonkey)
+          .then(async(responseuser) => {              
+              let activity={
+                  "ipAddress": "cover photo update",
+                  "algoAddress": localStorage.getItem('wallet'),
+                  "networkType": "",
+                  "walletType": "image"
+                }
+                axios.post(`${cjson['url']}/visitinfo`,activity)
+                .then(async(responseuser) => {
+                  setShowL(false)                                    
+                  setShowDone(true)            
+                  window.location.reload(false)
+                })                           
+          })
+          .catch((e) => {              
             setShowL(false)                                    
-            setShowDone(true)            
-            window.location.reload(false)
-          }).catch((err) => {                                    
+            window.location.reload(false)       
+          })    
+      }else {
+        const userjsonkey= {
+          "userKey":"",
+          "algoAddress":localStorage.getItem('wallet'),
+          "creationTime":"",
+          "accountType":getApiDataProfileNFT.accountType,
+          "profileName":getApiDataProfileNFT.profileName,
+          "twitterName":getApiDataProfileNFT.twitterName,
+          "profileURL":getApiDataProfileNFT.profileURL,
+          "bio":getApiDataProfileNFT.bio,
+          "profileImagePath":getApiDataProfileNFT.profileImagePath,                
+          "bgvImagePath":getApiDataProfileNFT.coverImagePath,
+          "profileImageAsString":getApiDataProfileNFT.profileImageAsString,
+          "bgvImageAsString": getApiDataProfileNFT.coverImagePath,
+          "following":getApiDataProfileNFT.following,
+          "followers":getApiDataProfileNFT.followers,
+          "validuser":0
+        }
+        await axios.post(`${cjson['url']}/userinfo`,userjsonkey)
+        .then(async(responseuser) => {
+        setShowL(false)                                    
+        setShowDone(true)            
+        window.location.reload(false)
+      }).catch((err) => {                                    
             setShowL(false)              
             window.location.reload(false)       
             //console.log(err);
-          });   
-          }          
-        })
-      //}
-
+      });         
+      }                                 
     }
 
 
-    const dbgetcover=async()=>{      
-      let req = [];
-      if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-        setgetPro([])
-      }
-      else if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet'))){
-          firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
-            if (data) {              
-            //console.log("pdata2",data.val())
-                req.push({
-                  Bio:data.val().Bio,
-                  Customurl: data.val().Customurl,
-                  Email: data.val().Email,
-                  Imageurl:data.val().Imageurl,
-                  Personalsiteurl: data.val().Personalsiteurl,
-                  TimeStamp: data.val().TimeStamp,
-                  Twittername: data.val().Twittername,
-                  UserName: data.val().UserName,
-                  WalletAddress: data.val().WalletAddress,
-                  bgurl:data.val().bgurl,
-                  valid:data.val().valid
-                })                
-            }
-            setgetPro(req);
-          });                  
-        }
-        else{
-          setgetPro([]);
-        }                   
-    }      
-  useEffect(()=>{dbgetcover()},[])
+  //   const dbgetcover=async()=>{      
+  //     let req = [];
+  //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+  //       setgetPro([])
+  //     }
+  //     else if(firebase.database().ref("userprofile").child(localStorage.getItem('wallet'))){
+  //         firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+  //           if (data) {              
+  //           //console.log("pdata2",data.val())
+  //               req.push({
+  //                 Bio:data.val().Bio,
+  //                 Customurl: data.val().Customurl,
+  //                 Email: data.val().Email,
+  //                 Imageurl:data.val().Imageurl,
+  //                 Personalsiteurl: data.val().Personalsiteurl,
+  //                 TimeStamp: data.val().TimeStamp,
+  //                 Twittername: data.val().Twittername,
+  //                 UserName: data.val().UserName,
+  //                 WalletAddress: data.val().WalletAddress,
+  //                 bgurl:data.val().bgurl,
+  //                 valid:data.val().valid
+  //               })                
+  //           }
+  //           setgetPro(req);
+  //         });                  
+  //       }
+  //       else{
+  //         setgetPro([]);
+  //       }                   
+  //   }      
+  // useEffect(()=>{dbgetcover()},[])
 
 
-  const dbcallalgo=async()=>{
-      //console.log("inside dbcallalgo function")  
-      let req = [];
-      if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-      }
-      else{
-      let getalgo=localStorage.getItem("wallet");              
-        firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
-          if (data) {
-            data.forEach((d) => {                
-              let value=d.val();
-              req.push(            
-                {
-                  Assetid:value.Assetid,
-                  Imageurl:value.Imageurl,
-                  NFTPrice:value.NFTPrice,
-                  EscrowAddress:value.EscrowAddress,
-                  keyId:value.keyId,
-                  NFTName:value.NFTName,
-                  userSymbol:value.userSymbol,
-                  Ipfsurl:value.Ipfsurl,
-                  ownerAddress:value.ownerAddress,
-                  previousoaddress:value.previousoaddress,
-                  TimeStamp:value.TimeStamp,
-                  NFTDescription:value.NFTDescription,
-                  HistoryAddress:value.HistoryAddress,
-                  Appid:value.Appid,
-                  valid:value.valid,
-                  CreatorAddress:value.CreatorAddress
-                })                
-              });        
-            }
-            setgetImgreffalgo(req);
-          });                  
-        }        
-      }      
-    useEffect(()=>{dbcallalgo()},[])
+  // const dbcallalgo=async()=>{
+  //     //console.log("inside dbcallalgo function")  
+  //     let req = [];
+  //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+  //     }
+  //     else{
+  //     let getalgo=localStorage.getItem("wallet");              
+  //       firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+  //         if (data) {
+  //           data.forEach((d) => {                
+  //             let value=d.val();
+  //             req.push(            
+  //               {
+  //                 Assetid:value.Assetid,
+  //                 Imageurl:value.Imageurl,
+  //                 NFTPrice:value.NFTPrice,
+  //                 EscrowAddress:value.EscrowAddress,
+  //                 keyId:value.keyId,
+  //                 NFTName:value.NFTName,
+  //                 userSymbol:value.userSymbol,
+  //                 Ipfsurl:value.Ipfsurl,
+  //                 ownerAddress:value.ownerAddress,
+  //                 previousoaddress:value.previousoaddress,
+  //                 TimeStamp:value.TimeStamp,
+  //                 NFTDescription:value.NFTDescription,
+  //                 HistoryAddress:value.HistoryAddress,
+  //                 Appid:value.Appid,
+  //                 valid:value.valid,
+  //                 CreatorAddress:value.CreatorAddress
+  //               })                
+  //             });        
+  //           }
+  //           setgetImgreffalgo(req);
+  //         });                  
+  //       }        
+  //     }      
+  //   useEffect(()=>{dbcallalgo()},[])
 
-    const dbcallsalealgo=async()=>{
-        //console.log("inside dbcallsalealgo function")        
-        let req = [];      
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
-        }else{      
-          let getalgo=localStorage.getItem("wallet");          
-          //let kreq =[];
-          firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {
-                //console.log("keycheck",d.key)
-                let value=d.val();
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid,
-                    CreatorAddress:value.CreatorAddress  
-                  },                
-                )
-              });        
-            }
-            setgetImgreffalgosale(req);  
-          });
+  //   const dbcallsalealgo=async()=>{
+  //       //console.log("inside dbcallsalealgo function")        
+  //       let req = [];      
+  //       if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){      
+  //       }else{      
+  //         let getalgo=localStorage.getItem("wallet");          
+  //         //let kreq =[];
+  //         firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
+  //           if (data) {
+  //             data.forEach((d) => {
+  //               //console.log("keycheck",d.key)
+  //               let value=d.val();
+  //               req.push(            
+  //                 {
+  //                   Assetid:value.Assetid,
+  //                   Imageurl:value.Imageurl,
+  //                   NFTPrice:value.NFTPrice,
+  //                   EscrowAddress:value.EscrowAddress,
+  //                   keyId:value.keyId,
+  //                   NFTName:value.NFTName,
+  //                   userSymbol:value.userSymbol,
+  //                   Ipfsurl:value.Ipfsurl,
+  //                   ownerAddress:value.ownerAddress,
+  //                   previousoaddress:value.previousoaddress,
+  //                   TimeStamp:value.TimeStamp,
+  //                   NFTDescription:value.NFTDescription,
+  //                   HistoryAddress:value.HistoryAddress,
+  //                   Appid:value.Appid,
+  //                   valid:value.valid,
+  //                   CreatorAddress:value.CreatorAddress  
+  //                 },                
+  //               )
+  //             });        
+  //           }
+  //           setgetImgreffalgosale(req);  
+  //         });
           
-        }
-        //console.log("accsale",getImgreffalgosale)
+  //       }
+  //       //console.log("accsale",getImgreffalgosale)
       
-      }
+  //     }
       
-    useEffect(()=>{dbcallsalealgo()},[])
+  //   useEffect(()=>{dbcallsalealgo()},[])
 
-    const dbcallalgobuy=async()=>{
-        //console.log("inside dbcallalgobuy function")  
-        let req = [];      
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
-        }
-        else{              
-          let getalgo=localStorage.getItem("wallet");          
-          //let kreq =[];
-          firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {      
-            if (data) {
-              data.forEach((d) => {
-                //console.log("keycheck",d.key)
-                let value=d.val();
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid,
-                    CreatorAddress:value.CreatorAddress
-                  },                
-                )      
-              });        
-            }
-            setgetImgreffalgobuy(req);
-          });                  
-        }
-        //console.log("acc",getalgo)
+  //   const dbcallalgobuy=async()=>{
+  //       //console.log("inside dbcallalgobuy function")  
+  //       let req = [];      
+  //       if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){      
+  //       }
+  //       else{              
+  //         let getalgo=localStorage.getItem("wallet");          
+  //         //let kreq =[];
+  //         firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {      
+  //           if (data) {
+  //             data.forEach((d) => {
+  //               //console.log("keycheck",d.key)
+  //               let value=d.val();
+  //               req.push(            
+  //                 {
+  //                   Assetid:value.Assetid,
+  //                   Imageurl:value.Imageurl,
+  //                   NFTPrice:value.NFTPrice,
+  //                   EscrowAddress:value.EscrowAddress,
+  //                   keyId:value.keyId,
+  //                   NFTName:value.NFTName,
+  //                   userSymbol:value.userSymbol,
+  //                   Ipfsurl:value.Ipfsurl,
+  //                   ownerAddress:value.ownerAddress,
+  //                   previousoaddress:value.previousoaddress,
+  //                   TimeStamp:value.TimeStamp,
+  //                   NFTDescription:value.NFTDescription,
+  //                   HistoryAddress:value.HistoryAddress,
+  //                   Appid:value.Appid,
+  //                   valid:value.valid,
+  //                   CreatorAddress:value.CreatorAddress
+  //                 },                
+  //               )      
+  //             });        
+  //           }
+  //           setgetImgreffalgobuy(req);
+  //         });                  
+  //       }
+  //       //console.log("acc",getalgo)
       
-      }      
-    useEffect(()=>{dbcallalgobuy()},[])
+  //     }      
+  //   useEffect(()=>{dbcallalgobuy()},[])
 
     const done=()=>{      
     }
@@ -324,20 +377,20 @@ function HomePage() {
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
-                    {getPro[0] === null || getPro[0] === "" || getPro[0] === undefined || getPro[0] === " " || getPro[0] === NaN ? (
+                    {getApiDataProfileNFT === null || getApiDataProfileNFT === "" || getApiDataProfileNFT === undefined || getApiDataProfileNFT === " " || getApiDataProfileNFT === NaN || getApiDataProfileNFT.length === 0 ?(
                         <>
                           <img src={DummyPic} alt="pics" width={"1500px"} height={"260px"} /><span>Edit</span>
                         </>
                       ):(
                         <>
-                          <img src={getPro[0].bgurl} alt="pics" width={"1500px"} height={"260px"}/><span>Edit</span>
+                          <img src={getApiDataProfileNFT.bgvImageAsString} alt="pics" width={"1500px"} height={"260px"}/><span>Edit</span>
                         </>
                       )}
                         <Button variant='white' onClick={handleShow}>Add cover</Button>
                     </div>
 
                    
-                      {getPro[0] === null || getPro[0] === "" || getPro[0] === undefined || getPro[0] === " " || getPro[0] === NaN ? (
+                      {getApiDataProfileNFT === null || getApiDataProfileNFT === "" || getApiDataProfileNFT === undefined || getApiDataProfileNFT === " " || getApiDataProfileNFT === NaN || getApiDataProfileNFT.length === 0? (
                         <> <Link to="/settings" className='profile-pic'>
                           <img src={DummyPic} alt="pic" onClick={()=>alert("image")}/><span>Edit</span>
                           </Link>
@@ -345,20 +398,20 @@ function HomePage() {
                       ):(
                         <>
                         <Link to="/settings" className='profile-pic'>
-                          <img src={getPro[0].Imageurl} alt="pic" /><span>Edit</span>
-                          </Link>
+                          <img src={getApiDataProfileNFT.profileImageAsString} alt="pic" /><span>Edit</span>                          
+                        </Link>
                         </>
                       )}
                                             
                 </div>
 
                 <center>
-                  {getPro[0] === null || getPro[0] === "" || getPro[0] === undefined ? (
+                  {getApiDataProfileNFT[0] === null || getApiDataProfileNFT[0] === "" || getApiDataProfileNFT[0] === undefined ? (
                   <>
                   </>
                   ):(
                     <>
-                    {getPro[0].valid === "validated" ? (
+                    {getApiDataProfileNFT[0].validuser === "1" ? (
                       <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fillRule="evenodd" clipRule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000">\
                         </path>
@@ -425,7 +478,7 @@ function HomePage() {
                                     <small className='d-block mt-2'>Facebook</small>
                                 </div>
                                 <div>
-                                <a href={"https://t.me/elementSwap"} target="_blank" rel="noopener noreferrer">                                
+                                <a href={"https://t.me/ElementDeFi"} target="_blank" rel="noopener noreferrer">                                
                                         <svg viewBox="0 0 16 14" fill="none" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M15.9513 1.29916L13.5438 13.1556C13.377 13.997 12.8902 14.1987 12.21 13.8093L8.542 10.979L6.76804 12.7662C6.56797 12.9748 6.40125 13.1556 6.03445 13.1556C5.55428 13.1556 5.63431 12.9679 5.47425 12.495L4.20714 8.19051L0.572523 7.00834C-0.214421 6.76495 -0.22109 6.20168 0.745918 5.7914L14.9243 0.0891779C15.5711 -0.209841 16.1914 0.256072 15.9446 1.29221L15.9513 1.29916Z" fill="currentColor"></path></svg>
                                 </a>
                                     <small className='d-block mt-2'>Telegram</small>
@@ -451,7 +504,7 @@ function HomePage() {
                 </div>
 
 
-            <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike} onNameChange={setgetImgreffalgo}/>
+            <ProfileTabs create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={null} likes={getdbLike} onNameChange={setgetImgreffalgo} CreateApi={getApiDataProfile} ActivityData={getApiDataProfileActivity}/>
             </Container>
 
             {/* onHide={handleClose} */}

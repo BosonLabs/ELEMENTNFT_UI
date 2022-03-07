@@ -17,6 +17,7 @@ import { DataContext } from '../Context/DataContext';
 //import logogif from '../assets/images/gif1.svg';
 import logogif from '../assets/images/gif4.webp';
 const algosdk = require('algosdk'); 
+const axios = require('axios');
 
 const SingleBid = (props) => {
     const {algobalanceApp}=useContext(DataContext)
@@ -65,58 +66,94 @@ const SingleBid = (props) => {
         }        
     }
     listenMMAccount();
-      }, []);
+    }, []);
     //https://img.rarible.com/prod/image/upload/t_big/prod-itemImages/0xf6793da657495ffeff9ee6350824910abc21356c:46386767890875363675912719809176821470837137778525415945768420073840868065291/6bd66461" alt="banner" 
     const sharebutton=()=>{
         //console.log("SingleBid",location.state.alldata)
         setshowShare(true)
     }
-    const dbcallPro=async()=>{            
-        let r=[];
+    // const dbcallPro=async()=>{            
+    //     let r=[];
+    //     try {         
+    //     firebase.database().ref("userprofile").child(location.state.alldata.CreatorAddress).on("value", (data) => {          
+    //       if (data) {                      
+    //           r.push({                
+    //             Imageurl:data.val().Imageurl,                
+    //             valid:data.val().valid,
+    //             UserName:data.val().UserName
+    //           })                
+    //       }
+    //       else{
+    //         setgetIPro([""]);  
+    //       }
+    //       setgetIPro(r);
+    //     });                  
+    //   } catch (error) {
+    //     //console.log('error occured during search', error);    
+    //   }                
+    //   }    
+    // useEffect(()=>{dbcallPro()},[])
+
+    // const dbcallPro2=async()=>{            
+    //     let r=[];
+    //     try {         
+    //     firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
+    //       if (data) {                      
+    //           r.push({                
+    //             Imageurl:data.val().Imageurl,                
+    //             valid:data.val().valid,
+    //             UserName:data.val().UserName
+    //           })                
+    //       }
+    //       else{
+    //         setgetIPro2([""]);  
+    //       }
+    //       setgetIPro2(r);
+    //     });                  
+    //   } catch (error) {
+    //     //console.log('error occured during search', error);    
+    //   }                
+    //   }    
+    // useEffect(()=>{dbcallPro2()},[])
+
+    //location.state.alldata.
+
+
+    //new get 
+
+    const dbcallPro=async()=>{                    
         try {         
-        firebase.database().ref("userprofile").child(location.state.alldata.CreatorAddress).on("value", (data) => {          
-          if (data) {                      
-              r.push({                
-                Imageurl:data.val().Imageurl,                
-                valid:data.val().valid,
-                UserName:data.val().UserName
-              })                
-          }
-          else{
-            setgetIPro([""]);  
-          }
-          setgetIPro(r);
-        });                  
-      } catch (error) {
-        //console.log('error occured during search', error);    
+        if(location.state.alldata.previousOwner === "" || location.state.alldata.previousOwner === undefined|| location.state.alldata.previousOwner === null){
+
+        }else{
+            try{
+            const res = await axios.get(`${configfile['url']}/userinfo/${location.state.alldata.previousOwner}`)
+            setgetIPro(res.data)                
+            }catch(err){
+            console.log("ERRRRRR1")
+            }
+        }        
+      } catch (error) {        
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
 
-    const dbcallPro2=async()=>{            
-        let r=[];
+    const dbcallPro1=async()=>{                    
         try {         
-        firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
-          if (data) {                      
-              r.push({                
-                Imageurl:data.val().Imageurl,                
-                valid:data.val().valid,
-                UserName:data.val().UserName
-              })                
-          }
-          else{
-            setgetIPro2([""]);  
-          }
-          setgetIPro2(r);
-        });                  
-      } catch (error) {
-        //console.log('error occured during search', error);    
+        if(location.state.alldata.creatorAddress === "" || location.state.alldata.creatorAddress === undefined|| location.state.alldata.creatorAddress === null){
+
+        }else{
+            try{
+            const res = await axios.get(`${configfile['url']}/userinfo/${location.state.alldata.ownerAddress}`)
+            setgetIPro2(res.data)                
+            }catch(err){
+                console.log("ERRRRRR2")
+            }
+        }        
+      } catch (error) {        
       }                
       }    
-    useEffect(()=>{dbcallPro2()},[])
-
-    //location.state.alldata.
-
+    useEffect(()=>{dbcallPro1()},[])
 
     const bidding=()=>{
 
@@ -332,12 +369,22 @@ const SingleBid = (props) => {
         <Layout>
             <Container fluid className='d-md-flex'>
                 <div className="content-left d-flex">
-                    <img src={location.state.alldata.Imageurl} style={{width:"500px",height:"500px"}} alt="test"/>
+                    {location.state.alldata === "" || location.state.alldata === null || location.state.alldata === undefined ?(<>
+                        <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
+                    </>):(<>
+                        <img src={location.state.alldata.nftImageAsString} style={{width:"500px",height:"500px"}} alt="test"/>
+                    </>)}
+                    
                 </div>
                 <div className="content-right d-flex flex-column ms-auto">
                     <div className="d-flex mb-4">
                         <div>
+                        {location.state.alldata === "" || location.state.alldata === null || location.state.alldata === undefined ?(<>
+                            <h2 className='mb-1'>NOT COMPLETED</h2>
+                        </>):(<>
                             <h2 className='mb-1'>{location.state.alldata.NFTName}</h2>
+                        </>)}
+                        
                             <div className="category">Auction</div>
                         </div>
                         <div className="ms-auto d-flex align-items-center">
@@ -377,15 +424,15 @@ const SingleBid = (props) => {
                                 
                             {/* </Link> */}
                             <Link className="avatar d-flex align-items-center text-truncate">
-                                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined ?(
+                                    {getIPro === null || getIPro === "" || getIPro === undefined ?(
                                     <Link className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                     <span>Profile Not Completed</span>
                                     </Link>                                    
                                     ):(
                                     <Link className="avatar d-flex align-items-center text-truncate">
-                                    <img src={getIPro[0].Imageurl} alt="avatar" />
-                                    <span>{getIPro[0].UserName}</span>
+                                    <img src={getIPro.profileImageAsString} alt="avatar" />
+                                    <span>{getIPro.profileName}</span>
                                     </Link>
                                     )}
                                     
@@ -411,15 +458,15 @@ const SingleBid = (props) => {
                                     <span>Elena Moretti</span>
                                 </Link> */}
                                 
-                                {getIPro2[0] === "" || getIPro2[0] === null || getIPro2[0] === undefined || getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
+                                {getIPro2 === "" || getIPro2 === null || getIPro2 === undefined || getIPro2.profileName === undefined || getIPro2.profileName === "" || getIPro2.profileName === null ?(
                                     <Link  className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                     <span> Profile Not Completed </span>
                                     </Link>
                                 ):(
                                 <Link  className="avatar d-flex align-items-center text-truncate">
-                                <img src={getIPro2[0].Imageurl} alt="avatar" />
-                                <span>{getIPro2[0].UserName}</span>
+                                <img src={getIPro2.profileImageAsString} alt="avatar" />
+                                <span>{getIPro2.profileName}</span>
                                 </Link>
                                 )}
                                 

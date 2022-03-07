@@ -13,7 +13,7 @@ import CardSale from '../CardSale';
 const animatedComponents = makeAnimated();
 
 const OnSale = (data) => {    
-    //console.log("getdatasale",data.data)            
+    console.log("getdataowned",data.data)            
     const colourStyles = {
         option: (styles, { isFocused }) => {
           // const color = chroma(data.color);
@@ -214,7 +214,7 @@ const OnSale = (data) => {
                 </div>
             </div> */}
 
-           {data.data[0] === null || data.data[0] === "" || data.data[0] === undefined ? (
+           {data.data === null || data.data === "" || data.data === undefined ? (
             <div className="no-found py-5p text-center">
                         <h2>Nothing to look at</h2>
                         <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
@@ -225,14 +225,16 @@ const OnSale = (data) => {
             {data.data.map((x, index) => {
                 // console.log("xvalue",x)
                 return(  
-                    <>                    
+                    <>     
+                    {x.status === "onsale" && (
                     <div className='col mb-4' >
-                    <CardSale img={x.Imageurl} 
-                    title={x.NFTName} count="4012" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
-                    linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
-                    />
+                    <CardSale img={x.nftImageAsString} 
+                    title={x.nftName} count="4012" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
+                    linkText={parseFloat(x.nftPrice/1000000)} dataall={x}
+                    />                    
                     </div>                    
-                    </>                                                                                          
+                    )}               
+                    </>                                                                                                              
               )})}                                                                      
             </div>
            )}

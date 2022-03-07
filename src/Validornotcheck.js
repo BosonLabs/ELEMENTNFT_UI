@@ -2,55 +2,55 @@ import React,{useState,useEffect} from "react";
 import {
     Link,useLocation
   } from "react-router-dom";
-import firebase from './firebase';
+//import firebase from './firebase';
 const Validornotcheck=()=>{
     const[getIPro,setgetIPro]=useState([""]);
     ////console.log("getIPro",getIPro) 
-    const dbcallPro=async()=>{            
-        let r=[];
-        try {         
-        firebase.database().ref("userprofile").on("value", (data) => {                    
-          if (data) {                                            
-            Object.keys(data.val()).map(async(k)=>{ 
-                ////console.log("FireView2",data.val()[k])                                       
-                r.push({
-                    Bio:data.val()[k].Bio,
-                    Customurl: data.val()[k].Customurl,
-                    Email: data.val()[k].Email,
-                    Imageurl:data.val()[k].Imageurl,
-                    Personalsiteurl: data.val()[k].Personalsiteurl,
-                    TimeStamp: data.val()[k].TimeStamp,
-                    Twittername: data.val()[k].Twittername,
-                    UserName: data.val()[k].UserName,
-                    WalletAddress: data.val()[k].WalletAddress,
-                    bgurl:data.val()[k].bgurl,
-                    valid:data.val()[k].valid
-                  })                    
-            })
-          }
-          else{
-            setgetIPro([""]);  
-          }
-          setgetIPro(r);
-        });                  
-      } catch (error) {
-        ////console.log('error occured during search', error);    
-      }                
-      }    
-    useEffect(()=>{dbcallPro()},[])
+    // const dbcallPro=async()=>{            
+    //     let r=[];
+    //     try {         
+    //     firebase.database().ref("userprofile").on("value", (data) => {                    
+    //       if (data) {                                            
+    //         Object.keys(data.val()).map(async(k)=>{ 
+    //             ////console.log("FireView2",data.val()[k])                                       
+    //             r.push({
+    //                 Bio:data.val()[k].Bio,
+    //                 Customurl: data.val()[k].Customurl,
+    //                 Email: data.val()[k].Email,
+    //                 Imageurl:data.val()[k].Imageurl,
+    //                 Personalsiteurl: data.val()[k].Personalsiteurl,
+    //                 TimeStamp: data.val()[k].TimeStamp,
+    //                 Twittername: data.val()[k].Twittername,
+    //                 UserName: data.val()[k].UserName,
+    //                 WalletAddress: data.val()[k].WalletAddress,
+    //                 bgurl:data.val()[k].bgurl,
+    //                 valid:data.val()[k].valid
+    //               })                    
+    //         })
+    //       }
+    //       else{
+    //         setgetIPro([""]);  
+    //       }
+    //       setgetIPro(r);
+    //     });                  
+    //   } catch (error) {
+    //     ////console.log('error occured during search', error);    
+    //   }                
+    //   }    
+    // useEffect(()=>{dbcallPro()},[])
 
-    const dbupdatecall=async(user)=>{
-      ////console.log("userche",user)
-      firebase.database().ref("userprofile").child(user.WalletAddress).set({
-        Imageurl:user.Imageurl,bgurl:user.bgurl,
-        UserName:user.UserName,Customurl:user.Customurl,WalletAddress:user.WalletAddress,
-        TimeStamp:user.TimeStamp,Twittername:user.Twittername,Personalsiteurl:user.Personalsiteurl,Email:user.Email,Bio:user.Bio,valid:"validated"
-      }).then(()=>{
-        alert("Validated")
-        window.location.reload(false)        
-    })            
+    // const dbupdatecall=async(user)=>{
+    //   ////console.log("userche",user)
+    //   firebase.database().ref("userprofile").child(user.WalletAddress).set({
+    //     Imageurl:user.Imageurl,bgurl:user.bgurl,
+    //     UserName:user.UserName,Customurl:user.Customurl,WalletAddress:user.WalletAddress,
+    //     TimeStamp:user.TimeStamp,Twittername:user.Twittername,Personalsiteurl:user.Personalsiteurl,Email:user.Email,Bio:user.Bio,valid:"validated"
+    //   }).then(()=>{
+    //     alert("Validated")
+    //     window.location.reload(false)        
+    // })            
         
-    }
+    // }
 
     return(
         <>
@@ -86,7 +86,7 @@ const Validornotcheck=()=>{
                             ):(
                               <>{user.valid}</>                              
                             )}</td>
-                            <td style={{cursor:"pointer",styles:"bold",color:"#4a54f1"}} onClick={()=>dbupdatecall(user)}>Approve</td>                            
+                            {/* <td style={{cursor:"pointer",styles:"bold",color:"#4a54f1"}} onClick={()=>dbupdatecall(user)}>Approve</td>                             */}
                         </tr>
                     )}
                 </tbody>

@@ -1,14 +1,17 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useContext} from 'react';
 import Flickity from 'react-flickity-component'
 import ImageCard from '../Snippets/ImageCard';
 import VideoCard from '../Snippets/VideoCard';
 import SlidesCard from '../Snippets/SliderCard';
 import {Row, Col} from 'react-bootstrap';
+import { DataContext } from '../../Context/DataContext';
 const axios = require('axios');
 
 const Banner = () => {
-    
-    const[getI,setgetI]=React.useState([]); 
+
+    const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
+    console.log("getApiFullBanner",getApiDataNftFull)              
+    //const[getI,setgetI]=React.useState([]); 
     // console.log("getImgal",getI)    
     const flickityOptions = {
         initialIndex: 0,
@@ -16,47 +19,47 @@ const Banner = () => {
         pageDots: false,
         contain: true
     }
-    const dbcallsaleal=async(index)=>{        
-          axios({
-            method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
-            responseType: 'stream'
-          })
-            .then(function (response) {
-            let req = [];        
-            req.push(response.data)
-            let req2 =[];
-            req.forEach((l) => {              
-            //   console.log("D",l)              
-              Object.keys(l).map(async(k)=>{                                        
-                const a=l[k];
-                Object.keys(a).map(async(b)=>{                    
-                req2.push({                      
-                  Assetid:a[b].Assetid,
-                  Imageurl:a[b].Imageurl,
-                  NFTPrice:a[b].NFTPrice,
-                  EscrowAddress:a[b].EscrowAddress,
-                  keyId:a[b].keyId,
-                  NFTName:a[b].NFTName,
-                  userSymbol:a[b].userSymbol,
-                  Ipfsurl:a[b].Ipfsurl,
-                  ownerAddress:a[b].ownerAddress,
-                  previousoaddress:a[b].previousoaddress,
-                  TimeStamp:a[b].TimeStamp,
-                  NFTDescription:a[b].NFTDescription,
-                  HistoryAddress:a[b].HistoryAddress,
-                  Appid:a[b].Appid,
-                  valid:a[b].valid,
-                  CreatorAddress:a[b].CreatorAddress 
-                  })   
-                })                                                                                                                
-              })                                                                     
-            });                        
-            setgetI(req2)  
-            });                    
-      //} 
-    }
-    useEffect(()=>{dbcallsaleal()},[])
+    // const dbcallsaleal=async(index)=>{        
+    //       axios({
+    //         method: 'get',
+    //         url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
+    //         responseType: 'stream'
+    //       })
+    //         .then(function (response) {
+    //         let req = [];        
+    //         req.push(response.data)
+    //         let req2 =[];
+    //         req.forEach((l) => {              
+    //         //   console.log("D",l)              
+    //           Object.keys(l).map(async(k)=>{                                        
+    //             const a=l[k];
+    //             Object.keys(a).map(async(b)=>{                    
+    //             req2.push({                      
+    //               Assetid:a[b].Assetid,
+    //               Imageurl:a[b].Imageurl,
+    //               NFTPrice:a[b].NFTPrice,
+    //               EscrowAddress:a[b].EscrowAddress,
+    //               keyId:a[b].keyId,
+    //               NFTName:a[b].NFTName,
+    //               userSymbol:a[b].userSymbol,
+    //               Ipfsurl:a[b].Ipfsurl,
+    //               ownerAddress:a[b].ownerAddress,
+    //               previousoaddress:a[b].previousoaddress,
+    //               TimeStamp:a[b].TimeStamp,
+    //               NFTDescription:a[b].NFTDescription,
+    //               HistoryAddress:a[b].HistoryAddress,
+    //               Appid:a[b].Appid,
+    //               valid:a[b].valid,
+    //               CreatorAddress:a[b].CreatorAddress 
+    //               })   
+    //             })                                                                                                                
+    //           })                                                                     
+    //         });                        
+    //         setgetI(req2)  
+    //         });                    
+    //   //} 
+    // }
+    // useEffect(()=>{dbcallsaleal()},[])
     return (
         <div className='mb-36'>
             <Flickity
@@ -68,15 +71,15 @@ const Banner = () => {
                 static // default false
             >
 
-               {getI.map((x, index) => {
+               {getApiDataNftFull.map((x, index) => {
                 // console.log("logo",x)
                 return(  
                     <>                    
                     <div className='carousel-cell carousel-cell-40'>
-                    <SlidesCard title={x.NFTName} description={x.NFTDescription} dataall={x} image={x.Imageurl} ownerAddress={x.ownerAddress}/></div>
+                    <SlidesCard title={x.nftName} description={x.nftDescription} dataall={x} image={x.nftImageAsString} ownerAddress={x.ownerAddress}/></div>
                     <div className='carousel-cell carousel-cell-20'>                    
-                    <VideoCard title={x.NFTName} description={x.NFTDescription} url={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
-                    <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
+                    <VideoCard title={x.nftName} description={x.nftDescription} url={x.nftImageAsString} dataall={x} ownerAddress={x.ownerAddress}/>
+                    <ImageCard title={x.nftName} description={x.nftDescription} subtitle="Blazing Futures ꜩ" image={x.nftImageAsString} dataall={x} ownerAddress={x.ownerAddress}/>
                     </div>
                     </>
                 )})}

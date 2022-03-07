@@ -14,9 +14,9 @@ import Algopng from '../assets/images/Algo.png'
 const axios = require('axios');
 
 function HomePage(props) { 
-  React.useEffect(() => {
-    window.scrollTo(0, 0);     
-  });
+  // React.useEffect(() => {
+  //   window.scrollTo(0, 0);     
+  // });
     const location = useLocation(); 
     //console.log("hotcollo",location.state)        
     //console.log("followlast",location.state.follow[0].follower)
@@ -119,68 +119,68 @@ function HomePage(props) {
 
 
 
-    const dbcallowner=async()=>{      
-      //console.log("Insowner",location.state.ownerAddress)    
-      let reqoo = [];      
-      try {
-        if(firebase.database().ref("followings").child(location.state.ownerAddress) === undefined){
-          alert("nono")
-        }
-        else{
-          firebase.database().ref("followings").child(location.state.ownerAddress).on("value", (data) => {
-            //console.log("Insowners",data)
-            if (data) {                            
-              //console.log("tataam",data.val())
-              reqoo.push({
-                TimeStamp:data.val().TimeStamp,
-                follower:data.val().follower,
-                following:data.val().following,
-                walletAddress:data.val().walletAddress, 
-              })          
-            }
-            // else{
-            //   setgetIfo([""]);  
-            // }
-            setgetIfo(reqoo);
-          }) 
-        }          
-      } catch (error) {
-        //console.log('error occured during search', error);
-      }          
-    }
+  //   const dbcallowner=async()=>{      
+  //     //console.log("Insowner",location.state.ownerAddress)    
+  //     let reqoo = [];      
+  //     try {
+  //       if(firebase.database().ref("followings").child(location.state.ownerAddress) === undefined){
+  //         alert("nono")
+  //       }
+  //       else{
+  //         firebase.database().ref("followings").child(location.state.ownerAddress).on("value", (data) => {
+  //           //console.log("Insowners",data)
+  //           if (data) {                            
+  //             //console.log("tataam",data.val())
+  //             reqoo.push({
+  //               TimeStamp:data.val().TimeStamp,
+  //               follower:data.val().follower,
+  //               following:data.val().following,
+  //               walletAddress:data.val().walletAddress, 
+  //             })          
+  //           }
+  //           // else{
+  //           //   setgetIfo([""]);  
+  //           // }
+  //           setgetIfo(reqoo);
+  //         }) 
+  //       }          
+  //     } catch (error) {
+  //       //console.log('error occured during search', error);
+  //     }          
+  //   }
     
-  useEffect(()=>{dbcallowner()},[])
+  // useEffect(()=>{dbcallowner()},[])
 
-  const dbcallother=async()=>{    
-    let reqo = [];    
-      try {  
-        if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
-        {          
-          alert("nono2")                
-        }
-        else{
-        firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
-        if (data) {        
+//   const dbcallother=async()=>{    
+//     let reqo = [];    
+//       try {  
+//         if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
+//         {          
+//           alert("nono2")                
+//         }
+//         else{
+//         firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
+//         if (data) {        
           
-          reqo.push({
-            TimeStamp:data.val().TimeStamp,
-            follower:data.val().follower,
-            following:data.val().following,
-            walletAddress:data.val().walletAddress, 
-            })          
-        }
-        // else{
-        //   setgetIfl([""]);  
-        // }
-        setgetIfl(reqo);
-      });
-      }
+//           reqo.push({
+//             TimeStamp:data.val().TimeStamp,
+//             follower:data.val().follower,
+//             following:data.val().following,
+//             walletAddress:data.val().walletAddress, 
+//             })          
+//         }
+//         // else{
+//         //   setgetIfl([""]);  
+//         // }
+//         setgetIfl(reqo);
+//       });
+//       }
       
-    } catch (error) {
-      //console.log('error occured during search', error);    
-    }          
-  }  
-useEffect(()=>{dbcallother()},[])
+//     } catch (error) {
+//       //console.log('error occured during search', error);    
+//     }          
+//   }  
+// useEffect(()=>{dbcallother()},[])
 
 
     // const dbcallsaleal=async(index)=>{        
@@ -519,7 +519,7 @@ useEffect(()=>{dbcallother()},[])
                                     <small className='d-block mt-2'>Facebook</small>
                                 </div>
                                 <div>
-                                <a href={"https://t.me/elementSwap"} target="_blank" rel="noopener noreferrer">                                
+                                <a href={"https://t.me/ElementDeFi"} target="_blank" rel="noopener noreferrer">                                
                                         <svg viewBox="0 0 16 14" fill="none" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M15.9513 1.29916L13.5438 13.1556C13.377 13.997 12.8902 14.1987 12.21 13.8093L8.542 10.979L6.76804 12.7662C6.56797 12.9748 6.40125 13.1556 6.03445 13.1556C5.55428 13.1556 5.63431 12.9679 5.47425 12.495L4.20714 8.19051L0.572523 7.00834C-0.214421 6.76495 -0.22109 6.20168 0.745918 5.7914L14.9243 0.0891779C15.5711 -0.209841 16.1914 0.256072 15.9446 1.29221L15.9513 1.29916Z" fill="currentColor"></path></svg>
                                 </a>
                                     <small className='d-block mt-2'>Telegram</small>

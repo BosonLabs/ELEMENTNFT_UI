@@ -1,24 +1,27 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import {Dropdown, DropdownButton} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
 import CollectionItem from '../Snippets/CollectionItem';
 import moment from 'moment';
-import firebase from "../../firebase";
+//import firebase from "../../firebase";
+import { DataContext } from '../../Context/DataContext';
 
 const TopCollectionsSelles = (props) => {
 
+  const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
+  console.log("getApiFullSellers",getApiDataNftFull)        
     // console.log("topsc",props.follow)
     const dateOptions = ["1", "7", "30"];
-    const directionOptions = ["Sellers", "Buyers"];
+    const directionOptions = ["SELLERS", "BUYERS"];
     const [date, setDate] = useState(dateOptions[0]);
     const [direction, setDirection] = useState(directionOptions[0]);
     //console.log("ses",direction);
     //console.log("sesd",date);
-    const[getIb,setgetIb]=useState([]);
+    //const[getIb,setgetIb]=useState([]);
     //console.log("getImgalbuy",getIb)
-    const[getImb,setgetImb]=useState([]);
+    //const[getImb,setgetImb]=useState([]);
     //console.log("getImgalgosssbuy",getImb)
     //options={direction} onChange={(e) => setDirection(e.target.value)} value={direction}
     const handleSelect=(e)=>{
@@ -30,79 +33,79 @@ const TopCollectionsSelles = (props) => {
         setDate(e)
     }
     //buyers
-  const dbcallalgobuy=async()=>{    
-    let req = [];
-    firebase.database().ref("imagerefbuy").on("value", (data) => {      
-      if (data) {
-        data.forEach((d) => {          
-          const a=d.val();
-            Object.keys(a).map(async(b)=>{                  
-                      req.push({
-                        Assetid:a[b].Assetid,
-                        Imageurl:a[b].Imageurl,
-                        NFTPrice:a[b].NFTPrice,
-                        EscrowAddress:a[b].EscrowAddress,
-                        keyId:a[b].keyId,
-                        NFTName:a[b].NFTName,
-                        userSymbol:a[b].userSymbol,
-                        Ipfsurl:a[b].Ipfsurl,
-                        ownerAddress:a[b].ownerAddress,
-                        previousoaddress:a[b].previousoaddress,
-                        TimeStamp:a[b].TimeStamp,
-                        NFTDescription:a[b].NFTDescription,
-                        HistoryAddress:a[b].HistoryAddress,
-                        Appid:a[b].Appid,
-                        valid:a[b].valid,
-                        CreatorAddress:a[b].CreatorAddress  
-                    })                    
-            })            
-        });        
-        setgetIb(req)              
-      }    
-      //setgetImb(req)
-    });
-  }  
-  useEffect(()=>{dbcallalgobuy()},[])
+  // const dbcallalgobuy=async()=>{    
+  //   let req = [];
+  //   firebase.database().ref("imagerefbuy").on("value", (data) => {      
+  //     if (data) {
+  //       data.forEach((d) => {          
+  //         const a=d.val();
+  //           Object.keys(a).map(async(b)=>{                  
+  //                     req.push({
+  //                       Assetid:a[b].Assetid,
+  //                       Imageurl:a[b].Imageurl,
+  //                       NFTPrice:a[b].NFTPrice,
+  //                       EscrowAddress:a[b].EscrowAddress,
+  //                       keyId:a[b].keyId,
+  //                       NFTName:a[b].NFTName,
+  //                       userSymbol:a[b].userSymbol,
+  //                       Ipfsurl:a[b].Ipfsurl,
+  //                       ownerAddress:a[b].ownerAddress,
+  //                       previousoaddress:a[b].previousoaddress,
+  //                       TimeStamp:a[b].TimeStamp,
+  //                       NFTDescription:a[b].NFTDescription,
+  //                       HistoryAddress:a[b].HistoryAddress,
+  //                       Appid:a[b].Appid,
+  //                       valid:a[b].valid,
+  //                       CreatorAddress:a[b].CreatorAddress  
+  //                   })                    
+  //           })            
+  //       });        
+  //       setgetIb(req)              
+  //     }    
+  //     //setgetImb(req)
+  //   });
+  // }  
+  // useEffect(()=>{dbcallalgobuy()},[])
 
   //seller  
-  const dbcallalgosale=async()=>{   
-    let reqsale = [];
-    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
-      if (data) {
-        data.forEach((d) => {          
-          const a=d.val();
-            Object.keys(a).map(async(b)=>{                    
-                      reqsale.push({
-                        Assetid:a[b].Assetid,
-                        Imageurl:a[b].Imageurl,
-                        NFTPrice:a[b].NFTPrice,
-                        EscrowAddress:a[b].EscrowAddress,
-                        keyId:a[b].keyId,
-                        NFTName:a[b].NFTName,
-                        userSymbol:a[b].userSymbol,
-                        Ipfsurl:a[b].Ipfsurl,
-                        ownerAddress:a[b].ownerAddress,
-                        previousoaddress:a[b].previousoaddress,
-                        TimeStamp:a[b].TimeStamp,
-                        NFTDescription:a[b].NFTDescription,
-                        HistoryAddress:a[b].HistoryAddress,
-                        Appid:a[b].Appid,
-                        valid:a[b].valid,
-                        CreatorAddress:a[b].CreatorAddress   
-                    })                    
-            })            
-        });        
-        setgetImb(reqsale) 
-      }          
-    });
-  }
-  useEffect(()=>{dbcallalgosale()},[])
+  // const dbcallalgosale=async()=>{   
+  //   let reqsale = [];
+  //   firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
+  //     if (data) {
+  //       data.forEach((d) => {          
+  //         const a=d.val();
+  //           Object.keys(a).map(async(b)=>{                    
+  //                     reqsale.push({
+  //                       Assetid:a[b].Assetid,
+  //                       Imageurl:a[b].Imageurl,
+  //                       NFTPrice:a[b].NFTPrice,
+  //                       EscrowAddress:a[b].EscrowAddress,
+  //                       keyId:a[b].keyId,
+  //                       NFTName:a[b].NFTName,
+  //                       userSymbol:a[b].userSymbol,
+  //                       Ipfsurl:a[b].Ipfsurl,
+  //                       ownerAddress:a[b].ownerAddress,
+  //                       previousoaddress:a[b].previousoaddress,
+  //                       TimeStamp:a[b].TimeStamp,
+  //                       NFTDescription:a[b].NFTDescription,
+  //                       HistoryAddress:a[b].HistoryAddress,
+  //                       Appid:a[b].Appid,
+  //                       valid:a[b].valid,
+  //                       CreatorAddress:a[b].CreatorAddress   
+  //                   })                    
+  //           })            
+  //       });        
+  //       setgetImb(reqsale) 
+  //     }          
+  //   });
+  // }
+  // useEffect(()=>{dbcallalgosale()},[])
   const filterdata=()=>{        
         if(direction === 'Sellers') {
           if(date === '1')
           {
               //console.log("one")
-              let data = getImb.filter((val)=>{
+              let data = getApiDataNftFull.filter((val)=>{
               // console.log("datainside",val)
               let currentdate=moment().format('ddd MMM DD YYYY')
               //let currentdate = moment(val.url);
@@ -114,7 +117,7 @@ const TopCollectionsSelles = (props) => {
               //console.log("R1",data)
               return data;              
           }    
-              let data = getImb.filter((val)=>{
+              let data = getApiDataNftFull.filter((val)=>{
               //console.log("sellers7get",val)
               //console.log("sellers7",val.TimeStamp)
               //console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
@@ -132,7 +135,7 @@ const TopCollectionsSelles = (props) => {
         }
         if(date === '1')
         {
-              let data = getIb.filter((val)=>{
+              let data = getApiDataNftFull.filter((val)=>{
               let currentdate=moment().format('ddd MMM DD YYYY')
               //let currentdate = moment(val.url);
               //console.log("currentdate",currentdate)
@@ -142,7 +145,7 @@ const TopCollectionsSelles = (props) => {
               //console.log("B1",data)
               return data;
         }    
-            let data = getIb.filter((val)=>{
+            let data = getApiDataNftFull.filter((val)=>{
             //console.log("Buyers7get",val)
             //console.log("Buyers7",val.TimeStamp)
             let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
@@ -159,18 +162,18 @@ const TopCollectionsSelles = (props) => {
         <div className='mb-36'>
             <div className="mb-32 d-flex align-items-center">
                 <div className='h2 d-flex align-items-center'>
-                    Top 
+                    TOP
                     &nbsp;
                     {direction}
                     <DropdownButton onSelect={handleSelect}>                                                
-                            <Dropdown.Item eventKey="Sellers" variant="reset" className='dropdown-btn-grad'>Sellers                         
+                            <Dropdown.Item eventKey="Sellers" variant="reset" className='dropdown-btn-grad'>SELLERS                         
                             </Dropdown.Item>
-                            <Dropdown.Item eventKey="Buyers" variant="reset" className='dropdown-btn-grad'>Buyers
+                            <Dropdown.Item eventKey="Buyers" variant="reset" className='dropdown-btn-grad'>BUYERS
                             </Dropdown.Item>                        
                     </DropdownButton>
-                     in
+                     IN
                      &nbsp;
-                     {date} day
+                     {date} DAY
                     <DropdownButton onSelect={handleSelect2}>                        
                             <Dropdown.Item eventKey="1" variant="reset" className='dropdown-btn-grad'>1 day                                 
                             </Dropdown.Item>
@@ -182,10 +185,10 @@ const TopCollectionsSelles = (props) => {
 
             <div className="">
               <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
-            {filterdata().map((x, index) => (                      
+            {getApiDataNftFull.map((x, index) => (                      
                 <li className='mb-3'>
                 {/* <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/> */}
-                        <CollectionItem Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} Assetid={x.Assetid}/>   
+                        <CollectionItem Imageurl={x.nftImageAsString} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} Assetid={x.Assetid}/>   
                 {/* follow={props.follow} */}
                 </li>
             ))}

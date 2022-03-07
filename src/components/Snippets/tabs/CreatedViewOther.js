@@ -99,22 +99,22 @@ const CreatedViewOther = (data) => {
         //console.log("DateExplore",weekdate)
         //console.log("DateExplore2",dateset)
         if(getprice1 > 0  && getprice2 > 0){          
-          let datas=data.data.filter((val)=> (val.NFTPrice)/1000000 >= getprice1 && (val.NFTPrice)/1000000 <= getprice2)
+          let datas=data.data.filter((val)=> (val.nftPrice)/1000000 >= getprice1 && (val.nftPrice)/1000000 <= getprice2)
           //console.log("filtercall1",datas)
           return datas;
         }
         if(getrecent === "Recently added"){
-            let datas=data.data.filter((val)=> (val.TimeStamp) >= weekdate || (val.TimeStamp) <= dateset)
+            let datas=data.data.filter((val)=> (val.creationTime) >= weekdate || (val.creationTime) <= dateset)
             //console.log("filtercall12",datas)
             return datas;        
         }
         if(getrecent === "Low to High"){
-          let datas=data.data.sort((a,b)=>{ return parseInt((a.NFTPrice)/1000000) - parseInt((b.NFTPrice)/1000000)})
+          let datas=data.data.sort((a,b)=>{ return parseInt((a.nftPrice)/1000000) - parseInt((b.nftPrice)/1000000)})
           //console.log("filtercall1",datas)
           return datas;
         }
         if(getrecent ===  "High to Low"){
-          let datas=data.data.sort((a,b)=>{ return parseInt((b.NFTPrice)/1000000) - parseInt((a.NFTPrice)/1000000)})
+          let datas=data.data.sort((a,b)=>{ return parseInt((b.nftPrice)/1000000) - parseInt((a.nftPrice)/1000000)})
           //console.log("filtercall1",datas)
           return datas;
         }
@@ -245,14 +245,15 @@ const CreatedViewOther = (data) => {
                 // console.log("xvalue",x)
                 return(  
                     <>
-                    {/* onClick={()=>getprice(x)} */}
+                    {x.status === "create" && (                    
                     <div className='col mb-4' >
-                    <CardCreateOtherView img={x.Imageurl} 
-                    title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
-                    linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
-                    Assetid={x.Assetid}
+                    <CardCreateOtherView img={x.nftImageAsString} 
+                    title={x.nftName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
+                    linkText={parseFloat(x.nftPrice/1000000)} dataall={x}
+                    Assetid={x.assetId}
                     />
                     </div>                    
+                    )}
                     </>                                                                                          
               )})}                                                                      
             </div>                                        

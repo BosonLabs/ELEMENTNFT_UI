@@ -9,7 +9,7 @@ import Preview from '../../assets/images/preview.jpg';
 import EthereumIcon from '../../assets/images/Algo.png'
 import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
-import fireDb from '../../firebase';
+//import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 const myAlgoWallet = new MyAlgoConnect();
 const CardLike = (props) => {   

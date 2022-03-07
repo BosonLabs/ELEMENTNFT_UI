@@ -112,22 +112,22 @@ const OnSaleOther = (data) => {
         let today= new Date();
         let weekdate=new Date(today.getFullYear(), today.getMonth(), today.getDate()-3).toDateString(); 
         if(getprice1 > 0  && getprice2 > 0){          
-          let datas=data.data.filter((val)=> (val.NFTPrice)/1000000 >= getprice1 && (val.NFTPrice)/1000000 <= getprice2)
+          let datas=data.data.filter((val)=> (val.nftPrice)/1000000 >= getprice1 && (val.nftPrice)/1000000 <= getprice2)
           //console.log("filtercall1",datas)
           return datas;
         }
         if(getrecent === "Recently added"){
-            let datas=data.data.filter((val)=> (val.TimeStamp) >= weekdate || (val.TimeStamp) <= dateset)
+            let datas=data.data.filter((val)=> (val.creationTime) >= weekdate || (val.creationTime) <= dateset)
             //console.log("filtercall12",datas)
             return datas;        
         }
         if(getrecent === "Low to High"){
-          let datas=data.data.sort((a,b)=>{ return parseInt((a.NFTPrice)/1000000) - parseInt((b.NFTPrice)/1000000)})
+          let datas=data.data.sort((a,b)=>{ return parseInt((a.nftPrice)/1000000) - parseInt((b.nftPrice)/1000000)})
           //console.log("filtercall1",datas)
           return datas;
         }
         if(getrecent ===  "High to Low"){
-          let datas=data.data.sort((a,b)=>{ return parseInt((b.NFTPrice)/1000000) - parseInt((a.NFTPrice)/1000000)})
+          let datas=data.data.sort((a,b)=>{ return parseInt((b.nftPrice)/1000000) - parseInt((a.nftPrice)/1000000)})
           //console.log("filtercall1",datas)
           return datas;
         }
@@ -267,7 +267,7 @@ const OnSaleOther = (data) => {
                 </div>
             </div>
 
-            {data.data[0] === null || data.data[0] === "" || data.data[0] === undefined || data.data === null || data.data === undefined || data.data === ""? (
+            {data.data === null || data.data === "" || data.data === undefined || data.data === null || data.data === undefined || data.data === ""? (
             <div className="no-found py-5p text-center">
                         <h2>Nothing to look at</h2>
                         <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
@@ -278,14 +278,16 @@ const OnSaleOther = (data) => {
             {filterdata().map((x, index) => {
                 // console.log("xvalue",x)
                 return(  
-                    <>                    
+                    <>  
+                    {x.status === "onsale" && (                    
                     <div className='col mb-4' >
-                    <CardBuyOtherView img={x.Imageurl} 
-                    title={x.NFTName} count="401" subTitle={x.AssetId} 
-                    linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
-                    Assetid={x.Assetid}
+                    <CardBuyOtherView img={x.nftImageAsString} 
+                    title={x.nftName} count="401" subTitle={x.nftDescription} 
+                    linkText={parseFloat(x.nftPrice/1000000)} dataall={x}
+                    Assetid={x.assetId}
                     />
                     </div>                    
+                    )}
                     </>                                                                                          
               )})}                                                  
                     

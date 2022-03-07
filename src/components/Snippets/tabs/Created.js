@@ -188,13 +188,15 @@ const Created = (data) => {
                     <>
                     {/* {console.log("xvalue",x)} */}
                     {/* onClick={()=>getprice(x)} */}
+                    {x.status === "create" && (
                     <div className='col mb-4' >
-                    <CardCreate img={x.Imageurl} onNameChange={data.onNameChange}
-                    title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
-                    linkText={parseFloat(x.NFTPrice/1000000)} dataall={x}
-                    Assetid={x.Assetid}
+                    <CardCreate img={x.nftImageAsString} onNameChange={data.onNameChange}
+                    title={x.nftName} count="401" subTitle={`<span>Highest bid</span> <span>1/1</span>`} 
+                    linkText={parseFloat(x.nftPrice/1000000)} dataall={x}
+                    Assetid={x.assetId}
                     />
                     </div>                    
+                    )}                    
                     </>                                                                                          
               )})}                                                                      
             </div>                                
