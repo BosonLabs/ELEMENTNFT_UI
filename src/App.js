@@ -60,16 +60,16 @@ function App() {
     console.log("getApiDataProfileActivity5",getApiDataProfileActivity)       
     const [algobalanceApp, setalgobalanceApp] = useState("");
     
-  // useEffect(() => {        
-  //   async function apiActivityData() {      
-  //     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
-  //     }else{         
-  //     let tokenval = await calltokenForUsers();
-  //     console.log("MartinaCode",tokenval)
-  //     }
-  //   }
-  //   apiActivityData();
-  // }, []);
+  useEffect(() => {        
+    async function apiActivityData() {      
+      if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
+      }else{         
+      let tokenval = await calltokenForUsers();
+      console.log("MartinaCode",tokenval)
+      }
+    }
+    apiActivityData();
+  }, []);
 
   useEffect(() => {        
     async function listenMMAccount() {    

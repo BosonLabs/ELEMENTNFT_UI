@@ -180,7 +180,7 @@ const Start = () => {
       
       const signedTxn = await myAlgoConnect.signTransaction(txn.toByte());
       const response = await algodclient.sendRawTransaction(signedTxn.blob).do();
-      //console.log("optresponse",response)
+      console.log("optresponse",response)
       await waitForConfirmation(algodclient,response.txId);
       let ptx = await algodclient.pendingTransactionInformation(response.txId).do();
       let assetID = ptx["asset-index"];
@@ -196,6 +196,7 @@ const Start = () => {
     }
 
     const appoptin=async(assetID,responsetxId,addresseswall)=>{
+      console.log('AppoptinFirst',assetID)
       let index = parseInt(configfile['appIdPrice']);
       const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');              
       let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(assetID))
@@ -222,6 +223,7 @@ const Start = () => {
       const signedTx1 = await algosdk.signLogicSigTransaction(optinTranscation, lsig);
       const response = await algodClient.sendRawTransaction(signedTx1.blob).do();      
       await waitForConfirmation(algodClient, response.txId);          
+      console.log('226')
       } catch (err) {        
         setshowTestLoading(false)          
         alert("you wallet raises some issues")

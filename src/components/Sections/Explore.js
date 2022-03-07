@@ -86,14 +86,15 @@ const Explore = () => {
       //console.log("DateExplore2",dateset)
       if(getprice1 > 0  && getprice2 > 0){
         
-        let data=getApiDataNftFull.filter((val)=> (val.nftPrice/1000000) >= getprice1 && (val.nftPrice/1000000) <= getprice2)
+        let data=getApiDataNftFull.filter((val)=> 
+        (val.nftPrice/1000000) >= getprice1 && (val.nftPrice/1000000) <= getprice2)
         //console.log("filtercall1",data)
         return data;
       }
       if(getrecent === "Recently added"){
-        let data=getApiDataNftFull.filter((val)=> (val.creationTime) >= weekdate || (val.creationTime) <= dateset)
-        //console.log("filtercall12",data)
-        return data;        
+        // let data=getApiDataNftFull.filter((val)=> ((val.creationTime).substr(0,10)) >= weekdate || ((val.creationTime).substr(0,10)) <= dateset)
+        // //console.log("filtercall12",data)
+        //return data;        
       }
       if(getrecent === "Low to High"){
         let data=getApiDataNftFull.sort((a,b)=>{ return parseInt(a.nftPrice/1000000) - parseInt(b.nftPrice/1000000)})
@@ -129,7 +130,7 @@ const Explore = () => {
 
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
                 
-                {getApiDataNftFull.map((x, index) => {
+                {filterdata().map((x, index) => {
                 //console.log("logo",x)
                 if(index<pageSize)
                 return(  

@@ -117,9 +117,9 @@ const OnSaleOther = (data) => {
           return datas;
         }
         if(getrecent === "Recently added"){
-            let datas=data.data.filter((val)=> (val.creationTime) >= weekdate || (val.creationTime) <= dateset)
+            //let datas=data.data.filter((val)=> (val.creationTime) >= weekdate || (val.creationTime) <= dateset)
             //console.log("filtercall12",datas)
-            return datas;        
+            //return datas;        
         }
         if(getrecent === "Low to High"){
           let datas=data.data.sort((a,b)=>{ return parseInt((a.nftPrice)/1000000) - parseInt((b.nftPrice)/1000000)})
