@@ -11,6 +11,7 @@ import firebase from '../firebase';
 import ProfileTabs from "./Sections/ProfileTabs";
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
 import Algopng from '../assets/images/Algo.png'
+import configfile from '../config.json'
 const axios = require('axios');
 
 function HomePage(props) { 
@@ -18,7 +19,7 @@ function HomePage(props) {
   //   window.scrollTo(0, 0);     
   // });
     const location = useLocation(); 
-    //console.log("hotcollo",location.state)        
+    console.log("topsellers",location.state)        
     //console.log("followlast",location.state.follow[0].follower)
     //console.log("followlast2",location.state.follow[0].following)
     
@@ -87,35 +88,35 @@ function HomePage(props) {
     }
     useEffect(()=>{dbLike()},[])
 
-    const dbcallPro=async()=>{            
-      let r=[];
-      try {         
-      firebase.database().ref("userprofile").child(location.state.ownerAddress).on("value", (data) => {          
-        if (data) {                      
-            r.push({
-              Bio:data.val().Bio,
-              Customurl: data.val().Customurl,
-              Email: data.val().Email,
-              Imageurl:data.val().Imageurl,
-              Personalsiteurl: data.val().Personalsiteurl,
-              TimeStamp: data.val().TimeStamp,
-              Twittername: data.val().Twittername,
-              UserName: data.val().UserName,
-              WalletAddress: data.val().WalletAddress,
-              bgurl:data.val().bgurl,
-              valid:data.val().valid 
-            })                
-        }
-        else{
-          setgetIPro([""]);  
-        }
-        setgetIPro(r);
-      });                  
-    } catch (error) {
-      //console.log('error occured during search', error);    
-    }                
-    }    
-  useEffect(()=>{dbcallPro()},[])
+  //   const dbcallPro=async()=>{            
+  //     let r=[];
+  //     try {         
+  //     firebase.database().ref("userprofile").child(location.state.ownerAddress).on("value", (data) => {          
+  //       if (data) {                      
+  //           r.push({
+  //             Bio:data.val().Bio,
+  //             Customurl: data.val().Customurl,
+  //             Email: data.val().Email,
+  //             Imageurl:data.val().Imageurl,
+  //             Personalsiteurl: data.val().Personalsiteurl,
+  //             TimeStamp: data.val().TimeStamp,
+  //             Twittername: data.val().Twittername,
+  //             UserName: data.val().UserName,
+  //             WalletAddress: data.val().WalletAddress,
+  //             bgurl:data.val().bgurl,
+  //             valid:data.val().valid 
+  //           })                
+  //       }
+  //       else{
+  //         setgetIPro([""]);  
+  //       }
+  //       setgetIPro(r);
+  //     });                  
+  //   } catch (error) {
+  //     //console.log('error occured during search', error);    
+  //   }                
+  //   }    
+  // useEffect(()=>{dbcallPro()},[])
 
 
 
@@ -217,268 +218,299 @@ function HomePage(props) {
     // useEffect(()=>{dbcallsaleal()},[])
 
 
-    const dbcallalgo=async()=>{
-        //console.log("inside dbcallalgo function")  
-        let req = [];        
-          firebase.database().ref("imagerefAlgo").child(location.state.ownerAddress).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {
-                ////console.log("keycheck",d.key)
-                let value=d.val();
-                req.push(            
-                  {
-                  Assetid:value.Assetid,
-                  Imageurl:value.Imageurl,
-                  NFTPrice:value.NFTPrice,
-                  EscrowAddress:value.EscrowAddress,
-                  keyId:value.keyId,
-                  NFTName:value.NFTName,
-                  userSymbol:value.userSymbol,
-                  Ipfsurl:value.Ipfsurl,
-                  ownerAddress:value.ownerAddress,
-                  previousoaddress:value.previousoaddress,
-                  TimeStamp:value.TimeStamp,
-                  NFTDescription:value.NFTDescription,
-                  HistoryAddress:value.HistoryAddress,
-                  Appid:value.Appid,
-                  valid:value.valid,
-                  CreatorAddress:value.CreatorAddress
-                  }          
-                )
-                //image:images/content/card-pic-1.jpg
-                //image2x: "/images/content/card-pic-1@2x.jpg",
+    // const dbcallalgo=async()=>{
+    //     //console.log("inside dbcallalgo function")  
+    //     let req = [];        
+    //       firebase.database().ref("imagerefAlgo").child(location.state.ownerAddress).on("value", (data) => {
+    //         if (data) {
+    //           data.forEach((d) => {
+    //             ////console.log("keycheck",d.key)
+    //             let value=d.val();
+    //             req.push(            
+    //               {
+    //               Assetid:value.Assetid,
+    //               Imageurl:value.Imageurl,
+    //               NFTPrice:value.NFTPrice,
+    //               EscrowAddress:value.EscrowAddress,
+    //               keyId:value.keyId,
+    //               NFTName:value.NFTName,
+    //               userSymbol:value.userSymbol,
+    //               Ipfsurl:value.Ipfsurl,
+    //               ownerAddress:value.ownerAddress,
+    //               previousoaddress:value.previousoaddress,
+    //               TimeStamp:value.TimeStamp,
+    //               NFTDescription:value.NFTDescription,
+    //               HistoryAddress:value.HistoryAddress,
+    //               Appid:value.Appid,
+    //               valid:value.valid,
+    //               CreatorAddress:value.CreatorAddress
+    //               }          
+    //             )
+    //             //image:images/content/card-pic-1.jpg
+    //             //image2x: "/images/content/card-pic-1@2x.jpg",
       
-                //req.push(d.key)          
-              });        
-            }
-            setgetImgreffalgo(req);
-          });
+    //             //req.push(d.key)          
+    //           });        
+    //         }
+    //         setgetImgreffalgo(req);
+    //       });
           
         
-        //}
-        //console.log("acc",getalgo)
-    }   
-    useEffect(()=>{dbcallalgo()},[])
+    //     //}
+    //     //console.log("acc",getalgo)
+    // }   
+    // useEffect(()=>{dbcallalgo()},[])
 
-    const dbcallsalealgo=async()=>{       
-        let req = [];              
-          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.ownerAddress).on("value", (data) => {
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid  
-                  },                
-                )
-              });        
-            }
-            setgetImgreffalgosale(req);  
-          });                  
-        //console.log("accsale",getImgreffalgosale)      
-    }      
-    useEffect(()=>{dbcallsalealgo()},[])
+    // const dbcallsalealgo=async()=>{       
+    //     let req = [];              
+    //       firebase.database().ref("imagerefexploreoneAlgos").child(location.state.ownerAddress).on("value", (data) => {
+    //         if (data) {
+    //           data.forEach((d) => {                
+    //             let value=d.val();
+    //             req.push(            
+    //               {
+    //                 Assetid:value.Assetid,
+    //                 Imageurl:value.Imageurl,
+    //                 NFTPrice:value.NFTPrice,
+    //                 EscrowAddress:value.EscrowAddress,
+    //                 keyId:value.keyId,
+    //                 NFTName:value.NFTName,
+    //                 userSymbol:value.userSymbol,
+    //                 Ipfsurl:value.Ipfsurl,
+    //                 ownerAddress:value.ownerAddress,
+    //                 previousoaddress:value.previousoaddress,
+    //                 TimeStamp:value.TimeStamp,
+    //                 NFTDescription:value.NFTDescription,
+    //                 HistoryAddress:value.HistoryAddress,
+    //                 Appid:value.Appid,
+    //                 valid:value.valid  
+    //               },                
+    //             )
+    //           });        
+    //         }
+    //         setgetImgreffalgosale(req);  
+    //       });                  
+    //     //console.log("accsale",getImgreffalgosale)      
+    // }      
+    // useEffect(()=>{dbcallsalealgo()},[])
 
-    const dbcallalgobuy=async()=>{    
-        let req = [];          
-        firebase.database().ref("imagerefbuy").child(location.state.ownerAddress).on("value", (data) => {      
-            if (data) {
-              data.forEach((d) => {                
-                let value=d.val();
-                req.push(            
-                  {
-                    Assetid:value.Assetid,
-                    Imageurl:value.Imageurl,
-                    NFTPrice:value.NFTPrice,
-                    EscrowAddress:value.EscrowAddress,
-                    keyId:value.keyId,
-                    NFTName:value.NFTName,
-                    userSymbol:value.userSymbol,
-                    Ipfsurl:value.Ipfsurl,
-                    ownerAddress:value.ownerAddress,
-                    previousoaddress:value.previousoaddress,
-                    TimeStamp:value.TimeStamp,
-                    NFTDescription:value.NFTDescription,
-                    HistoryAddress:value.HistoryAddress,
-                    Appid:value.Appid,
-                    valid:value.valid   
-                  },                
-                )      
-              });        
-            }
-            setgetImgreffalgobuy(req);
-          });                          
-    }      
-    useEffect(()=>{dbcallalgobuy()},[])
+    // const dbcallalgobuy=async()=>{    
+    //     let req = [];          
+    //     firebase.database().ref("imagerefbuy").child(location.state.ownerAddress).on("value", (data) => {      
+    //         if (data) {
+    //           data.forEach((d) => {                
+    //             let value=d.val();
+    //             req.push(            
+    //               {
+    //                 Assetid:value.Assetid,
+    //                 Imageurl:value.Imageurl,
+    //                 NFTPrice:value.NFTPrice,
+    //                 EscrowAddress:value.EscrowAddress,
+    //                 keyId:value.keyId,
+    //                 NFTName:value.NFTName,
+    //                 userSymbol:value.userSymbol,
+    //                 Ipfsurl:value.Ipfsurl,
+    //                 ownerAddress:value.ownerAddress,
+    //                 previousoaddress:value.previousoaddress,
+    //                 TimeStamp:value.TimeStamp,
+    //                 NFTDescription:value.NFTDescription,
+    //                 HistoryAddress:value.HistoryAddress,
+    //                 Appid:value.Appid,
+    //                 valid:value.valid   
+    //               },                
+    //             )      
+    //           });        
+    //         }
+    //         setgetImgreffalgobuy(req);
+    //       });                          
+    // }      
+    // useEffect(()=>{dbcallalgobuy()},[])
       
     const followstart=async()=>{                      
-      if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
-        let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref22=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        let dateset=new Date().toDateString();                                         
-        let arr1=[];
-        let arr11=[];
-        arr1.push(location.state.ownerAddress)
-        arr11.push(localStorage.getItem('wallet'))
-        ref2.set({        
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
-          .then(()=>{
-            ref22.set({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr11})
-              .then(()=>{    
-                alert("done1")              
-                })                  
-            })                           
-      }
-      else if((getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN ) && (getIfo[0] !== "" || getIfo[0] !== null || getIfo[0] !== undefined || getIfo[0] !== NaN)){
+      // if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
+      //   let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+      //   let ref22=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+      //   let dateset=new Date().toDateString();                                         
+      //   let arr1=[];
+      //   let arr11=[];
+      //   arr1.push(location.state.ownerAddress)
+      //   arr11.push(localStorage.getItem('wallet'))
+      //   ref2.set({        
+      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+      //     .then(()=>{
+      //       ref22.set({        
+      //         walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr11})
+      //         .then(()=>{    
+      //           alert("done1")              
+      //           })                  
+      //       })                           
+      // }
+      // else if((getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN ) && (getIfo[0] !== "" || getIfo[0] !== null || getIfo[0] !== undefined || getIfo[0] !== NaN)){
 
-        //local null && owner entry
-        let dateset=new Date().toDateString();      
-        //console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
-        //let allarr11=getIfl[0].follower
-        let allarr2=getIfo[0].following 
-        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-        //let chars1 = allarr1
-        //let uniqueChars1 = new Set(chars1);
-        //console.log("uni1",uniqueChars1);//ramfollowing local
-        //let chars11 = allarr11                
-        //let uniqueChars11 = new Set(chars11);
-        //console.log("uni11",uniqueChars11);//ramfollow local
-        let chars2 = allarr2      
-        let uniqueChars2 = new Set(chars2);
-        //console.log("uni2",uniqueChars2);//thiru following
-        let chars22 = allarr22        
-        let uniqueChars22 = new Set(chars22);
-        //console.log("uni22",uniqueChars22);//thiru follow
-        let arr1=[]        
-        arr1.push(location.state.ownerAddress)        
-        ref1.set({  
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
-          .then(()=>{    
-            ref11.update({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
-              .then(()=>{    
-                alert("alert")                
-                })                              
-            })                  
-      }
-      else if((getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN ) && (getIfl[0] !== null || getIfl[0] !== undefined || getIfl[0] !== "" || getIfl[0] !== NaN)){
+      //   //local null && owner entry
+      //   let dateset=new Date().toDateString();      
+      //   //console.log("nullnew1","null1")                  
+      //   let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+      //   let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+      //   //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
+      //   //let allarr11=getIfl[0].follower
+      //   let allarr2=getIfo[0].following 
+      //   let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+      //   //let chars1 = allarr1
+      //   //let uniqueChars1 = new Set(chars1);
+      //   //console.log("uni1",uniqueChars1);//ramfollowing local
+      //   //let chars11 = allarr11                
+      //   //let uniqueChars11 = new Set(chars11);
+      //   //console.log("uni11",uniqueChars11);//ramfollow local
+      //   let chars2 = allarr2      
+      //   let uniqueChars2 = new Set(chars2);
+      //   //console.log("uni2",uniqueChars2);//thiru following
+      //   let chars22 = allarr22        
+      //   let uniqueChars22 = new Set(chars22);
+      //   //console.log("uni22",uniqueChars22);//thiru follow
+      //   let arr1=[]        
+      //   arr1.push(location.state.ownerAddress)        
+      //   ref1.set({  
+      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+      //     .then(()=>{    
+      //       ref11.update({        
+      //         walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+      //         .then(()=>{    
+      //           alert("alert")                
+      //           })                              
+      //       })                  
+      // }
+      // else if((getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN ) && (getIfl[0] !== null || getIfl[0] !== undefined || getIfl[0] !== "" || getIfl[0] !== NaN)){
 
-        //owner null && local entry
-        let dateset=new Date().toDateString();      
-        //console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
-        let allarr11=getIfl[0].follower
-        //let allarr2=getIfo[0].following 
-        //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-        let chars1 = allarr1
-        let uniqueChars1 = new Set(chars1);
-        //console.log("uni1",uniqueChars1);//ramfollowing local
-        let chars11 = allarr11                
-        let uniqueChars11 = new Set(chars11);
-        //console.log("uni11",uniqueChars11);//ramfollow local
-        //let chars2 = allarr2      
-        //let uniqueChars2 = new Set(chars2);
-        //console.log("uni2",uniqueChars2);//thiru following
-        //let chars22 = allarr22        
-        //let uniqueChars22 = new Set(chars22);
-        //console.log("uni22",uniqueChars22);//thiru follow
-        let arr1=[]        
-        arr1.push(localStorage.getItem('wallet'))        
-        ref1.set({  
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
-          .then(()=>{    
-            ref11.set({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr1})
-              .then(()=>{    
-                alert("alert")                
-                })                              
-            })                  
-      }
-      else{
-        let dateset=new Date().toDateString();      
-        //console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
-        let allarr11=getIfl[0].follower
-        let allarr2=getIfo[0].following 
-        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-        let chars1 = allarr1
-        let uniqueChars1 = new Set(chars1);
-        //console.log("uni1",uniqueChars1);//ramfollowing local
-        let chars11 = allarr11                
-        let uniqueChars11 = new Set(chars11);
-        //console.log("uni11",uniqueChars11);//ramfollow local
-        let chars2 = allarr2      
-        let uniqueChars2 = new Set(chars2);
-        //console.log("uni2",uniqueChars2);//thiru following
-        let chars22 = allarr22        
-        let uniqueChars22 = new Set(chars22);
-        //console.log("uni22",uniqueChars22);//thiru follow
+      //   //owner null && local entry
+      //   let dateset=new Date().toDateString();      
+      //   //console.log("nullnew1","null1")                  
+      //   let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+      //   let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+      //   let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
+      //   let allarr11=getIfl[0].follower
+      //   //let allarr2=getIfo[0].following 
+      //   //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+      //   let chars1 = allarr1
+      //   let uniqueChars1 = new Set(chars1);
+      //   //console.log("uni1",uniqueChars1);//ramfollowing local
+      //   let chars11 = allarr11                
+      //   let uniqueChars11 = new Set(chars11);
+      //   //console.log("uni11",uniqueChars11);//ramfollow local
+      //   //let chars2 = allarr2      
+      //   //let uniqueChars2 = new Set(chars2);
+      //   //console.log("uni2",uniqueChars2);//thiru following
+      //   //let chars22 = allarr22        
+      //   //let uniqueChars22 = new Set(chars22);
+      //   //console.log("uni22",uniqueChars22);//thiru follow
+      //   let arr1=[]        
+      //   arr1.push(localStorage.getItem('wallet'))        
+      //   ref1.set({  
+      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+      //     .then(()=>{    
+      //       ref11.set({        
+      //         walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr1})
+      //         .then(()=>{    
+      //           alert("alert")                
+      //           })                              
+      //       })                  
+      // }
+      // else{
+      //   let dateset=new Date().toDateString();      
+      //   //console.log("nullnew1","null1")                  
+      //   let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+      //   let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+      //   let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
+      //   let allarr11=getIfl[0].follower
+      //   let allarr2=getIfo[0].following 
+      //   let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+      //   let chars1 = allarr1
+      //   let uniqueChars1 = new Set(chars1);
+      //   //console.log("uni1",uniqueChars1);//ramfollowing local
+      //   let chars11 = allarr11                
+      //   let uniqueChars11 = new Set(chars11);
+      //   //console.log("uni11",uniqueChars11);//ramfollow local
+      //   let chars2 = allarr2      
+      //   let uniqueChars2 = new Set(chars2);
+      //   //console.log("uni2",uniqueChars2);//thiru following
+      //   let chars22 = allarr22        
+      //   let uniqueChars22 = new Set(chars22);
+      //   //console.log("uni22",uniqueChars22);//thiru follow
 
-        ref1.update({  
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
-          .then(()=>{    
-            ref11.update({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
-              .then(()=>{    
-                alert("alert")                
-                })                              
-            })                          
-      }      
+      //   ref1.update({  
+      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+      //     .then(()=>{    
+      //       ref11.update({        
+      //         walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+      //         .then(()=>{    
+      //           alert("alert")                
+      //           })                              
+      //       })                          
+      // }      
     }
+
+
+    // new api code
+const dbcallPro=async()=>{                  
+  try {         
+    if(location.state.alldata.algoAddress === "" || location.state.alldata.algoAddress === undefined|| location.state.alldata.algoAddress === null){
+
+    }else{
+        try{
+        const res = await axios.get(`${configfile['url']}/userinfo/${location.state.alldata.algoAddress}`)
+        setgetIPro(res.data)                
+        }catch(err){
+        console.log("ERRRRRR1")
+        }
+    }
+} catch (error) {      
+}                
+}    
+useEffect(()=>{dbcallPro()},[])
+
+
+const dbcallalgoAPI=async()=>{
+if(location.state.alldata.algoAddress === null || location.state.alldata.algoAddress === undefined || location.state.alldata.algoAddress === "" ){
+}else{      
+const res = await axios.get(`${configfile['url']}/nftPlainAlgo/${location.state.alldata.algoAddress}`)      
+setgetImgreffalgo(res.data)                
+}
+}   
+useEffect(()=>{dbcallalgoAPI()},[])
 
     return (
         <Layout>
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
-                      {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
+                      {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (
                         <>
                       <img src={DummyPic} alt="pic" width={"1500px"} height={"260px"} />
                     </>
                     ):(
                       <>
-                      <img src={getIPro[0].Imageurl} alt="pic" width={"1500px"} height={"260px"}/>
+                      <img src={getIPro.bgvImageAsString} alt="pic" width={"1500px"} height={"260px"}/>
                     </>
                     )}                      
                     </div>                    
-                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
+                    {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (
                       <div className="profile-pic">
                       <img src={DummyPic} alt="pic" />
                       </div>
                     ):(
                       <div className="profile-pic">
-                      <img src={getIPro[0].Imageurl} alt="pic" />
+                      <img src={getIPro.profileImageAsString} alt="pic" />
                       </div>
                     )}
                     
                 </div>
+                {location.state.alldata.algoAddress === null || location.state.alldata.algoAddress === "" || location.state.alldata.algoAddress === undefined ?(<>
+                </>):(
 
                 <div className="mb-36 text-center">
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
                         <img src={Algopng} alt="icon" />
-                        {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
+                        {!toast ? <span>{(location.state.alldata.algoAddress).slice(0,8)}....{(location.state.alldata.algoAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
@@ -486,7 +518,7 @@ function HomePage(props) {
                     </Button>
                     
                 </div>
-
+)}
                 <div className="mb-32 d-flex align-items-center justify-content-center">                                    
                     <Button variant='link' onClick={handleFollowers} className='btn-reset'><span>0</span> <span className='ms-1 text-gray'>followers</span></Button>
                     <Button variant='link' onClick={handleFollowing} className='btn-reset ms-4'><span>0</span> <span className='ms-1 text-gray'>following</span></Button>
@@ -543,7 +575,7 @@ function HomePage(props) {
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
+                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgo} buyed={getImgreffalgo} owner={location.state.alldata.algoAddress} likes={getdbLike}/>
             </Container>
 
             {/* onHide={handleClose} */}

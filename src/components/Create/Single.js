@@ -279,7 +279,7 @@ const Start = () => {
             }              
             }else{
 
-              userjsonkeyDup=
+            userjsonkeyDup=
             {
                 "algoAddress": localStorage.getItem('wallet'),
                 "nftName": tname,

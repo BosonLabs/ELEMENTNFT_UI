@@ -175,7 +175,7 @@ const Created = (data) => {
                     </Dropdown>
                 </div> */}
             </div>
-            {data.data[0] === null || data.data[0] === "" || data.data[0] === undefined ? (
+            {data.data === null || data.data === "" || data.data === undefined ? (
             <div className="no-found py-5p text-center">
                         <h2>Nothing to look at</h2>
                         <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>

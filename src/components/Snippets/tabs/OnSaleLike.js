@@ -234,9 +234,9 @@ const OnSaleLike = (data) => {
                     </div>                    
                     ):
                     <div className="no-found py-5p text-center">
-                        <h2>Nothing to look at</h2>
+                        {/* <h2>Nothing to look at</h2>
                         <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
-                        <Link to="/profile" className='btn btn-primary'>Browse marketplace</Link>
+                        <Link to="/profile" className='btn btn-primary'>Browse marketplace</Link> */}
                     </div>
                     }
                     </>                                                                                          

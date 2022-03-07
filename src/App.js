@@ -48,71 +48,28 @@ function App() {
     console.log("getApiDataProNFt1",getApiDataProfileNFT)   
     const[getApiDataNftFull,setApiDataNftFull]=useState([""]);
     console.log("getApiDataFull2",getApiDataNftFull)   
+    const[getApiDataNftFull2,setApiDataNftFull2]=useState([""]);
+    console.log("getApiDataFull22",getApiDataNftFull2)   
+    const[getApiDataNftFull22,setApiDataNftFull22]=useState([""]);
+    console.log("getApiDataFull222",getApiDataNftFull22)   
     const[getApiDataFullProfile,setApiDataFullProfile]=useState([""]);
     console.log("getApiFullProfile3uni",getApiDataFullProfile)   
     const[getApiDataProfile,setApiDataProfile]=useState([""]);
     console.log("getApiDataProfile4",getApiDataProfile)   
     const[getApiDataProfileActivity,setApiDataProfileActivity]=useState([""]);
-    console.log("getApiDataProfileActivity5",getApiDataProfileActivity)   
-    //const setScrollToTop = useScrollToTop(true);
-    //const[getIPro2,setgetIPro2]=useState([""]);
-    //console.log("getIProprofile",getIPro2[0].valid)   
-    //const[getIProapp,setgetIProapp]=useState([""]);
-    //console.log("getIProapp",getIProapp) 
-    //const[getI,setgetI]=useState([""]); 
-    //const[getIexplore,setgetIexplore]=useState([]);  
-    //console.log("App1",getI)
-    //console.log("App2",getIexplore)
+    console.log("getApiDataProfileActivity5",getApiDataProfileActivity)       
     const [algobalanceApp, setalgobalanceApp] = useState("");
-    //console.log("calcappjs",algobalanceApp)    
-    //const[getHotCollection,setHotCollection]=useState([""]);
-    //console.log("getIPro",getHotCollection)     
-  //   const dbHotCollection=async()=>{            
-  //     let r=[];
-  //     try {         
-  //     firebase.database().ref("userprofile").on("value", (data) => {          
-  //       if (data) {             
-  //         let a=data.val()                   
-  //         Object.keys(a).map(async(k)=>{                                    
-  //           //console.log("proff",a[k])
-  //           r.push({
-  //             Bio:a[k].Bio,
-  //             Customurl: a[k].Customurl,
-  //             Email: a[k].Email,
-  //             Imageurl:a[k].Imageurl,
-  //             Personalsiteurl: a[k].Personalsiteurl,
-  //             TimeStamp: a[k].TimeStamp,
-  //             Twittername: a[k].Twittername,
-  //             UserName: a[k].UserName,
-  //             WalletAddress: a[k].WalletAddress,
-  //             bgurl:a[k].bgurl,
-  //             valid:a[k].valid
-  //           })                
-  //         })            
-  //       }
-  //       else{
-  //         setHotCollection([""]);  
-  //       }
-  //       setHotCollection(r);
-  //     });                  
-  //   } catch (error) {
-  //     //console.log('error occured during search', error);    
-  //   }                
-  //   }    
-  // useEffect(()=>{dbHotCollection()},[])
-
-
-  
-  useEffect(() => {        
-    async function apiActivityData() {      
-      if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
-      }else{         
-      //let tokenval = await calltokenForUsers();
-      //console.log("MartinaCode",tokenval)
-      }
-    }
-    apiActivityData();
-  }, []);
+    
+  // useEffect(() => {        
+  //   async function apiActivityData() {      
+  //     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
+  //     }else{         
+  //     let tokenval = await calltokenForUsers();
+  //     console.log("MartinaCode",tokenval)
+  //     }
+  //   }
+  //   apiActivityData();
+  // }, []);
 
   useEffect(() => {        
     async function listenMMAccount() {    
@@ -138,165 +95,13 @@ function App() {
   }
   listenMMAccount();
   }, []);
-//   const dbcallsaleal=async(index)=>{                
-//     axios({
-//         method: 'get',
-//         url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
-//         responseType: 'stream'
-//       })
-//         .then(function (response) {
-//         let req = [];        
-//         req.push(response.data)
-//         let req2 =[];
-//         req.forEach((l) => {              
-//           //console.log("Dd",l)              
-//           Object.keys(l).map(async(k)=>{                                        
-//             const a=l[k];
-//             Object.keys(a).map(async(b)=>{                    
-//             req2.push({                      
-//               Assetid:a[b].Assetid,
-//               Imageurl:a[b].Imageurl,
-//               NFTPrice:a[b].NFTPrice,
-//               EscrowAddress:a[b].EscrowAddress,
-//               keyId:a[b].keyId,
-//               NFTName:a[b].NFTName,
-//               userSymbol:a[b].userSymbol,
-//               Ipfsurl:a[b].Ipfsurl,
-//               ownerAddress:a[b].ownerAddress,
-//               previousoaddress:a[b].previousoaddress,
-//               TimeStamp:a[b].TimeStamp,
-//               NFTDescription:a[b].NFTDescription,
-//               HistoryAddress:a[b].HistoryAddress,
-//               Appid:a[b].Appid,
-//               valid:a[b].valid,
-//               CreatorAddress:a[b].CreatorAddress
-//               })   
-//             })                                                                                                                
-//           })                                                                     
-//         });                        
-//         setgetI(req2)  
-//         });            
-// }
-// useEffect(()=>{dbcallsaleal()},[])
 
-// const dbcallsalealexplore=async(index)=>{        
-//       axios({
-//         method: 'get',
-//         url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
-//         responseType: 'stream'
-//       })
-//         .then(function (response) {
-//         let req = [];        
-//         req.push(response.data)
-//         let req2 =[];
-//         req.forEach((l) => {              
-//           //console.log("D",l)              
-//           Object.keys(l).map(async(k)=>{                                        
-//             const a=l[k];
-//             Object.keys(a).map(async(b)=>{                    
-//             req2.push({                      
-//               Assetid:a[b].Assetid,
-//               Imageurl:a[b].Imageurl,
-//               NFTPrice:a[b].NFTPrice,
-//               EscrowAddress:a[b].EscrowAddress,
-//               keyId:a[b].keyId,
-//               NFTName:a[b].NFTName,
-//               userSymbol:a[b].userSymbol,
-//               Ipfsurl:a[b].Ipfsurl,
-//               ownerAddress:a[b].ownerAddress,
-//               previousoaddress:a[b].previousoaddress,
-//               TimeStamp:a[b].TimeStamp,
-//               NFTDescription:a[b].NFTDescription,
-//               HistoryAddress:a[b].HistoryAddress,
-//               Appid:a[b].Appid,
-//               valid:a[b].valid,
-//               CreatorAddress:a[b].CreatorAddress 
-//               })   
-//             })                                                                                                                
-//           })                                                                     
-//         });                        
-//         setgetIexplore(req2)  
-//         });                    
-//   } 
-// useEffect(()=>{dbcallsalealexplore()},[])
-
-// const dbcallPro=async()=>{            
-//   let r=[];
-//   try {         
-//   firebase.database().ref("userprofile").on("value", (data) => {          
-//     if (data) {             
-//       let a=data.val()                   
-//       Object.keys(a).map(async(k)=>{                                    
-//         //console.log("proff",a[k])
-//         r.push({
-//           Bio:a[k].Bio,
-//           Customurl: a[k].Customurl,
-//           Email: a[k].Email,
-//           Imageurl:a[k].Imageurl,
-//           Personalsiteurl: a[k].Personalsiteurl,
-//           TimeStamp: a[k].TimeStamp,
-//           Twittername: a[k].Twittername,
-//           UserName: a[k].UserName,
-//           WalletAddress: a[k].WalletAddress,
-//           bgurl:a[k].bgurl,
-//           valid:a[k].valid
-//         })                
-//       })            
-//     }
-//     else{
-//       setgetIProapp([""]);  
-//     }
-//     setgetIProapp(r);
-//   });                  
-// } catch (error) {
-//   //console.log('error occured during search', error);    
-// }                
-// }    
-// useEffect(()=>{dbcallPro()},[])
-
-
-    
-// const dbcallPro2=async()=>{            
-//         let r=[];
-//         try {         
-//         firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
-//           if (data) {                      
-//               r.push({
-//                 Bio:data.val().Bio,
-//                 Customurl: data.val().Customurl,
-//                 Email: data.val().Email,
-//                 Imageurl:data.val().Imageurl,
-//                 Personalsiteurl: data.val().Personalsiteurl,
-//                 TimeStamp: data.val().TimeStamp,
-//                 Twittername: data.val().Twittername,
-//                 UserName: data.val().UserName,
-//                 WalletAddress: data.val().WalletAddress,
-//                 bgurl:data.val().bgurl,
-//                 valid:data.val().valid
-//               })                
-//           }
-//           else{
-//             setgetIPro2([""]);  
-//           }
-//           setgetIPro2(r);
-//         });                  
-//       } catch (error) {
-//         //console.log('error occured during search', error);    
-//       }                
-// }    
-// useEffect(()=>{dbcallPro2()},[])
-
-
-// useEffect(() => ref.current.scrollTo(0, 0));
-// const ref = useRef()
-//ref={ref}localStorage.getItem('wallet')
-
-//localStorage.setItem('dupli',1454567)
 useEffect(() => {        
   async function apiData() {      
     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
     }else{    
-    //const res = await axios.get(`${configfile['url']}/nftPlain/${localStorage.getItem('dupli')}`)    
+    //const res = await axios.get(`${configfile['url']}/nftPlain/${localStorage.getItem('dupli')}`) 
+
     const res = await axios.get(`${configfile['url']}/nftPlainAlgo/${localStorage.getItem('wallet')}`)    
     //const res = await axios.get('http://18.224.57.2:42100/nft/v1/nftPlainAlgo/RYS3A3GLXVCRRMXYVUAYCMQJA32LDCMOADDWVTUUZF2MXQXYSF')      
     setApiDataProfile(res.data)                
@@ -334,10 +139,33 @@ useEffect(() => {
     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
     }else{  
     const res = await axios.get(`${configfile['url']}/nftPlain`)
-    setApiDataNftFull(res.data)                
+    setApiDataNftFull(res.data)                    
     }
   }
   apiDataNftFull();
+}, []);
+
+useEffect(() => {        
+  async function apiDataNftFull2() {      
+    if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
+    }else{  
+    await axios.get(`${configfile['url']}/nftPlain`).then((response)=>{
+      let a = [];
+      let b = [];
+      response.data.map((x)=>{
+        if(x.nftType === "Sellers"){
+          console.log("SellPrint",x)
+        a.push(x)
+        }else if(x.nftType === "Buyers"){
+        b.push(x)
+        }        
+        setApiDataNftFull2(a)
+        setApiDataNftFull22(b)
+      })      
+    })            
+    }
+  }
+  apiDataNftFull2();
 }, []);
 
 

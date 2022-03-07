@@ -8,11 +8,15 @@ import moment from 'moment';
 //import firebase from "../../firebase";
 import CollectionItemCopy from '../Snippets/CollectionItemCopy';
 import { DataContext } from '../../Context/DataContext';
+import configfile from '../../config.json'
+import { DateTime } from "luxon";
+const axios = require('axios');
 
 const TopCollections = () => {
     
     const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
-    console.log("getApiFullTopCollection",getApiDataNftFull)        
+    const [getApiDataNftFullage,setApiDataNftFullPage]=useState([""])
+    console.log("getApiFullTopCollectionPage",getApiDataNftFullage)        
     const dateOptions = ["1", "7", "30"];
     const [date, setDate] = useState(dateOptions[0]);    
     //const[getIb,setgetIb]=useState([]);
@@ -21,7 +25,6 @@ const TopCollections = () => {
         //console.log(e);
         setDate(e)
       }
-
           //buyers
 //   const dbcallalgobuy=async()=>{    
 //     let req = [];
@@ -58,29 +61,39 @@ const TopCollections = () => {
 //   useEffect(()=>{dbcallalgobuy()},[])
 
 
-  const filterdata=()=>{            
+//console.log('getApiDataNftFull', getApiDataNftFullage)
+
+  const filterdata=()=>{           
     if(date === '1')
     {
-          let data = getApiDataNftFull.filter((val)=>{
-          let currentdate=moment().format('ddd MMM DD YYYY')
-          //let currentdate = moment(val.url);
-          //console.log("currentdate",currentdate)
-          let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
-          return currentdate===createddate 
+        let currentdate ="";
+        let createddate ="";
+          let data = getApiDataNftFull.filter((val)=>{          
+          if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
+          }else{
+            currentdate=moment().format('YYYY.MM.DD')                                
+            createddate = val.creationTime.substr(0,10)                        
+          }          
+          return currentdate===createddate
       })
-          //console.log("B1Top",data)
+          console.log("B1Top",data)
           return data;
-    }    
-        let data = getApiDataNftFull.filter((val)=>{
-        //console.log("Buyers7Top",val)
-        //console.log("Buyers7Top",val.TimeStamp)
-        let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
-        let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
-        //let createddate=moment(val.adddate)
-        return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
-      })
-        //console.log("B7Top",data)
-        return data;            
+    }else{
+        let currentdates =""
+        let weekdates =""
+        let data = getApiDataNftFull.filter((val)=>{    
+            if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
+            }else{
+                currentdates=moment().subtract(1,"days").format('YYYY.MM.DD')              
+                weekdates=moment().subtract(parseInt(date),"days").format('YYYY.MM.DD')                
+                let createddate = val.creationTime.substr(0,10)                
+                return (createddate >= weekdates && createddate <= currentdates);                
+            }            
+          })
+            console.log("B7Top",data)
+            return data;            
+    }  
+    
   }
   useEffect(()=>{filterdata()},[])
 
@@ -115,11 +128,11 @@ const TopCollections = () => {
 
             <div className="">
               <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
-            {getApiDataNftFull.map((x, index) => (     
-                <li className='mb-3'>                    
-                    <CollectionItemCopy Imageurl={x.nftImageAsString} verify={true} count={index + 1} title={x.nftName} amount={x.nftPrice} appid={x.appId} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} Assetid={x.Assetid}/>   
-                    {/* <CollectionItem verify={true} count={index} title={x.NFTName} amount={x.NFTPrice} />*/}
-                </li>                                 
+            {filterdata().map((x, index) => (   
+                                                                
+                    <li className='mb-3'>                      
+                    <CollectionItemCopy Imageurl={x.nftImageAsString} verify={true} count={index + 1} title={x.nftName} amount={x.nftPrice} appid={x.appId} assetid={x.assetId} escrowaddress={x.esrowAddress} historyaddress={x.nftHistoryAddresses} imageurl={x.nftImageAsString} ipfsurl={x.ipfsHexUrl} nftdescription={x.nftDescription} TimeStamp={x.creationTime} keyId={""} ownerAddress={x.ownerAddress} previousaddress={x.previousOwner} userSymbol={x.nftSymbol} dataall={x} Assetid={x.assetId}/>                       
+                    </li>                                                                                 
             ))}
             </ul>
             </div>

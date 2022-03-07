@@ -10,10 +10,10 @@ const CollectionItem = (props) => {
     //console.log("followcoll",props.follow)
     return (
         <Link className='collection-item d-flex align-items-center' to={{
-            pathname: "/profileviewothercopy",            
-            state:{title:props.title,amount:props.amount,appid:props.appid,assetid:props.assetid,escrowaddress:props.escrowaddress,historyaddress:props.historyaddress,imageurl:props.imageurl,ipfsurl:props.ipfsurl,nftdescription:props.nftdescription,TimeStamp:props.TimeStamp,keyId:props.keyId,ownerAddress:props.ownerAddress,previousaddress:props.previousaddress,userSymbol:props.userSymbol,valid:props.valid}
-            //state:{alldata:props.dataall}
+            pathname: "/profileviewothercopy",                        
+            state:{alldata:props.dataall}            
             // ,follow:props.follow
+            //state:{title:props.title,amount:props.amount,appid:props.appid,assetid:props.assetid,escrowaddress:props.escrowaddress,historyaddress:props.historyaddress,imageurl:props.imageurl,ipfsurl:props.ipfsurl,nftdescription:props.nftdescription,TimeStamp:props.TimeStamp,keyId:props.keyId,ownerAddress:props.ownerAddress,previousaddress:props.previousaddress,userSymbol:props.userSymbol,valid:props.valid}
           }}>        
             <div className="collection-count">{props.count}</div>
             <div className="collection-image">

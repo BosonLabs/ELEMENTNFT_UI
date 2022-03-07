@@ -25,17 +25,24 @@ function Footer() {
             if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === ""){
 
                 alert("please connect your wallet")
-            }
+            }            
             else{
-                let ref2=fireDb.database().ref(`storemailaddress/${localStorage.getItem('wallet')}`);
-                let dateset=new Date().toDateString();        
-                const db = ref2.push().key;   
-                ref2.child(db).set({
-                MailId:getMail,walletAddress:localStorage.getItem('wallet'),keyId:db,TimeStamp:dateset
-                })
-                .then(()=>{ 
-                setDone(true)
-              })
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(getMail))
+                {
+                    let ref2=fireDb.database().ref(`storemailaddress/${localStorage.getItem('wallet')}`);
+                    let dateset=new Date().toDateString();        
+                    const db = ref2.push().key;   
+                    ref2.child(db).set({
+                    MailId:getMail,walletAddress:localStorage.getItem('wallet'),keyId:db,TimeStamp:dateset
+                        })
+                        .then(()=>{ 
+                        setDone(true)
+                    })
+                }
+                else{
+
+                    alert("Please Enter Valid E-mail")
+                }                
             }            
         }
     }

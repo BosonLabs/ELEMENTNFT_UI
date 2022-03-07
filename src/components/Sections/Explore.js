@@ -134,9 +134,11 @@ const Explore = () => {
                 if(index<pageSize)
                 return(  
                     <>
+                    {x.status === "onsale" && (
                     <div className='col mb-4'>
                     <CardBuy verify={true} pAddress={x.previousOwner} oAddress={x.ownerAddress} img={x.nftImageAsString} title={x.nftName} count="401" subTitle={`<span>${x.nftPrice/1000000}</span>`} linkText={x.nftPrice} dataall={x} Assetid={x.assetId}/>  
                     </div>
+                    )}
                     </>                                                                                          
               )})}                              
                 
