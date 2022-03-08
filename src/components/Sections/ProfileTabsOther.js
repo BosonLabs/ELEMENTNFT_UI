@@ -14,9 +14,9 @@ import CreatedViewOther from '../Snippets/tabs/CreatedViewOther';
 
 
 const ProfileTabsOther = (create) => {
-    React.useEffect(() => {
-    window.scrollTo(0, 0);     
-    });
+    // React.useEffect(() => {
+    // window.scrollTo(0, 0);     
+    // });
 
     // console.log("bcreate",create.create)    
     // console.log("bsale",create.sale) 

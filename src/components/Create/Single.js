@@ -251,7 +251,8 @@ const Start = () => {
         alert("you wallet raises some issues")
         window.location.reload(false)
       } 
-      storedb(assetID,responsetxId,addresseswall)
+      //storedb(assetID,responsetxId,addresseswall)
+      storeDbPinataDuplicate(assetID,responsetxId,addresseswall)
       //storedbApi(assetID,responsetxId,addresseswall);      
     }
       // const appoptins=async(assetID,responsetxId,addresseswall)=>{
@@ -372,6 +373,114 @@ const Start = () => {
     //                   setshowTestLoading(false)
     //               });                                                                                        
     // }
+
+
+    const storeDbPinataDuplicate=(assetID,responsetxId,addresseswall)=>{
+      toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
+      let appId="50714558";
+      let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
+      let ref22=fireDb.database().ref(`imagerefAlgolt`);   
+      let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
+      let dateset=new Date().toDateString();
+      //console.log("dateget",dateset)
+      const db = ref2.push().key;                                                
+      const JSONBody = {
+        "imageurl": Img
+      }
+      const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+      return axios
+          .post(url, JSONBody, {
+              headers: {
+                  pinata_api_key: configfile['pinataApiKey'],
+                  pinata_secret_api_key: configfile['pinataSecretApiKey']
+              }
+          })
+          .then(function (response) {
+            toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});            
+            let ipfsurl=`https://ipfs.infura.io/ipfs/${response.data.IpfsHash}`                                                          
+            if(getIPro[0].valid === "validated"){
+              toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});
+              //db add here
+              // toast.loading(`images uploading ipfs`, {
+              // onClose: ('loading') });        
+              ref2.child(db).set({
+                Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
+                CreatorAddress:addresseswall
+              })
+                .then(()=>{
+                  refactivity.child(db).set({
+                      Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                      TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
+                      CreatorAddress:addresseswall
+                    })
+                      .then(()=>{                                        
+                  ref22.child(db).set({
+                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
+                  CreatorAddress:addresseswall
+                    })
+                .then(()=>{                                   
+                  //setshowTestLoading(false)
+                  //setShowTest(true)                                                                                         
+                  //toast.info("Minting Image",{autoClose: 5000})
+                  //toast.dismiss(); 
+                  toast.success("NFT Minted successfully",{autoClose: 5000})
+                  //toast.dismiss();
+                  setshowTestLoading(false)
+                  setShowTest(true)                                                                                         
+                })              
+                })
+              })                                                                                              
+             
+            }else{
+
+              toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});
+              //db add here
+              // toast.loading(`images uploading ipfs`, {
+              // onClose: ('loading') });        
+              ref2.child(db).set({
+                Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
+                CreatorAddress:addresseswall
+              })
+                .then(()=>{
+                  refactivity.child(db).set({
+                      Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                      TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
+                      CreatorAddress:addresseswall
+                    })
+                      .then(()=>{                                        
+                  ref22.child(db).set({
+                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
+                  CreatorAddress:addresseswall
+                    })
+                .then(()=>{                                   
+                  //setshowTestLoading(false)
+                  //setShowTest(true)                                                                                         
+                  //toast.info("Minting Image",{autoClose: 5000})
+                  //toast.dismiss(); 
+                  toast.success("NFT Minted successfully",{autoClose: 5000})
+                  //toast.dismiss();
+                  setshowTestLoading(false)
+                  setShowTest(true)                                                                                         
+                })              
+                })
+              })                                                                                                           
+            }                                  
+          })
+          .catch(function (error) {
+              //handle error here
+              console.log("Error1",error)
+          });
+    }
 
     const storedb=async(assetID,responsetxId,addresseswall)=>{
         // console.log("addresswall",addresseswall)

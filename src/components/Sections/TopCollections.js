@@ -67,7 +67,8 @@ const TopCollections = () => {
       })
           //console.log("B1Top",data)
           return data;
-    }    
+    }   
+    else{    
         let data = getIb.filter((val)=>{
         //console.log("Buyers7Top",val)
         //console.log("Buyers7Top",val.TimeStamp)
@@ -78,6 +79,7 @@ const TopCollections = () => {
       })
         //console.log("B7Top",data)
         return data;            
+    }
   }
   useEffect(()=>{filterdata()},[])
 

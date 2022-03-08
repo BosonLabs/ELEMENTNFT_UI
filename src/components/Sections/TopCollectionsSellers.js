@@ -113,7 +113,8 @@ const TopCollectionsSelles = (props) => {
             })
               //console.log("R1",data)
               return data;              
-          }    
+          }  
+          else{          
               let data = getImb.filter((val)=>{
               //console.log("sellers7get",val)
               //console.log("sellers7",val.TimeStamp)
@@ -126,10 +127,12 @@ const TopCollectionsSelles = (props) => {
               //const dateTimeFormat = "ddd MMM DD YYYY";
               //console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
               return moment(val.TimeStamp).isBetween(weekdate, currentdate)                
-            })
+            })          
             //console.log("R7",data)            
             return data;    
+          }
         }
+        else{        
         if(date === '1')
         {
               let data = getIb.filter((val)=>{
@@ -141,7 +144,8 @@ const TopCollectionsSelles = (props) => {
           })
               //console.log("B1",data)
               return data;
-        }    
+        }
+        else{           
             let data = getIb.filter((val)=>{
             //console.log("Buyers7get",val)
             //console.log("Buyers7",val.TimeStamp)
@@ -150,8 +154,10 @@ const TopCollectionsSelles = (props) => {
             //let createddate=moment(val.adddate)
             return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
           })
-            //console.log("B7",data)
+            //console.log("B7",data)            
             return data;            
+        }
+        }
       }
   useEffect(()=>{filterdata()},[])
     return (
