@@ -1,33 +1,24 @@
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Dropdown, DropdownButton} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
 import CollectionItem from '../Snippets/CollectionItem';
 import moment from 'moment';
-//import firebase from "../../firebase";
-import { DataContext } from '../../Context/DataContext';
+import firebase from "../../firebase";
 
 const TopCollectionsSelles = (props) => {
 
-  const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
-  console.log("getApiFullSellers",getApiDataNftFull)        
-  const {getApiDataNftFull2,setApiDataNftFull2}=useContext(DataContext)
-  console.log("getApiFullSellers2",getApiDataNftFull2)        
-  const {getApiDataNftFull22,setApiDataNftFull22}=useContext(DataContext)
-  console.log("getApiFullSellers3",getApiDataNftFull22)        
-  
-  
     // console.log("topsc",props.follow)
     const dateOptions = ["1", "7", "30"];
-    const directionOptions = ["SELLERS", "BUYERS"];
+    const directionOptions = ["Sellers", "Buyers"];
     const [date, setDate] = useState(dateOptions[0]);
     const [direction, setDirection] = useState(directionOptions[0]);
     //console.log("ses",direction);
     //console.log("sesd",date);
-    //const[getIb,setgetIb]=useState([]);
+    const[getIb,setgetIb]=useState([]);
     //console.log("getImgalbuy",getIb)
-    //const[getImb,setgetImb]=useState([]);
+    const[getImb,setgetImb]=useState([]);
     //console.log("getImgalgosssbuy",getImb)
     //options={direction} onChange={(e) => setDirection(e.target.value)} value={direction}
     const handleSelect=(e)=>{
@@ -39,252 +30,147 @@ const TopCollectionsSelles = (props) => {
         setDate(e)
     }
     //buyers
-  // const dbcallalgobuy=async()=>{    
-  //   let req = [];
-  //   firebase.database().ref("imagerefbuy").on("value", (data) => {      
-  //     if (data) {
-  //       data.forEach((d) => {          
-  //         const a=d.val();
-  //           Object.keys(a).map(async(b)=>{                  
-  //                     req.push({
-  //                       Assetid:a[b].Assetid,
-  //                       Imageurl:a[b].Imageurl,
-  //                       NFTPrice:a[b].NFTPrice,
-  //                       EscrowAddress:a[b].EscrowAddress,
-  //                       keyId:a[b].keyId,
-  //                       NFTName:a[b].NFTName,
-  //                       userSymbol:a[b].userSymbol,
-  //                       Ipfsurl:a[b].Ipfsurl,
-  //                       ownerAddress:a[b].ownerAddress,
-  //                       previousoaddress:a[b].previousoaddress,
-  //                       TimeStamp:a[b].TimeStamp,
-  //                       NFTDescription:a[b].NFTDescription,
-  //                       HistoryAddress:a[b].HistoryAddress,
-  //                       Appid:a[b].Appid,
-  //                       valid:a[b].valid,
-  //                       CreatorAddress:a[b].CreatorAddress  
-  //                   })                    
-  //           })            
-  //       });        
-  //       setgetIb(req)              
-  //     }    
-  //     //setgetImb(req)
-  //   });
-  // }  
-  // useEffect(()=>{dbcallalgobuy()},[])
+  const dbcallalgobuy=async()=>{    
+    let req = [];
+    firebase.database().ref("imagerefbuy").on("value", (data) => {      
+      if (data) {
+        data.forEach((d) => {          
+          const a=d.val();
+            Object.keys(a).map(async(b)=>{                  
+                      req.push({
+                        Assetid:a[b].Assetid,
+                        Imageurl:a[b].Imageurl,
+                        NFTPrice:a[b].NFTPrice,
+                        EscrowAddress:a[b].EscrowAddress,
+                        keyId:a[b].keyId,
+                        NFTName:a[b].NFTName,
+                        userSymbol:a[b].userSymbol,
+                        Ipfsurl:a[b].Ipfsurl,
+                        ownerAddress:a[b].ownerAddress,
+                        previousoaddress:a[b].previousoaddress,
+                        TimeStamp:a[b].TimeStamp,
+                        NFTDescription:a[b].NFTDescription,
+                        HistoryAddress:a[b].HistoryAddress,
+                        Appid:a[b].Appid,
+                        valid:a[b].valid,
+                        CreatorAddress:a[b].CreatorAddress  
+                    })                    
+            })            
+        });        
+        setgetIb(req)              
+      }    
+      //setgetImb(req)
+    });
+  }  
+  useEffect(()=>{dbcallalgobuy()},[])
 
   //seller  
-  // const dbcallalgosale=async()=>{   
-  //   let reqsale = [];
-  //   firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
-  //     if (data) {
-  //       data.forEach((d) => {          
-  //         const a=d.val();
-  //           Object.keys(a).map(async(b)=>{                    
-  //                     reqsale.push({
-  //                       Assetid:a[b].Assetid,
-  //                       Imageurl:a[b].Imageurl,
-  //                       NFTPrice:a[b].NFTPrice,
-  //                       EscrowAddress:a[b].EscrowAddress,
-  //                       keyId:a[b].keyId,
-  //                       NFTName:a[b].NFTName,
-  //                       userSymbol:a[b].userSymbol,
-  //                       Ipfsurl:a[b].Ipfsurl,
-  //                       ownerAddress:a[b].ownerAddress,
-  //                       previousoaddress:a[b].previousoaddress,
-  //                       TimeStamp:a[b].TimeStamp,
-  //                       NFTDescription:a[b].NFTDescription,
-  //                       HistoryAddress:a[b].HistoryAddress,
-  //                       Appid:a[b].Appid,
-  //                       valid:a[b].valid,
-  //                       CreatorAddress:a[b].CreatorAddress   
-  //                   })                    
-  //           })            
-  //       });        
-  //       setgetImb(reqsale) 
-  //     }          
-  //   });
-  // }
-  // useEffect(()=>{dbcallalgosale()},[])
-//   const filterdata=()=>{        
-//         if(direction === 'Sellers') {            
-//           if(date === '1' && (getApiDataNftFull2 !== null || getApiDataNftFull2 !== "" || getApiDataNftFull2 !== undefined))
-//           {              
-//               //console.log("one")              
-//               let data = getApiDataNftFull2.filter((val)=>{                  
-//                 if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-//                 }else {                    
-//                     // console.log("datainside",val)
-//                     let currentdate=moment().format('YYYY.MM.DD')
-//                     //let currentdate = moment(val.url);
-//                     //console.log("currentdate",currentdate)
-//                     let createddate=val.creationTime.substr(0,10)
-//                     //console.log("createddate",createddate)
-//                     return currentdate === createddate                                         
-//             }              
-//             })
-//               //console.log("R1",data)
-//               return data;              
-//           }    
-//           else if((getApiDataNftFull2 !== null || getApiDataNftFull2 !== "" || getApiDataNftFull2 !== undefined)) {
-//             let data = getApiDataNftFull2.filter((val)=>{
-//                 if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-//                 }else{                    
-//                 //console.log("sellers7get",val)
-//                 //console.log("sellers7",val.TimeStamp)
-//                 //console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
-//                 let currentdate=moment().subtract(1,"days").format('YYYY.MM.DD')
-//                 //console.log("curr7",currentdate)
-//                 let weekdate=moment().subtract(parseInt(date),"days").format('YYYY.MM.DD')
-//                 //console.log("curr8",weekdate)                              
-//                 //return moment(val.TimeStamp).isBetween(weekdate,currentdate)
-//                 let dateTimeFormat = val.creationTime.substr(0,10)
-//                 return (dateTimeFormat >= weekdate && dateTimeFormat <= currentdate);
-//                 //console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
-//                 //return moment(val.TimeStamp).isBetween(weekdate, currentdate)                                    
-//                 }
-//               })
-//               return data;    
-//           }              
-//             //console.log("R7",data)                       
-//         }
-//         else
-//         {
-//             if(date === '1' && (getApiDataNftFull22 !== null || getApiDataNftFull22 !== "" || getApiDataNftFull22 !== undefined))
-//             {
-//                   let data = getApiDataNftFull22.filter((val)=>{
-//                     if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-//                     }else{                        
-                        
-//                   let currentdate=moment().format('YYYY.MM.DD')
-//                   //let currentdate = moment(val.url);
-//                   //console.log("currentdate",currentdate)
-//                   let createddate=val.creationTime.substr(0,10)
-//                   return currentdate===createddate                         
-//                     }
-//               })
-//                   //console.log("B1",data)
-//                   return data;
-//             }
-//             else if(getApiDataNftFull2 !== null || getApiDataNftFull2 !== "" || getApiDataNftFull2 !== undefined){
-//                 let data = getApiDataNftFull22.filter((val)=>{
-//                     if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-//                     }else{
-                        
-//                     //console.log("Buyers7get",val)
-//                     //console.log("Buyers7",val.TimeStamp)
-//                     let currentdates=moment().subtract(1,"days").format('YYYY.MM.DD')              
-//                     let weekdates=moment().subtract(parseInt(date),"days").format('YYYY.MM.DD')
-//                     let createddate=val.creationTime.substr(0,10);                    
-//                     return (createddate >= weekdates && createddate <= currentdates);                                                        
-//                     }
-//                   })
-//                     //console.log("B7",data)
-//                     return data;            
-//             }                    
-//         }
-        
-//     }
-//   useEffect(()=>{filterdata()},[])
-
-const filterdata=()=>{        
-            if(direction === 'Sellers') {            
-              if(date === '1')
-              {              
-                  //console.log("one")              
-                  let data = getApiDataNftFull2.filter((val)=>{                  
-                    if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-                    }else {                    
-                        // console.log("datainside",val)
-                        let currentdate=moment().format('YYYY.MM.DD')
-                        //let currentdate = moment(val.url);
-                        //console.log("currentdate",currentdate)
-                        let createddate=val.creationTime.substr(0,10)
-                        //console.log("createddate",createddate)
-                        return currentdate === createddate                                         
-                }              
-                })
-                  //console.log("R1",data)
-                  return data;              
-              }    
-              else {
-                let data = getApiDataNftFull2.filter((val)=>{
-                    if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-                    }else{                    
-                    //console.log("sellers7get",val)
-                    //console.log("sellers7",val.TimeStamp)
-                    //console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
-                    let currentdate=moment().subtract(1,"days").format('YYYY.MM.DD')
-                    //console.log("curr7",currentdate)
-                    let weekdate=moment().subtract(parseInt(date),"days").format('YYYY.MM.DD')
-                    //console.log("curr8",weekdate)                              
-                    //return moment(val.TimeStamp).isBetween(weekdate,currentdate)
-                    let dateTimeFormat = val.creationTime.substr(0,10)
-                    return (dateTimeFormat >= weekdate && dateTimeFormat <= currentdate);
-                    //console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
-                    //return moment(val.TimeStamp).isBetween(weekdate, currentdate)                                    
-                    }
-                  })
-                  return data;    
-              }              
-                //console.log("R7",data)                       
-            }
-            else
-            {
-                if(date === '1')
-                {
-                      let data = getApiDataNftFull.filter((val)=>{
-                        if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-                        }else{                        
-                            
-                      let currentdate=moment().format('YYYY.MM.DD')
-                      //let currentdate = moment(val.url);
-                      //console.log("currentdate",currentdate)
-                      let createddate=val.creationTime.substr(0,10)
-                      return currentdate===createddate                         
-                        }
-                  })
-                      //console.log("B1",data)
-                      return data;
-                }
-                else{
-                    let data = getApiDataNftFull.filter((val)=>{
-                        if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-                        }else{
-                            
-                        //console.log("Buyers7get",val)
-                        //console.log("Buyers7",val.TimeStamp)
-                        let currentdates=moment().subtract(1,"days").format('YYYY.MM.DD')              
-                        let weekdates=moment().subtract(parseInt(date),"days").format('YYYY.MM.DD')
-                        let createddate=val.creationTime.substr(0,10);                    
-                        return (createddate >= weekdates && createddate <= currentdates);                                                        
-                        }
-                      })
-                        //console.log("B7",data)
-                        return data;            
-                }                    
-            }
-            
+  const dbcallalgosale=async()=>{   
+    let reqsale = [];
+    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
+      if (data) {
+        data.forEach((d) => {          
+          const a=d.val();
+            Object.keys(a).map(async(b)=>{                    
+                      reqsale.push({
+                        Assetid:a[b].Assetid,
+                        Imageurl:a[b].Imageurl,
+                        NFTPrice:a[b].NFTPrice,
+                        EscrowAddress:a[b].EscrowAddress,
+                        keyId:a[b].keyId,
+                        NFTName:a[b].NFTName,
+                        userSymbol:a[b].userSymbol,
+                        Ipfsurl:a[b].Ipfsurl,
+                        ownerAddress:a[b].ownerAddress,
+                        previousoaddress:a[b].previousoaddress,
+                        TimeStamp:a[b].TimeStamp,
+                        NFTDescription:a[b].NFTDescription,
+                        HistoryAddress:a[b].HistoryAddress,
+                        Appid:a[b].Appid,
+                        valid:a[b].valid,
+                        CreatorAddress:a[b].CreatorAddress   
+                    })                    
+            })            
+        });        
+        setgetImb(reqsale) 
+      }          
+    });
+  }
+  useEffect(()=>{dbcallalgosale()},[])
+  const filterdata=()=>{        
+        if(direction === 'Sellers') {
+          if(date === '1')
+          {
+              //console.log("one")
+              let data = getImb.filter((val)=>{
+              // console.log("datainside",val)
+              let currentdate=moment().format('ddd MMM DD YYYY')
+              //let currentdate = moment(val.url);
+              //console.log("currentdate",currentdate)
+              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
+              //console.log("createddate",createddate)
+              return currentdate === createddate 
+            })
+              //console.log("R1",data)
+              return data;              
+          }    
+              let data = getImb.filter((val)=>{
+              //console.log("sellers7get",val)
+              //console.log("sellers7",val.TimeStamp)
+              //console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
+              let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')
+              //console.log("curr7",currentdate)
+              let weekdate=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
+              //console.log("curr8",weekdate)                              
+              //return moment(val.TimeStamp).isBetween(weekdate,currentdate)
+              //const dateTimeFormat = "ddd MMM DD YYYY";
+              //console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
+              return moment(val.TimeStamp).isBetween(weekdate, currentdate)                
+            })
+            //console.log("R7",data)            
+            return data;    
         }
-      useEffect(()=>{filterdata()},[])
-
+        if(date === '1')
+        {
+              let data = getIb.filter((val)=>{
+              let currentdate=moment().format('ddd MMM DD YYYY')
+              //let currentdate = moment(val.url);
+              //console.log("currentdate",currentdate)
+              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
+              return currentdate===createddate 
+          })
+              //console.log("B1",data)
+              return data;
+        }    
+            let data = getIb.filter((val)=>{
+            //console.log("Buyers7get",val)
+            //console.log("Buyers7",val.TimeStamp)
+            let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
+            let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
+            //let createddate=moment(val.adddate)
+            return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
+          })
+            //console.log("B7",data)
+            return data;            
+      }
+  useEffect(()=>{filterdata()},[])
     return (
 
         <div className='mb-36'>
             <div className="mb-32 d-flex align-items-center">
                 <div className='h2 d-flex align-items-center'>
-                    TOP
+                    Top 
                     &nbsp;
                     {direction}
                     <DropdownButton onSelect={handleSelect}>                                                
-                            <Dropdown.Item eventKey="Sellers" variant="reset" className='dropdown-btn-grad'>SELLERS                         
+                            <Dropdown.Item eventKey="Sellers" variant="reset" className='dropdown-btn-grad'>Sellers                         
                             </Dropdown.Item>
-                            <Dropdown.Item eventKey="Buyers" variant="reset" className='dropdown-btn-grad'>BUYERS
+                            <Dropdown.Item eventKey="Buyers" variant="reset" className='dropdown-btn-grad'>Buyers
                             </Dropdown.Item>                        
                     </DropdownButton>
-                     IN
+                     in
                      &nbsp;
-                     {date} DAY
+                     {date} day
                     <DropdownButton onSelect={handleSelect2}>                        
                             <Dropdown.Item eventKey="1" variant="reset" className='dropdown-btn-grad'>1 day                                 
                             </Dropdown.Item>
@@ -299,7 +185,7 @@ const filterdata=()=>{
             {filterdata().map((x, index) => (                      
                 <li className='mb-3'>
                 {/* <Card verify={true} img={x.Imageurl} title={x.NFTName} count="401" subTitle={`<span>Highest bid</span> <span>${x.NFTPrice/1000000}</span>`} linkText="0.221 WETH" dataall={x}/> */}
-                        <CollectionItem Imageurl={x.nftImageAsString} verify={true} count={index + 1} title={x.nftName} amount={x.nftPrice} appid={x.appId} assetid={x.assetId} escrowaddress={x.esrowAddress} historyaddress={x.nftHistoryAddresses} imageurl={x.nftImageAsString} ipfsurl={x.ipfsHexUrl} nftdescription={x.nftDescription} TimeStamp={x.creationTime} keyId={""} ownerAddress={x.ownerAddress} previousaddress={x.previousOwner} userSymbol={x.nftSymbol} dataall={x} Assetid={x.assetId}/>   
+                        <CollectionItem Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} Assetid={x.Assetid}/>   
                 {/* follow={props.follow} */}
                 </li>
             ))}

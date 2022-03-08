@@ -1,99 +1,83 @@
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Dropdown,DropdownButton} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
 //import CollectionItem from '../Snippets/CollectionItem';
 import moment from 'moment';
-//import firebase from "../../firebase";
+import firebase from "../../firebase";
 import CollectionItemCopy from '../Snippets/CollectionItemCopy';
-import { DataContext } from '../../Context/DataContext';
-import configfile from '../../config.json'
-import { DateTime } from "luxon";
-const axios = require('axios');
 
 const TopCollections = () => {
     
-    const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
-    const [getApiDataNftFullage,setApiDataNftFullPage]=useState([""])
-    console.log("getApiFullTopCollectionPage",getApiDataNftFullage)        
     const dateOptions = ["1", "7", "30"];
     const [date, setDate] = useState(dateOptions[0]);    
-    //const[getIb,setgetIb]=useState([]);
+    const[getIb,setgetIb]=useState([]);
     //console.log("getImgalbuy",getIb)
     const handleSelect=(e)=>{
         //console.log(e);
         setDate(e)
       }
+
           //buyers
-//   const dbcallalgobuy=async()=>{    
-//     let req = [];
-//     firebase.database().ref("imagerefbuy").on("value", (data) => {      
-//       if (data) {
-//         data.forEach((d) => {          
-//           const a=d.val();
-//             Object.keys(a).map(async(b)=>{                  
-//                       req.push({
-//                         Assetid:a[b].Assetid,
-//                         Imageurl:a[b].Imageurl,
-//                         NFTPrice:a[b].NFTPrice,
-//                         EscrowAddress:a[b].EscrowAddress,
-//                         keyId:a[b].keyId,
-//                         NFTName:a[b].NFTName,
-//                         userSymbol:a[b].userSymbol,
-//                         Ipfsurl:a[b].Ipfsurl,
-//                         ownerAddress:a[b].ownerAddress,
-//                         previousoaddress:a[b].previousoaddress,
-//                         TimeStamp:a[b].TimeStamp,
-//                         NFTDescription:a[b].NFTDescription,
-//                         HistoryAddress:a[b].HistoryAddress,
-//                         Appid:a[b].Appid,
-//                         valid:a[b].valid,
-//                         CreatorAddress:a[b].CreatorAddress 
-//                     })                    
-//             })            
-//         });        
-//         setgetIb(req)              
-//       }    
-//       //setgetImb(req)
-//     });
-//   }  
-//   useEffect(()=>{dbcallalgobuy()},[])
+  const dbcallalgobuy=async()=>{    
+    let req = [];
+    firebase.database().ref("imagerefbuy").on("value", (data) => {      
+      if (data) {
+        data.forEach((d) => {          
+          const a=d.val();
+            Object.keys(a).map(async(b)=>{                  
+                      req.push({
+                        Assetid:a[b].Assetid,
+                        Imageurl:a[b].Imageurl,
+                        NFTPrice:a[b].NFTPrice,
+                        EscrowAddress:a[b].EscrowAddress,
+                        keyId:a[b].keyId,
+                        NFTName:a[b].NFTName,
+                        userSymbol:a[b].userSymbol,
+                        Ipfsurl:a[b].Ipfsurl,
+                        ownerAddress:a[b].ownerAddress,
+                        previousoaddress:a[b].previousoaddress,
+                        TimeStamp:a[b].TimeStamp,
+                        NFTDescription:a[b].NFTDescription,
+                        HistoryAddress:a[b].HistoryAddress,
+                        Appid:a[b].Appid,
+                        valid:a[b].valid,
+                        CreatorAddress:a[b].CreatorAddress 
+                    })                    
+            })            
+        });        
+        setgetIb(req)              
+      }    
+      //setgetImb(req)
+    });
+  }  
+  useEffect(()=>{dbcallalgobuy()},[])
 
 
-//console.log('getApiDataNftFull', getApiDataNftFullage)
-
-  const filterdata=()=>{           
+  const filterdata=()=>{            
     if(date === '1')
     {
-        let currentdate ="";
-        let createddate ="";
-          let data = getApiDataNftFull.filter((val)=>{          
-          if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-          }else{
-            currentdate=moment().format('YYYY.MM.DD')                                
-            createddate = val.creationTime.substr(0,10)                        
-          }          
-          return currentdate===createddate
+          let data = getIb.filter((val)=>{
+          let currentdate=moment().format('ddd MMM DD YYYY')
+          //let currentdate = moment(val.url);
+          //console.log("currentdate",currentdate)
+          let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
+          return currentdate===createddate 
       })
-          console.log("B1Top",data)
+          //console.log("B1Top",data)
           return data;
-    }else{
-        let currentdates =""
-        let weekdates =""
-        let data = getApiDataNftFull.filter((val)=>{    
-            if(val.creationTime === "" || val.creationTime === undefined || val.creationTime === null){
-            }else{
-                currentdates=moment().subtract(1,"days").format('YYYY.MM.DD')              
-                weekdates=moment().subtract(parseInt(date),"days").format('YYYY.MM.DD')                
-                let createddate = val.creationTime.substr(0,10)                
-                return (createddate >= weekdates && createddate <= currentdates);                
-            }            
-          })
-            console.log("B7Top",data)
-            return data;            
-    }  
-    
+    }    
+        let data = getIb.filter((val)=>{
+        //console.log("Buyers7Top",val)
+        //console.log("Buyers7Top",val.TimeStamp)
+        let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
+        let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
+        //let createddate=moment(val.adddate)
+        return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
+      })
+        //console.log("B7Top",data)
+        return data;            
   }
   useEffect(()=>{filterdata()},[])
 
@@ -101,9 +85,9 @@ const TopCollections = () => {
         <div className='mb-36'>
             <div className="mb-32 d-flex align-items-center">
                 <div className='h2 d-flex align-items-center'>
-                    TOP COLLECTION IN
+                    Top collections in
 
-                    &nbsp;{date} DAY
+                    &nbsp;{date} day
                     <DropdownButton onSelect={handleSelect}>                        
                             <Dropdown.Item eventKey="1" variant="reset" className='dropdown-btn-grad'>1 day                                 
                             </Dropdown.Item>
@@ -128,11 +112,11 @@ const TopCollections = () => {
 
             <div className="">
               <ul className='collection-list list-unstyled flex-wrap m-0 d-flex align-items-start'>
-            {filterdata().map((x, index) => (   
-                                                                
-                    <li className='mb-3'>                      
-                    <CollectionItemCopy Imageurl={x.nftImageAsString} verify={true} count={index + 1} title={x.nftName} amount={x.nftPrice} appid={x.appId} assetid={x.assetId} escrowaddress={x.esrowAddress} historyaddress={x.nftHistoryAddresses} imageurl={x.nftImageAsString} ipfsurl={x.ipfsHexUrl} nftdescription={x.nftDescription} TimeStamp={x.creationTime} keyId={""} ownerAddress={x.ownerAddress} previousaddress={x.previousOwner} userSymbol={x.nftSymbol} dataall={x} Assetid={x.assetId}/>                       
-                    </li>                                                                                 
+            {filterdata().map((x, index) => (     
+                <li className='mb-3'>                    
+                    <CollectionItemCopy Imageurl={x.Imageurl} verify={true} count={index + 1} title={x.NFTName} amount={x.NFTPrice} appid={x.Appid} assetid={x.Assetid} escrowaddress={x.EscrowAddress} historyaddress={x.HistoryAddress} imageurl={x.Imageurl} ipfsurl={x.Ipfsurl} nftdescription={x.NFTDescription} TimeStamp={x.TimeStamp} keyId={x.keyId} ownerAddress={x.ownerAddress} previousaddress={x.previousaddress} userSymbol={x.userSymbol} dataall={x} Assetid={x.Assetid}/>   
+                    {/* <CollectionItem verify={true} count={index} title={x.NFTName} amount={x.NFTPrice} />*/}
+                </li>                                 
             ))}
             </ul>
             </div>

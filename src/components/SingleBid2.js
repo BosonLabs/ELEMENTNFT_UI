@@ -20,7 +20,6 @@ import '../toast-style-override.css'
 import dataescrowprice from "../escrowprice";
 const algosdk = require('algosdk'); 
 const myAlgoWallet = new MyAlgoConnect();
-const axios = require('axios');
 
 const SingleBid = (props) => {
     const {algobalanceApp}=useContext(DataContext)
@@ -49,7 +48,8 @@ const SingleBid = (props) => {
     //console.log("calc",algobalance)
     //console.log("calcstart",parseInt(location.state.alldata.NFTPrice)/1000000)
     useEffect(() => {        
-        async function listenMMAccount() {    
+        async function listenMMAccount() {
+    
           if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
           }
           else{          
@@ -61,7 +61,7 @@ const SingleBid = (props) => {
             let client = new algosdk.Algodv2(token, baseServer, port);                
     ( async() => {
       let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
-      //calc=JSON.stringify(account1_info.amount)/1000000;      
+      calc=JSON.stringify(account1_info.amount)/1000000;      
       setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
       localStorage.setItem("balget",account1_info);      
   })().catch(e => {
@@ -72,34 +72,46 @@ const SingleBid = (props) => {
     listenMMAccount();
     }, []);
 
-    const dbcallPro=async()=>{                    
-        try {                 
-            if(location.state.alldata.creatorAddress === "" || location.state.alldata.creatorAddress === undefined|| location.state.alldata.creatorAddress === null){
-            }else{
-                try{
-                const res = await axios.get(`${configfile['url']}/userinfo/${location.state.alldata.creatorAddress}`)
-                setgetIPro(res.data)                
-                }catch(err){
-                console.log("ERRRRRR1")
-                }
-            }        
-      } catch (error) {        
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(location.state.alldata.CreatorAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid,
+                UserName:data.val().UserName
+              })                
+          }
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro()},[])
 
-    const dbcallPro2=async()=>{                 
-        try {                 
-            if(location.state.alldata.ownerAddress === "" || location.state.alldata.ownerAddress === undefined|| location.state.alldata.ownerAddress === null){
-            }else{
-                try{
-                const res = await axios.get(`${configfile['url']}/userinfo/${location.state.alldata.ownerAddress}`)
-                setgetIPro2(res.data)                
-                }catch(err){
-                console.log("ERRRRRR1")
-                }
-            }        
-      } catch (error) {        
+    const dbcallPro2=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(location.state.alldata.ownerAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid,
+                UserName:data.val().UserName
+              })                
+          }
+          else{
+            setgetIPro2([""]);  
+          }
+          setgetIPro2(r);
+        });                  
+      } catch (error) {
+        //console.log('error occured during search', error);    
       }                
       }    
     useEffect(()=>{dbcallPro2()},[])
@@ -127,10 +139,10 @@ const SingleBid = (props) => {
             window.location.reload(false)            
         }
 
-        // const buynow2=async()=>{
-        //     let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));
-        //     //console.log("lol",a)
-        // }
+        const buynow2=async()=>{
+            let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));
+            //console.log("lol",a)
+        }
 
         const pleasewait=()=>{
             alert("please wait your balance has checking....")
@@ -175,15 +187,15 @@ const SingleBid = (props) => {
                 ////console.log("Global state", datedt); 
                 toast.info("Buy Starting",{autoClose: 5000});  
                 try {    
-                let convert95=(((parseFloat(location.state.alldata.nftPrice))/100)*95)
+                let convert95=(((parseFloat(location.state.alldata.NFTPrice))/100)*95)
                 //console.log("convert95",convert95)  
-                let convert5=(((parseFloat(location.state.alldata.nftPrice))/100)*5);
+                let convert5=(((parseFloat(location.state.alldata.NFTPrice))/100)*5);
                 //console.log("convert5",convert5)
                 //console.log("AssBuy",parseInt(location.state.alldata.Assetid))
                 //console.log("AppBuy",index)
                 const params = await algodClient.getTransactionParams().do();    
                 const myAlgoConnect = new MyAlgoConnect();
-                let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(location.state.alldata.assetId))
+                let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(location.state.alldata.Assetid))
                 let results = await algodClient.compile(dataopreplace).do();                
                 let program = new Uint8Array(Buffer.from(results.result, "base64"));      
                 let lsig = algosdk.makeLogicSig(program);                
@@ -199,7 +211,7 @@ const SingleBid = (props) => {
                 const transactionass = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                       from: localStorage.getItem('wallet'),
                       to: localStorage.getItem('wallet'),
-                      assetIndex: parseInt(location.state.alldata.assetId),
+                      assetIndex: parseInt(location.state.alldata.Assetid),
                       note: undefined,
                       amount: 0,
                       suggestedParams: params
@@ -232,14 +244,14 @@ const SingleBid = (props) => {
                        let transaction3 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                         from: localStorage.getItem('wallet'), 
                         to: recv_escrow, 
-                        amount:parseFloat(location.state.alldata.nftPrice), 
+                        amount:parseFloat(location.state.alldata.NFTPrice), 
                          note: undefined,  
                          suggestedParams: params
                        });
                       const transaction4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                         from: recv_escrow,
                         to: localStorage.getItem('wallet'),
-                        assetIndex: parseFloat(location.state.alldata.assetId),
+                        assetIndex: parseFloat(location.state.alldata.Assetid),
                         note: undefined,
                         amount: 1,
                         suggestedParams: params
@@ -248,7 +260,7 @@ const SingleBid = (props) => {
                       //location.state.alldata.NFTPrice
                       let transaction5 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                           from: recv_escrow, 
-                          to: location.state.alldata.algoAddress, 
+                          to: location.state.alldata.ownerAddress, 
                           amount: parseFloat(convert95), 
                           note: undefined,  
                           suggestedParams: params
@@ -278,95 +290,39 @@ const SingleBid = (props) => {
                   await waitForConfirmation(algodClient, response.txId);
                   toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000});              
                 //db change here
-                  //let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
-                  //let dateset=new Date().toDateString();
-
-                  let userjsonkeyDup=
-                  {
-                      "algoAddress": localStorage.getItem('wallet'),
-                      "nftName": props.dataall.Assetid,
-                      "nftType": props.dataall.nftType,
-                      "nftCount": props.dataall.nftCount ,
-                      "appId": configfile['appIdPrice'],
-                      "assetId": props.dataall.assetId,
-                      "creationTime":props.dataall.creationTime,
-                      "ipfsHexUrl": props.dataall.ipfsHexUrl,
-                      "serverImagePath":props.dataall.serverImagePath,
-                      "nftPrice": props.dataall.nftPrice,
-                      "nftSymbol": props.dataall.nftSymbol,
-                      "ownerAddress": localStorage.getItem('wallet'),
-                      "previousOwner": props.dataall.previousOwner,
-                      "nftDescription": props.dataall.nftDescription,
-                      "creatorAddress": props.dataall.creatorAddress,
-                      "esrowAddress": props.dataall.esrowAddress,
-                      "valid": 1,
-                      "status": "onsale",
-                      "nftHistoryAddresses": props.dataall.nftHistoryAddresses,//calculation pending
-                      "nftImageAsString": props.dataall.nftImageAsString,
-                      "crc32Checksum":""
-                  }  					
-			        axios.post(`${configfile['url']}/nftPlain`,userjsonkeyDup)
-                      .then(async(responseuser) => {
-
-                    let userjsonkeyDuplicate=
-                    {
-                      "algoAddress": props.dataall.algoAddress,
-                      "nftName": props.dataall.Assetid,
-                      "nftType": props.dataall.nftType,
-                      "nftCount": props.dataall.nftCount ,
-                      "appId": configfile['appIdPrice'],
-                      "assetId": props.dataall.assetId,
-                      "creationTime":props.dataall.creationTime,
-                      "ipfsHexUrl": props.dataall.ipfsHexUrl,
-                      "serverImagePath":props.dataall.serverImagePath,
-                      "nftPrice": props.dataall.nftPrice,
-                      "nftSymbol": props.dataall.nftSymbol,
-                      "ownerAddress": props.dataall.ownerAddress,
-                      "previousOwner": props.dataall.previousOwner,
-                      "nftDescription": props.dataall.nftDescription,
-                      "creatorAddress": props.dataall.creatorAddress,
-                      "esrowAddress": props.dataall.esrowAddress,
-                      "valid": 1,
-                      "status": "",
-                      "nftHistoryAddresses": props.dataall.nftHistoryAddresses,//calculation pending
-                      "nftImageAsString": props.dataall.nftImageAsString,
-                      "crc32Checksum":""
-                    }
-                      console.log("uploadeduser",responseuser)                                                  
-                      //toast.success(`Buy Successfully`,{autoClose: 8000});
-                      //toast.dismiss();
-                      let activity={
-                        "ipAddress": "Asset Buyed",
-                        "algoAddress": localStorage.getItem('wallet').slice(0,50),
-                        "networkType": "buying",
-                        "walletType": "image"
-                      }
-                      let activityduplicate={
-                        "ipAddress": "Asset Buyed",
-                        "algoAddress": props.dataall.algoAddress.slice(0,50),
-                        "networkType": "buying",
-                        "walletType": "image"
-                    }
-                    axios.post(`${configfile['url']}/nftPlain`,userjsonkeyDuplicate)
-                      .then(async(responseuser) => {
-                        axios.post(`${configfile['url']}/visitinfo`,activity)
-                      .then(async(responseuser) => {
-                        //setgetIPro(response.data);              
-                        axios.post(`${configfile['url']}/visitinfo`,activityduplicate)
-                      .then(async(responseuser) => {
-                        //setgetIPro(response.data);              
-                        toast.success(`Buy Successfully`,{autoClose: 8000});
-                        toast.dismiss();
-                        setShowTestLoading(false)
-                        setshowTestSale(true)              
-                      })                        
-                      })                      
-                      })                      
+                  let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));              
+                  let dateset=new Date().toDateString();
+                  fireDb.database().ref(`imagerefexploreoneAlgos/${location.state.alldata.ownerAddress}`).child(location.state.alldata.keyId).remove().then(()=>{
+                  fireDb.database().ref(`imagerefbuy/${localStorage.getItem("wallet")}`).child(location.state.alldata.keyId).set({
+                      Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
+                      EscrowAddress:location.state.alldata.EscrowAddress,keyId:location.state.alldata.keyId,
+                      NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
+                      ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress,
+                      TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                      Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
+                      CreatorAddress:location.state.alldata.CreatorAddress            
+                        }).then(()=>{          
+                          let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                          const db = refactivity.push().key;                         
+                          refactivity.child(db).set({
+                          Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
+                          EscrowAddress:"BuyNFT",keyId:db,
+                          NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
+                          ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
+                          TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                          Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
+                          CreatorAddress:location.state.alldata.CreatorAddress
+                      })
+                          .then(()=>{                                                            
+                              //console.log("remove db");
+                              toast.success(`Buy Successfully`,{autoClose: 8000});
+                              setShowTestLoading(false)
+                              setshowTestSale(true)              
+                          })                        
+                          setShowTestLoading(false)  
+                          setshowTestSale(true)
+                      }) 
                   })
-                    .catch((e) => {
-                    console.log("Err1",e);                      
-                    setShowTestLoading(false)
-              })                                                                                    
                   } catch (err) {
                       //console.error(err);
                       setShowTestLoading(false)
@@ -562,27 +518,13 @@ const SingleBid = (props) => {
             <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></>
                 <div className="content-left d-flex">
                     {/* <video playsInline={true} autoPlay={true} controls={true} loop={true} src="https://img.rarible.com/prod/video/upload/t_big/prod-itemAnimations/0x5c3daa7a35d7def65bfd9e99120d5fa07f63f555:10061/271db129"></video> */}
-                    {/* <img src={location.state.alldata.nftImageAsString} style={{width:"500px",height:"500px"}} alt="test"/> */}
-                    {location.state.alldata === null || location.state.alldata === undefined || location.state.alldata === "" ? (<>
-
-                    </>):(<>
-                    <img src={location.state.alldata.nftImageAsString} style={{width:"500px",height:"500px"}} alt="test"/>
-                    </>)}
+                    <img src={location.state.alldata.Imageurl} style={{width:"500px",height:"500px"}} alt="test"/>
                 </div>
                 <div className="content-right d-flex flex-column ms-auto">
                     <div className="d-flex align-items-start mb-4">
                         <div>
-                            {/* <h2 className='mb-1'>{location.state.alldata.nftName}</h2> */}
-                            {location.state.alldata === null || location.state.alldata === undefined || location.state.alldata === "" ? (<>
-
-                            </>):(
-                            <>
-                            <h2 className='mb-1'>{location.state.alldata.nftName}</h2>
-                            </>                        
-                            )}
-                      <div className="category">
-                          {/* From <span className='text-dark'>0.06 ALGO</span> · 474 of 500 available */}
-                        </div>
+                            <h2 className='mb-1'>{location.state.alldata.NFTName}</h2>
+                            <div className="category">From <span className='text-dark'>0.06 ALGO</span> · 474 of 500 available</div>
                         </div>
                         <div className="ms-auto d-flex align-items-center">
                             {/* <Button variant='white' className='btn-count me-2 py-3 btn-rounded'>
@@ -604,7 +546,7 @@ const SingleBid = (props) => {
                                     <Dropdown.Divider />
                                     <Dropdown.Item href="/bid-2">Refresh Metadata</Dropdown.Item>
                                     <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
-                                    {/* <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${location.state.alldata.assetId}`)}>Explore</Dropdown.Item> */}
+                                    <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${location.state.alldata.Assetid}`)}>Explore</Dropdown.Item>
                                     <Dropdown.Item href="/bid-2">Report</Dropdown.Item>                                    
                                     {/* href="/bid-2" */}
                                 </Dropdown.Menu>
@@ -627,15 +569,15 @@ const SingleBid = (props) => {
                                 <span>HEX TOYS</span>
                             </Link> */}
                             <Link className="avatar d-flex align-items-center text-truncate">
-                                    {getIPro === null || getIPro === "" || getIPro === undefined || getIPro.profileName === undefined || getIPro.profileName === "" || getIPro.profileName === null?(
+                                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0].UserName === undefined || getIPro[0].UserName === "" || getIPro[0].UserName === null?(
                                     <Link className="avatar d-flex align-items-center text-truncate">
                                     <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar" />
                                     <span>Profile Not Completed</span>
                                     </Link>                                    
                                     ):(
                                     <Link className="avatar d-flex align-items-center text-truncate">
-                                    <img src={getIPro.profileImageAsString} alt="avatar" />
-                                    <span>{getIPro.profileName}</span>
+                                    <img src={getIPro[0].Imageurl} alt="avatar" />
+                                    <span>{getIPro[0].UserName}</span>
                                     </Link>
                                     )}
                                     
@@ -665,15 +607,15 @@ const SingleBid = (props) => {
                             <div className="d-flex mb-4 align-items-center">
 
                             
-                                {getIPro2 === null || getIPro2 === "" || getIPro2 === undefined || getIPro2.profileName === undefined || getIPro2.profileName === "" || getIPro2.profileName === null ?(
+                                {getIPro2[0] === null || getIPro2[0] === "" || getIPro2[0] === undefined || getIPro2[0].UserName === undefined || getIPro2[0].UserName === "" || getIPro2[0].UserName === null ?(
                                 <Link  className="avatar d-flex align-items-center text-truncate">
                                 <img src="https://img.rarible.com/prod/image/upload/t_avatar_big/prod-users/0x668dfaefb6a473c13e5f0ab00893a3bedf85da04/avatar/QmZty95DGjiZ8ZMbBKdpRmmgyvo2kCXvtgC5FxCqYZtRuu" alt="avatar"/>
                                 <span>Profile Not Completed</span>
                                 </Link>
                                 ):(
                                 <Link  className="avatar d-flex align-items-center text-truncate">
-                                <img src={getIPro2.profileImageAsString} alt="avatar" />
-                                <span>{getIPro2.profileName}</span>
+                                <img src={getIPro2[0].Imageurl} alt="avatar" />
+                                <span>{getIPro2[0].UserName}</span>
                                 </Link>
                                 
                                 )}
@@ -761,19 +703,9 @@ const SingleBid = (props) => {
                         <Row>
                             {/* <Col xs={6}> */}
                             {algobalanceApp === "0" || algobalanceApp === "" || algobalanceApp === undefined ? (
-                                <>
-                                {location.state.alldata === "" || location.state.alldata === null || location.state.alldata === undefined ?(<>
-                                </>):(<>
-                                    <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>pleasewait()}>Buy for {(location.state.alldata.nftPrice)/1000000} ALGO</Button>
-                                </>)}
-                                </>                                
+                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>pleasewait()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
                             ):(
-                                <>
-                                {location.state.alldata === "" || location.state.alldata === null || location.state.alldata === undefined ?(<>
-                                    </>):(<>                
-                                        <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>buynow()}>Buy for {(location.state.alldata.nftPrice)/1000000} ALGO</Button>
-                                    </>)}
-                                </>
+                                <Button variant='primary' className='w-100 mw-auto px-0' size='lg' onClick={()=>buynow()}>Buy for {(location.state.alldata.NFTPrice)/1000000} ALGO</Button>
                             )}
                                 
                             {/* </Col> */}

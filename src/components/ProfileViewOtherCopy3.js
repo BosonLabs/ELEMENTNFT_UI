@@ -11,15 +11,14 @@ import firebase from '../firebase';
 import ProfileTabs from "./Sections/ProfileTabs";
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
 import Algopng from '../assets/images/Algo.png'
-import configfile from '../config.json'
 const axios = require('axios');
 
 function HomePage(props) { 
-  // React.useEffect(() => {
-  //   window.scrollTo(0, 0);     
-  // });
+  React.useEffect(() => {
+    window.scrollTo(0, 0);     
+  });
     const location = useLocation(); 
-    console.log("hotcollonew",location.state.ownerAddress)        
+    //console.log("hotcollo",location.state)        
     //console.log("followlast",location.state.follow[0].follower)
     //console.log("followlast2",location.state.follow[0].following)
     
@@ -31,9 +30,9 @@ function HomePage(props) {
     const[getIPro,setgetIPro]=useState([""]);
     //console.log("getIPro",getIPro) 
     //console.log("getImgalgo",getImgreffalgo)
-    //const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
+    const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
     //console.log("getImgalgosale",getImgreffalgosale)
-    //const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
+    const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
     //console.log("getImgalgobuy",getImgreffalgobuy)
 
     const handleClose = () => {setShow(false); setFollowers(false); setFollowing(false)};
@@ -88,147 +87,243 @@ function HomePage(props) {
     }
     useEffect(()=>{dbLike()},[])
 
+    const dbcallPro=async()=>{            
+      let r=[];
+      try {         
+      firebase.database().ref("userprofile").child(location.state.ownerAddress).on("value", (data) => {          
+        if (data) {                      
+            r.push({
+              Bio:data.val().Bio,
+              Customurl: data.val().Customurl,
+              Email: data.val().Email,
+              Imageurl:data.val().Imageurl,
+              Personalsiteurl: data.val().Personalsiteurl,
+              TimeStamp: data.val().TimeStamp,
+              Twittername: data.val().Twittername,
+              UserName: data.val().UserName,
+              WalletAddress: data.val().WalletAddress,
+              bgurl:data.val().bgurl,
+              valid:data.val().valid 
+            })                
+        }
+        else{
+          setgetIPro([""]);  
+        }
+        setgetIPro(r);
+      });                  
+    } catch (error) {
+      //console.log('error occured during search', error);    
+    }                
+    }    
+  useEffect(()=>{dbcallPro()},[])
 
 
-//   const dbcallother=async()=>{    
-//     let reqo = [];    
-//       try {  
-//         if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
-//         {          
-//           alert("nono2")                
-//         }
-//         else{
-//         firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
-//         if (data) {        
-          
-//           reqo.push({
-//             TimeStamp:data.val().TimeStamp,
-//             follower:data.val().follower,
-//             following:data.val().following,
-//             walletAddress:data.val().walletAddress, 
-//             })          
-//         }
-//         // else{
-//         //   setgetIfl([""]);  
-//         // }
-//         setgetIfl(reqo);
-//       });
-//       }
-      
-//     } catch (error) {
-//       //console.log('error occured during search', error);    
-//     }          
-//   }  
-// useEffect(()=>{dbcallother()},[])
+
+    const dbcallowner=async()=>{      
+      //console.log("Insowner",location.state.ownerAddress)    
+      let reqoo = [];      
+      try {
+        if(firebase.database().ref("followings").child(location.state.ownerAddress) === undefined){
+          alert("nono")
+        }
+        else{
+          firebase.database().ref("followings").child(location.state.ownerAddress).on("value", (data) => {
+            //console.log("Insowners",data)
+            if (data) {                            
+              //console.log("tataam",data.val())
+              reqoo.push({
+                TimeStamp:data.val().TimeStamp,
+                follower:data.val().follower,
+                following:data.val().following,
+                walletAddress:data.val().walletAddress, 
+              })          
+            }
+            // else{
+            //   setgetIfo([""]);  
+            // }
+            setgetIfo(reqoo);
+          }) 
+        }          
+      } catch (error) {
+        //console.log('error occured during search', error);
+      }          
+    }
     
+  useEffect(()=>{dbcallowner()},[])
 
-//     const dbcallalgo=async()=>{
-//         //console.log("inside dbcallalgo function")  
-//         let req = [];        
-//           firebase.database().ref("imagerefAlgo").child(location.state.ownerAddress).on("value", (data) => {
-//             if (data) {
-//               data.forEach((d) => {
-//                 //console.log("keycheck",d.key)
-//                 let value=d.val();
-//                 req.push(            
-//                   {
-//                   Assetid:value.Assetid,
-//                   Imageurl:value.Imageurl,
-//                   NFTPrice:value.NFTPrice,
-//                   EscrowAddress:value.EscrowAddress,
-//                   keyId:value.keyId,
-//                   NFTName:value.NFTName,
-//                   userSymbol:value.userSymbol,
-//                   Ipfsurl:value.Ipfsurl,
-//                   ownerAddress:value.ownerAddress,
-//                   previousoaddress:value.previousoaddress,
-//                   TimeStamp:value.TimeStamp,
-//                   NFTDescription:value.NFTDescription,
-//                   HistoryAddress:value.HistoryAddress,
-//                   Appid:value.Appid,
-//                   valid:value.valid,
-//                   CreatorAddress:value.CreatorAddress
-//                   }          
-//                 )
-//                 //image:images/content/card-pic-1.jpg
-//                 //image2x: "/images/content/card-pic-1@2x.jpg",
+  const dbcallother=async()=>{    
+    let reqo = [];    
+      try {  
+        if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
+        {          
+          alert("nono2")                
+        }
+        else{
+        firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
+        if (data) {        
+          
+          reqo.push({
+            TimeStamp:data.val().TimeStamp,
+            follower:data.val().follower,
+            following:data.val().following,
+            walletAddress:data.val().walletAddress, 
+            })          
+        }
+        // else{
+        //   setgetIfl([""]);  
+        // }
+        setgetIfl(reqo);
+      });
+      }
       
-//                 //req.push(d.key)          
-//               });        
-//             }
-//             setgetImgreffalgo(req);
-//           });
+    } catch (error) {
+      //console.log('error occured during search', error);    
+    }          
+  }  
+useEffect(()=>{dbcallother()},[])
+
+
+    // const dbcallsaleal=async(index)=>{        
+    //     let req2 = [];
+    //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+    //     }
+    //     else{                        
+    //       axios({
+    //                 method: 'get',
+    //                 url: 'https://demonft-2e778-default-rtdb.firebaseio.com/followings.json',
+    //                 responseType: 'stream'
+    //               })
+    //                 .then(function (response) {
+    //                 let req = [];        
+    //                 req.push(response.data)
+    //                 let req2 =[];
+    //                 req.forEach((a) => {              
+    //                   console.log("Ddhome",a) 
+    //                   Object.keys(a).map(async(b)=>{                              
+    //                     console.log("Dadhomel",a[b].walletAddress)                       
+    //                       req2.push({                      
+    //                         TimeStamp:a[b].TimeStamp,
+    //                         follower:a[b].follower,
+    //                         following:a[b].following,
+    //                         walletAddress:a[b].walletAddress,                  
+    //                       })   
+    //                     //}                        
+    //                   })                                                                     
+    //                 });                        
+    //                 setgetIfo(req2)  
+    //       })              
+    //   } 
+    // }
+    // useEffect(()=>{dbcallsaleal()},[])
+
+
+    const dbcallalgo=async()=>{
+        //console.log("inside dbcallalgo function")  
+        let req = [];        
+          firebase.database().ref("imagerefAlgo").child(location.state.ownerAddress).on("value", (data) => {
+            if (data) {
+              data.forEach((d) => {
+                //console.log("keycheck",d.key)
+                let value=d.val();
+                req.push(            
+                  {
+                  Assetid:value.Assetid,
+                  Imageurl:value.Imageurl,
+                  NFTPrice:value.NFTPrice,
+                  EscrowAddress:value.EscrowAddress,
+                  keyId:value.keyId,
+                  NFTName:value.NFTName,
+                  userSymbol:value.userSymbol,
+                  Ipfsurl:value.Ipfsurl,
+                  ownerAddress:value.ownerAddress,
+                  previousoaddress:value.previousoaddress,
+                  TimeStamp:value.TimeStamp,
+                  NFTDescription:value.NFTDescription,
+                  HistoryAddress:value.HistoryAddress,
+                  Appid:value.Appid,
+                  valid:value.valid,
+                  CreatorAddress:value.CreatorAddress
+                  }          
+                )
+                //image:images/content/card-pic-1.jpg
+                //image2x: "/images/content/card-pic-1@2x.jpg",
+      
+                //req.push(d.key)          
+              });        
+            }
+            setgetImgreffalgo(req);
+          });
           
         
-//         //}
-//         //console.log("acc",getalgo)
-//     }   
-//     useEffect(()=>{dbcallalgo()},[])
+        //}
+        //console.log("acc",getalgo)
+    }   
+    useEffect(()=>{dbcallalgo()},[])
 
-//     const dbcallsalealgo=async()=>{       
-//         let req = [];              
-//           firebase.database().ref("imagerefexploreoneAlgos").child(location.state.ownerAddress).on("value", (data) => {
-//             if (data) {
-//               data.forEach((d) => {                
-//                 let value=d.val();
-//                 req.push(            
-//                   {
-//                     Assetid:value.Assetid,
-//                     Imageurl:value.Imageurl,
-//                     NFTPrice:value.NFTPrice,
-//                     EscrowAddress:value.EscrowAddress,
-//                     keyId:value.keyId,
-//                     NFTName:value.NFTName,
-//                     userSymbol:value.userSymbol,
-//                     Ipfsurl:value.Ipfsurl,
-//                     ownerAddress:value.ownerAddress,
-//                     previousoaddress:value.previousoaddress,
-//                     TimeStamp:value.TimeStamp,
-//                     NFTDescription:value.NFTDescription,
-//                     HistoryAddress:value.HistoryAddress,
-//                     Appid:value.Appid,
-//                     valid:value.valid  
-//                   },                
-//                 )
-//               });        
-//             }
-//             setgetImgreffalgosale(req);  
-//           });                  
-//         //console.log("accsale",getImgreffalgosale)      
-//     }      
-//     useEffect(()=>{dbcallsalealgo()},[])
+    const dbcallsalealgo=async()=>{       
+        let req = [];              
+          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.ownerAddress).on("value", (data) => {
+            if (data) {
+              data.forEach((d) => {                
+                let value=d.val();
+                req.push(            
+                  {
+                    Assetid:value.Assetid,
+                    Imageurl:value.Imageurl,
+                    NFTPrice:value.NFTPrice,
+                    EscrowAddress:value.EscrowAddress,
+                    keyId:value.keyId,
+                    NFTName:value.NFTName,
+                    userSymbol:value.userSymbol,
+                    Ipfsurl:value.Ipfsurl,
+                    ownerAddress:value.ownerAddress,
+                    previousoaddress:value.previousoaddress,
+                    TimeStamp:value.TimeStamp,
+                    NFTDescription:value.NFTDescription,
+                    HistoryAddress:value.HistoryAddress,
+                    Appid:value.Appid,
+                    valid:value.valid  
+                  },                
+                )
+              });        
+            }
+            setgetImgreffalgosale(req);  
+          });                  
+        //console.log("accsale",getImgreffalgosale)      
+    }      
+    useEffect(()=>{dbcallsalealgo()},[])
 
-//     const dbcallalgobuy=async()=>{    
-//         let req = [];          
-//         firebase.database().ref("imagerefbuy").child(location.state.ownerAddress).on("value", (data) => {      
-//             if (data) {
-//               data.forEach((d) => {                
-//                 let value=d.val();
-//                 req.push(            
-//                   {
-//                     Assetid:value.Assetid,
-//                     Imageurl:value.Imageurl,
-//                     NFTPrice:value.NFTPrice,
-//                     EscrowAddress:value.EscrowAddress,
-//                     keyId:value.keyId,
-//                     NFTName:value.NFTName,
-//                     userSymbol:value.userSymbol,
-//                     Ipfsurl:value.Ipfsurl,
-//                     ownerAddress:value.ownerAddress,
-//                     previousoaddress:value.previousoaddress,
-//                     TimeStamp:value.TimeStamp,
-//                     NFTDescription:value.NFTDescription,
-//                     HistoryAddress:value.HistoryAddress,
-//                     Appid:value.Appid,
-//                     valid:value.valid   
-//                   },                
-//                 )      
-//               });        
-//             }
-//             setgetImgreffalgobuy(req);
-//           });                          
-//     }      
-//     useEffect(()=>{dbcallalgobuy()},[])
+    const dbcallalgobuy=async()=>{    
+        let req = [];          
+        firebase.database().ref("imagerefbuy").child(location.state.ownerAddress).on("value", (data) => {      
+            if (data) {
+              data.forEach((d) => {                
+                let value=d.val();
+                req.push(            
+                  {
+                    Assetid:value.Assetid,
+                    Imageurl:value.Imageurl,
+                    NFTPrice:value.NFTPrice,
+                    EscrowAddress:value.EscrowAddress,
+                    keyId:value.keyId,
+                    NFTName:value.NFTName,
+                    userSymbol:value.userSymbol,
+                    Ipfsurl:value.Ipfsurl,
+                    ownerAddress:value.ownerAddress,
+                    previousoaddress:value.previousoaddress,
+                    TimeStamp:value.TimeStamp,
+                    NFTDescription:value.NFTDescription,
+                    HistoryAddress:value.HistoryAddress,
+                    Appid:value.Appid,
+                    valid:value.valid   
+                  },                
+                )      
+              });        
+            }
+            setgetImgreffalgobuy(req);
+          });                          
+    }      
+    useEffect(()=>{dbcallalgobuy()},[])
       
     const followstart=async()=>{                      
       if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
@@ -353,75 +448,45 @@ function HomePage(props) {
       }      
     }
 
-
-        // new api code
-        const dbcallPro=async()=>{                  
-          try {         
-            if(location.state.ownerAddress === "" || location.state.ownerAddress === undefined|| location.state.ownerAddress === null){
-    
-            }else{
-                try{
-                const res = await axios.get(`${configfile['url']}/userinfo/${location.state.ownerAddress}`)
-                setgetIPro(res.data)                
-                }catch(err){
-                console.log("ERRRRRR1")
-                }
-            }
-        } catch (error) {      
-        }                
-        }    
-        useEffect(()=>{dbcallPro()},[])
-    
-    
-    const dbcallalgoAPI=async()=>{
-      if(location.state.ownerAddress === null || location.state.ownerAddress === undefined || location.state.ownerAddress === "" ){
-      }else{      
-      const res = await axios.get(`${configfile['url']}/nftPlainAlgo/${location.state.ownerAddress}`)      
-      setgetImgreffalgo(res.data)                
-    }
-    }   
-    useEffect(()=>{dbcallalgoAPI()},[])
-
     return (
         <Layout>
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
-                      {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (
+                      {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
                         <>
                       <img src={DummyPic} alt="pic" width={"1500px"} height={"260px"} />
                     </>
                     ):(
                       <>
-                      <img src={getIPro.bgvImageAsString} alt="pic" width={"1500px"} height={"260px"}/>
+                      <img src={getIPro[0].Imageurl} alt="pic" width={"1500px"} height={"260px"}/>
                     </>
                     )}                      
                     </div>                    
-                    {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (
+                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
                       <div className="profile-pic">
                       <img src={DummyPic} alt="pic" />
                       </div>
                     ):(
                       <div className="profile-pic">
-                      <img src={getIPro.profileImageAsString} alt="pic" />
+                      <img src={getIPro[0].Imageurl} alt="pic" />
                       </div>
                     )}
                     
                 </div>
 
-{location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined ?(<>
-</>):(
                 <div className="mb-36 text-center">
-                <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
-                    <img src={Algopng} alt="icon" />
-                    {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
-                        <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
-                            <Toast.Body>Copied!</Toast.Body>
-                        </Toast>  
-                    )}
-                </Button>                
-            </div>
-)}
+                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
+                        <img src={Algopng} alt="icon" />
+                        {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
+                            <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
+                                <Toast.Body>Copied!</Toast.Body>
+                            </Toast>  
+                        )}
+                    </Button>
+                    
+                </div>
+
                 <div className="mb-32 d-flex align-items-center justify-content-center">                                    
                     <Button variant='link' onClick={handleFollowers} className='btn-reset'><span>0</span> <span className='ms-1 text-gray'>followers</span></Button>
                     <Button variant='link' onClick={handleFollowing} className='btn-reset ms-4'><span>0</span> <span className='ms-1 text-gray'>following</span></Button>
@@ -454,7 +519,7 @@ function HomePage(props) {
                                     <small className='d-block mt-2'>Facebook</small>
                                 </div>
                                 <div>
-                                <a href={"https://t.me/ElementDeFi"} target="_blank" rel="noopener noreferrer">                                
+                                <a href={"https://t.me/elementSwap"} target="_blank" rel="noopener noreferrer">                                
                                         <svg viewBox="0 0 16 14" fill="none" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M15.9513 1.29916L13.5438 13.1556C13.377 13.997 12.8902 14.1987 12.21 13.8093L8.542 10.979L6.76804 12.7662C6.56797 12.9748 6.40125 13.1556 6.03445 13.1556C5.55428 13.1556 5.63431 12.9679 5.47425 12.495L4.20714 8.19051L0.572523 7.00834C-0.214421 6.76495 -0.22109 6.20168 0.745918 5.7914L14.9243 0.0891779C15.5711 -0.209841 16.1914 0.256072 15.9446 1.29221L15.9513 1.29916Z" fill="currentColor"></path></svg>
                                 </a>
                                     <small className='d-block mt-2'>Telegram</small>
@@ -480,7 +545,7 @@ function HomePage(props) {
                 </div>
 
 
-                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgo} buyed={getImgreffalgo} owner={location.state.ownerAddress} likes={getdbLike}/>
+                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
             </Container>
 
             {/* onHide={handleClose} */}

@@ -11,7 +11,7 @@ import EthereumIcon from '../../assets/images/Algo.png';
 //import MyAlgoConnect from '@randlabs/myalgo-connect';
 //import fireDb from '../../firebase';
 //import dataescrow from "../../escrow.js";
-//import firebase from '../../firebase';
+import firebase from '../../firebase';
 //import logogif from '../../assets/images/gif1.svg';
 import logogif from '../../assets/images/gif4.webp';
 //const myAlgoWallet = new MyAlgoConnect();
@@ -39,47 +39,47 @@ const CardLiveA = (props) => {
     //console.log("getIProprofile",getIPro[0].Imageurl) 
     //console.log("getIProprofile1",getIPro1[0].Imageurl) 
 
-    // const dbcallPro=async()=>{            
-    //     let r=[];
-    //     try {         
-    //     firebase.database().ref("userprofile").child(props.pAddress).on("value", (data) => {          
-    //       if (data) {                      
-    //           r.push({                
-    //             Imageurl:data.val().Imageurl,                
-    //             valid:data.val().valid
-    //           })                
-    //       }
-    //       else{
-    //         setgetIPro([""]);  
-    //       }
-    //       setgetIPro(r);
-    //     });                  
-    //   } catch (error) {
-    //     //console.log('error occured during search', error);    
-    //   }                
-    //   }    
-    // useEffect(()=>{dbcallPro()},[])
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(props.pAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid
+              })                
+          }
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        //console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro()},[])
 
-    // const dbcallPro1=async()=>{            
-    //     let r=[];
-    //     try {         
-    //     firebase.database().ref("userprofile").child(props.oAddress).on("value", (data) => {          
-    //       if (data) {                      
-    //           r.push({                
-    //             Imageurl:data.val().Imageurl,                
-    //             valid:data.val().valid
-    //           })                
-    //       }
-    //       else{
-    //         setgetIPro1([""]);  
-    //       }
-    //       setgetIPro1(r);
-    //     });                  
-    //   } catch (error) {
-    //     //console.log('error occured during search', error);    
-    //   }                
-    //   }    
-    // useEffect(()=>{dbcallPro1()},[])
+    const dbcallPro1=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(props.oAddress).on("value", (data) => {          
+          if (data) {                      
+              r.push({                
+                Imageurl:data.val().Imageurl,                
+                valid:data.val().valid
+              })                
+          }
+          else{
+            setgetIPro1([""]);  
+          }
+          setgetIPro1(r);
+        });                  
+      } catch (error) {
+        //console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro1()},[])
     
        
         const refreshSale=()=>{

@@ -5,15 +5,16 @@ import {Container, Row, Col, Form, InputGroup, Button, Modal} from 'react-bootst
 // import {
 //     Link
 //   } from "react-router-dom";
+
 //import CardInfo from '../Snippets/Card'
 //import Preview from '../../assets/images/preview.jpg'
 import Compress from "react-image-file-resizer";
-//import fireDb from '../../firebase';
+import fireDb from '../../firebase';
 //import ipfs from "./ipfs";
 import { create } from 'ipfs-http-client';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
-//import firebase from '../../firebase';
+import firebase from '../../firebase';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import '../../toast-style-override.css'
@@ -21,49 +22,73 @@ import '../../toast-style-override.css'
 import logogif from '../../assets/images/gif4.webp';
 import dataescrowprice from "../../escrowprice";
 import configfile from '../../config.json'
-//import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
 const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 
 const myAlgoConnect = new MyAlgoConnect();
-//const myAlgoWallet = new MyAlgoConnect();
+const myAlgoWallet = new MyAlgoConnect();
 const axios = require('axios');
+
+
+
 const Start = () => {
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);     
-  // });  
-    const {algobalanceApp}=useContext(DataContext)    
-    // const { getI } = useContext(DataContext)    
+  // });
+  let tempAddress=localStorage.getItem('wallet').slice(0,5);
+  //console.log("TempAddess",tempAddress)
+    const {algobalanceApp}=useContext(DataContext)
+    //console.log("algobalanceAppSingle",algobalanceApp)
+    const { getI } = useContext(DataContext)
+    //console.log("NameSingle", getI)
+    //const[getIPro2]=useContext(DataContext);
+    //console.log("getIProprofile",getIPro2[0].valid) 
     let history=useHistory();
-    const [fileUrl, updateFileUrl] = useState(``)    
+    const [fileUrl, updateFileUrl] = useState(``)
+    //console.log("Newipfs",fileUrl)
     const [show, setShow] = React.useState(false);
     const [tname,setName] = useState("");
     const [tdescription,setDescription] = useState("");      
-    const handleClose = () => setShow(false);            
+    const handleClose = () => setShow(false);        
+    // const handleShow = () => setShow(true);
     const [showTest, setShowTest] = React.useState(false);
-    const [showTestLoading, setshowTestLoading] = React.useState(false);        
+    const [showTestLoading, setshowTestLoading] = React.useState(false);    
+    //const handleCloseTest = () => setShowTest(false);
+    //const handleCloseTestLoading =()=> setshowTestLoading(false)
+    // const handleShowTest = () => setShowTest(true);    
     const [Img,setImg] = useState("")
     const [Imgname,setImgname] = useState("")
-    //const[getIPro,setgetIPro]=useState([""]);    
-    //console.log("Uservalid",getIPro)    
-    // const dbcallProApi=async()=>{                  
-    //   try {         
-    //     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === null){
 
-    //     }
-    //     else{      
-    //     await axios.get(`${configfile['url']}/userinfo/${localStorage.getItem('wallet').slice(0,50)}`).then(async(response)=>{
-    //       setgetIPro(response.data);        
-    //     })
-    //   }        
-    // } catch (error) {
-    //   //console.log('error occured during search', error);    
-    // }                
-    // }    
-    // useEffect(()=>{dbcallProApi()},[])
-    const {getApiDataProfileNFT,setApiDataprofile}=useContext(DataContext)
-    console.log("Uservalid",getApiDataProfileNFT)
-
-
+    const[getIPro,setgetIPro]=useState([""]);
+    //console.log("getIProprofile",getIPro[0].valid) 
+    const dbcallPro=async()=>{            
+        let r=[];
+        try {         
+        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+          if (data) {                      
+              r.push({
+                Bio:data.val().Bio,
+                Customurl: data.val().Customurl,
+                Email: data.val().Email,
+                Imageurl:data.val().Imageurl,
+                Personalsiteurl: data.val().Personalsiteurl,
+                TimeStamp: data.val().TimeStamp,
+                Twittername: data.val().Twittername,
+                UserName: data.val().UserName,
+                WalletAddress: data.val().WalletAddress,
+                bgurl:data.val().bgurl,
+                valid:data.val().valid
+              })                
+          }
+          else{
+            setgetIPro([""]);  
+          }
+          setgetIPro(r);
+        });                  
+      } catch (error) {
+        //console.log('error occured during search', error);    
+      }                
+      }    
+    useEffect(()=>{dbcallPro()},[])
     const captureFile =async(event) => {
         event.stopPropagation()
         event.preventDefault()
@@ -71,27 +96,10 @@ const Start = () => {
         setImgname(file.name)
         let reader = new window.FileReader()
         try{
-        Compress.imageFileResizer(file, 400,400 , 'JPEG', 200, 0,
+        Compress.imageFileResizer(file, 500,500 , 'JPEG', 200, 0,
         uri => {
-          console.log("iuri",uri)
-          setImg(uri)        
-          //var base64 = require('base-64');
-          //let convert1=base64.encode(uri)
-          //let con=Buffer.from(uri, 'base64').toString()          
-          //console.log("Base64",convert1)
-          // var base64 = require('base-64');
-          
-          // console.log("Base64",convert1)
-          // console.log("RBase64",base64.decode(convert1))
-          // const result1 = window.atob(uri);
-          // console.log("Bresult",result1);
-          
-          //let con2=Buffer.from(con,'hex').toString()
-          //console.log("BaseReturn",con2)
-          //let base64ToString = Buffer.from(uri, "base64").toString();
-          //base64ToString = JSON.parse(base64ToString);
-          //console.log("BaseReturn3",base64ToString)
-          //var encodedString = con.encode();
+          //console.log("iuri",uri)
+          setImg(uri)
         },
         'base64'
         );
@@ -128,16 +136,23 @@ const Start = () => {
 
       
 
-      const onSubmitNFT = async (event) => {        
-          var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;          
-          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){            
+      const onSubmitNFT = async (event) => {
+        //event.preventDefault();  
+          //new write below
+          //var regex = new RegExp("^[a-zA-Z0-9]+$")
+          var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+          //!regex.test(tname)
+          if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
+            
             alert("please connect your wallet")
           }          
           else if(tname === "" ){
             alert("please enter NFT Name")
           }
           else if(!/\S/.test(tname)){
+
             alert("only space not allowed")
+
           }
           else if(format.test(tname)){
             alert("please enter valid NFT Name special character not allowed")
@@ -150,14 +165,19 @@ const Start = () => {
           }
           else{
             try{                    
-          setshowTestLoading(true)          
-          let tb='ELEM';          
+          setshowTestLoading(true)
+          let ta=tname;
+          let tb='ELEM';
+          let te=1000;        
+          // console.log("uploadonecheck",ta);
+          // console.log("uploadtwocheck",tb);
+          // console.log("uploadtwocheck",te);          
           const server = "https://testnet-algorand.api.purestake.io/ps2";
           const port = "";  
           const token = {
             'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
           }
-      let algodclient = new algosdk.Algodv2(token, server, port);
+          let algodclient = new algosdk.Algodv2(token, server, port);
       const params = await algodclient.getTransactionParams().do();
       params.fee = 1000;
       params.flatFee = true;
@@ -180,7 +200,7 @@ const Start = () => {
       
       const signedTxn = await myAlgoConnect.signTransaction(txn.toByte());
       const response = await algodclient.sendRawTransaction(signedTxn.blob).do();
-      console.log("optresponse",response)
+      //console.log("optresponse",response)
       await waitForConfirmation(algodclient,response.txId);
       let ptx = await algodclient.pendingTransactionInformation(response.txId).do();
       let assetID = ptx["asset-index"];
@@ -196,15 +216,16 @@ const Start = () => {
     }
 
     const appoptin=async(assetID,responsetxId,addresseswall)=>{
-      console.log('AppoptinFirst',assetID)
       let index = parseInt(configfile['appIdPrice']);
-      const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');              
+      const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');        
+      //console.log("appId inside donate", index)                                
       let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(assetID))
       let results = await algodClient.compile(dataopreplace).do();                
       let program = new Uint8Array(Buffer.from(results.result, "base64"));      
       let lsig = algosdk.makeLogicSig(program);
       try {                
-        const params = await algodClient.getTransactionParams().do();        
+        const params = await algodClient.getTransactionParams().do();
+        let appArg = [];     
         let t1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
           from:localStorage.getItem('wallet'),
           suggestedParams:params,
@@ -221,136 +242,340 @@ const Start = () => {
           appIndex:index
       });
       const signedTx1 = await algosdk.signLogicSigTransaction(optinTranscation, lsig);
-      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();      
+      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
+      //console.log("TxID", JSON.stringify(response, null, 1));
       await waitForConfirmation(algodClient, response.txId);          
-      console.log('226')
-      } catch (err) {        
+      } catch (err) {
+        //console.error(err);
         setshowTestLoading(false)          
         alert("you wallet raises some issues")
         window.location.reload(false)
       } 
-      //storedb(assetID,responsetxId,addresseswall)
-      //storeDbPinata(assetID,responsetxId,addresseswall)
-      storeDbPinataDuplicate(assetID,responsetxId,addresseswall);      
-    }      
-    
-    const storeDbPinataDuplicate=(assetID,responsetxId,addresseswall)=>{
-      toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
-      const JSONBody = {
-        "imageurl": Img
-      }
-      const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
-      return axios
-          .post(url, JSONBody, {
-              headers: {
-                  pinata_api_key: configfile.pinataApiKey,
-                  pinata_secret_api_key: configfile.pinataSecretApiKey
-              }
-          })
-          .then(function (response) {
-            toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});
-            var date = new Date();
-            let datechange=date.toJSON().slice(0,10).replace(new RegExp("-", 'g'),"/" ).split("/").reverse().join("")+""+date.toJSON().slice(11,9)        
-            let ipfsurl=`https://ipfs.infura.io/ipfs/${response.data.IpfsHash}`                                              
-            let userjsonkeyDup ="";
-            if(getApiDataProfileNFT === null || getApiDataProfileNFT === undefined || getApiDataProfileNFT === "" || getApiDataProfileNFT.validuser === "0"){
-
-            userjsonkeyDup=
-            {
-                "algoAddress": localStorage.getItem('wallet'),
-                "nftName": tname,
-                "nftType": "test",
-                "nftCount": 0,
-                "appId": configfile['appIdPrice'],
-                "assetId": assetID,
-                "creationTime":datechange,
-                "ipfsHexUrl": ipfsurl,
-                "serverImagePath": Img,
-                "nftPrice": 0,
-                "nftSymbol": "ELEM",
-                "ownerAddress": localStorage.getItem('wallet'),
-                "previousOwner": localStorage.getItem('wallet'),
-                "nftDescription": tdescription,
-                "creatorAddress": localStorage.getItem('wallet'),
-                "esrowAddress": localStorage.getItem('wallet'),
-                "valid": 0,
-                "status": "create",
-                "nftHistoryAddresses": [localStorage.getItem('wallet')],
-                "nftImageAsString": Img,
-                "crc32Checksum":""
-            }              
-            }else{
-
-            userjsonkeyDup=
-            {
-                "algoAddress": localStorage.getItem('wallet'),
-                "nftName": tname,
-                "nftType": "test",
-                "nftCount": 0,
-                "appId": configfile['appIdPrice'],
-                "assetId": assetID,
-                "creationTime":datechange,
-                "ipfsHexUrl": ipfsurl,
-                "serverImagePath": Img,
-                "nftPrice": 0,
-                "nftSymbol": "ELEM",
-                "ownerAddress": localStorage.getItem('wallet'),
-                "previousOwner": localStorage.getItem('wallet'),
-                "nftDescription": tdescription,
-                "creatorAddress": localStorage.getItem('wallet'),
-                "esrowAddress": localStorage.getItem('wallet'),
-                "valid": 1,
-                "status": "create",
-                "nftHistoryAddresses": [localStorage.getItem('wallet')],
-                "nftImageAsString": Img,
-                "crc32Checksum":""
-            }              
-
-            }                    
-              console.log("Done1",response.data.IpfsHash)              
-              toast.success("NFT Minted successfully",{autoClose: 5000})
-              console.log("JsonFormat",userjsonkeyDup)
-              axios.post(`${configfile['url']}/nftPlain`,userjsonkeyDup)
-                      .then(async(responseuser) => {
-                      console.log("uploadeduser",responseuser)                                      
-                      toast.success("NFT Minted successfully",{autoClose: 5000})
-                      toast.dismiss();
-                      let activity={
-                        "ipAddress": "asset create",
-                        "algoAddress": localStorage.getItem('wallet').slice(0,50),
-                        "networkType": datechange,
-                        "walletType": "image"
-                      }
-                      axios.post(`${configfile['url']}/visitinfo`,activity)
-                      .then(async(responseuser) => {
-                        //setgetIPro(response.data);              
-                        setshowTestLoading(false)
-                        setShowTest(true)                      
-                      })
-                      
-                  })
-                    .catch((e) => {
-                    console.log("Err1",e);                      
-                    setshowTestLoading(false)
-              })                                                                  
-          })
-          .catch(function (error) {
-              //handle error here
-              console.log("Error1",error)
-          });
+      storedb(assetID,responsetxId,addresseswall)
+      //storedbApi(assetID,responsetxId,addresseswall);      
     }
-    
-  const done=()=>{
+      // const appoptins=async(assetID,responsetxId,addresseswall)=>{
+      //   const algosdk = require('algosdk');  
+      //   const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
+      //   const myAlgoConnect = new MyAlgoConnect();
+      //   let appId="50714558";
+      //   try {          
+      //     const params = await algodclient.getTransactionParams().do();
+      //     let transoptin = algosdk.makeApplicationOptInTxnFromObject({
+      //     from: localStorage.getItem('wallet'),      
+      //     appIndex:parseInt(appId),
+      //     note: undefined,
+      //     suggestedParams: params
+      //     });
+      
+      //   const signedTxn = await myAlgoConnect.signTransaction(transoptin.toByte());
+      //   const response = await algodclient.sendRawTransaction(signedTxn.blob).do();
+      //   console.log("optresponse",response)  
+      //   storedb(assetID,responsetxId,addresseswall);
+      //   }
+      //   catch (err) {
+      //     console.error(err);    
+      //     storedb(assetID,responsetxId,addresseswall);
+      //   }
+      // }
+
+
+    //   const storedbApi = async(assetID,responsetxId,addresseswall)=>{        
+    //     const pinataApiKey = "221cfff25de18e88d3d0";
+    //     const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
+    //     const pinataSDK = require('@pinata/sdk');
+    //     const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+    //     pinata.testAuthentication().then((result) => {          
+    //     console.log(result);  
+    //     let ge=fileUrl;
+    //     console.log("ipfsHash",fileUrl);
+    //               const body = {
+    //                   message: ge
+    //               };
+    //               const options = {
+    //                   pinataMetadata: {
+    //                       name: tname,
+    //                       keyvalues: {
+    //                           customKey: 'customValue',
+    //                           customKey2: 'customValue2'
+    //                       }
+    //               },
+    //               pinataOptions: {
+    //                   cidVersion: 0
+    //               }
+    //               };
+    //               pinata.pinJSONToIPFS(body, options).then(async(result) => {
+    //               //handle results here
+    //               console.log(result);
+    //               console.log("jsonresult2",result.IpfsHash) 
+    //               //toast.dismiss(); 
+    //               //toast.info("image uploaded in ipfs",result.IpfsHash)
+    //               toast.success(`Image Uploaded in IPFS ${result.IpfsHash}`,{autoClose: 8000});
+    //               //db add here                                            
+    //               //escrow,TimeStamp,historyAddress,valid:"true",CreatorAddress:addresseswall                  
+    //               let userjsonkey = ""
+    //               if(getIPro[0].valid === "validated"){
+    //                 userjsonkey={
+    //                   "algoAddress":tempAddress,
+    //                   "nftName":tname,
+    //                   "nftType":"true",
+    //                   "nftCount":1,
+    //                   "appId":configfile['appIdPrice'],
+    //                   "assetId":assetID,
+    //                   "ipfsHexUrl":result.IpfsHash,
+    //                   "crc32Checksum":tempAddress,
+    //                   "serverImagePath":"Img",
+    //                   "nftPrice":'0',
+    //                   "nftSymbol":'ELEM',
+    //                   "ownerAddress":tempAddress,
+    //                   "previousOwner":"",
+    //                   "nftDescription":tdescription,
+    //                   "nftHistoryAddresses":[tempAddress]
+    //                 }                    
+    //               }
+    //               else{
+    //                 userjsonkey={
+    //                   "algoAddress":tempAddress,
+    //                   "nftName":tname,
+    //                   "nftType":"false",
+    //                   "nftCount":1,
+    //                   "appId":configfile['appIdPrice'],
+    //                   "assetId":assetID,
+    //                   "ipfsHexUrl":result.IpfsHash,
+    //                   "crc32Checksum":tempAddress,
+    //                   "serverImagePath":"Img",
+    //                   "nftPrice":'0',
+    //                   "nftSymbol":'ELEM',
+    //                   "ownerAddress":tempAddress,
+    //                   "previousOwner":"",
+    //                   "nftDescription":tdescription,
+    //                   "nftHistoryAddresses":[tempAddress]
+    //                 }                    
+    //               }
+    //               console.log("JsonKeyPrint",userjsonkey)
+    //               await axios.post(`${configfile['url']}/nftPlain`,userjsonkey)
+    //                   .then(async(responseuser) => {
+    //                   console.log("uploadeduser",responseuser)                                      
+    //                   toast.success("NFT Minted successfully",{autoClose: 5000})
+    //                   //toast.dismiss();
+    //                   setshowTestLoading(false)
+    //                   setShowTest(true)        
+    //               })
+    //                 .catch((e) => {
+    //                 console.log("Err1",e);                      
+    //                 setshowTestLoading(false)
+    //               })                          
+    //               })                                                                                                        
+    //               }).catch((err) => {                        
+    //                   console.log(err);
+    //                   console.log("Err2",err);                      
+    //                   setshowTestLoading(false)
+    //               });                                                                                        
+    // }
+
+    const storedb=async(assetID,responsetxId,addresseswall)=>{
+        // console.log("addresswall",addresseswall)
+        // console.log("assetId",assetID)
+        // console.log("Img",Img)
+        // console.log("tname",tname)  
+        // toast.loading(`images uploading in ipfs`,{
+        //   onOpen:('loading')
+        // });
+        toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
+        
+        //toast.success(Transaction Success ${response.txId});
+        // toast.loading(`images uploading ipfs`, {
+        //   onOpen: ('loading') });        
+                    //db added here 
+                    let appId="50714558";
+                    let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
+                    let ref22=fireDb.database().ref(`imagerefAlgolt`);   
+                    let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
+                    let dateset=new Date().toDateString();
+                    //console.log("dateget",dateset)
+                    const db = ref2.push().key;                                                                             
+                    if(getIPro[0].valid === "validated"){
+                      //add pinata here          
+                      //pinata          
+                      //const axios = require('axios');
+                      // let pinataApiKey='88348e7ce84879e143e1';
+                      // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+                      const pinataApiKey = "221cfff25de18e88d3d0";
+                      const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
+                      const pinataSDK = require('@pinata/sdk');
+                      const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+                                  pinata.testAuthentication().then((result) => {
+                                  //handle successful authentication here
+                                  //console.log(result);  
+                                  let ge=fileUrl;
+                                  //console.log("ipfsHash",fileUrl);
+                                          const body = {
+                                              message: ge
+                                          };
+                                          const options = {
+                                              pinataMetadata: {
+                                                  name: tname,
+                                                  keyvalues: {
+                                                      customKey: 'customValue',
+                                                      customKey2: 'customValue2'
+                                                  }
+                                              },
+                                              pinataOptions: {
+                                                  cidVersion: 0
+                                              }
+                                          };
+                                          pinata.pinJSONToIPFS(body, options).then((result) => {
+                                              //handle results here
+                                              //console.log(result);
+                                              //console.log("jsonresult2",result.IpfsHash) 
+                                              //toast.dismiss(); 
+                                              //toast.info("image uploaded in ipfs",result.IpfsHash)
+                                              toast.success(`Image Uploaded in IPFS ${result.IpfsHash}`,{autoClose: 8000});
+                                              //db add here
+                                              // toast.loading(`images uploading ipfs`, {
+                                              // onClose: ('loading') });        
+                                              ref2.child(db).set({
+                                                Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
+                                                CreatorAddress:addresseswall
+                                              })
+                                                .then(()=>{
+                                                  refactivity.child(db).set({
+                                                      Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                      TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
+                                                      CreatorAddress:addresseswall
+                                                    })
+                                                      .then(()=>{                                        
+                                                  ref22.child(db).set({
+                                                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
+                                                  CreatorAddress:addresseswall
+                                                    })
+                                                .then(()=>{                                   
+                                                  //setshowTestLoading(false)
+                                                  //setShowTest(true)                                                                                         
+                                                  //toast.info("Minting Image",{autoClose: 5000})
+                                                  //toast.dismiss(); 
+                                                  toast.success("NFT Minted successfully",{autoClose: 5000})
+                                                  //toast.dismiss();
+                                                  setshowTestLoading(false)
+                                                  setShowTest(true)                                                                                         
+                                                })              
+                                                })
+                                              })                                                                                              
+                                  // setIsOpens(false)
+                                  // setIsOpen(true);
+                                  //return appId;                                            
+                                            }).catch((err) => {
+                                                //handle error here
+                                                //console.log(err);
+                                            });                        
+                                          }).catch((err) => {
+                                              //handle error here
+                                              //console.log(err);
+                                          });                  
+                                          //end pinata          
+                                  //end pinata here                      
+                    }else{
+                      //add pinata here          
+                      //pinata          
+                      //const axios = require('axios');
+                      // let pinataApiKey='88348e7ce84879e143e1';
+                      // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+                      const pinataApiKey = "221cfff25de18e88d3d0";
+                      const pinataSecretApiKey = "ddffffed103d82a6296a378c80ddd2b4280b0d8a51e6922122fd3817accb45ba";
+                      const pinataSDK = require('@pinata/sdk');
+                      const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+                                  pinata.testAuthentication().then((result) => {
+                                  //handle successful authentication here
+                                  //console.log(result);  
+                                  let ge=fileUrl;
+                                  //console.log("ipfsHash",fileUrl);
+                                          const body = {
+                                              message: ge
+                                          };
+                                          const options = {
+                                              pinataMetadata: {
+                                                  name: tname,
+                                                  keyvalues: {
+                                                      customKey: 'customValue',
+                                                      customKey2: 'customValue2'
+                                                  }
+                                              },
+                                              pinataOptions: {
+                                                  cidVersion: 0
+                                              }
+                                          };
+                                          pinata.pinJSONToIPFS(body, options).then((result) => {
+                                              //handle results here
+                                              //console.log(result);
+                                              //console.log("jsonresult3",result.IpfsHash) 
+                                              //toast.dismiss();  
+                                              // toast.info("image uploaded in ipfs",result.IpfsHash)
+                                              toast.success(`Image Uploaded in IPFS ${result.IpfsHash}`,{autoClose: 8000});
+                                              // toast.loading(`images uploading ipfs`, {
+                                              // onClose: ('loading') });                                                                                                
+                                              ref2.child(db).set({
+                                                Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
+                                                CreatorAddress:addresseswall
+                                              })
+                                                .then(()=>{
+                                                  refactivity.child(db).set({
+                                                      Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                      TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
+                                                      CreatorAddress:addresseswall
+                                                    })
+                                                      .then(()=>{                                        
+                                                  ref22.child(db).set({
+                                                  Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
+                                                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:Img,ownerAddress:addresseswall,previousoaddress:"",
+                                                  TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
+                                                  CreatorAddress:addresseswall
+                                                    })
+                                                .then(()=>{                                   
+                                                  //setshowTestLoading(false)
+                                                  //setShowTest(true)                                                                                          
+                                                  // toast.loading(`images uploaded in ipfs`,{
+                                                  //   onClose:('completed')
+                                                  // });
+                                                  //toast.info("minting your image",{autoClose: 5000})
+                                                  //toast.dismiss(); 
+                                                  toast.success("NFT Minted successfully",{autoClose: 5000})
+                                                  //toast.dismiss();                                               
+                                                  //toast.dismiss();
+                                                  setshowTestLoading(false)
+                                                  setShowTest(true)     
+                                                })              
+                                                })
+                                              })  
+                                  // setIsOpens(false)
+                                  // setIsOpen(true);
+                                  //return appId;                                            
+                                            }).catch((err) => {
+                                                //handle error here
+                                                //console.log(err);
+                                            });                        
+                                          }).catch((err) => {
+                                              //handle error here
+                                              //console.log(err);
+                                          });                  
+                                          //end pinata          
+                                  //end pinata here  
+                    }                                                                        
+                    
+    }
+
+      const done=()=>{
         history.push("/profile")
         window.location.reload(false);    
-  }
-        
-  const timeGet=()=>{
-    var date = new Date();
-    let datechange=date.toJSON().slice(0,10).replace(new RegExp("-", 'g'),"/" ).split("/").reverse().join("")+""+date.toJSON().slice(11,9)        
-    console.log("TestTime",datechange)
-  }
-  return (
+      }
+    return (
         <Layout>
             <Container fluid="md">
             <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></>
@@ -403,7 +628,7 @@ const Start = () => {
 
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
-                                {/* <Button variant='primary' size="lg" onClick={()=>timeGet()}>Check Api</Button> */}
+                                {/* <Button variant='primary' size="lg" onClick={()=>storedbApi(10212,'a','b')}>Check Api</Button> */}
                             </div>                            
                             
                         </Col>                        
@@ -483,9 +708,8 @@ const Start = () => {
                         <img src={logogif} alt="loading..." />
                     </div>                    
                 </Modal.Body>
-            </Modal>                      
+            </Modal>            
         </Layout>
-        
     );
 };
 

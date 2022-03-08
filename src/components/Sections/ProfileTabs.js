@@ -7,13 +7,13 @@ import Liked from '../Snippets/tabs/Liked';
 import Collection from '../Snippets/tabs/Collection';
 import Activity from '../Snippets/tabs/Activity';
 import Owned from '../Snippets/tabs/Owned';
-//import firebase from '../../firebase';
+import firebase from '../../firebase';
 import Card from '../Snippets/Card';
 
 const ProfileTabs = (create) => {
-    // React.useEffect(() => {
-    //     window.scrollTo(0, 0);     
-    // });
+    React.useEffect(() => {
+        window.scrollTo(0, 0);     
+    });
 
     // console.log("sets",create.onNameChange)    
     // console.log("bcreate",create.create)    
@@ -28,25 +28,25 @@ const ProfileTabs = (create) => {
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className='mb-4'>
             <Tab eventKey="onSale" title="On sale">
-                <OnSale data={create.CreateApi}/>
+                <OnSale data={create.sale}/>
             </Tab>
             <Tab eventKey="owned" title="Owned">
-                <Owned data={create.CreateApi}/>
+                <Owned data={create.buyed}/>
             </Tab>                        
             <Tab eventKey="created" title="Created">                
-                <Created data={create.CreateApi} onNameChange={create.onNameChange}/>
+                <Created data={create.create} onNameChange={create.onNameChange}/>
             </Tab>                
             {/* <Tab eventKey="collections" title={<span>Collections <span class="badge badge-new">new</span></span>}>
                 <Collection />
             </Tab> */}
             <Tab eventKey="liked" title="Liked">
-                <OnSaleLike data={create.CreateApi}/>
+                <OnSaleLike data={create.likes}/>
             </Tab>
             {/* <Tab eventKey="liked" title="Liked">
                 <Liked data={create.likes}/>
             </Tab> */}
             <Tab eventKey="activity" title="Activity">
-                <Activity data={create.ActivityData} other={"local"} ownersend={create.owner}/>
+                <Activity data={create.create} other={"local"} ownersend={create.owner}/>
             </Tab>
         </Tabs>
     );

@@ -1,24 +1,21 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState,useEffect } from "react";
 import Flickity from 'react-flickity-component'
 // import {Row, Col} from 'react-bootstrap';
 import Card from '../Snippets/Card';
 import CardLiveA from "../Snippets/CardLiveA";
 import ReactPaginate from 'react-paginate';
-import { DataContext } from '../../Context/DataContext';
 const axios = require('axios');
 
 
 const LiveAuctions = () => {
-  const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
-  console.log("getApiFullLiveAuction",getApiDataNftFull)        
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);     
     // });
-    //const[getI,setgetI]=useState([]); 
+    const[getI,setgetI]=useState([]); 
     //console.log("getImgLive",getI)    
-    // const check=()=>{
-    //     alert("check")
-    // }
+    const check=()=>{
+        alert("check")
+    }
     const flickityOptions = {
         initialIndex: 0,
         groupCells: true,
@@ -27,53 +24,53 @@ const LiveAuctions = () => {
     }
 
 
-    // const dbcallsaleal=async(index)=>{
-    //     //console.log("hello ramachandran")        
-    //     //console.log("inside dbcallsalealgo function")
-    //     //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
-    //       //alert("please connect your wallet")
-    //     //}
-    //     //else{                        
-    //       axios({
-    //         method: 'get',
-    //         url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
-    //         responseType: 'stream'
-    //       })
-    //         .then(function (response) {
-    //         let req = [];        
-    //         req.push(response.data)
-    //         let req2 =[];
-    //         req.forEach((l) => {              
-    //           //console.log("D",l)              
-    //           Object.keys(l).map(async(k)=>{                                        
-    //             const a=l[k];
-    //             Object.keys(a).map(async(b)=>{                    
-    //             req2.push({                      
-    //               Assetid:a[b].Assetid,
-    //               Imageurl:a[b].Imageurl,
-    //               NFTPrice:a[b].NFTPrice,
-    //               EscrowAddress:a[b].EscrowAddress,
-    //               keyId:a[b].keyId,
-    //               NFTName:a[b].NFTName,
-    //               userSymbol:a[b].userSymbol,
-    //               Ipfsurl:a[b].Ipfsurl,
-    //               ownerAddress:a[b].ownerAddress,
-    //               previousoaddress:a[b].previousoaddress,
-    //               TimeStamp:a[b].TimeStamp,
-    //               NFTDescription:a[b].NFTDescription,
-    //               HistoryAddress:a[b].HistoryAddress,
-    //               Appid:a[b].Appid,
-    //               valid:a[b].valid,
-    //               CreatorAddress:a[b].CreatorAddress
-    //               })   
-    //             })                                                                                                                
-    //           })                                                                     
-    //         });                        
-    //         setgetI(req2)  
-    //         });                    
-    //   } 
-    // //}
-    // useEffect(()=>{dbcallsaleal()},[])
+    const dbcallsaleal=async(index)=>{
+        //console.log("hello ramachandran")        
+        //console.log("inside dbcallsalealgo function")
+        //if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+          //alert("please connect your wallet")
+        //}
+        //else{                        
+          axios({
+            method: 'get',
+            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+            responseType: 'stream'
+          })
+            .then(function (response) {
+            let req = [];        
+            req.push(response.data)
+            let req2 =[];
+            req.forEach((l) => {              
+              //console.log("D",l)              
+              Object.keys(l).map(async(k)=>{                                        
+                const a=l[k];
+                Object.keys(a).map(async(b)=>{                    
+                req2.push({                      
+                  Assetid:a[b].Assetid,
+                  Imageurl:a[b].Imageurl,
+                  NFTPrice:a[b].NFTPrice,
+                  EscrowAddress:a[b].EscrowAddress,
+                  keyId:a[b].keyId,
+                  NFTName:a[b].NFTName,
+                  userSymbol:a[b].userSymbol,
+                  Ipfsurl:a[b].Ipfsurl,
+                  ownerAddress:a[b].ownerAddress,
+                  previousoaddress:a[b].previousoaddress,
+                  TimeStamp:a[b].TimeStamp,
+                  NFTDescription:a[b].NFTDescription,
+                  HistoryAddress:a[b].HistoryAddress,
+                  Appid:a[b].Appid,
+                  valid:a[b].valid,
+                  CreatorAddress:a[b].CreatorAddress
+                  })   
+                })                                                                                                                
+              })                                                                     
+            });                        
+            setgetI(req2)  
+            });                    
+      } 
+    //}
+    useEffect(()=>{dbcallsaleal()},[])
     
     //imagerefAlgolt
     // const dbcallsaleal=async(index)=>{
@@ -140,14 +137,14 @@ const LiveAuctions = () => {
             >
               
               
-                {getApiDataNftFull.map((x, index) => {
+                {getI.map((x, index) => {
                 //console.log("logo",x)
                 return(  
                     <>
                     {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-1">               */}
                     {/* subTitle="$1,426,752" */}
                     <div className='carousel-cell carousel-cell-20' >
-                    <CardLiveA timer='19:10' pAddress={x.previousOwner} oAddress={x.ownerAddress} img={x.nftImageAsString} verify={true} count="401"  dataall={x} Assetid={x.assetId}/> 
+                    <CardLiveA timer='19:10' pAddress={x.previousoaddress} oAddress={x.ownerAddress} img={x.Imageurl} verify={true} count="401"  dataall={x} Assetid={x.Assetid}/> 
                     </div>                    
                     {/* </div> */}
                     </>                                                                                          

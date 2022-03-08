@@ -19,7 +19,6 @@ import dataescrowprice from "../../escrowprice";
 import '../../toast-style-override.css'
 const myAlgoWallet = new MyAlgoConnect();
 const algosdk = require('algosdk'); 
-const axios = require('axios');
 
 const CardCreate = (props) => {
     //console.log("cprint",props.onNameChange)
@@ -72,81 +71,30 @@ const CardCreate = (props) => {
         //console.log("sale",props.dataall);
         if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === " "){
             alert("please connect your wallet")
-        }else if(localStorage.getItem('wallet') === props.dataall.algoAddress){                  
-        //db here              
-        let userjsonkeyDup=
-        {
-            "algoAddress": localStorage.getItem('wallet'),
-            "nftName": props.dataall.Assetid,
-            "nftType": props.dataall.nftType,
-            "nftCount": props.dataall.nftCount ,
-            "appId": configfile['appIdPrice'],
-            "assetId": props.dataall.assetId,
-            "creationTime":props.dataall.creationTime,
-            "ipfsHexUrl": props.dataall.ipfsHexUrl,
-            "serverImagePath":props.dataall.serverImagePath,
-            "nftPrice": props.dataall.nftPrice,
-            "nftSymbol": props.dataall.nftSymbol,
-            "ownerAddress": localStorage.getItem('wallet'),
-            "previousOwner": props.dataall.previousOwner,
-            "nftDescription": props.dataall.nftDescription,
-            "creatorAddress": props.dataall.creatorAddress,
-            "esrowAddress": props.dataall.esrowAddress,
-            "valid": 1,
-            "status": "onsale",
-            "nftHistoryAddresses": props.dataall.nftHistoryAddresses,
-            "nftImageAsString": props.dataall.nftImageAsString,
-            "crc32Checksum":""
-        }              
-        axios.put(`${configfile['url']}/nftPlain`,userjsonkeyDup)
-        .then(async(responseuser) => {
-        console.log("uploadeduser",responseuser)                                      
-        toast.success("NFT Price Update successfully",{autoClose: 5000})
-        toast.dismiss();
-        let activity={
-          "ipAddress": "onsale update",
-          "algoAddress": localStorage.getItem('wallet').slice(0,50),
-          "networkType": props.dataall.creationTime,
-          "walletType": "image"
-        }
-        axios.post(`${configfile['url']}/visitinfo`,activity)
-        .then(async(responseuser) => {
-          //setgetIPro(response.data);              
-          setShowTestLoading(false)
-          setShowTest(true)                      
-        })
-        
-    })
-      .catch((e) => {
-      console.log("Err1",e);                      
-      setShowTestLoading(false)
-  })                             
-     
-    //db end here
-
-            // let dateset=new Date().toDateString();      
-            // fireDb.database().ref(`imagerefexploreoneAlgos/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
-            //     Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
-            //     NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:props.dataall.previousoaddress,
-            //     TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
-            //     CreatorAddress:props.dataall.CreatorAddress
-            //   }).then(()=>{
-            //     fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
-            //     let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
-            //     const db = refactivity.push().key;                         
-            //     refactivity.child(db).set({
-            //     Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
-            //     NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),                
-            //     TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
-            //     CreatorAddress:props.dataall.CreatorAddress
-            // })
-            //     .then(()=>{                                                            
-            //         //console.log("remove db");
-            //         setShowTestLoading(false)
-            //         setshowTestSale(true)              
-            //     })                        
+        }else if(localStorage.getItem('wallet') === props.dataall.ownerAddress){                  
+            let dateset=new Date().toDateString();      
+            fireDb.database().ref(`imagerefexploreoneAlgos/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
+                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
+                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:props.dataall.previousoaddress,
+                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+                CreatorAddress:props.dataall.CreatorAddress
+              }).then(()=>{
+                fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
+                let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                const db = refactivity.push().key;                         
+                refactivity.child(db).set({
+                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
+                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),                
+                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+                CreatorAddress:props.dataall.CreatorAddress
+            })
+                .then(()=>{                                                            
+                    //console.log("remove db");
+                    setShowTestLoading(false)
+                    setshowTestSale(true)              
+                })                        
                   
-            //   })
+              })
         }        
     }
 
@@ -190,7 +138,7 @@ const CardCreate = (props) => {
         let index = parseInt(configfile['appIdPrice']);  
         let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(props.Assetid))
         let results = await algodClient.compile(dataopreplace).do();                
-        let program = new Uint8Array(Buffer.from(results.result, "base64"));        
+        let program = new Uint8Array(Buffer.from(results.result, "base64"));      
         let lsig = algosdk.makeLogicSig(program);
         try {            
             const params = await algodClient.getTransactionParams().do();            
@@ -198,7 +146,7 @@ const CardCreate = (props) => {
             let amount = 961000;      
             let foreignassets = [];
             //
-            foreignassets.push(parseInt(props.Assetid));            
+            foreignassets.push(parseInt(props.dataall.Assetid));            
             let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
               from: localStorage.getItem('wallet'), 
               to: recv_escrow, 
@@ -210,8 +158,7 @@ const CardCreate = (props) => {
              //
              appArg.push(new Uint8Array(Buffer.from("createlisting")));       
              appArg.push(algosdk.encodeUint64(parseFloat(amountmul))); 
-             console.log("Apparg",parseFloat(amountmul))      
-             console.log("working172line",props.Assetid)
+             //console.log("Apparg",parseFloat(amountmul))      
               const transaction2 = algosdk.makeApplicationNoOpTxnFromObject({
                  from: recv_escrow, 
                  appIndex: index,
@@ -221,11 +168,10 @@ const CardCreate = (props) => {
                  suggestedParams: params
                });          
                //
-               
               const transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                 from: recv_escrow,
                 to: recv_escrow,
-                assetIndex: parseInt(props.dataall.assetId),
+                assetIndex: parseInt(props.dataall.Assetid),
                 note: undefined,
                 foreignAssets:foreignassets,
                 amount: 0,
@@ -235,12 +181,11 @@ const CardCreate = (props) => {
               const transaction4 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                 from: localStorage.getItem('wallet'),
                 to: recv_escrow,
-                assetIndex: parseInt(props.dataall.assetId),
+                assetIndex: parseInt(props.dataall.Assetid),
                 note: undefined,
                 amount: 1,
                 suggestedParams: params
               });
-              console.log("working190line")
           const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4]);
           const txs = [ transaction1, transaction2, transaction3, transaction4];
           txs[0].group = groupID;
@@ -256,75 +201,28 @@ const CardCreate = (props) => {
           toast.success(`Create Listing Sucessfully ${response.txId}`,{autoClose: 8000});            
 
         //db here          
-    
-        let userjsonkeyDup=
-            {
-                "algoAddress": localStorage.getItem('wallet'),
-                "nftName": props.dataall.Assetid,
-                "nftType": props.dataall.nftType,
-                "nftCount": props.dataall.nftCount ,
-                "appId": configfile['appIdPrice'],
-                "assetId": props.dataall.assetId,
-                "creationTime":props.dataall.creationTime,
-                "ipfsHexUrl": props.dataall.ipfsHexUrl,
-                "serverImagePath":props.dataall.serverImagePath,
-                "nftPrice": amountmul,
-                "nftSymbol": props.dataall.nftSymbol,
-                "ownerAddress": localStorage.getItem('wallet'),
-                "previousOwner": props.dataall.previousOwner,
-                "nftDescription": props.dataall.nftDescription,
-                "creatorAddress": props.dataall.creatorAddress,
-                "esrowAddress": props.dataall.esrowAddress,
-                "valid": 1,
-                "status": "ready",
-                "nftHistoryAddresses": props.dataall.nftHistoryAddresses,
-                "nftImageAsString": props.dataall.nftImageAsString,
-                "crc32Checksum":""
-        }              
-
-        const options2 = {
-            method: 'PUT',
-            url: `${configfile['url']}/nftPlain`,            
-            data: userjsonkeyDup            
-          };
-          axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-          axios.request(options2).then(function (response2) {
-            console.log("uploadeduser",response2)                                      
-            toast.success("NFT Price Update successfully",{autoClose: 5000})
-            toast.dismiss();
-            let activity={
-              "ipAddress": "price update",
-              "algoAddress": localStorage.getItem('wallet'),
-              "networkType": props.dataall.creationTime,
-              "walletType": "image"
-            }
-            axios.post(`${configfile['url']}/visitinfo`,activity)
-            .then(async(responseuser) => {
-              //setgetIPro(response.data);              
-              setShowTestLoading(false)
-              setShowTest(true)                      
-            })              
-          }).catch(function (error) {
-            console.error("done2",error);
-            setShowTestLoading(false)
-          });          
-
-    //     await fetch(`${configfile['url']}/nftPlain`, {
-    //     method: 'PUT',
-    //     mode: 'no-cors',
-    //     // headers: {                
-    //     // }
-    //     body: userjsonkeyDup,
-    //     }
-    //     ).then(async(responseuser) => {
+        let dateset=new Date().toDateString();
+        fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
+            Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
+            NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
+            TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+            CreatorAddress:props.dataall.CreatorAddress
+        }).then(()=>{  
+            let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+            const db = refactivity.push().key;                         
+            refactivity.child(db).set({
+                Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
+                NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
+                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+                CreatorAddress:props.dataall.CreatorAddress
+        })
+        .then(()=>{                                        
+            setShowTestLoading(true)
+            setshowTestDone(true)
+            })                        
+        })
             
-    //         //axios.put(`${configfile['url']}/nftPlain`,userjsonkeyDup)                        
-    //     })
-    //       .catch((e) => {
-    //       console.log("Err1",e);                      
-    //       setShowTestLoading(false)
-    //   })                                      
-    //     //db end here
+        //db end here
                   
           } catch (err) {
             //console.error(err);

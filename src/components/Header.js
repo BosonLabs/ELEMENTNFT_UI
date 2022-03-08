@@ -16,18 +16,14 @@ import User from '../assets/images/dummy-icon.svg';
 import Logo from '../assets/images/Algo.png';
 import Icon from '../assets/images/dummy-icon.svg';
 import cjson from '../config.json'
-//import {MovieContext} from '../Movie';
+import {MovieContext} from '../Movie';
 import { DataContext } from '../Context/DataContext';
 const algosdk = require('algosdk'); 
 const axios = require('axios');
 
 
 function Header() {
-    //const {getI,getIexplore}=useContext(DataContext)
-    const {getApiDataNftFull,setApiDataNftFull}=useContext(DataContext)
-    const {getApiDataFullProfile,setApiDataFullProfile}=useContext(DataContext)
-    
-    console.log("Headerdata",getApiDataNftFull)
+    const {getI,getIexplore}=useContext(DataContext)
     const [searchText, setSearchText] = React.useState('');
     //console.log("SeSet",searchText)
     const [show, setShow] = React.useState(false);
@@ -106,8 +102,8 @@ const filterdata=()=>{
     {          
     }
     else{
-            let data = getApiDataNftFull.filter((val)=>{
-            let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())
+            let data = getIexplore.filter((val)=>{
+            let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
             //console.log("val1",val1)          
             return val1            
         })
@@ -121,8 +117,8 @@ const filterdata=()=>{
     {          
     }
     else{
-            let data = getApiDataFullProfile.filter((val)=>{
-                let val1 = (val.profileName).toLowerCase().includes(searchText.toLocaleLowerCase())
+            let data = getI.filter((val)=>{
+                let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
                 //console.log("val1",val1)          
                 return val1
             //return val
@@ -138,8 +134,8 @@ const filterdata=()=>{
     {          
     }
     else{
-            let data = getApiDataNftFull.filter((val)=>{
-            let val1 = (val.nftName).toLowerCase().includes(searchText.toLocaleLowerCase())
+            let data = getIexplore.filter((val)=>{
+            let val1 = (val.NFTName).toLowerCase().includes(searchText.toLocaleLowerCase())
             //console.log("val1",val1)          
             return val1
         })
@@ -204,7 +200,7 @@ const filterdata=()=>{
                             <Button variant="reset">
                                 <svg viewBox="0 0 16 16" fill="none" width="14" height="14" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye btcRhh"><path fillRule="evenodd" clipRule="evenodd" d="M2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7ZM7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57591 14 10.0302 13.4792 11.2001 12.6004C11.2281 12.6376 11.259 12.6733 11.2929 12.7071L14.2929 15.7071C14.6834 16.0976 15.3166 16.0976 15.7071 15.7071C16.0976 15.3166 16.0976 14.6834 15.7071 14.2929L12.7071 11.2929C12.6733 11.259 12.6376 11.2281 12.6004 11.2001C13.4792 10.0302 14 8.57591 14 7C14 3.13401 10.866 0 7 0Z" fill="currentColor"></path></svg>
                             </Button>
-                            <Form.Control value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Collection or user" />
+                            <Form.Control value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Collection, item or user" />
                         </InputGroup>
                         {searchText && (
                             <>
@@ -222,58 +218,59 @@ const filterdata=()=>{
                                     //state:{alldata:v}
                                 }}>
                                 <div className="collection-image">
-                                            <img src={v.nftImageAsString} alt="icon" />
+                                            <img src={v.Imageurl} alt="icon" />
                                             {/* <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg> */}                                                                                
                                 </div>
                                 <div className="collection-info">
-                                            <h5 className="text-truncate">{v.nftName}</h5>
-                                            <h6>{v.algoAddress.slice(0,10)}.....</h6>                                                                                                            
+                                            <h5 className="text-truncate">{v.NFTName}</h5>
+                                            <h6>{v.ownerAddress.slice(0,10)}.....</h6>                                                                                                            
                                 </div>
                                 </Link>
                                 )
                                 })}                                                        
                                 </div>                            
-                                {/* <div className="mb-3">
+                                <div className="mb-3">
                                     <h6>Items</h6>
                                     {filterdata2().map((v,k)=>{
                                     if(k<3)
                                 return(                               
-                                <Link  to={{                                    
+                                <Link  to={{
+                                    // pathname: "/profileviewother",
+                                    // state:{alldata:v}
                                     pathname: "/profileviewothercopy",            
                                     state:{title:v.title,amount:v.amount,appid:v.appid,assetid:v.assetid,escrowaddress:v.escrowaddress,historyaddress:v.historyaddress,imageurl:v.imageurl,ipfsurl:v.ipfsurl,nftdescription:v.nftdescription,TimeStamp:v.TimeStamp,keyId:v.keyId,ownerAddress:v.ownerAddress,previousaddress:v.previousaddress,userSymbol:v.userSymbol,valid:v.valid}
                                 }}>
                                 <div className="collection-image">
-                                            <img src={v.profileImageAsString} alt="icon" />                                            
+                                            <img src={v.Imageurl} alt="icon" />
+                                            {/* <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg> */}                                                                                
                                 </div>
                                 <div className="collection-info">
-                                            <h5 className="text-truncate">{v.nftName}</h5>
-                                            <h6>{v.algoAddress.slice(0,10)}.....</h6>                                                                                                            
+                                            <h5 className="text-truncate">{v.NFTName}</h5>
+                                            <h6>{v.ownerAddress.slice(0,10)}.....</h6>                                                                                                            
                                 </div>
                                 </Link>
                                 )
                                 })}                                                        
-                                </div> */}
+                                </div>
                                 <div className="mb-3">
                                     <h6>Users</h6>
 
-                                {filterdata2().map((v,k)=>{
+                                {filterdata3().map((v,k)=>{
                                 if(k<4)
                                 return(                               
                                 <Link  to={{
                                     // pathname: "/profileviewother",
                                     // state:{alldata:v}
-                                    // pathname: "/profileviewothercopy",            
-                                    // state:{title:v.title,amount:v.amount,appid:v.appid,assetid:v.assetid,escrowaddress:v.escrowaddress,historyaddress:v.historyaddress,imageurl:v.imageurl,ipfsurl:v.ipfsurl,nftdescription:v.nftdescription,TimeStamp:v.TimeStamp,keyId:v.keyId,ownerAddress:v.ownerAddress,previousaddress:v.previousaddress,userSymbol:v.userSymbol,valid:v.valid}
-                                    pathname: "/profileviewother",
-                                    state:{alldata:v}
+                                    pathname: "/profileviewothercopy",            
+                                    state:{title:v.title,amount:v.amount,appid:v.appid,assetid:v.assetid,escrowaddress:v.escrowaddress,historyaddress:v.historyaddress,imageurl:v.imageurl,ipfsurl:v.ipfsurl,nftdescription:v.nftdescription,TimeStamp:v.TimeStamp,keyId:v.keyId,ownerAddress:v.ownerAddress,previousaddress:v.previousaddress,userSymbol:v.userSymbol,valid:v.valid}
                                 }}>
                                 <div className="collection-image">
-                                            <img src={v.profileImageAsString} alt="icon" />
+                                            <img src={v.Imageurl} alt="icon" />
                                             {/* <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000"></path></svg> */}                                                                                
                                 </div>
                                 <div className="collection-info">
-                                            <h5 className="text-truncate">{v.profileName}</h5>
-                                            <h6>{v.algoAddress.slice(0,10)}.....</h6>                                                                                                            
+                                            <h5 className="text-truncate">{v.NFTName}</h5>
+                                            <h6>{v.ownerAddress.slice(0,10)}.....</h6>                                                                                                            
                                 </div>
                                 </Link>
                                 )
@@ -318,7 +315,7 @@ const filterdata=()=>{
                                 <a href={"https://discord.com/"} target="_blank" rel="noopener noreferrer">
                                     <svg viewBox="0 0 18 13" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye bRyxAn"><path fillRule="evenodd" clipRule="evenodd" d="M11.5507 0.0036464H11.5624L11.5612 0L11.5507 0.0036464ZM11.5108 0.0176323L11.5507 0.0036464H11.5252L11.5108 0.0176323ZM11.5039 0.0243315L11.5108 0.0176323L11.4917 0.0243072L11.5039 0.0243315ZM11.5039 0.0243315L11.2748 0.246719C13.8446 0.975936 15.088 2.11473 15.088 2.11473C13.4318 1.30287 11.9393 0.896938 10.4467 0.732864C9.36818 0.56879 8.28967 0.65508 7.37851 0.732864H7.13058C6.54793 0.732864 5.30826 0.975936 3.64711 1.62616C3.06818 1.87287 2.73595 2.03452 2.73595 2.03452C2.73595 2.03452 3.9781 0.816724 6.71529 0.166505L6.54793 0.00243113C6.54793 0.00243113 4.47521 -0.075352 2.2376 1.54594C2.2376 1.54594 0 5.36704 0 10.0778C0 10.0778 1.23967 12.1925 4.64008 12.2727C4.64008 12.2727 5.13595 11.6249 5.63802 11.0549C3.72893 10.4861 2.98512 9.34857 2.98512 9.34857C2.98512 9.34857 3.15124 9.42878 3.40041 9.59164H3.47479C3.50979 9.59164 3.52722 9.60778 3.54568 9.62487C3.54684 9.62595 3.548 9.62702 3.54917 9.6281V9.63539C3.56901 9.65484 3.58636 9.67185 3.62355 9.67185C3.6596 9.68642 3.69564 9.70096 3.73164 9.71548C4.10416 9.8658 4.47123 10.0139 4.77645 10.158C5.35413 10.4035 6.09669 10.6478 7.00785 10.8094C8.16074 10.9735 9.48223 11.0525 10.9872 10.8094L11.0353 10.7988L11.0353 10.7988C11.7631 10.6384 12.4908 10.4779 13.2186 10.1592C13.3516 10.0923 13.4931 10.0255 13.6419 9.95511C14.0339 9.76978 14.4769 9.56038 14.9504 9.26349C14.9504 9.26349 14.2066 10.4011 12.2169 10.9699C12.626 11.5362 13.2025 12.1852 13.2025 12.1852C15.9898 12.1255 17.3804 10.6948 17.8328 10.2295C17.9325 10.1269 17.9866 10.0713 18 10.0875C18 5.38405 15.75 1.55566 15.75 1.55566C13.7464 0.097178 11.8701 0.0257804 11.5039 0.0243315ZM6.13886 5.36701C7.00663 5.36701 7.70828 6.09623 7.70828 6.98952C7.70828 7.88889 7.00167 8.61811 6.1339 8.61811C5.26613 8.61811 4.55952 7.88889 4.55952 6.99682C4.55952 6.09745 5.26613 5.37066 6.1339 5.37066L6.13886 5.36701ZM11.7707 5.36701C12.6422 5.36701 13.3451 6.09623 13.3451 6.98952C13.3451 7.88889 12.6384 8.61811 11.7707 8.61811C10.9029 8.61811 10.1963 7.88889 10.1963 6.99682C10.1988 6.09745 10.9066 5.37066 11.7707 5.37066V5.36701Z" fill="currentColor"></path></svg>
                                 </a>
-                                <a href={"https://t.me/ElementDeFi"} target="_blank" rel="noopener noreferrer">                                
+                                <a href={"https://web.telegram.org/k/"} target="_blank" rel="noopener noreferrer">                                
                                     <svg viewBox="0 0 16 14" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye fbpERj"><path d="M15.9513 1.29916L13.5438 13.1556C13.377 13.997 12.8902 14.1987 12.21 13.8093L8.542 10.979L6.76804 12.7662C6.56797 12.9748 6.40125 13.1556 6.03445 13.1556C5.55428 13.1556 5.63431 12.9679 5.47425 12.495L4.20714 8.19051L0.572523 7.00834C-0.214421 6.76495 -0.22109 6.20168 0.745918 5.7914L14.9243 0.0891779C15.5711 -0.209841 16.1914 0.256072 15.9446 1.29221L15.9513 1.29916Z" fill="currentColor"></path></svg>
                                 </a>
                                 <a href={"https://www.youtube.com/"} target="_blank" rel="noopener noreferrer">                                
@@ -439,12 +436,12 @@ const filterdata=()=>{
                                             <div className='ms-3'>
                                                 {localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" ? (
                                                 <>
-                                                <h6 className='mb-1'>Testnet Balance</h6>
+                                                <h6 className='mb-1'>Balance</h6>
                                                 <h5 className='mb-0'>0 Algo</h5>
                                                 </>
                                                 ):(
                                                 <>
-                                                <h6 className='mb-1'>Testnet Balance</h6>
+                                                <h6 className='mb-1'>Balance</h6>
                                                 <h5 className='mb-0'>{algobalance} Algo</h5>
                                                 </>
 
@@ -595,7 +592,7 @@ const filterdata=()=>{
                                     <Button variant="reset">
                                         <svg viewBox="0 0 16 16" fill="none" width="14" height="14" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye btcRhh"><path fillRule="evenodd" clipRule="evenodd" d="M2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7ZM7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57591 14 10.0302 13.4792 11.2001 12.6004C11.2281 12.6376 11.259 12.6733 11.2929 12.7071L14.2929 15.7071C14.6834 16.0976 15.3166 16.0976 15.7071 15.7071C16.0976 15.3166 16.0976 14.6834 15.7071 14.2929L12.7071 11.2929C12.6733 11.259 12.6376 11.2281 12.6004 11.2001C13.4792 10.0302 14 8.57591 14 7C14 3.13401 10.866 0 7 0Z" fill="currentColor"></path></svg>
                                     </Button>
-                                    <Form.Control placeholder="Collection or user" />
+                                    <Form.Control placeholder="Collection, item or user" />
                                 </InputGroup>
                             </Form>
                         </div>

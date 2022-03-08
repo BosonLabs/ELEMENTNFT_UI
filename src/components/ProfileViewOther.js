@@ -11,24 +11,39 @@ import firebase from '../firebase';
 import ProfileTabs from "./Sections/ProfileTabs";
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
 import Algopng from '../assets/images/Algo.png'
-import configfile from '../config.json'
 const axios = require('axios');
 
 function HomePage(props) {
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);     
   // });
-    const location = useLocation();     
+
+    const location = useLocation(); 
+    ////console.log("hotco",location.state)        
+    //console.log("followlast",location.state.follow[0].follower)
+    //console.log("followlast2",location.state.follow[0].following)
+    
     const [show, setShow] = React.useState(false);
     const [toast, setToast] = React.useState(false);
     const [followers, setFollowers] = React.useState(false);
     const [following, setFollowing] = React.useState(false);
     const[getImgreffalgo,setgetImgreffalgo]=useState([]);
-    const[getIPro,setgetIPro]=useState([""]);    
+    const[getIPro,setgetIPro]=useState([""]);
+    //console.log("getIPro",getIPro) 
+    //console.log("getImgalgo",getImgreffalgo)
+    const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
+    //console.log("getImgalgosale",getImgreffalgosale)
+    const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
+    //console.log("getImgalgobuy",getImgreffalgobuy)
+
     const handleClose = () => {setShow(false); setFollowers(false); setFollowing(false)};
     const handleShow = () => setShow(true);
     const handleFollowers = () => setFollowers(true);
-    const handleFollowing = () => setFollowing(true);    
+    const handleFollowing = () => setFollowing(true);
+
+
+    //const[getIf,setgetIf]=useState([""]); 
+    //console.log("gethome",getIf)        
     const[getIfo,setgetIfo]=useState([null]); 
     //console.log("gethomeo",getIfo)        
     const[getIfl,setgetIfl]=useState([null]); 
@@ -71,187 +86,395 @@ function HomePage(props) {
     }
     useEffect(()=>{dbLike()},[])
 
-    const followstart=async()=>{                      
-      // if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
-      //   let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-      //   let ref22=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
-      //   let dateset=new Date().toDateString();                                         
-      //   let arr1=[];
-      //   let arr11=[];
-      //   arr1.push(location.state.alldata.WalletAddress)
-      //   arr11.push(localStorage.getItem('wallet'))
-      //   ref2.set({        
-      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
-      //     .then(()=>{
-      //       ref22.set({        
-      //         walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:"",follower:arr11})
-      //         .then(()=>{    
-      //           alert("done1")              
-      //           })                  
-      //       })                           
-      // }
-      // else if((getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN ) && (getIfo[0] !== "" || getIfo[0] !== null || getIfo[0] !== undefined || getIfo[0] !== NaN)){
-
-      //   //local null && owner entry
-      //   let dateset=new Date().toDateString();      
-      //   //console.log("nullnew1","null1")                  
-      //   let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-      //   let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
-      //   //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
-      //   //let allarr11=getIfl[0].follower
-      //   let allarr2=getIfo[0].following 
-      //   let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-      //   //let chars1 = allarr1
-      //   //let uniqueChars1 = new Set(chars1);
-      //   //console.log("uni1",uniqueChars1);//ramfollowing local
-      //   //let chars11 = allarr11                
-      //   //let uniqueChars11 = new Set(chars11);
-      //   //console.log("uni11",uniqueChars11);//ramfollow local
-      //   let chars2 = allarr2      
-      //   let uniqueChars2 = new Set(chars2);
-      //   //console.log("uni2",uniqueChars2);//thiru following
-      //   let chars22 = allarr22        
-      //   let uniqueChars22 = new Set(chars22);
-      //   //console.log("uni22",uniqueChars22);//thiru follow
-      //   let arr1=[]        
-      //   arr1.push(location.state.alldata.WalletAddress)        
-      //   ref1.set({  
-      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
-      //     .then(()=>{    
-      //       ref11.update({        
-      //         walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
-      //         .then(()=>{    
-      //           alert("alert")                
-      //           })                              
-      //       })                  
-      // }
-      // else if((getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN ) && (getIfl[0] !== null || getIfl[0] !== undefined || getIfl[0] !== "" || getIfl[0] !== NaN)){
-
-      //   //owner null && local entry
-      //   let dateset=new Date().toDateString();      
-      //   //console.log("nullnew1","null1")                  
-      //   let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-      //   let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
-      //   let allarr1=getIfl[0].following.concat(location.state.alldata.WalletAddress) 
-      //   let allarr11=getIfl[0].follower
-      //   //let allarr2=getIfo[0].following 
-      //   //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-      //   let chars1 = allarr1
-      //   let uniqueChars1 = new Set(chars1);
-      //   //console.log("uni1",uniqueChars1);//ramfollowing local
-      //   let chars11 = allarr11                
-      //   let uniqueChars11 = new Set(chars11);
-      //   //console.log("uni11",uniqueChars11);//ramfollow local
-      //   //let chars2 = allarr2      
-      //   //let uniqueChars2 = new Set(chars2);
-      //   //console.log("uni2",uniqueChars2);//thiru following
-      //   //let chars22 = allarr22        
-      //   //let uniqueChars22 = new Set(chars22);
-      //   //console.log("uni22",uniqueChars22);//thiru follow
-      //   let arr1=[]        
-      //   arr1.push(localStorage.getItem('wallet'))        
-      //   ref1.set({  
-      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
-      //     .then(()=>{    
-      //       ref11.set({        
-      //         walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:"",follower:arr1})
-      //         .then(()=>{    
-      //           alert("alert")                
-      //           })                              
-      //       })                  
-      // }
-      // else{
-      //   let dateset=new Date().toDateString();      
-      //   //console.log("nullnew1","null1")                  
-      //   let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-      //   let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
-      //   let allarr1=getIfl[0].following.concat(location.state.alldata.WalletAddress) 
-      //   let allarr11=getIfl[0].follower
-      //   let allarr2=getIfo[0].following 
-      //   let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-      //   let chars1 = allarr1
-      //   let uniqueChars1 = new Set(chars1);
-      //   //console.log("uni1",uniqueChars1);//ramfollowing local
-      //   let chars11 = allarr11                
-      //   let uniqueChars11 = new Set(chars11);
-      //   //console.log("uni11",uniqueChars11);//ramfollow local
-      //   let chars2 = allarr2      
-      //   let uniqueChars2 = new Set(chars2);
-      //   //console.log("uni2",uniqueChars2);//thiru following
-      //   let chars22 = allarr22        
-      //   let uniqueChars22 = new Set(chars22);
-      //   //console.log("uni22",uniqueChars22);//thiru follow
-
-      //   ref1.update({  
-      //     walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
-      //     .then(()=>{    
-      //       ref11.update({        
-      //         walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
-      //         .then(()=>{    
-      //           alert("alert")                
-      //           })                              
-      //       })                          
-      // }      
-    }
-
-    // new api code
-    const dbcallPro=async()=>{                  
+    const dbcallPro=async()=>{            
+      let r=[];
       try {         
-        if(location.state.alldata.algoAddress === "" || location.state.alldata.algoAddress === undefined|| location.state.alldata.algoAddress === null){
-
-        }else{
-            try{
-            const res = await axios.get(`${configfile['url']}/userinfo/${location.state.alldata.algoAddress}`)
-            setgetIPro(res.data)                
-            }catch(err){
-            console.log("ERRRRRR1")
-            }
+      firebase.database().ref("userprofile").child(location.state.alldata.WalletAddress).on("value", (data) => {          
+        if (data) {                      
+            r.push({
+              Bio:data.val().Bio,
+              Customurl: data.val().Customurl,
+              Email: data.val().Email,
+              Imageurl:data.val().Imageurl,
+              Personalsiteurl: data.val().Personalsiteurl,
+              TimeStamp: data.val().TimeStamp,
+              Twittername: data.val().Twittername,
+              UserName: data.val().UserName,
+              WalletAddress: data.val().WalletAddress,
+              bgurl:data.val().bgurl,
+              valid:data.val().valid
+            })                
         }
-    } catch (error) {      
+        else{
+          setgetIPro([""]);  
+        }
+        setgetIPro(r);
+      });                  
+    } catch (error) {
+      //console.log('error occured during search', error);    
     }                
     }    
-    useEffect(()=>{dbcallPro()},[])
+  useEffect(()=>{dbcallPro()},[])
+
+    const dbcallowner=async()=>{      
+      //console.log("Insowner",location.state.alldata.WalletAddress)    
+      let reqoo = [];      
+      try {
+        if(firebase.database().ref("followings").child(location.state.alldata.WalletAddress) === undefined){
+          alert("nono")
+        }
+        else{
+          firebase.database().ref("followings").child(location.state.alldata.WalletAddress).on("value", (data) => {
+            //console.log("Insowners",data)
+            if (data) {                            
+              //console.log("tataam",data.val())
+              reqoo.push({
+                TimeStamp:data.val().TimeStamp,
+                follower:data.val().follower,
+                following:data.val().following,
+                walletAddress:data.val().walletAddress, 
+              })          
+            }
+            // else{
+            //   setgetIfo([""]);  
+            // }
+            setgetIfo(reqoo);
+          }) 
+        }          
+      } catch (error) {
+        //console.log('error occured during search', error);
+      }          
+    }
+    
+  useEffect(()=>{dbcallowner()},[])
+
+  const dbcallother=async()=>{    
+    let reqo = [];    
+      try {  
+        if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
+        {          
+          alert("nono2")                
+        }
+        else{
+        firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
+        if (data) {        
+          
+          reqo.push({
+            TimeStamp:data.val().TimeStamp,
+            follower:data.val().follower,
+            following:data.val().following,
+            walletAddress:data.val().walletAddress, 
+            })          
+        }
+        // else{
+        //   setgetIfl([""]);  
+        // }
+        setgetIfl(reqo);
+      });
+      }
+      
+    } catch (error) {
+      //console.log('error occured during search', error);    
+    }          
+  }  
+useEffect(()=>{dbcallother()},[])
 
 
-const dbcallalgoAPI=async()=>{
-  if(location.state.alldata.algoAddress === null || location.state.alldata.algoAddress === undefined || location.state.alldata.algoAddress === "" ){
-  }else{      
-  const res = await axios.get(`${configfile['url']}/nftPlainAlgo/${location.state.alldata.algoAddress}`)      
-  setgetImgreffalgo(res.data)                
-}
-}   
-useEffect(()=>{dbcallalgoAPI()},[])
-  
-  return (
+    // const dbcallsaleal=async(index)=>{        
+    //     let req2 = [];
+    //     if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === "0x"){
+    //     }
+    //     else{                        
+    //       axios({
+    //                 method: 'get',
+    //                 url: 'https://demonft-2e778-default-rtdb.firebaseio.com/followings.json',
+    //                 responseType: 'stream'
+    //               })
+    //                 .then(function (response) {
+    //                 let req = [];        
+    //                 req.push(response.data)
+    //                 let req2 =[];
+    //                 req.forEach((a) => {              
+    //                   console.log("Ddhome",a) 
+    //                   Object.keys(a).map(async(b)=>{                              
+    //                     console.log("Dadhomel",a[b].walletAddress)                       
+    //                       req2.push({                      
+    //                         TimeStamp:a[b].TimeStamp,
+    //                         follower:a[b].follower,
+    //                         following:a[b].following,
+    //                         walletAddress:a[b].walletAddress,                  
+    //                       })   
+    //                     //}                        
+    //                   })                                                                     
+    //                 });                        
+    //                 setgetIfo(req2)  
+    //       })              
+    //   } 
+    // }
+    // useEffect(()=>{dbcallsaleal()},[])
+
+
+    const dbcallalgo=async()=>{
+        //console.log("inside dbcallalgo function")  
+        let req = [];        
+          firebase.database().ref("imagerefAlgo").child(location.state.alldata.WalletAddress).on("value", (data) => {
+            if (data) {
+              data.forEach((d) => {
+                ////console.log("keycheck",d.key)
+                let value=d.val();
+                req.push(            
+                  {
+                  Assetid:value.Assetid,
+                  Imageurl:value.Imageurl,
+                  NFTPrice:value.NFTPrice,
+                  EscrowAddress:value.EscrowAddress,
+                  keyId:value.keyId,
+                  NFTName:value.NFTName,
+                  userSymbol:value.userSymbol,
+                  Ipfsurl:value.Ipfsurl,
+                  ownerAddress:value.ownerAddress,
+                  previousoaddress:value.previousoaddress,
+                  TimeStamp:value.TimeStamp,
+                  NFTDescription:value.NFTDescription,
+                  HistoryAddress:value.HistoryAddress,
+                  Appid:value.Appid,
+                  valid:value.valid,                  
+                  CreatorAddress:value.CreatorAddress
+                  }          
+                )
+                //image:images/content/card-pic-1.jpg
+                //image2x: "/images/content/card-pic-1@2x.jpg",
+      
+                //req.push(d.key)          
+              });        
+            }
+            setgetImgreffalgo(req);
+          });
+          
+        
+        //}
+        //console.log("acc",getalgo)
+    }   
+    useEffect(()=>{dbcallalgo()},[])
+
+    const dbcallsalealgo=async()=>{       
+        let req = [];              
+          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.alldata.WalletAddress).on("value", (data) => {
+            if (data) {
+              data.forEach((d) => {                
+                let value=d.val();
+                req.push(            
+                  {
+                    Assetid:value.Assetid,
+                    Imageurl:value.Imageurl,
+                    NFTPrice:value.NFTPrice,
+                    EscrowAddress:value.EscrowAddress,
+                    keyId:value.keyId,
+                    NFTName:value.NFTName,
+                    userSymbol:value.userSymbol,
+                    Ipfsurl:value.Ipfsurl,
+                    ownerAddress:value.ownerAddress,
+                    previousoaddress:value.previousoaddress,
+                    TimeStamp:value.TimeStamp,
+                    NFTDescription:value.NFTDescription,
+                    HistoryAddress:value.HistoryAddress,
+                    Appid:value.Appid,
+                    valid:value.valid   
+                  },                
+                )
+              });        
+            }
+            setgetImgreffalgosale(req);  
+          });                  
+        //console.log("accsale",getImgreffalgosale)      
+    }      
+    useEffect(()=>{dbcallsalealgo()},[])
+
+    const dbcallalgobuy=async()=>{    
+        let req = [];          
+        firebase.database().ref("imagerefbuy").child(location.state.alldata.WalletAddress).on("value", (data) => {      
+            if (data) {
+              data.forEach((d) => {                
+                let value=d.val();
+                req.push(            
+                  {
+                    Assetid:value.Assetid,
+                    Imageurl:value.Imageurl,
+                    NFTPrice:value.NFTPrice,
+                    EscrowAddress:value.EscrowAddress,
+                    keyId:value.keyId,
+                    NFTName:value.NFTName,
+                    userSymbol:value.userSymbol,
+                    Ipfsurl:value.Ipfsurl,
+                    ownerAddress:value.ownerAddress,
+                    previousoaddress:value.previousoaddress,
+                    TimeStamp:value.TimeStamp,
+                    NFTDescription:value.NFTDescription,
+                    HistoryAddress:value.HistoryAddress,
+                    Appid:value.Appid,
+                    valid:value.valid    
+                  },                
+                )      
+              });        
+            }
+            setgetImgreffalgobuy(req);
+          });                          
+    }      
+    useEffect(()=>{dbcallalgobuy()},[])
+      
+    const followstart=async()=>{                      
+      if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
+        let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+        let ref22=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
+        let dateset=new Date().toDateString();                                         
+        let arr1=[];
+        let arr11=[];
+        arr1.push(location.state.alldata.WalletAddress)
+        arr11.push(localStorage.getItem('wallet'))
+        ref2.set({        
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+          .then(()=>{
+            ref22.set({        
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:"",follower:arr11})
+              .then(()=>{    
+                alert("done1")              
+                })                  
+            })                           
+      }
+      else if((getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN ) && (getIfo[0] !== "" || getIfo[0] !== null || getIfo[0] !== undefined || getIfo[0] !== NaN)){
+
+        //local null && owner entry
+        let dateset=new Date().toDateString();      
+        //console.log("nullnew1","null1")                  
+        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+        let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
+        //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
+        //let allarr11=getIfl[0].follower
+        let allarr2=getIfo[0].following 
+        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+        //let chars1 = allarr1
+        //let uniqueChars1 = new Set(chars1);
+        //console.log("uni1",uniqueChars1);//ramfollowing local
+        //let chars11 = allarr11                
+        //let uniqueChars11 = new Set(chars11);
+        //console.log("uni11",uniqueChars11);//ramfollow local
+        let chars2 = allarr2      
+        let uniqueChars2 = new Set(chars2);
+        //console.log("uni2",uniqueChars2);//thiru following
+        let chars22 = allarr22        
+        let uniqueChars22 = new Set(chars22);
+        //console.log("uni22",uniqueChars22);//thiru follow
+        let arr1=[]        
+        arr1.push(location.state.alldata.WalletAddress)        
+        ref1.set({  
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+          .then(()=>{    
+            ref11.update({        
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+              .then(()=>{    
+                alert("alert")                
+                })                              
+            })                  
+      }
+      else if((getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN ) && (getIfl[0] !== null || getIfl[0] !== undefined || getIfl[0] !== "" || getIfl[0] !== NaN)){
+
+        //owner null && local entry
+        let dateset=new Date().toDateString();      
+        //console.log("nullnew1","null1")                  
+        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+        let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
+        let allarr1=getIfl[0].following.concat(location.state.alldata.WalletAddress) 
+        let allarr11=getIfl[0].follower
+        //let allarr2=getIfo[0].following 
+        //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+        let chars1 = allarr1
+        let uniqueChars1 = new Set(chars1);
+        //console.log("uni1",uniqueChars1);//ramfollowing local
+        let chars11 = allarr11                
+        let uniqueChars11 = new Set(chars11);
+        //console.log("uni11",uniqueChars11);//ramfollow local
+        //let chars2 = allarr2      
+        //let uniqueChars2 = new Set(chars2);
+        //console.log("uni2",uniqueChars2);//thiru following
+        //let chars22 = allarr22        
+        //let uniqueChars22 = new Set(chars22);
+        //console.log("uni22",uniqueChars22);//thiru follow
+        let arr1=[]        
+        arr1.push(localStorage.getItem('wallet'))        
+        ref1.set({  
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+          .then(()=>{    
+            ref11.set({        
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:"",follower:arr1})
+              .then(()=>{    
+                alert("alert")                
+                })                              
+            })                  
+      }
+      else{
+        let dateset=new Date().toDateString();      
+        //console.log("nullnew1","null1")                  
+        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+        let ref11=firebase.database().ref(`followings/${location.state.alldata.WalletAddress}`);
+        let allarr1=getIfl[0].following.concat(location.state.alldata.WalletAddress) 
+        let allarr11=getIfl[0].follower
+        let allarr2=getIfo[0].following 
+        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+        let chars1 = allarr1
+        let uniqueChars1 = new Set(chars1);
+        //console.log("uni1",uniqueChars1);//ramfollowing local
+        let chars11 = allarr11                
+        let uniqueChars11 = new Set(chars11);
+        //console.log("uni11",uniqueChars11);//ramfollow local
+        let chars2 = allarr2      
+        let uniqueChars2 = new Set(chars2);
+        //console.log("uni2",uniqueChars2);//thiru following
+        let chars22 = allarr22        
+        let uniqueChars22 = new Set(chars22);
+        //console.log("uni22",uniqueChars22);//thiru follow
+
+        ref1.update({  
+          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+          .then(()=>{    
+            ref11.update({        
+              walletAddress:location.state.alldata.WalletAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+              .then(()=>{    
+                alert("alert")                
+                })                              
+            })                          
+      }      
+    }
+
+    //valid
+    return (
         <Layout>
             <Container fluid="lg">
                 <div className="profile-banner">
                     <div className="profile-card">
-                      {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (
-                      <>                        
+                      {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
+                        <>
+                        
                       <img src={DummyPic} alt="pic" width={"1500px"} height={"260px"} />
                     </>
                     ):(
                       <>
-                      <img src={getIPro.bgvImageAsString} alt="pic" width={"1500px"} height={"260px"}/>
+                      <img src={getIPro[0].Imageurl} alt="pic" width={"1500px"} height={"260px"}/>
                     </>
                     )}                      
                     </div>                    
-                    {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (
+                    {getIPro[0] === null || getIPro[0] === "" || getIPro[0] === undefined || getIPro[0] === NaN || getIPro[0] === " " ? (
                       <div className="profile-pic">
                       <img src={DummyPic} alt="pic" />
                       </div>
                     ):(
                       <div className="profile-pic">
-                      <img src={getIPro.profileImageAsString} alt="pic" />                      
+                      <img src={getIPro[0].Imageurl} alt="pic" />                      
                       </div>                      
                     )}                                        
                 </div>
                 {/* <div className="card-logo">                         */}
                 <center>
-                {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (<>
-                </>):(<>
-                  {getIPro.validuser === "1" ? (
+                  {getIPro[0].valid === "validated" ? (
                     <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4.78117 0.743103C5.29164 -0.247701 6.70826 -0.247701 7.21872 0.743103C7.52545 1.33846 8.21742 1.62509 8.8553 1.42099C9.91685 1.08134 10.9186 2.08304 10.5789 3.1446C10.3748 3.78247 10.6614 4.47445 11.2568 4.78117C12.2476 5.29164 12.2476 6.70826 11.2568 7.21872C10.6614 7.52545 10.3748 8.21742 10.5789 8.8553C10.9186 9.91685 9.91685 10.9186 8.8553 10.5789C8.21742 10.3748 7.52545 10.6614 7.21872 11.2568C6.70826 12.2476 5.29164 12.2476 4.78117 11.2568C4.47445 10.6614 3.78247 10.3748 3.1446 10.5789C2.08304 10.9186 1.08134 9.91685 1.42099 8.8553C1.62509 8.21742 1.33846 7.52545 0.743103 7.21872C-0.247701 6.70826 -0.247701 5.29164 0.743103 4.78117C1.33846 4.47445 1.62509 3.78247 1.42099 3.1446C1.08134 2.08304 2.08304 1.08134 3.1446 1.42099C3.78247 1.62509 4.47445 1.33846 4.78117 0.743103Z" fill="#feda03"></path><path fillRule="evenodd" clipRule="evenodd" d="M8.43961 4.23998C8.64623 4.43922 8.65221 4.76823 8.45297 4.97484L5.40604 8.13462L3.54703 6.20676C3.34779 6.00014 3.35377 5.67113 3.56039 5.47189C3.76701 5.27266 4.09602 5.27864 4.29526 5.48525L5.40604 6.63718L7.70475 4.25334C7.90398 4.04672 8.23299 4.04074 8.43961 4.23998Z" fill="#000000">\
                       </path>
@@ -259,23 +482,22 @@ useEffect(()=>{dbcallalgoAPI()},[])
                   ):(
                     <></>
                   )}                
-                </>)}                                                    
+                  
                 </center>
                 {/* </div> */}
 
-                {getIPro === null || getIPro === "" || getIPro === undefined || getIPro === NaN || getIPro === " " ? (<>
-                </>):(<>
-                  <div className="mb-36 text-center">
-                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.algoAddress); setToast(true)}}>                                        
+                <div className="mb-36 text-center">
+                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.WalletAddress); setToast(true)}}>                                        
                         <img src={Algopng} alt="icon" />
-                        {!toast ? <span>{(location.state.alldata.algoAddress).slice(0,8)}....{(location.state.alldata.algoAddress).slice(52,58)}</span> : (
+                        {!toast ? <span>{(location.state.alldata.WalletAddress).slice(0,8)}....{(location.state.alldata.WalletAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
                         )}
-                    </Button>                    
+                    </Button>
+                    
                 </div>
-                </>)}                
+
                 <div className="mb-32 d-flex align-items-center justify-content-center">                                    
                     <Button variant='link' onClick={handleFollowers} className='btn-reset'><span>0</span> <span className='ms-1 text-gray'>followers</span></Button>
                     <Button variant='link' onClick={handleFollowing} className='btn-reset ms-4'><span>0</span> <span className='ms-1 text-gray'>following</span></Button>
@@ -308,7 +530,7 @@ useEffect(()=>{dbcallalgoAPI()},[])
                                     <small className='d-block mt-2'>Facebook</small>
                                 </div>
                                 <div>
-                                <a href={"https://t.me/ElementDeFi"} target="_blank" rel="noopener noreferrer">                                
+                                <a href={"https://t.me/elementSwap"} target="_blank" rel="noopener noreferrer">                                
                                         <svg viewBox="0 0 16 14" fill="none" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M15.9513 1.29916L13.5438 13.1556C13.377 13.997 12.8902 14.1987 12.21 13.8093L8.542 10.979L6.76804 12.7662C6.56797 12.9748 6.40125 13.1556 6.03445 13.1556C5.55428 13.1556 5.63431 12.9679 5.47425 12.495L4.20714 8.19051L0.572523 7.00834C-0.214421 6.76495 -0.22109 6.20168 0.745918 5.7914L14.9243 0.0891779C15.5711 -0.209841 16.1914 0.256072 15.9446 1.29221L15.9513 1.29916Z" fill="currentColor"></path></svg>
                                 </a>
                                     <small className='d-block mt-2'>Telegram</small>
@@ -334,7 +556,7 @@ useEffect(()=>{dbcallalgoAPI()},[])
                 </div>
 
 
-            <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgo} buyed={getImgreffalgo} owner={location.state.alldata.algoAddress} likes={getdbLike}/>
+            <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress} likes={getdbLike}/>
             </Container>
 
             {/* onHide={handleClose} */}

@@ -213,32 +213,24 @@ const OnSaleLike = (data) => {
             </div> */}
 
 
-            {data.data === null || data.data === "" || data.data === undefined ? (
+            {data.data[0] === null || data.data[0] === "" || data.data[0] === undefined ? (
             <div className="no-found py-5p text-center">
                         <h2>Nothing to look at</h2>
                         <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
                         <Link to="/profile" className='btn btn-primary'>Browse marketplace</Link>
             </div>
-            ):(
+           ):(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
             {data.data.map((x, index) => {
                 // console.log("xvalue",x)
                 return(  
-                    <>                         
-                    {x.status === "liked" ? (                            
+                    <>                    
                     <div className='col mb-4' >
-                    <CardSale img={x.nftImageAsString} 
-                    title={x.nftName}
+                    <CardSale img={x.Imageurl} 
+                    title={x.NFTName}
                     dataall={x}
                     />
                     </div>                    
-                    ):
-                    <div className="no-found py-5p text-center">
-                        {/* <h2>Nothing to look at</h2>
-                        <p className="lead mb-4">Subscribe to authors and come back to see <br />NFTs from your favorite artists</p>
-                        <Link to="/profile" className='btn btn-primary'>Browse marketplace</Link> */}
-                    </div>
-                    }
                     </>                                                                                          
               )})}                                                                      
             </div>
