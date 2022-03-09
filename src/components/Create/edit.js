@@ -100,6 +100,9 @@ const Edit = () => {
             alert("Please Connect Wallet")
             window.location.reload(false)
         }
+        else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(temail))){
+            alert("Please Enter Valid E-mail")
+        }
         else if(getresponse[0] === null || getresponse[0] === "" || getresponse[0] === undefined || getresponse === null || getresponse === undefined || getresponse === ""){
         setshowTestLoading(true)                                     
         //setshowTestLoading(false)  
