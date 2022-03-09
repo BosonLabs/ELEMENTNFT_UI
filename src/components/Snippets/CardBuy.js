@@ -146,7 +146,7 @@ const CardBuy = (props) => {
         <Card >
             <Card.Header className='d-flex align-items-center'>
                 <div className="card-users d-flex align-items-center me-auto">
-                <OverlayTrigger
+                {/* <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
                         <Link className='collection-item d-flex align-items-center' to={{
@@ -154,7 +154,7 @@ const CardBuy = (props) => {
                         state:{ownerAddress:props.oAddress,CreatorAddress:props.CreatorAddress,Assetid:props.Assetid}}} >
                             <img src={getIPro1[0].Imageurl} alt="pic" />
                         </Link>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
                 <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >

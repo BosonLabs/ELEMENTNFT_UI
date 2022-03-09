@@ -265,7 +265,7 @@ const CardHotbids = (props) => {
         <Card>
             <Card.Header className='d-flex align-items-center'>
                 <div className="card-users d-flex align-items-center me-auto">
-                    <OverlayTrigger
+                    {/* <OverlayTrigger
                         overlay={<Tooltip>
                             {getIPro1[0] === "" || getIPro[0] === null || getIPro[0] === undefined ?(
                                 <>
@@ -281,7 +281,7 @@ const CardHotbids = (props) => {
                         state:{ownerAddress:props.oAddress,CreatorAddress:props.CreatorAddress}}} >
                             <img src={getIPro1[0].Imageurl} alt="pic" />
                         </Link>
-                    </OverlayTrigger>
+                    </OverlayTrigger> */}
                     <OverlayTrigger
                         overlay={<Tooltip>E-Element</Tooltip>}
                     >
