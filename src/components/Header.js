@@ -277,7 +277,7 @@ const filterdata=()=>{
                             <Link className='dropdown-item' to="/"><img src={TezosIcon} alt="icon" /> Tezos</Link>
                         </NavDropdown> */}
                         <Nav.Link as={Link} to="/profile">My profile</Nav.Link>
-                        <Nav.Link as={Link} to="/following">Following</Nav.Link>
+                        {/* <Nav.Link as={Link} to="/following">Following</Nav.Link> */}
                         <Nav.Link as={Link} to="/activity">Activity</Nav.Link>
                     </Nav>
                     <Nav className='hide-desktop-below'>
@@ -510,7 +510,7 @@ const filterdata=()=>{
                             <ul>
                                 <li><Link to="/">Explore</Link></li>
                                 <li><Link to="/profile">My profile</Link></li>
-                                <li><Link to="/following">Following</Link></li>
+                                {/* <li><Link to="/following">Following</Link></li> */}
                                 <li><Link to="/activity">Activity</Link></li>
                                 <li><Link to="/how-it-works">How it works</Link></li>
                             </ul>

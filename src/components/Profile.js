@@ -403,10 +403,10 @@ function HomePage() {
                 )}
                 
 
-                <div className="mb-32 d-flex align-items-center justify-content-center">
+                {/* <div className="mb-32 d-flex align-items-center justify-content-center">
                     <Button variant='link' onClick={handleFollowers} className='btn-reset'><span>0</span> <span className='ms-1 text-gray'>followers</span></Button>
                     <Button variant='link' onClick={handleFollowing} className='btn-reset ms-4'><span>0</span> <span className='ms-1 text-gray'>following</span></Button>
-                </div>
+                </div> */}
 
                 <div className="mb-4 text-center d-flex align-items-center justify-content-center">
                     <Link to="/settings" className='btn btn-white'>Edit profile</Link>                    
