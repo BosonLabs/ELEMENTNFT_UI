@@ -186,13 +186,13 @@ const Edit = () => {
       return (
         <Layout>
             <Container fluid="md">
-                <div className="py-md-5 py-4">
-                    <Row className='mb-5'>
+                <div className="py-md-0 py-4">
+                    {/* <Row className='mb-0'>
                         <Col md={12}>
-                            <h1 className='display-4 font-bold mb-3'>Edit profile</h1>
-                            <p className='lead'>You can set preferred display name, create your branded profile URL and manage other personal settings</p>
+                            <h3 className='display-9 font-bold mb-1'>Edit profile</h3> 
+                             <p className='lead'>You can set preferred display name, create your branded profile URL and manage other personal settings</p>
                         </Col>
-                    </Row>
+                    </Row> */}
 
                     <Row className='text-gray'>
                         <Col md={4} className='mb-4 order-md-2'>

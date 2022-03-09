@@ -333,10 +333,10 @@ const Start = () => {
         <Layout>
             <Container fluid="md">
             <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></>
-                <div className="py-md-5 py-4">
-                    <Row className='mb-5'>
+                <div className="py-md-0 py-4">
+                    <Row className='mb-0'>
                         <Col md={12}>
-                            <h1 className='display-4 font-bold mb-3'>Create single NFT on Algorand</h1>
+                            <h3 className='display-4 font-bold mb-3'>Create single NFT on Algorand</h3>
                         </Col>
                     </Row>
                     <Row className='text-gray'>
