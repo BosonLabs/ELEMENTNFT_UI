@@ -28,7 +28,7 @@ import ProfileViewOtherCopy3 from "./components/ProfileViewOtherCopy3";
 import SingleLiveauction from "./components/SingleLiveauction";
 //import useScrollToTop from "./ScrollToTop";
 import Edit from "./components/Create/edit";
-import {Movie} from './Movie'
+//import {Movie} from './Movie'
 import Validornotcheck from "./Validornotcheck";
 import {DataContext} from './Context/DataContext'
 import firebase from './firebase';
@@ -263,11 +263,6 @@ const dbcallPro2=async()=>{
 }    
 useEffect(()=>{dbcallPro2()},[])
 
-
-// useEffect(() => ref.current.scrollTo(0, 0));
-// const ref = useRef()
-//ref={ref}localStorage.getItem('wallet')
-
 useEffect(() => {        
   async function apiData() {      
     const res = await axios.get(`${configfile['url']}/nftPlain/${'RYS3A'}`)
@@ -282,8 +277,7 @@ useEffect(() => {
     <>
     <Online>    
     <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp,getHotCollection,setHotCollection}}>          
-    <Router>
-    
+    <Router>    
       <Switch>                
         <Route path="/connect">
           <Login />

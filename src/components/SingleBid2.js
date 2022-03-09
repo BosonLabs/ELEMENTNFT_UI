@@ -7,7 +7,7 @@ import {
 import configfile from '../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../firebase';
-import dataescrow from "../escrow.js";
+//import dataescrow from "../escrow.js";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import firebase from '../firebase';
 import { DataContext } from '../Context/DataContext';
@@ -38,10 +38,10 @@ const SingleBid = (props) => {
     const [showShare,setshowShare] = React.useState(false);   
          
     const [getprices,setprices]=useState(null)
-    const handleCloseTest = () => setShowTest(false);
-    const handleCloseTestLoading = () => setShowTestLoading(false);
-    const handleCloseTestDone = () => setshowTestDone(false);
-    const handleCloseTestSale = () => setshowTestSale(false);
+    //const handleCloseTest = () => setShowTest(false);
+    //const handleCloseTestLoading = () => setShowTestLoading(false);
+    //const handleCloseTestDone = () => setshowTestDone(false);
+    //const handleCloseTestSale = () => setshowTestSale(false);
     const handleCloseshowShare = () => setshowShare(false);
     let calc="";
     const [algobalance, setalgobalance] = useState("");
@@ -115,7 +115,6 @@ const SingleBid = (props) => {
       }                
       }    
     useEffect(()=>{dbcallPro2()},[])
-
     
     
     const waitForConfirmation = async function (algodclient, txId) {
@@ -139,10 +138,10 @@ const SingleBid = (props) => {
             window.location.reload(false)            
         }
 
-        const buynow2=async()=>{
-            let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));
-            //console.log("lol",a)
-        }
+        // const buynow2=async()=>{
+        //     let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));
+        //     //console.log("lol",a)
+        // }
 
         const pleasewait=()=>{
             alert("please wait your balance has checking....")
@@ -504,8 +503,7 @@ const SingleBid = (props) => {
             // }                
             }
         }
-        }
-        
+        }        
 
         const sharebutton=()=>{
             //console.log("SingleBid",location.state.alldata)
