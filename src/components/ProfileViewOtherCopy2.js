@@ -459,7 +459,13 @@ useEffect(()=>{dbcallother()},[])
                     </>
                     ):(
                       <>
-                      <img src={getIPro[0].Imageurl} alt="pic" width={"1500px"} height={"260px"}/>
+                      {getIPro[0].bgurl === null || getIPro[0].bgurl === "" || getIPro[0].bgurl === undefined || getIPro[0].bgurl === " " || getIPro[0].bgurl === NaN ? (<>
+                          <img src={DummyPic} alt="pics" width={"1500px"} height={"260px"} />
+                        </>):(
+                          <>
+                          <img src={getIPro[0].bgurl} alt="pic" width={"1500px"} height={"260px"}/>
+                        </>
+                        )}                        
                     </>
                     )}                      
                     </div>                    
@@ -468,9 +474,15 @@ useEffect(()=>{dbcallother()},[])
                       <img src={DummyPic} alt="pic" />
                       </div>
                     ):(
+                      <>
+                      {getIPro[0].Imageurl === null || getIPro[0].Imageurl === "" || getIPro[0].Imageurl === undefined || getIPro[0].Imageurl === " " || getIPro[0].Imageurl === NaN ? (<>
+                        <img src={DummyPic} alt="pic" />
+                      </>):(<>
                       <div className="profile-pic">
-                      <img src={getIPro[0].Imageurl} alt="pic" />
-                      </div>
+                      <img src={getIPro[0].Imageurl} alt="pic" />                      
+                      </div>                                              
+                      </>)}                      
+                      </>
                     )}
                     
                 </div>

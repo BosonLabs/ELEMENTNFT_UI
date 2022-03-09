@@ -326,27 +326,36 @@ function HomePage() {
                     <div className="profile-card">
                     {getPro[0] === null || getPro[0] === "" || getPro[0] === undefined || getPro[0] === " " || getPro[0] === NaN ? (
                         <>
-                          <img src={DummyPic} alt="pics" width={"1500px"} height={"260px"} /><span>Edit</span>
+                          <img src={DummyPic} alt="pics" width={"1500px"} height={"260px"} />
                         </>
                       ):(
                         <>
-                          <img src={getPro[0].bgurl} alt="pics" width={"1500px"} height={"260px"}/><span>Edit</span>
+                        {getPro[0].bgurl === null || getPro[0].bgurl === "" || getPro[0].bgurl === undefined || getPro[0].bgurl === " " || getPro[0].bgurl === NaN ? (<>
+                          <img src={DummyPic} alt="pics" width={"1500px"} height={"260px"} />
+                        </>):(
+                          <>
+                          <img src={getPro[0].bgurl} alt="pic" width={"1500px"} height={"260px"}/>
+                        </>
+                        )}                        
                         </>
                       )}
                         <Button variant='white' onClick={handleShow}>Add cover</Button>
-                    </div>
-
-                   
+                    </div>                   
                       {getPro[0] === null || getPro[0] === "" || getPro[0] === undefined || getPro[0] === " " || getPro[0] === NaN ? (
                         <> <Link to="/settings" className='profile-pic'>
-                          <img src={DummyPic} alt="pic" onClick={()=>alert("image")}/><span>Edit</span>
+                          <img src={DummyPic} alt="pic" /><span>Edit</span>
                           </Link>
                         </>
                       ):(
                         <>
-                        <Link to="/settings" className='profile-pic'>
+                        {getPro[0].Imageurl === null || getPro[0].Imageurl === "" || getPro[0].Imageurl === undefined || getPro[0].Imageurl === " " || getPro[0].Imageurl === NaN ? (<>
+                          <img src={DummyPic} alt="pic" /><span>Edit</span>
+                        </>):(<>
+                          <Link to="/settings" className='profile-pic'>
                           <img src={getPro[0].Imageurl} alt="pic" /><span>Edit</span>
-                          </Link>
+                        </Link>
+                        </>)}
+                        
                         </>
                       )}
                                             

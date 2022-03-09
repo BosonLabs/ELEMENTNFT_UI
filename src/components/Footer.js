@@ -268,9 +268,9 @@ function Footer() {
                                 <h3>Element</h3>
 
                                 <ul>
-                                    <h3><Link to="/">Explore</Link></h3>
-                                    <li><Link to="/">Help center</Link></li>
-                                    <li><Link to="/">Blog</Link></li>
+                                    <li><Link to="">Explore</Link></li>
+                                    <li><Link to="">Help center</Link></li>
+                                    <li><Link to="">Blog</Link></li>
                                     {/* <li><Link to="/">Jobs <Badge className='badge-red'>25</Badge></Link></li>
                                     <li><Link to="/">Become a partner</Link></li>
                                     <li><Link to="/">Bug bounty</Link></li> */}
@@ -283,10 +283,11 @@ function Footer() {
                                     <li><Link to="/about">About</Link></li>
                                     {/* <li><Link to="/">Blog</Link></li> */}
                                     {/* <li><Link to="/">ELEMENT Token</Link></li> */}
-                                    <li><Link to="/">Suggest feature</Link></li>
+                                    <li><Link to="">Suggest feature</Link></li>
                                     {/* <li><Link to="/">Element protocol</Link></li> */}
-                                    <li><Link to="/">Subscribe</Link></li>
+                                    <li><Link to="">Subscribe</Link></li>
                                 </ul>
+                                <br></br>                                
                             </Col>
                             
                             {/* <Col xs={6} sm={4} className='d-none d-sm-block'>
@@ -314,9 +315,7 @@ function Footer() {
                         </Row>
                     </Col>
                 </Row>
-            </div>
-
-            <br></br><br></br>
+            </div>            
             <div className="copyrights d-flex flex-md-row flex-column align-items-center justify-content-between">
                 <div className="pb-4 d-sm-none">
                     <img src={CertifiedImage} alt="CertifiedImage" className='img-fluid' />  
