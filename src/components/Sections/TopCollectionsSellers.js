@@ -109,7 +109,15 @@ const TopCollectionsSelles = (props) => {
               //console.log("currentdate",currentdate)
               let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
               //console.log("createddate",createddate)
-              return currentdate === createddate 
+              if(currentdate === createddate ){
+              let datas=getImb.sort((a,b)=>{
+                  console.log("bNFTp",b.NFTPrice)
+                  return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+               })
+              //console.log("filtercall1",data)
+              return datas;
+              }            
+              //return currentdate === createddate 
             })
               //console.log("R1",data)
               return data;              
@@ -126,7 +134,15 @@ const TopCollectionsSelles = (props) => {
               //return moment(val.TimeStamp).isBetween(weekdate,currentdate)
               //const dateTimeFormat = "ddd MMM DD YYYY";
               //console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
-              return moment(val.TimeStamp).isBetween(weekdate, currentdate)                
+              if(moment(val.TimeStamp).isBetween(weekdate,currentdate)){
+                let datas=getImb.sort((a,b)=>{
+                  console.log("bNFTp",b.NFTPrice)
+                  return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+               })
+              //console.log("filtercall1",data)
+              return datas;
+              }            
+              //return moment(val.TimeStamp).isBetween(weekdate, currentdate)                
             })          
             //console.log("R7",data)            
             return data;    
@@ -140,7 +156,16 @@ const TopCollectionsSelles = (props) => {
               //let currentdate = moment(val.url);
               //console.log("currentdate",currentdate)
               let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
-              return currentdate===createddate 
+              if(currentdate===createddate){
+                let datas=getImb.sort((a,b)=>{
+                  console.log("bNFTp",b.NFTPrice)
+                  return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+               })
+              //console.log("filtercall1",data)
+              return datas;
+              }            
+              //}
+              //return currentdate===createddate 
           })
               //console.log("B1",data)
               return data;
@@ -152,7 +177,15 @@ const TopCollectionsSelles = (props) => {
             let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
             let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
             //let createddate=moment(val.adddate)
-            return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
+            if(moment(val.TimeStamp).isBetween(weekdates,currentdates)){
+              let datas=getImb.sort((a,b)=>{
+                console.log("bNFTp",b.NFTPrice)
+                return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+             })
+            //console.log("filtercall1",data)
+            return datas;
+            }            
+            //return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
           })
             //console.log("B7",data)            
             return data;            

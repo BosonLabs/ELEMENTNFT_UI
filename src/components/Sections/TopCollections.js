@@ -22,7 +22,7 @@ const TopCollections = () => {
           //buyers
   const dbcallalgobuy=async()=>{    
     let req = [];
-    firebase.database().ref("imagerefbuy").on("value", (data) => {      
+    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
       if (data) {
         data.forEach((d) => {          
           const a=d.val();
@@ -63,7 +63,15 @@ const TopCollections = () => {
           //let currentdate = moment(val.url);
           //console.log("currentdate",currentdate)
           let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
-          return currentdate===createddate 
+          if(currentdate===createddate){
+            let datas=getIb.sort((a,b)=>{
+                console.log("bNFTp",b.NFTPrice)
+                return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+             })
+            //console.log("filtercall1",data)
+            return datas;
+            //return currentdate===createddate 
+          }          
       })
           //console.log("B1Top",data)
           return data;
@@ -75,7 +83,16 @@ const TopCollections = () => {
         let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
         let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
         //let createddate=moment(val.adddate)
-        return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
+        if(moment(val.TimeStamp).isBetween(weekdates,currentdates)){
+            let datas=getIb.sort((a,b)=>{
+                console.log("bNFTp",b.NFTPrice)
+                return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+             })
+             return datas;
+        }        
+        //console.log("filtercall1",data)
+        return data
+        //return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
       })
         //console.log("B7Top",data)
         return data;            
