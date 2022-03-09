@@ -225,9 +225,9 @@ const CreatedViewOther = (data) => {
                             <Dropdown.Item onClick={event => setrecent("High to Low")}>
                             Price: High to Low
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={event => setrecent("Auction ending soon")}>
+                            {/* <Dropdown.Item onClick={event => setrecent("Auction ending soon")}>
                             Auction ending soon
-                        </Dropdown.Item>
+                        </Dropdown.Item> */}
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>

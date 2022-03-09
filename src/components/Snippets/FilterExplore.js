@@ -241,9 +241,9 @@ const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype
                         <Dropdown.Item onClick={event => setRecent("High to Low")}>
                             Price: High to Low
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={event => setRecent("Auction ending soon")}>
+                        {/* <Dropdown.Item onClick={event => setRecent("Auction ending soon")}>
                             Auction ending soon
-                        </Dropdown.Item>
+                        </Dropdown.Item> */}
                         <Dropdown.ItemText>Options</Dropdown.ItemText>
 
                         <Form.Check 
