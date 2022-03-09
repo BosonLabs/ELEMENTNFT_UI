@@ -209,9 +209,9 @@ const Start = () => {
     const storeDbPinataDuplicate=(assetID,responsetxId,addresseswall)=>{
       toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
       let appId="50714558";
-      let ref2=fireDb.database().ref(`imagerefAlgo/${activitytableaddresseswall}`);
+      let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
       let ref22=fireDb.database().ref(`imagerefAlgolt`);   
-      let refactivity=fireDb.database().ref(`/${addresseswall}`);   
+      let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
       let dateset=new Date().toDateString();     
       const db = ref2.push().key;                                                
       const JSONBody = {
@@ -229,7 +229,7 @@ const Start = () => {
             toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});            
             let ipfsurl=`https://ipfs.infura.io/ipfs/${response.data.IpfsHash}`                                                          
             if(getIPro[0].valid === "validated"){
-              // toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});
+              //toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});
               //db add here
               // toast.loading(`images uploading ipfs`, {
               // onClose: ('loading') });        
