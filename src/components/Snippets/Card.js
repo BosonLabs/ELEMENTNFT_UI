@@ -89,7 +89,7 @@ const CardCreate = (props) => {
                 CreatorAddress:props.dataall.CreatorAddress
             })
                 .then(()=>{                                                            
-                    //console.log("remove db");
+                    //console.log("remove db");                    
                     setShowTestLoading(false)
                     setshowTestSale(true)              
                 })                        

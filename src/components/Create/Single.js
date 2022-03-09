@@ -430,8 +430,23 @@ const Start = () => {
                   //toast.dismiss(); 
                   toast.success("NFT Minted successfully",{autoClose: 5000})
                   //toast.dismiss();
-                  setshowTestLoading(false)
-                  setShowTest(true)                                                                                         
+
+                  let refactivity=firebase.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                          const db = refactivity.push().key;                         
+                          refactivity.child(db).set({
+                          Assetid:assetID,Imageurl:Img,NFTPrice:"",
+                          EscrowAddress:"Create Asset",keyId:db,
+                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:"",
+                          ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
+                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          Appid:"",valid:"",
+                          CreatorAddress:localStorage.getItem('wallet')
+                      })
+                          .then(()=>{				
+                            setshowTestLoading(false)
+                            setShowTest(true)                                                                                         
+						        })
+              
                 })              
                 })
               })                                                                                              
@@ -469,8 +484,21 @@ const Start = () => {
                   //toast.dismiss(); 
                   toast.success("NFT Minted successfully",{autoClose: 5000})
                   //toast.dismiss();
-                  setshowTestLoading(false)
-                  setShowTest(true)                                                                                         
+                  let refactivity=firebase.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                          const db = refactivity.push().key;                         
+                          refactivity.child(db).set({
+                          Assetid:assetID,Imageurl:Img,NFTPrice:"",
+                          EscrowAddress:"Create Asset",keyId:db,
+                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:"",
+                          ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
+                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          Appid:"",valid:"",
+                          CreatorAddress:localStorage.getItem('wallet')
+                      })
+                          .then(()=>{				
+                            setshowTestLoading(false)
+                            setShowTest(true)                                                                                         
+						        })                  
                 })              
                 })
               })                                                                                                           

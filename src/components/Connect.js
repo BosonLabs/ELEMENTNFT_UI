@@ -81,8 +81,22 @@ const setaddwallet=async(a)=>{
                 UserName:r[0].UserName,Customurl:r[0].Customurl,WalletAddress:a,
                 TimeStamp:r[0].TimeStamp,Twittername:r[0].Twittername,Personalsiteurl:r[0].Personalsiteurl,Email:r[0].Email,Bio:r[0].Bio,valid:r[0].valid
                 }).then(()=>{
-                setShow(false)
-                setShowcall(true)    
+                    let refactivity=firebase.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                          const db = refactivity.push().key;                         
+                          refactivity.child(db).set({
+                          Assetid:"",Imageurl:r[0].Imageurl,NFTPrice:"",
+                          EscrowAddress:"Connect Wallet",keyId:db,
+                          NFTName:"",userSymbol:"",Ipfsurl:"",
+                          ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
+                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          Appid:"",valid:"",
+                          CreatorAddress:localStorage.getItem('wallet')
+                      })
+                          .then(()=>{				
+                            setShow(false)
+                            setShowcall(true)    
+						})
+                
                 })                  
         }
         else{
@@ -92,6 +106,7 @@ const setaddwallet=async(a)=>{
             UserName:"",Customurl:"",WalletAddress:a,
             TimeStamp:"",Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""
             }).then(()=>{
+                
             setShow(false)
             setShowcall(true)    
             })    
