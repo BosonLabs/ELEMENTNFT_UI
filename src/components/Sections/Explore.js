@@ -4,10 +4,7 @@ import {Button} from 'react-bootstrap';
 import FilterExplore from '../Snippets/FilterExplore';
 import CardBuy from "../Snippets/CardBuy";
 const axios = require('axios');
-
-
 const Explore = () => {
-
     // React.useEffect(() => {
     // window.scrollTo(0, 0);     
     // });
@@ -22,12 +19,10 @@ const Explore = () => {
     // console.log("get3",getsaletype.label)    
     // console.log("get4",getprice1) 
     //console.log("get5",getprice2)   
-    //console.log("get6",getrecent)    
-    
+    //console.log("get6",getrecent)        
     const[getI,setgetI]=useState([]);   
     //console.log("getImgal",getI)    
-    const[pageSize,setPageSize]=useState(6); 
-    
+    const[pageSize,setPageSize]=useState(6);     
     const dbcallsaleal=async(index)=>{
         //console.log("hello ramachandran")        
         //console.log("inside dbcallsalealgo function")
@@ -81,8 +76,7 @@ const Explore = () => {
       let weekdate=new Date(today.getFullYear(), today.getMonth(), today.getDate()-3).toDateString();
       //console.log("DateExplore",weekdate)
       //console.log("DateExplore2",dateset)
-      if(getprice1 > 0  && getprice2 > 0){
-        
+      if(getprice1 > 0  && getprice2 > 0){        
         let data=getI.filter((val)=> (val.NFTPrice/1000000) >= getprice1 && (val.NFTPrice/1000000) <= getprice2)
         //console.log("filtercall1",data)
         return data;

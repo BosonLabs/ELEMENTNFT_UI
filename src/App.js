@@ -91,32 +91,30 @@ function App() {
     }    
   useEffect(()=>{dbHotCollection()},[])
 
-
-
-  useEffect(() => {        
-    async function listenMMAccount() {    
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
-    setalgobalanceApp("");      
-    }
-    else{          
-    const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
-    const port = "";            
-    const token = {            
-    'X-API-key' : cjson.purestakeapi,
-    }
-    let client = new algosdk.Algodv2(token, baseServer, port);                
-    ( async() => {
-    let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
-    // calc=JSON.stringify(account1_info.amount)/1000000;      
-    setalgobalanceApp(JSON.stringify(account1_info.amount)/1000000);      
-    localStorage.setItem("balget",JSON.stringify(account1_info.amount)/1000000);      
-  })().catch(e => {
-    //console.log(e);
-  })                    
-  }        
+useEffect(() => {        
+  async function listenMMAccount() {    
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){                  
+  setalgobalanceApp("");      
   }
-  listenMMAccount();
-  }, []);
+  else{          
+  const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+  const port = "";            
+  const token = {            
+  'X-API-key' : cjson.purestakeapi,
+  }
+  let client = new algosdk.Algodv2(token, baseServer, port);                
+  ( async() => {
+  let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+  // calc=JSON.stringify(account1_info.amount)/1000000;      
+  setalgobalanceApp(JSON.stringify(account1_info.amount)/1000000);      
+  localStorage.setItem("balget",JSON.stringify(account1_info.amount)/1000000);      
+})().catch(e => {
+  //console.log(e);
+})                    
+}        
+}
+listenMMAccount();
+}, []);
   const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',

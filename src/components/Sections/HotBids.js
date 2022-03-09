@@ -1,12 +1,11 @@
 import React, { useState,useEffect } from "react";
 import Flickity from 'react-flickity-component'
-import Card from '../Snippets/Card';
+//import Card from '../Snippets/Card';
 import CardHotbids from "../Snippets/CardHotbids";
-import CardLiveA from "../Snippets/CardLiveA";
+//import CardLiveA from "../Snippets/CardLiveA";
 const axios = require('axios');
-
 const HotBids = () => {
-  // React.useEffect(() => {
+    //React.useEffect(() => {
     //     window.scrollTo(0, 0);     
     // });
     // React.useEffect(() => {
@@ -14,7 +13,6 @@ const HotBids = () => {
     // });
     const[getI,setgetI]=useState([]); 
     //console.log("getImgal",getI)        
-
     const dbcallsaleal=async(index)=>{
         //console.log("hello ramachandran")        
         //console.log("inside dbcallsalealgo function")
@@ -76,7 +74,6 @@ const HotBids = () => {
                     Hot bids
                 </div>
             </div>
-
             <Flickity
                 className={'carousel'} // default ''
                 elementType={'div'} // default 'div'
@@ -85,10 +82,7 @@ const HotBids = () => {
                 reloadOnUpdate // default false
                 static // default false
             >
-
-
-                {getI.map((x, index) => {
-                // console.log("logo",x)
+                {getI.map((x, index) => {                
                 return(  
                     <>
                     {/* <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1">
@@ -100,9 +94,6 @@ const HotBids = () => {
                     </div> */}
                     </>                                                                                          
               )})}                              
-
-
-
                 {/* <div className='carousel-cell carousel-cell-20'><Card title="LAND (-98, 129)" count="65" subTitle={`6.5 ETH <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card title="Untitled" count="109" subTitle={`6.5 ETH <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card title="Phunk #9379" count="109" subTitle={`<span>Not for sale</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div>
@@ -113,7 +104,6 @@ const HotBids = () => {
                 <div className='carousel-cell carousel-cell-20'><Card title="Untitled" count="109" subTitle={`6.5 ETH <span>1/1</span>`} linkText="Buy now" /></div>
                 <div className='carousel-cell carousel-cell-20'><Card title="Phunk #9379" count="109" subTitle={`<span>Not for sale</span> <span>1 edition</span>`} linkText="Bid 0.02 WETH" /></div> */}
             </Flickity>
-
         </div>
     );
 };

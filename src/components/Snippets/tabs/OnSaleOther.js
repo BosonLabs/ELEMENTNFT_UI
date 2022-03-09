@@ -6,9 +6,9 @@ import {Dropdown, Row, Col, Button} from 'react-bootstrap';
 import {
     Link
   } from "react-router-dom";
-import Card from '../Card';
-import CardOwn from '../CardOwn';
-import CardBuy from '../CardBuy';
+//import Card from '../Card';
+//import CardOwn from '../CardOwn';
+//import CardBuy from '../CardBuy';
 import CardBuyOtherView from '../CardBuyOtherView';
 import AlgoIcon from '../../../assets/images/Algo.png';
 

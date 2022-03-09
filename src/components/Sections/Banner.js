@@ -8,8 +8,7 @@ const axios = require('axios');
 
 const Banner = () => {
     
-    const[getI,setgetI]=React.useState([]); 
-    // console.log("getImgal",getI)    
+    const[getI,setgetI]=React.useState([]);     
     const flickityOptions = {
         initialIndex: 0,
         groupCells: true,
@@ -79,8 +78,7 @@ const Banner = () => {
                     <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
                     </div>
                     </>
-                )})}
-                                
+                )})}                                
                 {/* url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" */}
                 {/* <div className='carousel-cell carousel-cell-40'><SlidesCard /></div> */}
                 {/* <div className='carousel-cell carousel-cell-20'>

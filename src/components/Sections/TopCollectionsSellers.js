@@ -9,27 +9,19 @@ import firebase from "../../firebase";
 
 const TopCollectionsSelles = (props) => {
 
-    // console.log("topsc",props.follow)
     const dateOptions = ["1", "7", "30"];
     const directionOptions = ["Sellers", "Buyers"];
     const [date, setDate] = useState(dateOptions[0]);
-    const [direction, setDirection] = useState(directionOptions[0]);
-    //console.log("ses",direction);
-    //console.log("sesd",date);
-    const[getIb,setgetIb]=useState([]);
-    //console.log("getImgalbuy",getIb)
-    const[getImb,setgetImb]=useState([]);
-    //console.log("getImgalgosssbuy",getImb)
-    //options={direction} onChange={(e) => setDirection(e.target.value)} value={direction}
-    const handleSelect=(e)=>{
-        //console.log(e);
+    const [direction, setDirection] = useState(directionOptions[0]);    
+    const[getIb,setgetIb]=useState([]);    
+    const[getImb,setgetImb]=useState([]);    
+    const handleSelect=(e)=>{        
         setDirection(e)
       }
-    const handleSelect2=(e)=>{
-        //console.log(e);
+    const handleSelect2=(e)=>{        
         setDate(e)
     }
-    //buyers
+  //buyers
   const dbcallalgobuy=async()=>{    
     let req = [];
     firebase.database().ref("imagerefbuy").on("value", (data) => {      
@@ -63,7 +55,6 @@ const TopCollectionsSelles = (props) => {
     });
   }  
   useEffect(()=>{dbcallalgobuy()},[])
-
   //seller  
   const dbcallalgosale=async()=>{   
     let reqsale = [];
@@ -100,51 +91,30 @@ const TopCollectionsSelles = (props) => {
   const filterdata=()=>{        
         if(direction === 'Sellers') {
           if(date === '1')
-          {
-              //console.log("one")
-              let data = getImb.filter((val)=>{
-              // console.log("datainside",val)
-              let currentdate=moment().format('ddd MMM DD YYYY')
-              //let currentdate = moment(val.url);
-              //console.log("currentdate",currentdate)
-              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
-              //console.log("createddate",createddate)
+          {              
+              let data = getImb.filter((val)=>{              
+              let currentdate=moment().format('ddd MMM DD YYYY')              
+              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')              
               if(currentdate === createddate ){
-              let datas=getImb.sort((a,b)=>{
-                  console.log("bNFTp",b.NFTPrice)
+              let datas=getImb.sort((a,b)=>{                  
                   return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
-               })
-              //console.log("filtercall1",data)
+               })              
               return datas;
-              }            
-              //return currentdate === createddate 
-            })
-              //console.log("R1",data)
+              }                          
+            })              
               return data;              
           }  
           else{          
-              let data = getImb.filter((val)=>{
-              //console.log("sellers7get",val)
-              //console.log("sellers7",val.TimeStamp)
-              //console.log("sellers two",moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY'))
-              let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')
-              //console.log("curr7",currentdate)
-              let weekdate=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
-              //console.log("curr8",weekdate)                              
-              //return moment(val.TimeStamp).isBetween(weekdate,currentdate)
-              //const dateTimeFormat = "ddd MMM DD YYYY";
-              //console.log("PP",moment(val.TimeStamp).isBetween(weekdate, currentdate))
+              let data = getImb.filter((val)=>{              
+              let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
+              let weekdate=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')              
               if(moment(val.TimeStamp).isBetween(weekdate,currentdate)){
-                let datas=getImb.sort((a,b)=>{
-                  console.log("bNFTp",b.NFTPrice)
+                let datas=getImb.sort((a,b)=>{                  
                   return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
-               })
-              //console.log("filtercall1",data)
+               })              
               return datas;
-              }            
-              //return moment(val.TimeStamp).isBetween(weekdate, currentdate)                
-            })          
-            //console.log("R7",data)            
+              }                          
+            })                      
             return data;    
           }
         }
@@ -152,42 +122,28 @@ const TopCollectionsSelles = (props) => {
         if(date === '1')
         {
               let data = getIb.filter((val)=>{
-              let currentdate=moment().format('ddd MMM DD YYYY')
-              //let currentdate = moment(val.url);
-              //console.log("currentdate",currentdate)
+              let currentdate=moment().format('ddd MMM DD YYYY')              
               let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
               if(currentdate===createddate){
-                let datas=getImb.sort((a,b)=>{
-                  console.log("bNFTp",b.NFTPrice)
+                let datas=getImb.sort((a,b)=>{                  
                   return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
-               })
-              //console.log("filtercall1",data)
+               })              
               return datas;
-              }            
-              //}
-              //return currentdate===createddate 
-          })
-              //console.log("B1",data)
+              }                          
+          })          
               return data;
         }
         else{           
-            let data = getIb.filter((val)=>{
-            //console.log("Buyers7get",val)
-            //console.log("Buyers7",val.TimeStamp)
+            let data = getIb.filter((val)=>{            
             let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
-            let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')
-            //let createddate=moment(val.adddate)
+            let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')            
             if(moment(val.TimeStamp).isBetween(weekdates,currentdates)){
-              let datas=getImb.sort((a,b)=>{
-                console.log("bNFTp",b.NFTPrice)
+              let datas=getImb.sort((a,b)=>{                
                 return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
-             })
-            //console.log("filtercall1",data)
+             })            
             return datas;
-            }            
-            //return moment(val.TimeStamp).isBetween(weekdates,currentdates)                    
-          })
-            //console.log("B7",data)            
+            }                        
+          })            
             return data;            
         }
         }
@@ -228,36 +184,8 @@ const TopCollectionsSelles = (props) => {
                 {/* follow={props.follow} */}
                 </li>
             ))}
-            </ul>                
-                {/* <ul className='collection-list list-unstyled m-0 d-flex align-items-start'>
-                    <li>
-                        <CollectionItem verify={true} count={1} title="adidas Originals: Into the Metaverse" amount="$34,845,758" />
-                        <CollectionItem verify={true} count={2} title="CloneX" amount="$7,418,707" />
-                        <CollectionItem verify={true} count={3} title="My Pet Hooligan" amount="$3,333,156" />
-                    </li>
-                    <li>
-                        <CollectionItem verify={true} count={4} title="Terraforms" amount="$2,846,949" />
-                        <CollectionItem verify={true} count={5} title="BoredApeYachtClub" amount="$2,225,029" />
-                        <CollectionItem verify={true} count={6} title="Nanopass" amount="$2,097,475" />
-                    </li>
-                    <li>
-                        <CollectionItem verify={true} count={7} title="Town Star" amount="$1,972,028" />
-                        <CollectionItem verify={true} count={8} title="MutantApeYachtClub" amount="$1,951,451" />
-                        <CollectionItem verify={true} count={9} title="Party Bears" amount="$1,890,233" />
-                    </li>
-                    <li>
-                        <CollectionItem verify={true} count={10} title="Sandbox's LANDs" amount="$1,777,924" />
-                        <CollectionItem verify={true} count={11} title="RTFKT - CloneX Mintvial" amount="$1,321,900" />
-                        <CollectionItem verify={true} count={12} title="Shiba Social Club" amount="$1,281,425" />
-                    </li>
-                    <li>
-                        <CollectionItem verify={true} count={13} title="Art Blocks Factory" amount="$1,105,860" />
-                        <CollectionItem verify={true} count={14} title="Doodles" amount="$1,024,316" />
-                        <CollectionItem verify={true} count={15} title="DEGENERATE/REGENERATE" amount="$945,556" />
-                    </li>
-                </ul> */}
+            </ul>                                
             </div>
-
             <Link to="/" className='btn d-block mt-4 d-sm-none ms-auto btn-white'>Sign in</Link>
         </div>
     );

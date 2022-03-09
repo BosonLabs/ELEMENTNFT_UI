@@ -1,13 +1,14 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
+//,{useState,useEffect}
 import {Tabs, Tab} from 'react-bootstrap'
 import OnSale from '../Snippets/tabs/OnSale';
-import Created from '../Snippets/tabs/Created';
-import Liked from '../Snippets/tabs/Liked';
-import Collection from '../Snippets/tabs/Collection';
+//import Created from '../Snippets/tabs/Created';
+//import Liked from '../Snippets/tabs/Liked';
+//import Collection from '../Snippets/tabs/Collection';
 import Activity from '../Snippets/tabs/Activity';
-import Owned from '../Snippets/tabs/Owned';
-import firebase from '../../firebase';
-import Card from '../Snippets/Card';
+//import Owned from '../Snippets/tabs/Owned';
+//import firebase from '../../firebase';
+//import Card from '../Snippets/Card';
 import OnSaleLike from '../Snippets/tabs/OnSaleLike';
 import OnSaleOther from '../Snippets/tabs/OnSaleOther';
 import CreatedViewOther from '../Snippets/tabs/CreatedViewOther';

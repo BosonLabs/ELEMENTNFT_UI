@@ -1,15 +1,17 @@
-import React, { useState,useEffect} from "react";
+import React, { useState} from "react";
+//,useEffect
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import AllIcon from '../../../assets/images/cate-all-icon.svg';
-import {Dropdown, Row, Col, Button,Modal,Form, InputGroup} from 'react-bootstrap';
-import Card from '../../Snippets/Card';
-import MyAlgoConnect from '@randlabs/myalgo-connect';
+import {Dropdown, Row, Col} from 'react-bootstrap';
+//, Button,Modal,Form, InputGroup
+//import Card from '../../Snippets/Card';
+//import MyAlgoConnect from '@randlabs/myalgo-connect';
 
 import {
     Link
   } from "react-router-dom";
-import CardCreate from "../../Snippets/Card";
+//import CardCreate from "../../Snippets/Card";
 import CardCreateOtherView from "../CardCreateOtherView";
 import AlgoIcon from '../../../assets/images/Algo.png';
 const animatedComponents = makeAnimated();
