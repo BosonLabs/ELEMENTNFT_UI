@@ -277,7 +277,7 @@ const Start = () => {
              
             }else{
 
-              toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});              
+              //toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});              
               ref2.child(db).set({
                 Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
                 NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
