@@ -222,7 +222,7 @@ const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype
             {/* </div> */}
 
 
-            <div className="filter-dropdown ms-auto">
+            <div className="filter-dropdown ms-md-auto">
                 <Dropdown className='dropdown-noarrow'>
                     <Dropdown.Toggle variant="outline-gray">
                         <div className="btn-lagend">Filter & Sort</div>
