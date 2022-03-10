@@ -104,19 +104,44 @@ const TopCollectionsSelles = (props) => {
             })              
               return data;              
           }  
-          else{          
-              let data = getImb.filter((val)=>{              
-              let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
-              let weekdate=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')              
-              if(moment(val.TimeStamp).isBetween(weekdate,currentdate)){
-                let datas=getImb.sort((a,b)=>{                  
-                  return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
-               })              
-              return datas;
-              }                          
-            })                      
-            return data;    
-          }
+          else if(date === '7') {            
+            let data = getIb.filter((val)=>{                
+            let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')                                
+              if(moment(val.TimeStamp).endOf(weekdates)){        
+                let datas=getIb.sort((a,b)=>{                      
+                  return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
+                 })
+                return datas;
+            }                        
+          })        
+          return data;            
+        }
+        else{
+          let month=moment().subtract(1, 'months');        
+          let monthend=month.format('ddd MMM DD YYYY')
+          let datamonth = getIb.filter((val)=>{                        
+          if(moment(val.TimeStamp).endOf(monthend)){        
+                let datass=getIb.sort((a,b)=>{                      
+                  return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
+            })
+              return datass;
+            }                        
+          })
+          return datamonth;
+        }
+          // else{          
+          //     let data = getImb.filter((val)=>{              
+          //     let currentdate=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
+          //     let weekdate=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')              
+          //     if(moment(val.TimeStamp).isBetween(weekdate,currentdate)){
+          //       let datas=getImb.sort((a,b)=>{                  
+          //         return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+          //      })              
+          //     return datas;
+          //     }                          
+          //   })                      
+          //   return data;    
+          // }
         }
         else{        
         if(date === '1')
@@ -133,19 +158,44 @@ const TopCollectionsSelles = (props) => {
           })          
               return data;
         }
-        else{           
-            let data = getIb.filter((val)=>{            
-            let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
-            let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')            
-            if(moment(val.TimeStamp).isBetween(weekdates,currentdates)){
-              let datas=getImb.sort((a,b)=>{                
-                return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
-             })            
-            return datas;
-            }                        
-          })            
-            return data;            
-        }
+        else if(date === '7') {            
+          let data = getIb.filter((val)=>{                
+          let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')                                
+            if(moment(val.TimeStamp).endOf(weekdates)){        
+              let datas=getIb.sort((a,b)=>{                      
+                return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
+               })
+              return datas;
+          }                        
+        })        
+        return data;            
+      }
+      else{
+        let month=moment().subtract(1, 'months');        
+        let monthend=month.format('ddd MMM DD YYYY')
+        let datamonth = getIb.filter((val)=>{                        
+        if(moment(val.TimeStamp).endOf(monthend)){        
+              let datass=getIb.sort((a,b)=>{                      
+                return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
+          })
+            return datass;
+          }                        
+        })
+        return datamonth;
+      }
+        // else{           
+        //     let data = getIb.filter((val)=>{            
+        //     let currentdates=moment().subtract(1,"days").format('ddd MMM DD YYYY')              
+        //     let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')            
+        //     if(moment(val.TimeStamp).isBetween(weekdates,currentdates)){
+        //       let datas=getImb.sort((a,b)=>{                
+        //         return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
+        //      })            
+        //     return datas;
+        //     }                        
+        //   })            
+        //     return data;            
+        // }
         }
       }
   useEffect(()=>{filterdata()},[])
