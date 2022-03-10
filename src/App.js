@@ -34,6 +34,7 @@ import {DataContext} from './Context/DataContext'
 import firebase from './firebase';
 import configfile from './config.json'
 import cjson from './config.json'
+import Singlecopy from "./components/Create/Singlecopy";
 const axios = require('axios');
 const algosdk = require('algosdk'); 
 
@@ -42,7 +43,7 @@ function App() {
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);     
   // });
-    const[getApiData,setApiData]=useState([""]);
+    //const[getApiData,setApiData]=useState([""]);    
     //console.log("getApiData",getApiData)   
     //const setScrollToTop = useScrollToTop(true);
     const[getIPro2,setgetIPro2]=useState([""]);
@@ -51,6 +52,7 @@ function App() {
     //console.log("getIProapp",getIProapp) 
     const[getI,setgetI]=useState([""]); 
     const[getIexplore,setgetIexplore]=useState([]);  
+    const[getBosonData,setBosonData]=useState([]);  
     //console.log("App1",getI)
     //console.log("App2",getIexplore)
     const [algobalanceApp, setalgobalanceApp] = useState("");
@@ -272,11 +274,54 @@ useEffect(()=>{dbcallPro2()},[])
 // }, []);
 
 
+const bannerDb=async(index)=>{        
+  axios({
+    method: 'get',
+    url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgosBoson.json',
+    responseType: 'stream'
+  })
+    .then(function (response) {
+    let req = [];        
+    req.push(response.data)
+    let req2 =[];
+    req.forEach((l) => {              
+      //console.log("D",l)              
+      Object.keys(l).map(async(k)=>{                                        
+        const a=l[k];
+        Object.keys(a).map(async(b)=>{                    
+        req2.push({                      
+          Assetid:a[b].Assetid,
+          Imageurl:a[b].Imageurl,
+          NFTPrice:a[b].NFTPrice,
+          EscrowAddress:a[b].EscrowAddress,
+          keyId:a[b].keyId,
+          NFTName:a[b].NFTName,
+          userSymbol:a[b].userSymbol,
+          Ipfsurl:a[b].Ipfsurl,
+          ownerAddress:a[b].ownerAddress,
+          previousoaddress:a[b].previousoaddress,
+          TimeStamp:a[b].TimeStamp,
+          NFTDescription:a[b].NFTDescription,
+          HistoryAddress:a[b].HistoryAddress,
+          Appid:a[b].Appid,
+          valid:a[b].valid,
+          CreatorAddress:a[b].CreatorAddress 
+          })   
+        })                                                                                                                
+      })                                                                     
+    });                        
+    setBosonData(req2)  
+    });                    
+} 
+useEffect(()=>{bannerDb()},[])
+
+
+
 
   return (
     <>
     <Online>    
-    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp,getHotCollection,setHotCollection}}>          
+    <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp,getHotCollection,setHotCollection,getBosonData,setBosonData}}>          
     <Router>    
       <Switch>                
         <Route path="/connect">
@@ -326,6 +371,9 @@ useEffect(()=>{dbcallPro2()},[])
         </Route>
         <Route path="/create/single">
           <Single />
+        </Route>        
+        <Route path="/create/singlecopy">
+          <Singlecopy />
         </Route>        
         <Route path="/profileviewother">
           <ProfileViewOther />

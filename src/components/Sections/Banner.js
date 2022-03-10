@@ -1,14 +1,18 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useContext} from 'react';
 import Flickity from 'react-flickity-component'
 import ImageCard from '../Snippets/ImageCard';
 import VideoCard from '../Snippets/VideoCard';
 import SlidesCard from '../Snippets/SliderCard';
 import {Row, Col} from 'react-bootstrap';
+import { DataContext } from '../../Context/DataContext';
 const axios = require('axios');
 
 const Banner = () => {
     
     const[getI,setgetI]=React.useState([]);     
+    const{getBosonData}=useContext(DataContext);   
+    const{getBosonDatavideo}=useContext(DataContext);       
+    console.log("BosonDatavideo",getBosonDatavideo)  
     const flickityOptions = {
         initialIndex: 0,
         groupCells: true,
@@ -67,15 +71,19 @@ const Banner = () => {
                 static // default false
             >
 
-               {getI.map((x, index) => {
+               {getBosonData.map((x, index) => {
                 // console.log("logo",x)
                 return(  
-                    <>                    
-                    <div className='carousel-cell carousel-cell-40'>
-                    <SlidesCard title={x.NFTName} description={x.NFTDescription} dataall={x} image={x.Imageurl} ownerAddress={x.ownerAddress}/></div>
+                    <>                                        
+                    {/* <div className='carousel-cell carousel-cell-40'>
+                    {x.valid === "true" && 
+                    <SlidesCard title={x.NFTName} description={x.NFTDescription} dataall={x} image={x.Imageurl} ownerAddress={x.ownerAddress}/>
+                    }
+                    </div> */}
                     <div className='carousel-cell carousel-cell-20'>                    
-                    <VideoCard title={x.NFTName} description={x.NFTDescription} url={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
+                    {x.valid === "video" ?(<VideoCard title={x.NFTName} description={x.NFTDescription} url={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>):(
                     <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
+                    )}
                     </div>
                     </>
                 )})}                                

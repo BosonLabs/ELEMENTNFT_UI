@@ -98,6 +98,70 @@ const CardCreate = (props) => {
         }        
     }
 
+
+    // const onshow2Boson=()=>{
+    //     setShowTestLoading(true)
+    //     //console.log("sale",props.dataall);
+    //     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === " "){
+    //         alert("please connect your wallet")
+    //     }else if(localStorage.getItem('wallet') === props.dataall.ownerAddress){                  
+    //         let dateset=new Date().toDateString();      
+    //         fireDb.database().ref(`imagerefexploreoneAlgosBoson/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
+    //             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
+    //             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:props.dataall.previousoaddress,
+    //             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+    //             CreatorAddress:props.dataall.CreatorAddress
+    //           }).then(()=>{
+    //             fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
+    //             let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+    //             const db = refactivity.push().key;                         
+    //             refactivity.child(db).set({
+    //             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
+    //             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),                
+    //             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+    //             CreatorAddress:props.dataall.CreatorAddress
+    //         })
+    //             .then(()=>{                                                            
+    //                 //console.log("remove db");                    
+    //                 setShowTestLoading(false)
+    //                 setshowTestSale(true)              
+    //             })                        
+                  
+    //           })
+    //     }        
+    // }
+
+    // const onshow2Bosonvideo=()=>{
+    //     setShowTestLoading(true)
+    //     //console.log("sale",props.dataall);
+    //     if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === " "){
+    //         alert("please connect your wallet")
+    //     }else if(localStorage.getItem('wallet') === props.dataall.ownerAddress){                  
+    //         let dateset=new Date().toDateString();      
+    //         fireDb.database().ref(`imagerefexploreoneAlgosBosonvideo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
+    //             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:props.dataall.EscrowAddress,keyId:props.dataall.keyId,
+    //             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:props.dataall.previousoaddress,
+    //             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+    //             CreatorAddress:props.dataall.CreatorAddress
+    //           }).then(()=>{
+    //             fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).remove();
+    //             let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+    //             const db = refactivity.push().key;                         
+    //             refactivity.child(db).set({
+    //             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:props.dataall.NFTPrice,EscrowAddress:"saleNFT",keyId:db,
+    //             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),                
+    //             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+    //             CreatorAddress:props.dataall.CreatorAddress
+    //         })
+    //             .then(()=>{                                                            
+    //                 //console.log("remove db");                    
+    //                 setShowTestLoading(false)
+    //                 setshowTestSale(true)              
+    //             })                        
+                  
+    //           })
+    //     }        
+    // }
     const onshow1=()=>{
         setShowTest(true)                
     }
