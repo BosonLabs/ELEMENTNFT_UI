@@ -12,7 +12,7 @@ const TopCollections = () => {
     
     const dateOptions = ["1", "7", "30"];
     const [date, setDate] = useState(dateOptions[0]);    
-    const[getIb,setgetIb]=useState([]);    
+    const[getIb,setgetIb]=useState([]);        
     const handleSelect=(e)=>{        
         setDate(e)
       }

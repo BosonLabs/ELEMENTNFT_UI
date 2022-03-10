@@ -14,7 +14,9 @@ const TopCollectionsSelles = (props) => {
     const [date, setDate] = useState(dateOptions[0]);
     const [direction, setDirection] = useState(directionOptions[0]);    
     const[getIb,setgetIb]=useState([]);    
-    const[getImb,setgetImb]=useState([]);    
+    const[getImb,setgetImb]=useState([]);
+    console.log("SellOneDay",getImb)    
+
     const handleSelect=(e)=>{        
         setDirection(e)
       }
