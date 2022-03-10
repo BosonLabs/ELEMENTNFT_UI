@@ -11,7 +11,7 @@ import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 import '../../toast-style-override.css'
 import logogif from '../../assets/images/gif4.webp';
-import dataescrowprice from "../../escrowprice";
+import dataescrowprice from "../../escrowpricenew";
 import configfile from '../../config.json'
 //const client = create('https://ipfs.infura.io:5001/api/v0')
 const algosdk = require('algosdk'); 

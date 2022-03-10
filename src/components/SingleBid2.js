@@ -17,7 +17,8 @@ import cjson from '../config.json'
 import AlgorandIcon from '../assets/images/Algo.png'
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import '../toast-style-override.css'
-import dataescrowprice from "../escrowprice";
+import dataescrowprice from "../escrowpricenew";
+import dataelemescrow from "../escrowelem";
 const algosdk = require('algosdk'); 
 const myAlgoWallet = new MyAlgoConnect();
 
@@ -195,9 +196,13 @@ const SingleBid = (props) => {
                 const params = await algodClient.getTransactionParams().do();    
                 const myAlgoConnect = new MyAlgoConnect();
                 let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(location.state.alldata.Assetid))
+                let dataelem = dataelemescrow.replaceAll("AppID",configfile['appIdPrice']).replaceAll("elemId",parseInt(configfile['elemId']))
                 let results = await algodClient.compile(dataopreplace).do();                
                 let program = new Uint8Array(Buffer.from(results.result, "base64"));      
                 let lsig = algosdk.makeLogicSig(program);                
+                let resultselem = await algodClient.compile(dataelem).do();                
+                let programelem = new Uint8Array(Buffer.from(resultselem.result, "base64"));      
+                let lsigelem = algosdk.makeLogicSig(programelem);                
                 //console.log("Result//console = " + results);
                 //console.log("Hash = " + results.hash);
                 //console.log("Result = " + results.result);
@@ -215,12 +220,33 @@ const SingleBid = (props) => {
                       amount: 0,
                       suggestedParams: params
                   });
+                  const transactionelem = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+                    from: localStorage.getItem('wallet'),
+                    to: localStorage.getItem('wallet'),
+                    assetIndex: parseInt(configfile['elemId']),
+                    note: undefined,
+                    amount: 0,
+                    suggestedParams: params
+                });
                   const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
                   const responseass = await algodClient.sendRawTransaction(signedTxnass.blob).do();
+                  const signedTxnelem = await myAlgoConnect.signTransaction(transactionelem.toByte());
+                  const responseelem = await algodClient.sendRawTransaction(signedTxnelem.blob).do();
                   //console.log("optresponse",responseass)            
                   toast.success(`Asset Opted Successfully ${responseass.txId}`,{autoClose: 8000});
+
+                  let transactionfund = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+                    from: localStorage.getItem('wallet'), 
+                    to: lsigelem.address(), 
+                    amount: parseInt(3000), 
+                    note: undefined,  
+                    suggestedParams: params
+                   });
+
+                   const signedTxnfund = await myAlgoConnect.signTransaction(transactionfund.toByte());
+                   const responsefund = await algodClient.sendRawTransaction(signedTxnfund.blob).do();
                 
-                  let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+                   let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                       from: localStorage.getItem('wallet'), 
                       to: recv_escrow, 
                       amount: amount, 
@@ -266,25 +292,38 @@ const SingleBid = (props) => {
                        });
                        let transaction6 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                           from: recv_escrow, 
-                          to: "M4MKWAWI63M3OGMYXRNKGX2P5SV4LXR2OUPQYJTQK5FSF76FO5RN77BGF4", 
+                          to: "JJHBUM7FOLSGD5OPQNLLAHQJ2FDKV2FQKLRJUTZFGOQPYVIH72TNI7Y6YU", 
                           amount: parseInt(convert5), 
                           note: undefined,  
                           suggestedParams: params
-                      });                                                        
-                  const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4,transaction5,transaction6]);
-                  const txs = [ transaction1, transaction2, transaction3, transaction4,transaction5,transaction6];
+                      });    
+                      const transaction7 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+                        from: lsigelem.address(),
+                        to: localStorage.getItem('wallet'),
+                        assetIndex: parseInt(configfile['elemId']),
+                        note: undefined,
+                        amount: parseInt(convert5),
+                        suggestedParams: params
+                      });
+
+
+                      
+                  const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4,transaction5,transaction6,transaction7]);
+                  const txs = [ transaction1, transaction2, transaction3, transaction4,transaction5,transaction6,transaction7];
                   txs[0].group = groupID;
                   txs[1].group = groupID;
                   txs[2].group = groupID;
                   txs[3].group = groupID;
                   txs[4].group = groupID;
                   txs[5].group = groupID;                  
+                  txs[6].group = groupID;                  
                   const signedTx1 = await myAlgoWallet.signTransaction([txs[0].toByte(),txs[2].toByte()]);
                   const signedTx2 = algosdk.signLogicSigTransaction(txs[1], lsig);            
                   const signedTx3 = algosdk.signLogicSigTransaction(txs[3], lsig);                  
                   const signedTx4 = algosdk.signLogicSigTransaction(txs[4], lsig);                  
                   const signedTx5 = algosdk.signLogicSigTransaction(txs[5], lsig);                                                
-                  const response = await algodClient.sendRawTransaction([ signedTx1[0].blob, signedTx2.blob, signedTx1[1].blob, signedTx3.blob,signedTx4.blob,signedTx5.blob]).do();
+                  const signedTx6 = algosdk.signLogicSigTransaction(txs[6], lsigelem);                                                
+                  const response = await algodClient.sendRawTransaction([ signedTx1[0].blob, signedTx2.blob, signedTx1[1].blob, signedTx3.blob,signedTx4.blob,signedTx5.blob,signedTx6.blob]).do();
                   //console.log("TxID", JSON.stringify(response, null, 1));
                   await waitForConfirmation(algodClient, response.txId);
                   toast.success(`Asset Buying ${response.txId}`,{autoClose: 8000});              

@@ -10,12 +10,12 @@ import EthereumIcon from '../../assets/images/Algo.png'
 import configfile from '../../config.json'
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
-import dataescrow from "../../escrow.js";
+//import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
 import logogif from '../../assets/images/gif4.webp';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
-import dataescrowprice from "../../escrowprice";
+import dataescrowprice from "../../escrowpricenew";
 import '../../toast-style-override.css'
 const myAlgoWallet = new MyAlgoConnect();
 const algosdk = require('algosdk'); 
