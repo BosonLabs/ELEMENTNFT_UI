@@ -37,9 +37,9 @@ const CreatedViewOther = (data) => {
 
     const CategoryOptions = [
         { value: 'all', label: 'All', icon: AllIcon },
-        { value: 'art', label: '🌈  Art' },
+        // { value: 'art', label: '🌈  Art' },
         { value: 'photography', label: '📸  Photography' },
-        { value: 'games', label: '🕹  Games' },
+        // { value: 'games', label: '🕹  Games' },
         // { value: 'metaverses', label: '👾  Metaverses' },
         // { value: 'music', label: '🎵  Music' },
         // { value: 'domains', label: '🏷  Domains' },
@@ -74,7 +74,7 @@ const CreatedViewOther = (data) => {
         // { value: 'auction', label: 'Timed auction' },
         { value: 'price', label: 'Fixed price' },
         // { value: 'sale', label: 'Not for sale' },
-        { value: 'offers', label: 'Open for offers' }
+        // { value: 'offers', label: 'Open for offers' }
     ]
 
     const PriceList = [
