@@ -263,13 +263,13 @@ const dbcallPro2=async()=>{
 }    
 useEffect(()=>{dbcallPro2()},[])
 
-useEffect(() => {        
-  async function apiData() {      
-    const res = await axios.get(`${configfile['url']}/nftPlain/${'RYS3A'}`)
-    setApiData(res.data)                
-  }
-  apiData();
-}, []);
+// useEffect(() => {        
+//   async function apiData() {      
+//     const res = await axios.get(`${configfile['url']}/nftPlain/${'RYS3A'}`)
+//     setApiData(res.data)                
+//   }
+//   apiData();
+// }, []);
 
 
 
