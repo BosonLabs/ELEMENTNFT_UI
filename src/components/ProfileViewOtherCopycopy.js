@@ -452,6 +452,8 @@ useEffect(()=>{dbcallother()},[])
                 </div>
 
                 <div className="mb-36 text-center">
+                {location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined ? (<>                                                
+                        </>):(<>
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
                         <img src={Algopng} alt="icon" />
                         {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
@@ -460,7 +462,7 @@ useEffect(()=>{dbcallother()},[])
                             </Toast>  
                         )}
                     </Button>
-                    
+                    </>)}
                 </div>
 
                 <div className="mb-32 d-flex align-items-center justify-content-center">                                    
@@ -519,7 +521,12 @@ useEffect(()=>{dbcallother()},[])
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
+                {location.state.ownerAddress === "" || location.state.ownerAddress === null || location.state.ownerAddress === undefined ? (<>
+                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={"0xdjsdsid"} likes={getdbLike}/>
+                </>):(
+                  <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
+                )} 
+                
             </Container>
 
             {/* onHide={handleClose} */}

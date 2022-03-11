@@ -19,7 +19,7 @@ function ProfileViewOtherCopy2New (props) {
   // });
     const location = useLocation(); 
     let history=useHistory();
-    //console.log("hotcollo",location.state)        
+    //console.log("BannerNew",location.state.ownerAddress)        
     //console.log("followlast",location.state.follow[0].follower)
     //console.log("followlast2",location.state.follow[0].following)
     
@@ -60,7 +60,7 @@ function ProfileViewOtherCopy2New (props) {
           window.location.reload(false);    
         }else{      
           let getalgo=localStorage.getItem("wallet");              
-          firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
+          firebase.database().ref("dblike").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                                             
                 req.push(            
@@ -274,10 +274,10 @@ useEffect(()=>{dbcallother()},[])
 
     const dbcallsalealgo=async()=>{       
         let req = [];              
-        // if(location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined){
-        //   history.push("/")
-        //   window.location.reload(false);    
-        // }else{      
+        if(location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined){
+          history.push("/")
+          window.location.reload(false);    
+        }else{      
           firebase.database().ref("imagerefexploreoneAlgosBoson").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
@@ -305,7 +305,7 @@ useEffect(()=>{dbcallother()},[])
             }
             setgetImgreffalgosale(req);  
           });       
-        //}           
+        }           
         //console.log("accsale",getImgreffalgosale)      
     }      
     useEffect(()=>{dbcallsalealgo()},[])
@@ -512,20 +512,17 @@ useEffect(()=>{dbcallother()},[])
                 </div>
 
                 <div className="mb-36 text-center">
-                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
-                        <img src={Algopng} alt="icon" />
-                        {location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined ? (<>
-                                                
+                {location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined ? (<>                                                
                         </>):(<>
+                    <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
+                        <img src={Algopng} alt="icon" />                        
                           {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
-                        )}                        
-                        </>)}
-                        
+                        )}                                                                        
                     </Button>
-                    
+                    </>)}                    
                 </div>
 
                 <div className="mb-32 d-flex align-items-center justify-content-center">                                    

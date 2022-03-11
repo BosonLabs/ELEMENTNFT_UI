@@ -3,7 +3,7 @@ import React, { useState,useEffect} from "react";
 import Layout from './Layout';
 import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
 import {
-    Link,useLocation
+    Link,useLocation,useHistory
   } from "react-router-dom";
 import DummyPic from '../assets/images/dummy-icon.svg';
 //import ProfileTabs from './Sections/ProfileTabs';
@@ -18,7 +18,8 @@ function HomePage(props) {
   //   window.scrollTo(0, 0);     
   // });
 
-    const location = useLocation(); 
+    const location = useLocation();
+    let history=useHistory(); 
     ////console.log("hotco",location.state)        
     //console.log("followlast",location.state.follow[0].follower)
     //console.log("followlast2",location.state.follow[0].following)
@@ -52,11 +53,11 @@ function HomePage(props) {
     //console.log("getdbLike",getdbLike)
     const dbLike=async()=>{    
         let req = [];
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-        }
-        else{
-          let getalgo=localStorage.getItem("wallet");              
-          firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
+        if(location.state.alldata.WalletAddress === null || location.state.alldata.WalletAddress === "" || location.state.alldata.WalletAddress === undefined){
+          history.push("/")
+          window.location.reload(false);    
+        }else{                            
+          firebase.database().ref("dblike").child(location.state.alldata.WalletAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                                             
                 req.push(            
@@ -88,7 +89,11 @@ function HomePage(props) {
 
     const dbcallPro=async()=>{            
       let r=[];
-      try {         
+      try {       
+        if(location.state.alldata.WalletAddress === null || location.state.alldata.WalletAddress === "" || location.state.alldata.WalletAddress === undefined){
+          history.push("/")
+          window.location.reload(false);    
+        }else{                              
       firebase.database().ref("userprofile").child(location.state.alldata.WalletAddress).on("value", (data) => {          
         if (data) {                      
             r.push({
@@ -110,6 +115,7 @@ function HomePage(props) {
         }
         setgetIPro(r);
       });                  
+    }
     } catch (error) {
       //console.log('error occured during search', error);    
     }                
@@ -118,64 +124,64 @@ function HomePage(props) {
 
     const dbcallowner=async()=>{      
       //console.log("Insowner",location.state.alldata.WalletAddress)    
-      let reqoo = [];      
-      try {
-        if(firebase.database().ref("followings").child(location.state.alldata.WalletAddress) === undefined){
-          alert("nono")
-        }
-        else{
-          firebase.database().ref("followings").child(location.state.alldata.WalletAddress).on("value", (data) => {
-            //console.log("Insowners",data)
-            if (data) {                            
-              //console.log("tataam",data.val())
-              reqoo.push({
-                TimeStamp:data.val().TimeStamp,
-                follower:data.val().follower,
-                following:data.val().following,
-                walletAddress:data.val().walletAddress, 
-              })          
-            }
-            // else{
-            //   setgetIfo([""]);  
-            // }
-            setgetIfo(reqoo);
-          }) 
-        }          
-      } catch (error) {
-        //console.log('error occured during search', error);
-      }          
+      // let reqoo = [];      
+      // try {
+      //   if(firebase.database().ref("followings").child(location.state.alldata.WalletAddress) === undefined){
+      //     alert("nono")
+      //   }
+      //   else{
+      //     firebase.database().ref("followings").child(location.state.alldata.WalletAddress).on("value", (data) => {
+      //       //console.log("Insowners",data)
+      //       if (data) {                            
+      //         //console.log("tataam",data.val())
+      //         reqoo.push({
+      //           TimeStamp:data.val().TimeStamp,
+      //           follower:data.val().follower,
+      //           following:data.val().following,
+      //           walletAddress:data.val().walletAddress, 
+      //         })          
+      //       }
+      //       // else{
+      //       //   setgetIfo([""]);  
+      //       // }
+      //       setgetIfo(reqoo);
+      //     }) 
+      //   }          
+      // } catch (error) {
+      //   //console.log('error occured during search', error);
+      // }          
     }
     
   useEffect(()=>{dbcallowner()},[])
 
   const dbcallother=async()=>{    
-    let reqo = [];    
-      try {  
-        if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
-        {          
-          alert("nono2")                
-        }
-        else{
-        firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
-        if (data) {        
+    // let reqo = [];    
+    //   try {  
+    //     if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
+    //     {          
+    //       alert("nono2")                
+    //     }
+    //     else{
+    //     firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
+    //     if (data) {        
           
-          reqo.push({
-            TimeStamp:data.val().TimeStamp,
-            follower:data.val().follower,
-            following:data.val().following,
-            walletAddress:data.val().walletAddress, 
-            })          
-        }
-        // else{
-        //   setgetIfl([""]);  
-        // }
-        setgetIfl(reqo);
-      });
-      }
+    //       reqo.push({
+    //         TimeStamp:data.val().TimeStamp,
+    //         follower:data.val().follower,
+    //         following:data.val().following,
+    //         walletAddress:data.val().walletAddress, 
+    //         })          
+    //     }
+    //     // else{
+    //     //   setgetIfl([""]);  
+    //     // }
+    //     setgetIfl(reqo);
+    //   });
+    //   }
       
-    } catch (error) {
-      //console.log('error occured during search', error);    
-    }          
+    // } catch (error) {
+    //   //console.log('error occured during search', error);    
+    // }          
   }  
 useEffect(()=>{dbcallother()},[])
 
@@ -217,6 +223,10 @@ useEffect(()=>{dbcallother()},[])
     const dbcallalgo=async()=>{
         //console.log("inside dbcallalgo function")  
         let req = [];        
+        if(location.state.alldata.WalletAddress === null || location.state.alldata.WalletAddress === "" || location.state.alldata.WalletAddress === undefined){
+          history.push("/")
+          window.location.reload(false);    
+        }else{                            
           firebase.database().ref("imagerefAlgo").child(location.state.alldata.WalletAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
@@ -252,13 +262,17 @@ useEffect(()=>{dbcallother()},[])
           });
           
         
-        //}
+        }
         //console.log("acc",getalgo)
     }   
     useEffect(()=>{dbcallalgo()},[])
 
     const dbcallsalealgo=async()=>{       
-        let req = [];              
+        let req = [];   
+        if(location.state.alldata.WalletAddress === null || location.state.alldata.WalletAddress === "" || location.state.alldata.WalletAddress === undefined){
+          history.push("/")
+          window.location.reload(false);    
+        }else{                                   
           firebase.database().ref("imagerefexploreoneAlgos").child(location.state.alldata.WalletAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
@@ -285,13 +299,18 @@ useEffect(()=>{dbcallother()},[])
               });        
             }
             setgetImgreffalgosale(req);  
-          });                  
+          });   
+        }               
         //console.log("accsale",getImgreffalgosale)      
     }      
     useEffect(()=>{dbcallsalealgo()},[])
 
     const dbcallalgobuy=async()=>{    
-        let req = [];          
+        let req = [];     
+        if(location.state.alldata.WalletAddress === null || location.state.alldata.WalletAddress === "" || location.state.alldata.WalletAddress === undefined){
+          history.push("/")
+          window.location.reload(false);    
+        }else{                                 
         firebase.database().ref("imagerefbuy").child(location.state.alldata.WalletAddress).on("value", (data) => {      
             if (data) {
               data.forEach((d) => {                
@@ -318,7 +337,8 @@ useEffect(()=>{dbcallother()},[])
               });        
             }
             setgetImgreffalgobuy(req);
-          });                          
+          });   
+        }                       
     }      
     useEffect(()=>{dbcallalgobuy()},[])
       
@@ -498,14 +518,20 @@ useEffect(()=>{dbcallother()},[])
                 {/* </div> */}
 
                 <div className="mb-36 text-center">
+                {location.state.alldata.WalletAddress === null || location.state.alldata.WalletAddress === "" || location.state.alldata.WalletAddress === undefined ? (<>                                                
+                        </>):(<>
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.WalletAddress); setToast(true)}}>                                        
                         <img src={Algopng} alt="icon" />
+                        
                         {!toast ? <span>{(location.state.alldata.WalletAddress).slice(0,8)}....{(location.state.alldata.WalletAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
                         )}
+                        
                     </Button>
+                    </>
+                )}
                     
                 </div>
 
@@ -568,7 +594,13 @@ useEffect(()=>{dbcallother()},[])
                 </div>
 
 
-            <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress} likes={getdbLike}/>
+                {location.state.alldata.WalletAddress === "" || location.state.alldata.WalletAddress === null || location.state.alldata.WalletAddress === undefined ? (<>
+
+<ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={"0xdjsdsid"} likes={getdbLike}/>
+</>):(
+  <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress} likes={getdbLike}/>
+)}
+            {/* <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.alldata.WalletAddress} likes={getdbLike}/> */}
             </Container>
 
             {/* onHide={handleClose} */}
