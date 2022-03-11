@@ -142,7 +142,7 @@ const Banner = () => {
             reloadOnUpdate // default false
             static // default false
             >
-            {/* <div className="d-md-none"> */}
+            <div className="d-md-none">
             {getBosonData.map((x, index) => {
                 return(                    
                 
@@ -152,7 +152,7 @@ const Banner = () => {
                 
                 )           
             })} 
-            {/* </div>                                */}
+            </div>                               
             </Flickity>
                 {/* <Row className='overflow-auto flex-nowrap'>
                     <Col xs={5}>

@@ -1,9 +1,9 @@
 /* eslint-disable use-isnan */
-import React, { useState,useEffect,useHistory} from "react";
+import React, { useState,useEffect} from "react";
 import Layout from './Layout';
 import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
 import {
-    Link,useLocation
+    Link,useLocation,useHistory
   } from "react-router-dom";
 import DummyPic from '../assets/images/dummy-icon.svg';
 //import ProfileTabs from './Sections/ProfileTabs';
