@@ -71,11 +71,11 @@ function HomePage() {
             <Container fluid="lg" >                
                 <Banner />
                 <TopCollections />
-                <HotBids />
+                {/* <HotBids /> */}
                 <TopCollectionsSellers />
                 {/* follow={getI} */}
                 {/* <LiveAuctions /> */}
-                <HotCollections />
+                {/* <HotCollections /> */}
                 <Explore />                
             </Container>
         </Layout>
