@@ -131,7 +131,7 @@ const Singlecopy = () => {
         else{
         try{                    
         setshowTestLoading(true)
-        let tb='ELEM';          
+        let tb='ASA';          
         const server = "https://testnet-algorand.api.purestake.io/ps2";
         const port = "";  
         const token = {
@@ -235,21 +235,21 @@ const Singlecopy = () => {
               // onClose: ('loading') });        
               ref2.child(db).set({
                 Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                 TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"video",
                 CreatorAddress:addresseswall
               })
                 .then(()=>{
                   refactivity.child(db).set({
                       Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                      NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                       TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"video",
                       CreatorAddress:addresseswall
                     })
                       .then(()=>{                                        
                   ref22.child(db).set({
                   Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                  NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                   TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"video",
                   CreatorAddress:addresseswall
                     })
@@ -260,7 +260,7 @@ const Singlecopy = () => {
                           refactivity.child(db).set({
                           Assetid:assetID,Imageurl:Img,NFTPrice:"",
                           EscrowAddress:"Create Asset",keyId:db,
-                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:"",
+                          NFTName:tname,userSymbol:"ASA",Ipfsurl:"",
                           ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
                           TimeStamp:"",NFTDescription:"",HistoryAddress:"",
                           Appid:"",valid:"",
@@ -280,21 +280,21 @@ const Singlecopy = () => {
             //   //toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});              
             //   ref2.child(db).set({
             //     Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-            //     NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+            //     NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
             //     TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
             //     CreatorAddress:addresseswall
             //   })
             //     .then(()=>{
             //       refactivity.child(db).set({
             //           Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-            //           NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+            //           NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
             //           TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
             //           CreatorAddress:addresseswall
             //         })
             //           .then(()=>{                                        
             //       ref22.child(db).set({
             //       Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-            //       NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+            //       NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
             //       TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
             //       CreatorAddress:addresseswall
             //         })
@@ -305,7 +305,7 @@ const Singlecopy = () => {
             //               refactivity.child(db).set({
             //               Assetid:assetID,Imageurl:Img,NFTPrice:"",
             //               EscrowAddress:"Create Asset",keyId:db,
-            //               NFTName:tname,userSymbol:"ELEM",Ipfsurl:"",
+            //               NFTName:tname,userSymbol:"ASA",Ipfsurl:"",
             //               ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
             //               TimeStamp:"",NFTDescription:"",HistoryAddress:"",
             //               Appid:"",valid:"",
