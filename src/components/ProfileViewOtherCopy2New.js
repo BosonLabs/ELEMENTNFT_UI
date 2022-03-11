@@ -8,12 +8,12 @@ import {
 import DummyPic from '../assets/images/dummy-icon.svg';
 //import ProfileTabs from './Sections/ProfileTabs';
 import firebase from '../firebase';
-import ProfileTabs from "./Sections/ProfileTabs";
+//import ProfileTabs from "./Sections/ProfileTabs";
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
 import Algopng from '../assets/images/Algo.png'
-const axios = require('axios');
+//const axios = require('axios');
 
-function HomePage(props) { 
+function ProfileViewOtherCopy2New (props) { 
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);     
   // });
@@ -37,17 +37,17 @@ function HomePage(props) {
     //console.log("getImgalgobuy",getImgreffalgobuy)
 
     const handleClose = () => {setShow(false); setFollowers(false); setFollowing(false)};
-    const handleShow = () => setShow(true);
-    const handleFollowers = () => setFollowers(true);
-    const handleFollowing = () => setFollowing(true);
+    //const handleShow = () => setShow(true);
+    //const handleFollowers = () => setFollowers(true);
+    //const handleFollowing = () => setFollowing(true);
 
     //title:props.NFTName,amount:props.NFTPrice,appid:props.Appid,assetid:props.Assetid,escrowaddress:props.EscrowAddress,historyaddress:props.HistoryAddress,imageurl:props.Imageurl,ipfsurl:props.Ipfsurl,nftdescription:props.NFTDescription,TimeStamp:props.TimeStamp,keyId:props.keyId,ownerAddress:props.ownerAddress,previousaddress:props.previousaddress,userSymbol:props.userSymbol
 
     //const[getIf,setgetIf]=useState([""]); 
     //console.log("gethome",getIf)        
-    const[getIfo,setgetIfo]=useState([null]); 
+    //const[getIfo,setgetIfo]=useState([null]); 
     //console.log("gethomeo",getIfo)        
-    const[getIfl,setgetIfl]=useState([null]); 
+    //const[getIfl,setgetIfl]=useState([null]); 
     //console.log("gethomefl",getIfl)   
     
     const[getdbLike,setdbLike]=useState([]);
@@ -278,7 +278,7 @@ useEffect(()=>{dbcallother()},[])
           history.push("/")
           window.location.reload(false);    
         }else{      
-          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.ownerAddress).on("value", (data) => {
+          firebase.database().ref("imagerefexploreoneAlgosBoson").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
                 let value=d.val();
@@ -514,11 +514,16 @@ useEffect(()=>{dbcallother()},[])
                 <div className="mb-36 text-center">
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
                         <img src={Algopng} alt="icon" />
-                        {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
+                        {location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined ? (<>
+                                                
+                        </>):(<>
+                          {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
-                        )}
+                        )}                        
+                        </>)}
+                        
                     </Button>
                     
                 </div>
@@ -581,8 +586,9 @@ useEffect(()=>{dbcallother()},[])
                     </Dropdown>
                 </div>
 
-
-            <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
+{location.state.ownerAddress === "" || location.state.ownerAddress === null || location.state.ownerAddress === undefined ? ( <></>):(<>
+  <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
+</>)}            
             </Container>
 
             {/* onHide={handleClose} */}
@@ -627,4 +633,4 @@ useEffect(()=>{dbcallother()},[])
     );
 }
 
-export default HomePage;
+export default ProfileViewOtherCopy2New;

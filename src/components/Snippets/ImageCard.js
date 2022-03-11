@@ -11,7 +11,7 @@ const ImageCard = (props) => {
         //     state:{alldata:props.dataall}
         //   }}>
               <Link className='card-media' to={{
-            pathname: "/profileviewothercopy2",            
+            pathname: "/ProfileViewOtherCopy2New",            
             state:{ownerAddress:props.ownerAddress}
             // ,follow:props.follow
           }}>        
