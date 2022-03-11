@@ -110,7 +110,6 @@ const Banner = () => {
                     <ImageCard title="Tessellation 21.330" subtitle="Blazing Futures ꜩ" image="https://res.cloudinary.com/rarible-inc/image/upload/t_featured/attachments/76d58bef8d388e94fb254f24706b6b48/05469133/Tessellation21_330.jpeg" />
                 </div> */}
             </Flickity>
-
             <br/><br/>
             {/* <Flickity
                 className={'d-none d-md-block carousel'} // default ''
