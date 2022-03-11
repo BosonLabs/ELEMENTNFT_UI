@@ -146,10 +146,10 @@ const Banner = () => {
             {getBosonData.map((x, index) => {
                 return(                    
                 <div className="d-md-none">    
-                {/* <div className='carousel-cell carousel-cell-20'>                     */}
+                <div className='carousel-cell carousel-cell-20'>                    
                 <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                {/* </div> */}
+                </div>
                 </div>                                   
                 )           
             })} 
