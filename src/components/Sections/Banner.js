@@ -120,7 +120,6 @@ const Banner = () => {
                 reloadOnUpdate // default false
                 static // default false
             >
-
             {getI.map((x, index) => {
                 console.log("logo",x)
                 return(  
