@@ -132,15 +132,16 @@ const Banner = () => {
                 )})}
             </Flickity> */}
 
-            <Flickity
-                className={'d-none d-md-block carousel'} // default ''
-                elementType={'div'} // default 'div'
-                options={flickityOptions} // takes flickity options {}
-                disableImagesLoaded={false} // default false
-                reloadOnUpdate // default false
-                static // default false
-            >
+            
 
+            <Flickity
+            className={'carousel'} // default ''
+            elementType={'div'} // default 'div'
+            options={flickityOptions} // takes flickity options {}
+            disableImagesLoaded={false} // default false
+            reloadOnUpdate // default false
+            static // default false
+            >
             <div className="d-md-none">
             {getBosonData.map((x, index) => {
                 return(                    
