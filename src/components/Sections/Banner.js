@@ -131,7 +131,7 @@ const Banner = () => {
                 )})}
             </Flickity> */}
 
-            <div className="d-md-none">
+            {/* <div className="d-md-none">
                 <div className="mb-3">
                     <SlidesCard />
                 </div>
@@ -162,7 +162,7 @@ const Banner = () => {
                         <ImageCard title="Tessellation 21.330" subtitle="Blazing Futures ꜩ" image="https://res.cloudinary.com/rarible-inc/image/upload/t_featured/attachments/76d58bef8d388e94fb254f24706b6b48/05469133/Tessellation21_330.jpeg" />
                     </Col>
                 </Row>
-            </div>
+            </div> */}
         </div>
     );
 };
