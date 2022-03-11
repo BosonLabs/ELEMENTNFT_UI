@@ -238,7 +238,7 @@ const TopCollectionsSelles = (props) => {
             ))}
             </ul>                                
             </div>
-            <Link to="/" className='btn d-block mt-4 d-sm-none ms-auto btn-white'>Sign in</Link>
+            {/* <Link to="/" className='btn d-block mt-4 d-sm-none ms-auto btn-white'>Sign in</Link> */}
         </div>
     );
 };
