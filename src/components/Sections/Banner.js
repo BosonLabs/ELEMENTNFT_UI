@@ -61,6 +61,7 @@ const Banner = () => {
     }
     useEffect(()=>{dbcallsaleal()},[])
     return (
+        
         <div className='mb-36'>
             <Flickity
                 className={'d-none d-md-block carousel'} // default ''
@@ -131,12 +132,16 @@ const Banner = () => {
                 )})}
             </Flickity> */}
 
-            {/* <div className="d-md-none">
+            {getBosonData.map((x, index) => {
+                return(                    
+                <div className="d-md-none">
                 <div className="mb-3">
-                    <SlidesCard />
+                <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
                 </div>
-
-                <Row className='overflow-auto flex-nowrap'>
+                </div>
+                )           
+            })}                                
+                {/* <Row className='overflow-auto flex-nowrap'>
                     <Col xs={5}>
                         <VideoCard title="BALEX SPECIALS 1/1" url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" />
                     </Col>
@@ -161,8 +166,8 @@ const Banner = () => {
                     <Col xs={5}>
                         <ImageCard title="Tessellation 21.330" subtitle="Blazing Futures ꜩ" image="https://res.cloudinary.com/rarible-inc/image/upload/t_featured/attachments/76d58bef8d388e94fb254f24706b6b48/05469133/Tessellation21_330.jpeg" />
                     </Col>
-                </Row>
-            </div> */}
+                </Row> */}
+            {/* </div> */}
         </div>
     );
 };
