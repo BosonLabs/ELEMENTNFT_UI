@@ -141,15 +141,17 @@ const Banner = () => {
                 static // default false
             >
 
+            <div className="d-md-none">
             {getBosonData.map((x, index) => {
                 return(                    
-                <div className="d-md-none">
+                
                 <div className="mb-3">
                 <ImageCard title={x.NFTName} description={x.NFTDescription} subtitle="Blazing Futures ꜩ" image={x.Imageurl} dataall={x} ownerAddress={x.ownerAddress}/>
                 </div>
-                </div>
+                
                 )           
-            })}                                
+            })} 
+            </div>                               
             </Flickity>
                 {/* <Row className='overflow-auto flex-nowrap'>
                     <Col xs={5}>
