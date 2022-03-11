@@ -132,6 +132,15 @@ const Banner = () => {
                 )})}
             </Flickity> */}
 
+            <Flickity
+                className={'d-none d-md-block carousel'} // default ''
+                elementType={'div'} // default 'div'
+                options={flickityOptions} // takes flickity options {}
+                disableImagesLoaded={false} // default false
+                reloadOnUpdate // default false
+                static // default false
+            >
+
             {getBosonData.map((x, index) => {
                 return(                    
                 <div className="d-md-none">
@@ -141,6 +150,7 @@ const Banner = () => {
                 </div>
                 )           
             })}                                
+            </Flickity>
                 {/* <Row className='overflow-auto flex-nowrap'>
                     <Col xs={5}>
                         <VideoCard title="BALEX SPECIALS 1/1" url="https://img.rarible.com/feat/video/webm/x1/81146e5456fb99da97fa898346c06ae0/e7339405/Header_800x800BALEXSPECIALS-Correctedcopy.mp4" />
