@@ -1,9 +1,9 @@
 /* eslint-disable use-isnan */
-import React, { useState,useEffect,useHistory} from "react";
+import React, { useState,useEffect} from "react";
 import Layout from './Layout';
 import {Container, Button, Modal, Toast, Dropdown} from 'react-bootstrap';
 import {
-    Link,useLocation
+    Link,useLocation,useHistory
   } from "react-router-dom";
 import DummyPic from '../assets/images/dummy-icon.svg';
 //import ProfileTabs from './Sections/ProfileTabs';
@@ -32,7 +32,7 @@ function ProfileViewOtherCopy2New (props) {
     //console.log("getIPro",getIPro) 
     //console.log("getImgalgo",getImgreffalgo)
     const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
-    //console.log("getImgalgosale",getImgreffalgosale)
+    console.log("getImgalgosaleBanner",getImgreffalgosale)
     const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
     //console.log("getImgalgobuy",getImgreffalgobuy)
 
@@ -274,10 +274,10 @@ useEffect(()=>{dbcallother()},[])
 
     const dbcallsalealgo=async()=>{       
         let req = [];              
-        if(location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined){
-          history.push("/")
-          window.location.reload(false);    
-        }else{      
+        // if(location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined){
+        //   history.push("/")
+        //   window.location.reload(false);    
+        // }else{      
           firebase.database().ref("imagerefexploreoneAlgosBoson").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
@@ -305,7 +305,7 @@ useEffect(()=>{dbcallother()},[])
             }
             setgetImgreffalgosale(req);  
           });       
-        }           
+        //}           
         //console.log("accsale",getImgreffalgosale)      
     }      
     useEffect(()=>{dbcallsalealgo()},[])
@@ -586,9 +586,9 @@ useEffect(()=>{dbcallother()},[])
                     </Dropdown>
                 </div>
 
-{location.state.ownerAddress === "" || location.state.ownerAddress === null || location.state.ownerAddress === undefined ? ( <></>):(<>
+{/* {location.state.ownerAddress === "" || location.state.ownerAddress === null || location.state.ownerAddress === undefined ? ( <></>):(<> */}
   <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
-</>)}            
+{/* </>)}             */}
             </Container>
 
             {/* onHide={handleClose} */}

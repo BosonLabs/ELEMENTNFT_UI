@@ -20,7 +20,7 @@ const ProfileTabsOther = (create) => {
     // });
 
     // console.log("bcreate",create.create)    
-    // console.log("bsale",create.sale) 
+    console.log("bsalebanner",create.sale) 
     // console.log("bbuyed",create.buyed) 
     // console.log("Logp",create.owner)
     

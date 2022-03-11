@@ -15,6 +15,7 @@ import AlgoIcon from '../../../assets/images/Algo.png';
 const animatedComponents = makeAnimated();
 
 const OnSaleOther = (data) => {    
+    console.log("LastBanner",data.data)
     const[getcategory,setcategory]=useState("All");
     const[getsaletype,setsaletype]=useState("Fixed price");
     const[getprice1,setprice1]=useState(0);
