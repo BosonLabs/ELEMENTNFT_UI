@@ -6,6 +6,7 @@ import {
 import CollectionItem from '../Snippets/CollectionItem';
 import moment from 'moment';
 import firebase from "../../firebase";
+import { DateTime } from "luxon";
 
 const TopCollectionsSelles = (props) => {
 
@@ -13,6 +14,7 @@ const TopCollectionsSelles = (props) => {
     const directionOptions = ["Sellers", "Buyers"];
     const [date, setDate] = useState(dateOptions[0]);
     const [direction, setDirection] = useState(directionOptions[0]);    
+    const[getdays,setgetdays]=useState('day'); 
     const[getIb,setgetIb]=useState([]);    
     const[getImb,setgetImb]=useState([]);
     console.log("SellOneDay",getImb)    
@@ -21,7 +23,10 @@ const TopCollectionsSelles = (props) => {
         setDirection(e)
       }
     const handleSelect2=(e)=>{        
-        setDate(e)
+      if(e==="7" || e=== "30"){
+        setgetdays('days')
+      }
+      setDate(e)
     }
   //buyers
   const dbcallalgobuy=async()=>{    
@@ -90,14 +95,18 @@ const TopCollectionsSelles = (props) => {
     });
   }
   useEffect(()=>{dbcallalgosale()},[])
-  const filterdata=()=>{        
+  const filterdata=()=>{    
+    var dt = DateTime.local();    
+    var dtone = DateTime.local().minus({weeks:1});    
+    var dtfour = DateTime.local().minus({weeks:4});    
+    let currentdate=dt.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY).replaceAll(',','');    
         if(direction === 'Sellers') {
           if(date === '1')
           {              
               let data = getImb.filter((val)=>{              
-              let currentdate=moment().format('ddd MMM DD YYYY')              
-              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')              
-              if(currentdate === createddate ){
+              //let currentdate=moment().format('ddd MMM DD YYYY')              
+              //let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')              
+              if(currentdate === val.TimeStamp ){
               let datas=getImb.sort((a,b)=>{                  
                   return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
                })              
@@ -108,8 +117,10 @@ const TopCollectionsSelles = (props) => {
           }  
           else if(date === '7') {            
             let data = getIb.filter((val)=>{                
-            let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')                                
-              if(moment(val.TimeStamp).endOf(weekdates)){        
+            //let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')                                
+            let weekdates = dtone.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY).replaceAll(',','');
+              //if(moment(val.TimeStamp).endOf(weekdates)){        
+                if(val.TimeStamp > weekdates){        
                 let datas=getIb.sort((a,b)=>{                      
                   return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
                  })
@@ -119,10 +130,12 @@ const TopCollectionsSelles = (props) => {
           return data;            
         }
         else{
-          let month=moment().subtract(1, 'months');        
-          let monthend=month.format('ddd MMM DD YYYY')
+          // let month=moment().subtract(1, 'months');        
+          // let monthend=month.format('ddd MMM DD YYYY')
+          let weekdates = dtfour.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY).replaceAll(',','');
           let datamonth = getIb.filter((val)=>{                        
-          if(moment(val.TimeStamp).endOf(monthend)){        
+          //if(moment(val.TimeStamp).endOf(monthend)){        
+          if(val.TimeStamp < weekdates){        
                 let datass=getIb.sort((a,b)=>{                      
                   return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
             })
@@ -149,9 +162,9 @@ const TopCollectionsSelles = (props) => {
         if(date === '1')
         {
               let data = getIb.filter((val)=>{
-              let currentdate=moment().format('ddd MMM DD YYYY')              
-              let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
-              if(currentdate===createddate){
+              // let currentdate=moment().format('ddd MMM DD YYYY')              
+              // let createddate=moment(val.TimeStamp).format('ddd MMM DD YYYY')
+              if(currentdate===val.TimeStamp){
                 let datas=getImb.sort((a,b)=>{                  
                   return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)
                })              
@@ -162,8 +175,9 @@ const TopCollectionsSelles = (props) => {
         }
         else if(date === '7') {            
           let data = getIb.filter((val)=>{                
-          let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')                                
-            if(moment(val.TimeStamp).endOf(weekdates)){        
+          //let weekdates=moment().subtract(parseInt(date),"days").format('ddd MMM DD YYYY')                                
+          let weekdates = dtone.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY).replaceAll(',','');
+            if(val.TimeStamp > weekdates){        
               let datas=getIb.sort((a,b)=>{                      
                 return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
                })
@@ -173,10 +187,12 @@ const TopCollectionsSelles = (props) => {
         return data;            
       }
       else{
-        let month=moment().subtract(1, 'months');        
-        let monthend=month.format('ddd MMM DD YYYY')
+        // let month=moment().subtract(1, 'months');        
+        // let monthend=month.format('ddd MMM DD YYYY')
+        let monthdates = dtfour.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY).replaceAll(',','');        
         let datamonth = getIb.filter((val)=>{                        
-        if(moment(val.TimeStamp).endOf(monthend)){        
+        //if(moment(val.TimeStamp).endOf(monthend)){        
+        if(val.TimeStamp < monthdates){        
               let datass=getIb.sort((a,b)=>{                      
                 return parseInt(b.NFTPrice) - parseInt(a.NFTPrice)                
           })
@@ -217,7 +233,7 @@ const TopCollectionsSelles = (props) => {
                     </DropdownButton>
                      in
                      &nbsp;
-                     {date} day
+                     {date} {getdays}
                     <DropdownButton onSelect={handleSelect2}>                        
                             <Dropdown.Item eventKey="1" variant="reset" className='dropdown-btn-grad'>1 day                                 
                             </Dropdown.Item>

@@ -79,9 +79,9 @@ const Edit = () => {
         if(tname === ""){
             alert("please enter profile name")
         }
-        else if(turl === "" ){
-            alert("please enter url")
-        }
+        // else if(turl === "" ){
+        //     alert("please enter url")
+        // }
         else if(tTwitter === "" ){
             alert("please enter twitter username")
         }else if(temail === ""){
@@ -221,13 +221,13 @@ const Edit = () => {
                                         placeholder='Enter your display name'
                                     />
                                 </InputGroup>
-                                <h3>Custom URL</h3>    
+                                {/* <h3>Custom URL</h3>    
                                 <InputGroup className="mb-4 input-group-field" onChange={event => setUrl( event.target.value)}>
                                     <InputGroup.Text className='ps-0 font-weight-normal'>
                                         element.com/
                                     </InputGroup.Text>
                                     <Form.Control placeholder="Enter your custom URL" />
-                                </InputGroup>     
+                                </InputGroup>      */}
                                 <h3>Bio</h3>
                                 <InputGroup className="mb-4 input-group-field" onChange={event => setBio( event.target.value)}>
                                     <Form.Control

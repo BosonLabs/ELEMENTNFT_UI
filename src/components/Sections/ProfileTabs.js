@@ -17,7 +17,7 @@ const ProfileTabs = (create) => {
     // });
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className='mb-4'>
-            <Tab eventKey="onSale" title="On sale">
+            <Tab eventKey="onSale" title="On Sale">
                 <OnSale data={create.sale}/>
             </Tab>
             <Tab eventKey="owned" title="Owned">

@@ -113,7 +113,7 @@ const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype
                     />
                 </div>
 
-                <div className="filter-item filter-category">
+                {/* <div className="filter-item filter-category">
                     <Select
                         styles={colourStyles}
                         closeMenuOnSelect={true}
@@ -129,7 +129,7 @@ const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype
                             </div>
                         )}
                     />
-                </div>
+                </div> */}
                
                 {/* <div className="filter-item filter-icon-round filter-collections">
                     <Select
@@ -150,7 +150,7 @@ const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype
                 </div> */}
                 
                 {/* <div className="filter-item filter-sale-type"> */}
-                <div className="filter-item filter-category">
+                {/* <div className="filter-item filter-category">
                     <Select
                         styles={colourStyles}
                         closeMenuOnSelect={true}
@@ -167,7 +167,7 @@ const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype
                             </div>
                         )}
                     />
-                </div>
+                </div> */}
                 
                 <div className="filter-dropdown">
                     <Dropdown className='dropdown-noarrow'>
@@ -244,14 +244,14 @@ const FilterExplore = ({setMax,setMin,setChain,setCategory,setRecent,setSaletype
                         {/* <Dropdown.Item onClick={event => setRecent("Auction ending soon")}>
                             Auction ending soon
                         </Dropdown.Item> */}
-                        <Dropdown.ItemText>Options</Dropdown.ItemText>
+                        {/* <Dropdown.ItemText>Options</Dropdown.ItemText> */}
 
-                        <Form.Check 
+                        {/* <Form.Check 
                             type="switch"
                             id="verified-only"
                             label="Verified only"
                             checked={true}
-                        />
+                        /> */}
                         {/* <Form.Check 
                             type="switch"
                             id="show-nsfw"
