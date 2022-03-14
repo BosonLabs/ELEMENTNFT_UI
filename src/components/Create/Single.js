@@ -225,7 +225,7 @@ const Start = () => {
         //setshowTestAlert(true)               
         //alert("you wallet raises some issues")
         //window.location.reload(false)
-        storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
+        //storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
       }       
       storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
     }      
