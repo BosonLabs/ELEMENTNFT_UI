@@ -253,7 +253,7 @@ const SingleBid = (props) => {
                   txsfirst[1].group = groupIDfirst;
                   txsfirst[2].group = groupIDfirst;
                   const signedTx1first = await myAlgoWallet.signTransaction([txsfirst[0].toByte(),txsfirst[1].toByte(),txsfirst[2].toByte()]);
-                  const responsefirst = await algodClient.sendRawTransaction(signedTx1first[0].blob).do();                  
+                  const responsefirst = await algodClient.sendRawTransaction([signedTx1first[0].blob,signedTx1first[1].blob,signedTx1first[2].blob]).do();                  
                   await waitForConfirmation(algodClient, responsefirst.txId);
 
                   toast.success(`Asset Opted Successfully ${responsefirst.txId}`,{autoClose: 8000});
