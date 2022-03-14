@@ -285,7 +285,7 @@ const filterdata=()=>{
                     <Nav className='hide-desktop-below'>
                         {/* <Nav.Link to="/how-it-works" as={Link}>How it works</Nav.Link> */}
                         <NavDropdown title="Community" id="basic-nav-dropdown">
-                            <Link to="/about" className='dropdown-item'>About</Link>
+                            {/* <Link to="/about" className='dropdown-item'>About</Link> */}
                             {/* <Link to="/" className='dropdown-item'>Blog</Link>
                             <Link to="/" className='dropdown-item'>ELEM Token</Link>
                             <Link to="/" className='dropdown-item'>Suggest feature</Link>

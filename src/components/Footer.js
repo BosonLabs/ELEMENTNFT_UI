@@ -276,10 +276,10 @@ function Footer() {
                                 </ul>
                             </Col>
                             <Col xs={6} sm={4}>
-                                <h3>Community</h3>
+                                {/* <h3>Community</h3> */}
 
                                 <ul>
-                                    <li><Link to="/about">About</Link></li>
+                                    {/* <li><Link to="/about">About</Link></li> */}
                                     {/* <li><Link to="/">Blog</Link></li> */}
                                     {/* <li><Link to="/">ELEMENT Token</Link></li> */}
                                     {/* <li><Link to="">Suggest feature</Link></li> */}
