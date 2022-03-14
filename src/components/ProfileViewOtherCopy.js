@@ -53,11 +53,10 @@ function HomePage(props) {
     //console.log("getdbLike",getdbLike)
     const dbLike=async()=>{    
         let req = [];
-        if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+        if(location.state.ownerAddress  === null || location.state.ownerAddress  === "" || location.state.ownerAddress  === " " || location.state.ownerAddress === 'undefined' || location.state.ownerAddress === ''){
         }
-        else{
-          let getalgo=localStorage.getItem("wallet");              
-          firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
+        else{          
+          firebase.database().ref("dblike").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                                             
                 req.push(            
@@ -90,6 +89,9 @@ function HomePage(props) {
     const dbcallPro=async()=>{            
       let r=[];
       try {         
+        if(location.state.ownerAddress  === null || location.state.ownerAddress  === "" || location.state.ownerAddress  === " " || location.state.ownerAddress === 'undefined' || location.state.ownerAddress === ''){
+        }
+        else{          
       firebase.database().ref("userprofile").child(location.state.ownerAddress).on("value", (data) => {          
         if (data) {                      
             r.push({
@@ -110,7 +112,8 @@ function HomePage(props) {
           setgetIPro([""]);  
         }
         setgetIPro(r);
-      });                  
+      });              
+    }    
     } catch (error) {
       //console.log('error occured during search', error);    
     }                
@@ -121,64 +124,64 @@ function HomePage(props) {
 
     const dbcallowner=async()=>{      
       //console.log("Insowner",location.state.ownerAddress)    
-      let reqoo = [];      
-      try {
-        if(firebase.database().ref("followings").child(location.state.ownerAddress) === undefined){
-          alert("nono")
-        }
-        else{
-          firebase.database().ref("followings").child(location.state.ownerAddress).on("value", (data) => {
-            //console.log("Insowners",data)
-            if (data) {                            
-              //console.log("tataam",data.val())
-              reqoo.push({
-                TimeStamp:data.val().TimeStamp,
-                follower:data.val().follower,
-                following:data.val().following,
-                walletAddress:data.val().walletAddress, 
-              })          
-            }
-            // else{
-            //   setgetIfo([""]);  
-            // }
-            setgetIfo(reqoo);
-          }) 
-        }          
-      } catch (error) {
-        //console.log('error occured during search', error);
-      }          
+      // let reqoo = [];      
+      // try {
+      //   if(firebase.database().ref("followings").child(location.state.ownerAddress) === undefined){
+      //     alert("nono")
+      //   }
+      //   else{
+      //     firebase.database().ref("followings").child(location.state.ownerAddress).on("value", (data) => {
+      //       //console.log("Insowners",data)
+      //       if (data) {                            
+      //         //console.log("tataam",data.val())
+      //         reqoo.push({
+      //           TimeStamp:data.val().TimeStamp,
+      //           follower:data.val().follower,
+      //           following:data.val().following,
+      //           walletAddress:data.val().walletAddress, 
+      //         })          
+      //       }
+      //       // else{
+      //       //   setgetIfo([""]);  
+      //       // }
+      //       setgetIfo(reqoo);
+      //     }) 
+      //   }          
+      // } catch (error) {
+      //   //console.log('error occured during search', error);
+      // }          
     }
     
   useEffect(()=>{dbcallowner()},[])
 
   const dbcallother=async()=>{    
-    let reqo = [];    
-      try {  
-        if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
-        {          
-          alert("nono2")                
-        }
-        else{
-        firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
-        if (data) {        
+    // let reqo = [];    
+    //   try {  
+    //     if(firebase.database().ref("followings").child(localStorage.getItem("wallet")) === undefined)       
+    //     {          
+    //       alert("nono2")                
+    //     }
+    //     else{
+    //     firebase.database().ref("followings").child(localStorage.getItem("wallet")).on("value", (data) => {
+    //     if (data) {        
           
-          reqo.push({
-            TimeStamp:data.val().TimeStamp,
-            follower:data.val().follower,
-            following:data.val().following,
-            walletAddress:data.val().walletAddress, 
-            })          
-        }
-        // else{
-        //   setgetIfl([""]);  
-        // }
-        setgetIfl(reqo);
-      });
-      }
+    //       reqo.push({
+    //         TimeStamp:data.val().TimeStamp,
+    //         follower:data.val().follower,
+    //         following:data.val().following,
+    //         walletAddress:data.val().walletAddress, 
+    //         })          
+    //     }
+    //     // else{
+    //     //   setgetIfl([""]);  
+    //     // }
+    //     setgetIfl(reqo);
+    //   });
+    //   }
       
-    } catch (error) {
-      //console.log('error occured during search', error);    
-    }          
+    // } catch (error) {
+    //   //console.log('error occured during search', error);    
+    // }          
   }  
 useEffect(()=>{dbcallother()},[])
 
@@ -220,6 +223,9 @@ useEffect(()=>{dbcallother()},[])
     const dbcallalgo=async()=>{
         //console.log("inside dbcallalgo function")  
         let req = [];        
+        if(location.state.ownerAddress  === null || location.state.ownerAddress  === "" || location.state.ownerAddress  === " " || location.state.ownerAddress === 'undefined' || location.state.ownerAddress === ''){
+        }
+        else{          
           firebase.database().ref("imagerefAlgo").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {
@@ -254,14 +260,17 @@ useEffect(()=>{dbcallother()},[])
             setgetImgreffalgo(req);
           });
           
-        
+        }
         //}
         //console.log("acc",getalgo)
     }   
     useEffect(()=>{dbcallalgo()},[])
 
     const dbcallsalealgo=async()=>{       
-        let req = [];              
+        let req = [];     
+        if(location.state.ownerAddress  === null || location.state.ownerAddress  === "" || location.state.ownerAddress  === " " || location.state.ownerAddress === 'undefined' || location.state.ownerAddress === ''){
+        }
+        else{                   
           firebase.database().ref("imagerefexploreoneAlgos").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
@@ -288,13 +297,17 @@ useEffect(()=>{dbcallother()},[])
               });        
             }
             setgetImgreffalgosale(req);  
-          });                  
+          });          
+        }        
         //console.log("accsale",getImgreffalgosale)      
     }      
     useEffect(()=>{dbcallsalealgo()},[])
 
     const dbcallalgobuy=async()=>{    
-        let req = [];          
+        let req = [];        
+        if(location.state.ownerAddress  === null || location.state.ownerAddress  === "" || location.state.ownerAddress  === " " || location.state.ownerAddress === 'undefined' || location.state.ownerAddress === ''){
+        }
+        else{            
         firebase.database().ref("imagerefbuy").child(location.state.ownerAddress).on("value", (data) => {      
             if (data) {
               data.forEach((d) => {                
@@ -321,132 +334,133 @@ useEffect(()=>{dbcallother()},[])
               });        
             }
             setgetImgreffalgobuy(req);
-          });                          
+          });          
+        }                
     }      
     useEffect(()=>{dbcallalgobuy()},[])
       
-    const followstart=async()=>{                      
-      if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
-        let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref22=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        let dateset=new Date().toDateString();                                         
-        let arr1=[];
-        let arr11=[];
-        arr1.push(location.state.ownerAddress)
-        arr11.push(localStorage.getItem('wallet'))
-        ref2.set({        
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
-          .then(()=>{
-            ref22.set({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr11})
-              .then(()=>{    
-                alert("done1")              
-                })                  
-            })                           
-      }
-      else if((getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN ) && (getIfo[0] !== "" || getIfo[0] !== null || getIfo[0] !== undefined || getIfo[0] !== NaN)){
+    // const followstart=async()=>{                      
+    //   if( getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN || getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN){
+    //     let ref2=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+    //     let ref22=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+    //     let dateset=new Date().toDateString();                                         
+    //     let arr1=[];
+    //     let arr11=[];
+    //     arr1.push(location.state.ownerAddress)
+    //     arr11.push(localStorage.getItem('wallet'))
+    //     ref2.set({        
+    //       walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+    //       .then(()=>{
+    //         ref22.set({        
+    //           walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr11})
+    //           .then(()=>{    
+    //             alert("done1")              
+    //             })                  
+    //         })                           
+    //   }
+    //   else if((getIfl[0] === null || getIfl[0] === undefined || getIfl[0] === "" || getIfl[0] === NaN ) && (getIfo[0] !== "" || getIfo[0] !== null || getIfo[0] !== undefined || getIfo[0] !== NaN)){
 
-        //local null && owner entry
-        let dateset=new Date().toDateString();      
-        //console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
-        //let allarr11=getIfl[0].follower
-        let allarr2=getIfo[0].following 
-        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-        //let chars1 = allarr1
-        //let uniqueChars1 = new Set(chars1);
-        //console.log("uni1",uniqueChars1);//ramfollowing local
-        //let chars11 = allarr11                
-        //let uniqueChars11 = new Set(chars11);
-        //console.log("uni11",uniqueChars11);//ramfollow local
-        let chars2 = allarr2      
-        let uniqueChars2 = new Set(chars2);
-        //console.log("uni2",uniqueChars2);//thiru following
-        let chars22 = allarr22        
-        let uniqueChars22 = new Set(chars22);
-        //console.log("uni22",uniqueChars22);//thiru follow
-        let arr1=[]        
-        arr1.push(location.state.ownerAddress)        
-        ref1.set({  
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
-          .then(()=>{    
-            ref11.update({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
-              .then(()=>{    
-                alert("alert")                
-                })                              
-            })                  
-      }
-      else if((getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN ) && (getIfl[0] !== null || getIfl[0] !== undefined || getIfl[0] !== "" || getIfl[0] !== NaN)){
+    //     //local null && owner entry
+    //     let dateset=new Date().toDateString();      
+    //     //console.log("nullnew1","null1")                  
+    //     let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+    //     let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+    //     //let allarr1=getIfl[0].following.concat(location.state.alldata.ownerAddress) 
+    //     //let allarr11=getIfl[0].follower
+    //     let allarr2=getIfo[0].following 
+    //     let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+    //     //let chars1 = allarr1
+    //     //let uniqueChars1 = new Set(chars1);
+    //     //console.log("uni1",uniqueChars1);//ramfollowing local
+    //     //let chars11 = allarr11                
+    //     //let uniqueChars11 = new Set(chars11);
+    //     //console.log("uni11",uniqueChars11);//ramfollow local
+    //     let chars2 = allarr2      
+    //     let uniqueChars2 = new Set(chars2);
+    //     //console.log("uni2",uniqueChars2);//thiru following
+    //     let chars22 = allarr22        
+    //     let uniqueChars22 = new Set(chars22);
+    //     //console.log("uni22",uniqueChars22);//thiru follow
+    //     let arr1=[]        
+    //     arr1.push(location.state.ownerAddress)        
+    //     ref1.set({  
+    //       walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:arr1,follower:""})
+    //       .then(()=>{    
+    //         ref11.update({        
+    //           walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+    //           .then(()=>{    
+    //             alert("alert")                
+    //             })                              
+    //         })                  
+    //   }
+    //   else if((getIfo[0] === "" || getIfo[0] === null || getIfo[0] === undefined || getIfo[0] === NaN ) && (getIfl[0] !== null || getIfl[0] !== undefined || getIfl[0] !== "" || getIfl[0] !== NaN)){
 
-        //owner null && local entry
-        let dateset=new Date().toDateString();      
-        //console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
-        let allarr11=getIfl[0].follower
-        //let allarr2=getIfo[0].following 
-        //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-        let chars1 = allarr1
-        let uniqueChars1 = new Set(chars1);
-        //console.log("uni1",uniqueChars1);//ramfollowing local
-        let chars11 = allarr11                
-        let uniqueChars11 = new Set(chars11);
-        //console.log("uni11",uniqueChars11);//ramfollow local
-        //let chars2 = allarr2      
-        //let uniqueChars2 = new Set(chars2);
-        //console.log("uni2",uniqueChars2);//thiru following
-        //let chars22 = allarr22        
-        //let uniqueChars22 = new Set(chars22);
-        //console.log("uni22",uniqueChars22);//thiru follow
-        let arr1=[]        
-        arr1.push(localStorage.getItem('wallet'))        
-        ref1.set({  
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
-          .then(()=>{    
-            ref11.set({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr1})
-              .then(()=>{    
-                alert("alert")                
-                })                              
-            })                  
-      }
-      else{
-        let dateset=new Date().toDateString();      
-        //console.log("nullnew1","null1")                  
-        let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
-        let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
-        let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
-        let allarr11=getIfl[0].follower
-        let allarr2=getIfo[0].following 
-        let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
-        let chars1 = allarr1
-        let uniqueChars1 = new Set(chars1);
-        //console.log("uni1",uniqueChars1);//ramfollowing local
-        let chars11 = allarr11                
-        let uniqueChars11 = new Set(chars11);
-        //console.log("uni11",uniqueChars11);//ramfollow local
-        let chars2 = allarr2      
-        let uniqueChars2 = new Set(chars2);
-        //console.log("uni2",uniqueChars2);//thiru following
-        let chars22 = allarr22        
-        let uniqueChars22 = new Set(chars22);
-        //console.log("uni22",uniqueChars22);//thiru follow
+    //     //owner null && local entry
+    //     let dateset=new Date().toDateString();      
+    //     //console.log("nullnew1","null1")                  
+    //     let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+    //     let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+    //     let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
+    //     let allarr11=getIfl[0].follower
+    //     //let allarr2=getIfo[0].following 
+    //     //let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+    //     let chars1 = allarr1
+    //     let uniqueChars1 = new Set(chars1);
+    //     //console.log("uni1",uniqueChars1);//ramfollowing local
+    //     let chars11 = allarr11                
+    //     let uniqueChars11 = new Set(chars11);
+    //     //console.log("uni11",uniqueChars11);//ramfollow local
+    //     //let chars2 = allarr2      
+    //     //let uniqueChars2 = new Set(chars2);
+    //     //console.log("uni2",uniqueChars2);//thiru following
+    //     //let chars22 = allarr22        
+    //     //let uniqueChars22 = new Set(chars22);
+    //     //console.log("uni22",uniqueChars22);//thiru follow
+    //     let arr1=[]        
+    //     arr1.push(localStorage.getItem('wallet'))        
+    //     ref1.set({  
+    //       walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+    //       .then(()=>{    
+    //         ref11.set({        
+    //           walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:"",follower:arr1})
+    //           .then(()=>{    
+    //             alert("alert")                
+    //             })                              
+    //         })                  
+    //   }
+    //   else{
+    //     let dateset=new Date().toDateString();      
+    //     //console.log("nullnew1","null1")                  
+    //     let ref1=firebase.database().ref(`followings/${localStorage.getItem('wallet')}`);
+    //     let ref11=firebase.database().ref(`followings/${location.state.ownerAddress}`);
+    //     let allarr1=getIfl[0].following.concat(location.state.ownerAddress) 
+    //     let allarr11=getIfl[0].follower
+    //     let allarr2=getIfo[0].following 
+    //     let allarr22=getIfo[0].follower.concat(localStorage.getItem('wallet'))
+    //     let chars1 = allarr1
+    //     let uniqueChars1 = new Set(chars1);
+    //     //console.log("uni1",uniqueChars1);//ramfollowing local
+    //     let chars11 = allarr11                
+    //     let uniqueChars11 = new Set(chars11);
+    //     //console.log("uni11",uniqueChars11);//ramfollow local
+    //     let chars2 = allarr2      
+    //     let uniqueChars2 = new Set(chars2);
+    //     //console.log("uni2",uniqueChars2);//thiru following
+    //     let chars22 = allarr22        
+    //     let uniqueChars22 = new Set(chars22);
+    //     //console.log("uni22",uniqueChars22);//thiru follow
 
-        ref1.update({  
-          walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
-          .then(()=>{    
-            ref11.update({        
-              walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
-              .then(()=>{    
-                alert("alert")                
-                })                              
-            })                          
-      }      
-    }
+    //     ref1.update({  
+    //       walletAddress:localStorage.getItem('wallet'),TimeStamp:dateset,following:uniqueChars1,follower:uniqueChars11})
+    //       .then(()=>{    
+    //         ref11.update({        
+    //           walletAddress:location.state.ownerAddress,TimeStamp:dateset,following:uniqueChars2,follower:uniqueChars22})
+    //           .then(()=>{    
+    //             alert("alert")                
+    //             })                              
+    //         })                          
+    //   }      
+    // }
 
     return (
         <Layout>
@@ -488,15 +502,18 @@ useEffect(()=>{dbcallother()},[])
                 </div>
 
                 <div className="mb-36 text-center">
+                {location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined ? (<>                                                
+                        </>):(<>
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
-                        <img src={Algopng} alt="icon" />
+                        <img src={Algopng} alt="icon" />                        
                         {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
-                        )}
+                        )}                        
                     </Button>
-                    
+                    </>
+                  )}
                 </div>
 
                 {/* <div className="mb-32 d-flex align-items-center justify-content-center">                                    
@@ -525,11 +542,19 @@ useEffect(()=>{dbcallother()},[])
                                     <small className='d-block mt-2'>Twitter</small>
                                 </div>
                                 <div>                                
-                                <a href={"https://www.facebook.com/"} target="_blank" rel="noopener noreferrer">
-                                        <svg viewBox="0 0 24 24" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" fill="currentColor"></path></svg>                                   
+                                <a href={"https://github.com/BosonLabs/ELEMENTNFT_UI.git"} target="_blank" rel="noopener noreferrer">
+                                        <svg viewBox="0 0 24 24" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr">
+                                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                        </svg>
                                 </a>
-                                    <small className='d-block mt-2'>Facebook</small>
+                                    <small className='d-block mt-2'>Github</small>
                                 </div>
+                                
+                                {/* <a href={"https://github.com/BosonLabs/ELEMENTNFT_UI.git"} target="_blank" rel="noopener noreferrer">                                
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="d-block mt-2" viewBox="0 0 16 16">
+                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                </svg>
+                                </a> */}                                
                                 <div>
                                 <a href={"https://t.me/elementSwap"} target="_blank" rel="noopener noreferrer">                                
                                         <svg viewBox="0 0 16 14" fill="none" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M15.9513 1.29916L13.5438 13.1556C13.377 13.997 12.8902 14.1987 12.21 13.8093L8.542 10.979L6.76804 12.7662C6.56797 12.9748 6.40125 13.1556 6.03445 13.1556C5.55428 13.1556 5.63431 12.9679 5.47425 12.495L4.20714 8.19051L0.572523 7.00834C-0.214421 6.76495 -0.22109 6.20168 0.745918 5.7914L14.9243 0.0891779C15.5711 -0.209841 16.1914 0.256072 15.9446 1.29221L15.9513 1.29916Z" fill="currentColor"></path></svg>
@@ -551,11 +576,17 @@ useEffect(()=>{dbcallother()},[])
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className='link-flex dropdown-menu-right'>
-                            <Dropdown.Item href="/">Report Page</Dropdown.Item>
+                            <Dropdown.Item href="">Report Page</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-                <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
+                {location.state.ownerAddress === "" || location.state.ownerAddress === null || location.state.ownerAddress === undefined ? (<>
+
+<ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={"0xdjsdsid"} likes={getdbLike}/>
+</>):(
+  <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/> 
+)}
+                {/* <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/> */}
             </Container>
 
             {/* onHide={handleClose} */}

@@ -10,7 +10,7 @@ import firebase from '../../firebase';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 import '../../toast-style-override.css'
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 import dataescrowprice from "../../escrowpricenew";
 import configfile from '../../config.json'
 //const client = create('https://ipfs.infura.io:5001/api/v0')
@@ -33,7 +33,9 @@ const Start = () => {
     const [showTestLoading, setshowTestLoading] = React.useState(false);        
     const [Img,setImg] = useState("")
     const [Imgname,setImgname] = useState("")
-    const[getIPro,setgetIPro]=useState([""]);    
+    const[getIPro,setgetIPro]=useState([""]);   
+    const [showTestAlert,setshowTestAlert] = React.useState(false);   
+    const [issuesdisplay,setissuesdisplay]=useState(null) 
     const dbcallPro=async()=>{            
         let r=[];
         try {         
@@ -106,32 +108,49 @@ const Start = () => {
     };
 
 
+    const refreshSale=()=>{
+      setshowTestAlert(false)
+      //history.push('/')
+      //window.location.reload(false)            
+    }
       
 
     const onSubmitNFT = async (event) => {        
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;          
         if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){            
-          alert("please connect your wallet")
+          setissuesdisplay("please connect your wallet")
+          setshowTestAlert(true)                      
+          //alert("please connect your wallet")
         }          
         else if(tname === "" ){
-          alert("please enter NFT Name")
+          setissuesdisplay("please enter NFT Name")
+          setshowTestAlert(true)               
+          //alert("please enter NFT Name")
         }
         else if(!/\S/.test(tname)){
-          alert("only space not allowed")
+          setissuesdisplay("only space not allowed")
+          setshowTestAlert(true)               
+          //alert("only space not allowed")
         }
         else if(format.test(tname)){
-          alert("please enter valid NFT Name special character not allowed")
+          setissuesdisplay("please enter valid NFT Name special character not allowed")
+          setshowTestAlert(true)               
+          //alert("please enter valid NFT Name special character not allowed")
         }
         else if(Img === "" || Img === null || Img === undefined ){
-          alert("please upload image")
+          setissuesdisplay("please upload image")
+          setshowTestAlert(true)               
+          //alert("please upload image")
         }          
         else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
-          alert("Insufficient balance to create NFT")
+          setissuesdisplay("Insufficient balance to create NFT")
+          setshowTestAlert(true)               
+          //alert("Insufficient balance to create NFT")
         }
         else{
         try{                    
         setshowTestLoading(true)
-        let tb='ELEM';          
+        let tb='ASA';          
         const server = "https://testnet-algorand.api.purestake.io/ps2";
         const port = "";  
         const token = {
@@ -164,7 +183,9 @@ const Start = () => {
         appoptin(assetID,response.txId,localStorage.getItem('wallet'))              
     }catch (err) {        
         setshowTestLoading(false)
-        alert("you wallet raises some issues")
+        setissuesdisplay("your browser appearing issue")
+        setshowTestAlert(true)               
+        //alert("you wallet raises some issues")
         window.location.reload(false)
     }
     }          
@@ -199,16 +220,19 @@ const Start = () => {
         const response = await algodClient.sendRawTransaction(signedTx1.blob).do();      
         await waitForConfirmation(algodClient, response.txId);          
       } catch (err) {        
-        setshowTestLoading(false)          
-        alert("you wallet raises some issues")
-        window.location.reload(false)
+        //setshowTestLoading(false)          
+        //setissuesdisplay("your browser appearing issue")
+        //setshowTestAlert(true)               
+        //alert("you wallet raises some issues")
+        //window.location.reload(false)
+        //storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
       }       
       storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
     }      
 
     const storeDbPinataDuplicate=(assetID,responsetxId,addresseswall)=>{
       toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
-      let appId="50714558";
+      let appId="76917406";
       let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
       let ref22=fireDb.database().ref(`imagerefAlgolt`);   
       let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
@@ -235,21 +259,21 @@ const Start = () => {
               // onClose: ('loading') });        
               ref2.child(db).set({
                 Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                 TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
                 CreatorAddress:addresseswall
               })
                 .then(()=>{
                   refactivity.child(db).set({
                       Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                      NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                       TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
                       CreatorAddress:addresseswall
                     })
                       .then(()=>{                                        
                   ref22.child(db).set({
                   Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                  NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                   TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"true",
                   CreatorAddress:addresseswall
                     })
@@ -260,9 +284,9 @@ const Start = () => {
                           refactivity.child(db).set({
                           Assetid:assetID,Imageurl:Img,NFTPrice:"",
                           EscrowAddress:"Create Asset",keyId:db,
-                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:"",
+                          NFTName:tname,userSymbol:"ASA",Ipfsurl:"",
                           ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
-                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          TimeStamp:dateset,NFTDescription:responsetxId,HistoryAddress:"",
                           Appid:"",valid:"",
                           CreatorAddress:localStorage.getItem('wallet')
                       })
@@ -280,21 +304,21 @@ const Start = () => {
               //toast.success(`Image Uploaded in IPFS ${response.data.IpfsHash}`,{autoClose: 8000});              
               ref2.child(db).set({
                 Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                 TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
                 CreatorAddress:addresseswall
               })
                 .then(()=>{
                   refactivity.child(db).set({
                       Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                      NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                      NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                       TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
                       CreatorAddress:addresseswall
                     })
                       .then(()=>{                                        
                   ref22.child(db).set({
                   Assetid:assetID,Imageurl:Img,NFTPrice:"",EscrowAddress:"",keyId:db,
-                  NFTName:tname,userSymbol:"ELEM",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
+                  NFTName:tname,userSymbol:"ASA",Ipfsurl:ipfsurl,ownerAddress:addresseswall,previousoaddress:"",
                   TimeStamp:dateset,NFTDescription:tdescription,HistoryAddress:[addresseswall],Appid:appId,valid:"false",
                   CreatorAddress:addresseswall
                     })
@@ -305,9 +329,9 @@ const Start = () => {
                           refactivity.child(db).set({
                           Assetid:assetID,Imageurl:Img,NFTPrice:"",
                           EscrowAddress:"Create Asset",keyId:db,
-                          NFTName:tname,userSymbol:"ELEM",Ipfsurl:"",
+                          NFTName:tname,userSymbol:"ASA",Ipfsurl:"",
                           ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
-                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          TimeStamp:dateset,NFTDescription:responsetxId,HistoryAddress:"",
                           Appid:"",valid:"",
                           CreatorAddress:localStorage.getItem('wallet')
                       })
@@ -322,6 +346,8 @@ const Start = () => {
           })
           .catch(function (error) {
               //handle error here
+              setissuesdisplay("your browser appearing issue")
+              setshowTestAlert(true)               
               console.log("Error1",error)
           });
     }
@@ -443,6 +469,15 @@ const Start = () => {
                     <div className="text-center py-4">                        
                         <img src={logogif} alt="loading..." />
                     </div>                    
+                </Modal.Body>
+            </Modal>         
+            <Modal show={showTestAlert} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>{issuesdisplay}</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Ok</Button>
                 </Modal.Body>
             </Modal>            
         </Layout>

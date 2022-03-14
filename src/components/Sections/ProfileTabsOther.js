@@ -20,13 +20,13 @@ const ProfileTabsOther = (create) => {
     // });
 
     // console.log("bcreate",create.create)    
-    // console.log("bsale",create.sale) 
+    console.log("bsalebanner",create.sale) 
     // console.log("bbuyed",create.buyed) 
     // console.log("Logp",create.owner)
     
     return (
         <Tabs defaultActiveKey="onSale" id="profile-tabs" className="mb-4">
-        <Tab eventKey="onSale" title="On sale">
+        <Tab eventKey="onSale" title="On Sale">
             <OnSaleOther data={create.sale}/>
         </Tab>
         <Tab eventKey="owned" title="Owned">

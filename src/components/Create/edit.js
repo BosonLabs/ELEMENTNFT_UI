@@ -12,13 +12,16 @@ import firebase from '../../firebase';
 import configfile from '../../config.json'
 import { DataContext } from '../../Context/DataContext';
 //import logogif from '../../assets/images/gif1.svg';
-//import logogif from '../../assets/images/gif4.webp';
+//import logogif from '../../assets/images/gif4.gif';
 //const client = create('https://ipfs.infura.io:5001/api/v0')
 //const algosdk = require('algosdk'); 
 const axios = require('axios');
 
 const Edit = () => {
     const{getIPro2}=useContext(DataContext)
+    //console.log("Editc",getIPro2)
+    const [showTestAlert,setshowTestAlert] = React.useState(false);   
+    const [issuesdisplay,setissuesdisplay]=useState(null)
     //let tempaddress=localStorage.getItem('wallet').slice(0,5);
     // React.useEffect(() => {
     //     window.scrollTo(0, 0);     
@@ -77,32 +80,49 @@ const Edit = () => {
 
       const onSubmitNFT = async (event) => {        
         if(tname === ""){
-            alert("please enter profile name")
+            setissuesdisplay("please enter profile name")
+            setshowTestAlert(true)                      
+            //alert("")
         }
-        else if(turl === "" ){
-            alert("please enter url")
-        }
+        // else if(turl === "" ){
+        //     alert("please enter url")
+        // }
         else if(tTwitter === "" ){
-            alert("please enter twitter username")
+            setissuesdisplay("please enter twitter username")
+            setshowTestAlert(true)                      
+            //alert("")
         }else if(temail === ""){
-            alert("please enter gmail")
+            setissuesdisplay("please enter gmail")
+            setshowTestAlert(true)                      
+            //alert("please enter gmail")
         }else if(tbio === "" ){
-            alert("please enter Bio")
+            setissuesdisplay("please enter Bio")
+            setshowTestAlert(true)                      
+            //alert("please enter Bio")
         }
         else if(Img === ""){
-            alert("please Upload Image")
+            setissuesdisplay("please Upload Image")
+            setshowTestAlert(true)                      
+            //alert("please Upload Image")
         }
         else if(tpurl === ""){
-            alert("please enter personal url")
+            setissuesdisplay("please enter personal url")
+            setshowTestAlert(true)                      
+            //alert("please enter personal url")
         }
         else if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === " " ){
-            alert("Please Connect Wallet")
-            window.location.reload(false)
+            setissuesdisplay("Please Connect Wallet")
+            setshowTestAlert(true)                      
+            //alert("Please Connect Wallet")
+            //window.location.reload(false)
         }
         else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(temail))){
-            alert("Please Enter Valid E-mail")
+            setissuesdisplay("Please Enter Valid E-mail")
+            setshowTestAlert(true)                      
+            //alert("Please Enter Valid E-mail")
         }
-        else if(getIPro2[0] === null || getIPro2[0] === "" || getIPro2[0] === undefined || getIPro2 === null || getIPro2 === undefined || getIPro2 === ""){
+        else if(getIPro2[0] === null || getIPro2[0] === "" || getIPro2[0] === undefined || getIPro2 === null || getIPro2 === undefined || getIPro2 === ""){            
+        //console.log("Edit1",getIPro2[0])
         setshowTestLoading(true)                                     
         //setshowTestLoading(false)  
         //setShow(true)
@@ -117,13 +137,17 @@ const Edit = () => {
             setShow(true)
         }).catch((err) => {                                    
             setshowTestLoading(false)                     
+            setissuesdisplay("your browser appearing issue")
+            setshowTestAlert(true)                      
             console.log(err);
         });               
         }
         else{
         setshowTestLoading(true)
-        if(fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`).orderByCalled_ === false ){
+        //if(fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`).orderByCalled_ === false ){
+        if(getIPro2[0].bgurl === null || getIPro2[0].bgurl === undefined || getIPro2[0].bgurl === ""){
         let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);
+        //console.log("Edit2",ref2.database)
         let dateset=new Date().toDateString();
         ref2.set({
         Imageurl:Img,bgurl:"",
@@ -138,7 +162,7 @@ const Edit = () => {
         });   
         }
         else{                
-        let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+        let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                            
         let dateset=new Date().toDateString();
         let r=[];
         firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
@@ -156,8 +180,8 @@ const Edit = () => {
                   bgurl:data.val().bgurl,
                   valid:data.val().valid
                 })                                                
-        console.log("InData",r)                      
-        console.log("bgu",r[0])
+        //console.log("InData",r)                      
+        //console.log("bgu",r[0])
         ref2.set({
             Imageurl:Img,bgurl:r[0].bgurl,
             UserName:tname,Customurl:turl,WalletAddress:localStorage.getItem('wallet'),
@@ -182,6 +206,11 @@ const Edit = () => {
         window.location.reload(false);    
       }
 
+      const refreshSale=()=>{
+        setshowTestAlert(false)
+        //history.push('/')
+        //window.location.reload(false)            
+    }
     
       return (
         <Layout>
@@ -221,13 +250,13 @@ const Edit = () => {
                                         placeholder='Enter your display name'
                                     />
                                 </InputGroup>
-                                <h3>Custom URL</h3>    
+                                {/* <h3>Custom URL</h3>    
                                 <InputGroup className="mb-4 input-group-field" onChange={event => setUrl( event.target.value)}>
                                     <InputGroup.Text className='ps-0 font-weight-normal'>
                                         element.com/
                                     </InputGroup.Text>
                                     <Form.Control placeholder="Enter your custom URL" />
-                                </InputGroup>     
+                                </InputGroup>      */}
                                 <h3>Bio</h3>
                                 <InputGroup className="mb-4 input-group-field" onChange={event => setBio( event.target.value)}>
                                     <Form.Control
@@ -293,6 +322,15 @@ const Edit = () => {
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>done()}>Done</Button>
                 </Modal.Body>
             </Modal>
+            <Modal show={showTestAlert} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>{issuesdisplay}</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Ok</Button>
+                </Modal.Body>
+            </Modal>         
         </Layout>
     );
 };

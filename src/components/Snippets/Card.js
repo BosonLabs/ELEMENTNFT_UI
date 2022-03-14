@@ -12,7 +12,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 //import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import dataescrowprice from "../../escrowpricenew";
@@ -21,6 +21,8 @@ const myAlgoWallet = new MyAlgoConnect();
 const algosdk = require('algosdk'); 
 
 const CardCreate = (props) => {
+    const [showTestAlert,setshowTestAlert] = React.useState(false);   
+    const [issuesdisplay,setissuesdisplay]=useState(null)
     //console.log("cprint",props.onNameChange)
     // const handleInputChange = useCallback(event => {
     //     props.onNameChange(props.onNameChange)
@@ -70,7 +72,9 @@ const CardCreate = (props) => {
         setShowTestLoading(true)
         //console.log("sale",props.dataall);
         if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === " "){
-            alert("please connect your wallet")
+            setissuesdisplay("please connect your wallet")
+            setshowTestAlert(true)                      
+            //alert("please connect your wallet")
         }else if(localStorage.getItem('wallet') === props.dataall.ownerAddress){                  
             let dateset=new Date().toDateString();      
             fireDb.database().ref(`imagerefexploreoneAlgos/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).set({
@@ -172,28 +176,40 @@ const CardCreate = (props) => {
         //var regex = new RegExp("^[a-zA-Z]+$")
         //console.log("Lenget",getprices.length)
         if(getprices === null || getprices === undefined || getprices === "" ){
-            alert("please enter price")
+            setissuesdisplay("please enter price")
+            setshowTestAlert(true)               
+            //alert("please enter price")
             setShowTest(true)
             //window.location.reload(false)!regExpr.test(getprices) || !regex.test(getprices) || !/[0-9]/.test(getprices)
         }else if(isNaN(getprices))
         {
-            alert("please valid number")
+            //alert("please valid number")
+            setissuesdisplay("please valid number")
+            setshowTestAlert(true)               
             setShowTest(true)
             //window.location.reload(false)
         }
         else if(getprices === "0"){
-            alert("please enter above 0 price")
+            setissuesdisplay("please enter above 0 price")
+            setshowTestAlert(true)               
+            //alert("please enter above 0 price")
             setShowTest(true)
             //window.location.reload(false)
         }
         else if(getprices === "00" || getprices === "000" || getprices === "0000" || getprices === "00000"){
-            alert("you are entered zeros")
+            setissuesdisplay("you are entered zeros")
+            setshowTestAlert(true)               
+            //alert("you are entered zeros")
         }
         else if(getprices.length >= 5 ){                                    
-            alert("you are entered Maximum Values")
+            setissuesdisplay("you are entered Maximum Values")
+            setshowTestAlert(true)               
+            //alert("you are entered Maximum Values")
         }
         else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
-            alert("Insufficient balance to create NFT")
+            setissuesdisplay("Insufficient balance to create NFT")
+            setshowTestAlert(true)               
+            //alert("Insufficient balance to create NFT")
         }
         setShowTestLoading(true)        
         let amountmul=(parseFloat(getprices)*1000000);
@@ -277,7 +293,7 @@ const CardCreate = (props) => {
             refactivity.child(db).set({
                 Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
                 NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
-                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+                TimeStamp:dateset,NFTDescription:response.txId,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
                 CreatorAddress:props.dataall.CreatorAddress
         })
         .then(()=>{                                        
@@ -292,7 +308,9 @@ const CardCreate = (props) => {
             //console.error(err);
             setShowTestLoading(false)
             toast.dismiss();
-            alert("you wallet raises some issues")
+            setissuesdisplay("your browser appearing issue")
+            setshowTestAlert(true)                      
+            // alert("you wallet raises some issues")
             window.location.reload(false)
           }
 
@@ -462,6 +480,12 @@ const CardCreate = (props) => {
     const sharebutton=()=>{    
         setshowShare(true)
     }
+
+    const refreshSale2=()=>{
+        setshowTestAlert(false)
+        //history.push('/')
+        //window.location.reload(false)            
+    }
     
     return (
         <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
@@ -629,7 +653,16 @@ const CardCreate = (props) => {
                                 </div>
                             </div>                                                    
                 </Modal.Body>
-            </Modal>                      
+            </Modal>       
+            <Modal show={showTestAlert} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>{issuesdisplay}</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale2()}>Ok</Button>
+                </Modal.Body>
+            </Modal>                        
             </div>                                   
             </Card.Body>            
         </Card>

@@ -13,10 +13,12 @@ import fireDb from '../../firebase';
 import firebase from '../../firebase';
 //import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 //const myAlgoWallet = new MyAlgoConnect();
 
 const CardBuy = (props) => {
+    const [showTestAlert,setshowTestAlert] = React.useState(false);   
+    const [issuesdisplay,setissuesdisplay]=useState(null)
     const [showShare,setshowShare] = React.useState(false); 
     const handleCloseshowShare = () => setshowShare(false);  
     //const [showTest, setShowTest] = React.useState(false);
@@ -88,6 +90,11 @@ const CardBuy = (props) => {
         setshowShare(true)
     }
 
+    const refreshSale2=()=>{
+        setshowTestAlert(false)
+        //history.push('/')
+        //window.location.reload(false)            
+    }
     // const dbliked=async()=>{            
     //     let r=[];
     //     try {         
@@ -125,7 +132,9 @@ const CardBuy = (props) => {
 
     const likeadd=(dataall)=>{
         if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === "" || localStorage.getItem('wallet') === undefined) {
-            alert("please connect your wallet")            
+            setissuesdisplay("please connect your wallet")
+            setshowTestAlert(true)               
+            //alert("please connect your wallet")            
         }else{
         let ref2=fireDb.database().ref(`dblike/${localStorage.getItem('wallet')}`);
         let dateset=new Date().toDateString();        
@@ -320,7 +329,17 @@ const CardBuy = (props) => {
                                 </div>
                             </div>                        
                 </Modal.Body>
-            </Modal>                  
+            </Modal>      
+                        
+            <Modal show={showTestAlert} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>{issuesdisplay}</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale2()}>Ok</Button>
+                </Modal.Body>
+            </Modal>         
                 </div>                   
                 
             </Card.Body>

@@ -8,18 +8,18 @@ import {
 import DummyPic from '../assets/images/dummy-icon.svg';
 //import ProfileTabs from './Sections/ProfileTabs';
 import firebase from '../firebase';
-import ProfileTabs from "./Sections/ProfileTabs";
+//import ProfileTabs from "./Sections/ProfileTabs";
 import ProfileTabsOther from "./Sections/ProfileTabsOther";
 import Algopng from '../assets/images/Algo.png'
-const axios = require('axios');
+//const axios = require('axios');
 
-function HomePage(props) { 
+function ProfileViewOtherCopy2New (props) { 
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);     
   // });
     const location = useLocation(); 
     let history=useHistory();
-    //console.log("hotcollo",location.state)        
+    //console.log("BannerNew",location.state.ownerAddress)        
     //console.log("followlast",location.state.follow[0].follower)
     //console.log("followlast2",location.state.follow[0].following)
     
@@ -32,22 +32,22 @@ function HomePage(props) {
     //console.log("getIPro",getIPro) 
     //console.log("getImgalgo",getImgreffalgo)
     const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
-    //console.log("getImgalgosale",getImgreffalgosale)
+    console.log("getImgalgosaleBanner",getImgreffalgosale)
     const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
     //console.log("getImgalgobuy",getImgreffalgobuy)
 
     const handleClose = () => {setShow(false); setFollowers(false); setFollowing(false)};
-    const handleShow = () => setShow(true);
-    const handleFollowers = () => setFollowers(true);
-    const handleFollowing = () => setFollowing(true);
+    //const handleShow = () => setShow(true);
+    //const handleFollowers = () => setFollowers(true);
+    //const handleFollowing = () => setFollowing(true);
 
     //title:props.NFTName,amount:props.NFTPrice,appid:props.Appid,assetid:props.Assetid,escrowaddress:props.EscrowAddress,historyaddress:props.HistoryAddress,imageurl:props.Imageurl,ipfsurl:props.Ipfsurl,nftdescription:props.NFTDescription,TimeStamp:props.TimeStamp,keyId:props.keyId,ownerAddress:props.ownerAddress,previousaddress:props.previousaddress,userSymbol:props.userSymbol
 
     //const[getIf,setgetIf]=useState([""]); 
     //console.log("gethome",getIf)        
-    const[getIfo,setgetIfo]=useState([null]); 
+    //const[getIfo,setgetIfo]=useState([null]); 
     //console.log("gethomeo",getIfo)        
-    const[getIfl,setgetIfl]=useState([null]); 
+    //const[getIfl,setgetIfl]=useState([null]); 
     //console.log("gethomefl",getIfl)   
     
     const[getdbLike,setdbLike]=useState([]);
@@ -60,7 +60,7 @@ function HomePage(props) {
           window.location.reload(false);    
         }else{      
           let getalgo=localStorage.getItem("wallet");              
-          firebase.database().ref("dblike").child(getalgo).on("value", (data) => {
+          firebase.database().ref("dblike").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                                             
                 req.push(            
@@ -278,7 +278,7 @@ useEffect(()=>{dbcallother()},[])
           history.push("/")
           window.location.reload(false);    
         }else{      
-          firebase.database().ref("imagerefexploreoneAlgos").child(location.state.ownerAddress).on("value", (data) => {
+          firebase.database().ref("imagerefexploreoneAlgosBoson").child(location.state.ownerAddress).on("value", (data) => {
             if (data) {
               data.forEach((d) => {                
                 let value=d.val();
@@ -515,14 +515,14 @@ useEffect(()=>{dbcallother()},[])
                 {location.state.ownerAddress === null || location.state.ownerAddress === "" || location.state.ownerAddress === undefined ? (<>                                                
                         </>):(<>
                     <Button variant='copy-code' className="btn"  onClick={() => { navigator.clipboard.writeText(location.state.alldata.ownerAddress); setToast(true)}}>
-                        <img src={Algopng} alt="icon" />
-                        {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
+                        <img src={Algopng} alt="icon" />                        
+                          {!toast ? <span>{(location.state.ownerAddress).slice(0,8)}....{(location.state.ownerAddress).slice(52,58)}</span> : (
                             <Toast className='toast-text' onClose={() => {setToast(false); handleClose();}} show={toast} autohide delay={1500}>
                                 <Toast.Body>Copied!</Toast.Body>
                             </Toast>  
-                        )}
+                        )}                                                                        
                     </Button>
-                    </>)}
+                    </>)}                    
                 </div>
 
                 <div className="mb-32 d-flex align-items-center justify-content-center">                                    
@@ -591,15 +591,9 @@ useEffect(()=>{dbcallother()},[])
                     </Dropdown>
                 </div>
 
-
-{location.state.ownerAddress === "" || location.state.ownerAddress === null || location.state.ownerAddress === undefined ? (<>
-
-  <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={"0xdjsdsid"} likes={getdbLike}/>
-</>):(
-<ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
-)}
-
-
+{/* {location.state.ownerAddress === "" || location.state.ownerAddress === null || location.state.ownerAddress === undefined ? ( <></>):(<> */}
+  <ProfileTabsOther create={getImgreffalgo} sale={getImgreffalgosale} buyed={getImgreffalgobuy} owner={location.state.ownerAddress} likes={getdbLike}/>
+{/* </>)}             */}
             </Container>
 
             {/* onHide={handleClose} */}
@@ -644,4 +638,4 @@ useEffect(()=>{dbcallother()},[])
     );
 }
 
-export default HomePage;
+export default ProfileViewOtherCopy2New;

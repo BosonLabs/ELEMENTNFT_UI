@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import firebase from '../firebase';
 import { DataContext } from '../Context/DataContext';
 //import logogif from '../assets/images/gif1.svg';
-import logogif from '../assets/images/gif4.webp';
+import logogif from '../assets/images/gif4.gif';
 import cjson from '../config.json'
 import AlgorandIcon from '../assets/images/Algo.png'
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
@@ -36,9 +36,13 @@ const SingleBid = (props) => {
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
     const [showTestSale,setshowTestSale] = React.useState(false);   
+    
     const [showShare,setshowShare] = React.useState(false);   
          
     const [getprices,setprices]=useState(null)
+    const [showTestAlert,setshowTestAlert] = React.useState(false);   
+    const [issuesdisplay,setissuesdisplay]=useState(null)
+    
     //const handleCloseTest = () => setShowTest(false);
     //const handleCloseTestLoading = () => setShowTestLoading(false);
     //const handleCloseTestDone = () => setshowTestDone(false);
@@ -151,24 +155,34 @@ const SingleBid = (props) => {
         const buynow=async()=>{
 
             if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
+                setissuesdisplay("please connect wallet")
+                setshowTestAlert(true)
             }
             else{          
             if(location.state.alldata.ownerAddress === localStorage.getItem("wallet"))
             {   
-                alert("you are owner so you does not purchase this token")             
-                window.location.reload(false)                
+                //alert("you are owner so you does not purchase this token")             
+                setissuesdisplay("you are owner")
+                setshowTestAlert(true)
+                //window.location.reload(false)                
             }            
             else{                    
             if(algobalanceApp === 0 || algobalanceApp === ""){
-              alert("your balance below 1")                
+                setissuesdisplay("your wallet balance below 1")
+                setshowTestAlert(true)
+              //alert("your balance below 1")                
               //window.location.reload(false)                
             }
             else if((parseFloat(location.state.alldata.NFTPrice)/1000000) >= algobalance ){
-                alert("your balance not enough to purchase this nft")
+                setissuesdisplay("your balance not enough to purchase this nft")
+                setshowTestAlert(true)
+                //alert("your balance not enough to purchase this nft")
                 //window.location.reload(false)                
             }
             else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
-                alert("Insufficient balance to create NFT")
+                setissuesdisplay("Insufficient balance to Buy NFT")
+                setshowTestAlert(true)
+                //alert("Insufficient balance to create NFT")
                 //window.location.reload(false)                
             }
             else{
@@ -220,7 +234,7 @@ const SingleBid = (props) => {
                       amount: 0,
                       suggestedParams: params
                   });
-                  const transactionelem = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+                const transactionelem = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                     from: localStorage.getItem('wallet'),
                     to: localStorage.getItem('wallet'),
                     assetIndex: parseInt(configfile['elemId']),
@@ -228,12 +242,12 @@ const SingleBid = (props) => {
                     amount: 0,
                     suggestedParams: params
                 });
-                  const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
-                  const responseass = await algodClient.sendRawTransaction(signedTxnass.blob).do();
-                  const signedTxnelem = await myAlgoConnect.signTransaction(transactionelem.toByte());
-                  const responseelem = await algodClient.sendRawTransaction(signedTxnelem.blob).do();
+                //   const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
+                //   const responseass = await algodClient.sendRawTransaction(signedTxnass.blob).do();
+                //   const signedTxnelem = await myAlgoConnect.signTransaction(transactionelem.toByte());
+                //   const responseelem = await algodClient.sendRawTransaction(signedTxnelem.blob).do();
                   //console.log("optresponse",responseass)            
-                  toast.success(`Asset Opted Successfully ${responseass.txId}`,{autoClose: 8000});
+                  
 
                   let transactionfund = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                     from: localStorage.getItem('wallet'), 
@@ -243,8 +257,21 @@ const SingleBid = (props) => {
                     suggestedParams: params
                    });
 
-                   const signedTxnfund = await myAlgoConnect.signTransaction(transactionfund.toByte());
-                   const responsefund = await algodClient.sendRawTransaction(signedTxnfund.blob).do();
+                //    const signedTxnfund = await myAlgoConnect.signTransaction(transactionfund.toByte());
+                //    const responsefund = await algodClient.sendRawTransaction(signedTxnfund.blob).do();
+
+
+                const groupIDfirst = algosdk.computeGroupID([ transactionass, transactionelem, transactionfund]);
+                  const txsfirst = [ transactionass, transactionelem, transactionfund];
+                  txsfirst[0].group = groupIDfirst;
+                  txsfirst[1].group = groupIDfirst;
+                  txsfirst[2].group = groupIDfirst;
+                  const signedTx1first = await myAlgoWallet.signTransaction([txsfirst[0].toByte(),txsfirst[1].toByte(),txsfirst[2].toByte()]);
+                  const responsefirst = await algodClient.sendRawTransaction([signedTx1first[0].blob,signedTx1first[1].blob,signedTx1first[2].blob]).do();                  
+                  await waitForConfirmation(algodClient, responsefirst.txId);
+
+                  toast.success(`Asset Opted Successfully ${responsefirst.txId}`,{autoClose: 8000});
+
                 
                    let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                       from: localStorage.getItem('wallet'), 
@@ -346,8 +373,8 @@ const SingleBid = (props) => {
                           Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
                           EscrowAddress:"BuyNFT",keyId:db,
                           NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
-                          ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
-                          TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                          ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress, 
+                          TimeStamp:dateset,NFTDescription:response.txId,HistoryAddress:a,
                           Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
                           CreatorAddress:location.state.alldata.CreatorAddress
                       })
@@ -364,9 +391,11 @@ const SingleBid = (props) => {
                   } catch (err) {
                       //console.error(err);
                       setShowTestLoading(false)
-                      alert("you wallet raises some issues")
                       toast.dismiss();
-                      window.location.reload(false)                
+                      //alert("you wallet raises some issues")
+                      setissuesdisplay("your browser appearing issue")
+                      setshowTestAlert(true)                      
+                      //window.location.reload(false)                
                 }                                                        
             }
             // else{
@@ -771,6 +800,16 @@ const SingleBid = (props) => {
                         <h3>Token Purchase Successfully</h3>  
                     </div>                    
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
+                </Modal.Body>
+            </Modal>                          
+
+            <Modal show={showTestAlert} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>{issuesdisplay}</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Ok</Button>
                 </Modal.Body>
             </Modal>                          
             

@@ -5,6 +5,7 @@ import {
     Link
   } from "react-router-dom";
 import TeamCard from './Snippets/TeamCard';
+import ElementIcon from '../assets/images/elementlogo.png'
 
 const SingleBid = () => {
     const [video, setVideo] = React.useState(false);
@@ -17,15 +18,15 @@ const SingleBid = () => {
                     <h1 className='display-3 font-bold mb-2'>Meet ELEMENT</h1>
                     <p className="lead mb-5">NFT marketplace where anything is possible and all are welcome</p>
 
-                    <div className="position-relative">
+                    {/* <div className="position-relative">
                         {!video && <img src="https://rarible.com/27dbbe6d9e04bded811c.png" alt="banner" className='img-fluid' />}
                         {!video && <Button onClick={handle} variant='play'><img src="https://rarible.com/9d687fe4cc6cc86b4404.svg" alt="play" /></Button>}
 
                         {video && <video playsInline={true} className='w-100 d-block' autoPlay={true} loop={true} src="https://bafybeihv264z5fawmqeabyvkw3v33v4wvzw5tsjz4d7wazjdpj4th53u5m.ipfs.infura-ipfs.io/"></video>}
-                    </div>
+                    </div> */}
                 </div>
 
-                <div className="py-5 text-center">
+                {/* <div className="py-5 text-center">
                     <h2 className='display-6 mb-4 font-bold'>ELEMENT in numbers</h2>
 
                     <Row>
@@ -42,38 +43,44 @@ const SingleBid = () => {
                             <p className='lead'>NFTs created</p>
                         </Col>
                     </Row>
-                </div>
+                </div> */}
 
                 <div className="py-5 mt-md-5 text-center">
                     <h2 className='display-6 mb-5 font-bold'>Get to know us</h2>
 
                     <div className="about-item d-flex align-items-center">
-                        <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Multi-chain NFT marketplace</strong> with Algorand, Flow and Tezos integrated</p>
+                        {/* <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" /> */}
+                        <img src={ElementIcon} alt="about" width={"80px"} height={"80px"}/>
+                        <p>Single-chain NFT marketplace with Algorand and Pinata integrated</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
-                        <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>A platform for diverse creators and brands,</strong> including LIRONA, Pak, The Watcher, eBoy, Aavegotchi, Twitter, Lindsay Lohan and Floyd Mayweather Jr</p>
+                        {/* <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" /> */}
+                        <img src={ElementIcon} alt="about" width={"80px"} height={"80px"}/>
+                        <p>A platform for diverse creators and brands, including LIRONA, Pak, The Watcher, eBoy, Aavegotchi, Twitter, Lindsay Lohan and Floyd Mayweather Jr</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
-                        <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Features include multiple edition NFTs, timed auctions, royalties, messenger, personalized activity feed, and much more</strong></p>
+                        {/* <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" /> */}
+                        <img src={ElementIcon} alt="about" width={"80px"} height={"80px"}/>
+                        <p>Features include single edition NFTs, timed auctions, royalties, messenger, personalized activity feed, and much more</p>
                     </div>
                     <div className="about-item d-flex align-items-center">
-                        <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>A safe place to trade digital art, collectibles, music and video NFTs, domain names, metaverse lands and wearables, and more</strong></p>
+                        {/* <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" /> */}
+                        <img src={ElementIcon} alt="about" width={"80px"} height={"80px"}/>
+                        <p>A safe place to trade digital art, collectibles, NFTs, domain names, and wearables, and more</p>
                     </div>
-                    <div className="about-item d-flex align-items-center">
+                    {/* <div className="about-item d-flex align-items-center">
                         <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
                         <p><strong>On a mission to environmental sustainability,</strong> encouragyting users to remove carbon footprint via partnership with <Link to="/">Nori</Link></p>
-                    </div>
+                    </div> */}
                     <div className="about-item d-flex align-items-center">
-                        <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" />
-                        <p><strong>Launched the <Link to="/">ELEMENT Protocol</Link>,</strong> a public, DAO-governed set of open-source tools for developers and businesses to build their own NFT projects and deploy customized NFT storefronts</p>
+                        {/* <img src="https://rarible.com/84ede040cbc4ebd7ed43.svg" alt="about" /> */}
+                        <img src={ElementIcon} alt="about" width={"80px"} height={"80px"}/>
+                        <p>Launched the ELEMENT Protocol, a public,  set of open-source tools for developers and businesses to build their own NFT projects and deploy customized NFT storefronts</p>
                     </div>
                 </div>
 
                 {/* <div className="py-5 mt-md-5 text-center">
+                <p><strong>Launched the <Link to="/">ELEMENT Protocol</Link>,</strong> a public, DAO-governed set of open-source tools for developers and businesses to build their own NFT projects and deploy customized NFT storefronts</p>
                     <h2 className='display-6 mb-5 font-bold'>Team</h2>
 
                     <Row>

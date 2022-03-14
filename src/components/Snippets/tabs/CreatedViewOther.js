@@ -126,12 +126,12 @@ const CreatedViewOther = (data) => {
     return (
         <div className='mb-4'>            
             <div className='d-flex mb-4 filter-list flex-wrap align-items-center'>
-                <div className="filter-item filter-category">
+                {/* <div className="filter-item filter-category">
                     <Select
                         styles={colourStyles}
                         closeMenuOnSelect={true}
                         components={animatedComponents}
-                        // defaultValue={[colourOptions[4], colourOptions[5]]}
+                        defaultValue={[colourOptions[4], colourOptions[5]]}
                         placeholder="Category"
                         options={CategoryOptions}
                         onChange={setcategory}
@@ -142,15 +142,15 @@ const CreatedViewOther = (data) => {
                             </div>
                         )}
                     />
-                </div>
-                <div className="filter-item filter-sale-type">
+                </div> */}
+                {/* <div className="filter-item filter-sale-type">
                     <Select
                         styles={colourStyles}
                         closeMenuOnSelect={false}
                         components={animatedComponents}
-                        // defaultValue={[colourOptions[4], colourOptions[5]]}
+                        defaultValue={[colourOptions[4], colourOptions[5]]}
                         placeholder="Sale Type"
-                        // isMulti
+                        isMulti
                         options={saleTypeOptions}
                         onChange={setsaletype}
                         formatOptionLabel={option => (
@@ -160,9 +160,9 @@ const CreatedViewOther = (data) => {
                             </div>
                         )}
                     />
-                </div>
+                </div> */}
 
-                <div className="filter-dropdown">
+                {/* <div className="filter-dropdown">
                     <Dropdown className='dropdown-noarrow'>
                         <Dropdown.Toggle variant="outline-gray">
                             <svg viewBox="0 0 10 16" fill="none" width="16" height="16" xlmns="http://www.w3.org/2000/svg" className="me-1"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.99992 0.333313C5.36811 0.333313 5.66659 0.63179 5.66659 0.99998V2.66665H8.33325C8.70144 2.66665 8.99992 2.96512 8.99992 3.33331C8.99992 3.7015 8.70144 3.99998 8.33325 3.99998H5.66659V7.33331H6.66659C7.46224 7.33331 8.2253 7.64938 8.78791 8.21199C9.35052 8.7746 9.66659 9.53766 9.66659 10.3333C9.66659 11.129 9.35052 11.892 8.78791 12.4546C8.2253 13.0172 7.46224 13.3333 6.66659 13.3333H5.66659V15C5.66659 15.3682 5.36811 15.6666 4.99992 15.6666C4.63173 15.6666 4.33325 15.3682 4.33325 15V13.3333H0.999919C0.631729 13.3333 0.333252 13.0348 0.333252 12.6666C0.333252 12.2985 0.631729 12 0.999919 12H4.33325V8.66665H3.33325C2.5376 8.66665 1.77454 8.35058 1.21193 7.78797C0.649323 7.22536 0.333252 6.4623 0.333252 5.66665C0.333252 4.871 0.649323 4.10793 1.21193 3.54533C1.77454 2.98272 2.5376 2.66665 3.33325 2.66665H4.33325V0.99998C4.33325 0.63179 4.63173 0.333313 4.99992 0.333313ZM4.33325 3.99998H3.33325C2.89122 3.99998 2.4673 4.17557 2.15474 4.48814C1.84218 4.8007 1.66659 5.22462 1.66659 5.66665C1.66659 6.10867 1.84218 6.5326 2.15474 6.84516C2.4673 7.15772 2.89122 7.33331 3.33325 7.33331H4.33325V3.99998ZM5.66659 8.66665V12H6.66659C7.10861 12 7.53254 11.8244 7.8451 11.5118C8.15766 11.1993 8.33325 10.7753 8.33325 10.3333C8.33325 9.89128 8.15766 9.46736 7.8451 9.1548C7.53254 8.84224 7.10861 8.66665 6.66659 8.66665H5.66659Z" fill="#828282" ></path></svg>
@@ -194,7 +194,7 @@ const CreatedViewOther = (data) => {
                                 </Col>
                             </Row>
 
-                            {/* <Dropdown.Divider className='my-3' />
+                            <Dropdown.Divider className='my-3' />
                             <Row className='gx-2'>
                                 <Col>
                                     <Button variant='default' className='w-100'>Clear</Button>
@@ -202,12 +202,12 @@ const CreatedViewOther = (data) => {
                                 <Col>
                                     <Button variant='default' className='w-100' disabled>Apply</Button>
                                 </Col>
-                            </Row> */}
+                            </Row>
                         </Dropdown.Menu>
                     </Dropdown>
-                </div>
+                </div> */}
 
-                <div className="filter-dropdown ms-auto">
+                {/* <div className="filter-dropdown ms-auto">
                     <Dropdown className='dropdown-noarrow'>
                         <Dropdown.Toggle variant="outline-gray">
                             <div className="btn-lagend">Sort</div>
@@ -227,12 +227,12 @@ const CreatedViewOther = (data) => {
                             <Dropdown.Item onClick={event => setrecent("High to Low")}>
                             Price: High to Low
                             </Dropdown.Item>
-                            {/* <Dropdown.Item onClick={event => setrecent("Auction ending soon")}>
+                            <Dropdown.Item onClick={event => setrecent("Auction ending soon")}>
                             Auction ending soon
-                        </Dropdown.Item> */}
+                        </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                </div>
+                </div> */}
             </div>
 
             {data.data[0] === null || data.data[0] === "" || data.data[0] === undefined ? (
@@ -243,7 +243,7 @@ const CreatedViewOther = (data) => {
             </div>
            ):(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
-            {filterdata().map((x, index) => {
+            {data.data.map((x, index) => {
                 // console.log("xvalue",x)
                 return(  
                     <>

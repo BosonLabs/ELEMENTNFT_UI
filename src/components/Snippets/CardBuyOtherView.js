@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 import {Card, Dropdown, Button, OverlayTrigger, Tooltip,Modal} from 'react-bootstrap';
 import {
     Link

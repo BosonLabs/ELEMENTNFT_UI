@@ -35,6 +35,7 @@ import firebase from './firebase';
 import configfile from './config.json'
 import cjson from './config.json'
 import Singlecopy from "./components/Create/Singlecopy";
+import ProfileViewOtherCopy2New from "./components/ProfileViewOtherCopy2New";
 const axios = require('axios');
 const algosdk = require('algosdk'); 
 
@@ -384,6 +385,9 @@ useEffect(()=>{bannerDb()},[])
         <Route path="/profileviewothercopy2">
           <ProfileViewOtherCopy2 />
         </Route>
+        <Route path="/ProfileViewOtherCopy2New">
+          <ProfileViewOtherCopy2New />
+        </Route>        
         <Route path="/profileviewothercopy3">
           <ProfileViewOtherCopy3 />
         </Route>                
