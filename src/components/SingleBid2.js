@@ -220,7 +220,7 @@ const SingleBid = (props) => {
                       amount: 0,
                       suggestedParams: params
                   });
-                  const transactionelem = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+                const transactionelem = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
                     from: localStorage.getItem('wallet'),
                     to: localStorage.getItem('wallet'),
                     assetIndex: parseInt(configfile['elemId']),
@@ -228,12 +228,12 @@ const SingleBid = (props) => {
                     amount: 0,
                     suggestedParams: params
                 });
-                  const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
-                  const responseass = await algodClient.sendRawTransaction(signedTxnass.blob).do();
-                  const signedTxnelem = await myAlgoConnect.signTransaction(transactionelem.toByte());
-                  const responseelem = await algodClient.sendRawTransaction(signedTxnelem.blob).do();
+                //   const signedTxnass = await myAlgoConnect.signTransaction(transactionass.toByte());
+                //   const responseass = await algodClient.sendRawTransaction(signedTxnass.blob).do();
+                //   const signedTxnelem = await myAlgoConnect.signTransaction(transactionelem.toByte());
+                //   const responseelem = await algodClient.sendRawTransaction(signedTxnelem.blob).do();
                   //console.log("optresponse",responseass)            
-                  toast.success(`Asset Opted Successfully ${responseass.txId}`,{autoClose: 8000});
+                  
 
                   let transactionfund = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                     from: localStorage.getItem('wallet'), 
@@ -243,8 +243,21 @@ const SingleBid = (props) => {
                     suggestedParams: params
                    });
 
-                   const signedTxnfund = await myAlgoConnect.signTransaction(transactionfund.toByte());
-                   const responsefund = await algodClient.sendRawTransaction(signedTxnfund.blob).do();
+                //    const signedTxnfund = await myAlgoConnect.signTransaction(transactionfund.toByte());
+                //    const responsefund = await algodClient.sendRawTransaction(signedTxnfund.blob).do();
+
+
+                const groupIDfirst = algosdk.computeGroupID([ transactionass, transactionelem, transactionfund]);
+                  const txsfirst = [ transactionass, transactionelem, transactionfund];
+                  txsfirst[0].group = groupIDfirst;
+                  txsfirst[1].group = groupIDfirst;
+                  txsfirst[2].group = groupIDfirst;
+                  const signedTx1first = await myAlgoWallet.signTransaction([txsfirst[0].toByte(),txsfirst[1].toByte(),txsfirst[2].toByte()]);
+                  const responsefirst = await algodClient.sendRawTransaction([ signedTx1first[0].blob]).do();                  
+                  await waitForConfirmation(algodClient, responsefirst.txId);
+
+                  toast.success(`Asset Opted Successfully ${responsefirst.txId}`,{autoClose: 8000});
+
                 
                    let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
                       from: localStorage.getItem('wallet'), 
