@@ -25,7 +25,7 @@ const axios = require('axios');
 function Header() {
     const {getI,getIexplore}=useContext(DataContext)
     const {getHotCollection}=useContext(DataContext) 
-    console.log('HeaderS',getHotCollection)   
+    //console.log('HeaderS',getHotCollection)   
     const [searchText, setSearchText] = React.useState('');
     //console.log("SeSet",searchText)
     const [show, setShow] = React.useState(false);
