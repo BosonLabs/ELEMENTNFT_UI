@@ -10,9 +10,18 @@ const Activity = (props) => {
             <div className="activity-content">
                 {/* <h4><Link to="/activity">{props.dataall.NFTName}</Link></h4> */}
                 {/* <img src={props.image} alt="icon" /> </Link>*/}
-                <p>  {props.dataall.NFTName}</p>
-                <p> {props.dataall.EscrowAddress}</p>
+                <p>  {props.dataall.EscrowAddress}</p>
+                {props.dataall.Assetid === "" || props.dataall.Assetid === null || props.dataall.Assetid === undefined ?(<>
+                </>):(<>
+                    <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${props.dataall.Assetid}`)}>  {props.dataall.Assetid}</p>
+                </>)}
+                <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://testnet.algoexplorer.io/address/${props.dataall.ownerAddress}`)}> {props.dataall.ownerAddress}</p>                
+                {props.dataall.NFTDescription === "" || props.dataall.NFTDescription === null || props.dataall.NFTDescription === undefined ?(<>
+                </>):(<>
+                    <p>  {props.dataall.NFTDescription}</p>
+                </>)}
                 <div className="time">{props.dataall.TimeStamp}</div>
+                
             </div>
         </div>
     );

@@ -346,8 +346,8 @@ const SingleBid = (props) => {
                           Assetid:location.state.alldata.Assetid,Imageurl:location.state.alldata.Imageurl,NFTPrice:location.state.alldata.NFTPrice,
                           EscrowAddress:"BuyNFT",keyId:db,
                           NFTName:location.state.alldata.NFTName,userSymbol:location.state.alldata.userSymbol,Ipfsurl:location.state.alldata.Ipfsurl,
-                          ownerAddress:location.state.alldata.ownerAddress,previousoaddress:localStorage.getItem('wallet'), 
-                          TimeStamp:dateset,NFTDescription:location.state.alldata.NFTDescription,HistoryAddress:a,
+                          ownerAddress:localStorage.getItem('wallet'),previousoaddress:location.state.alldata.ownerAddress, 
+                          TimeStamp:dateset,NFTDescription:response.txId,HistoryAddress:a,
                           Appid:location.state.alldata.Appid,valid:location.state.alldata.valid,
                           CreatorAddress:location.state.alldata.CreatorAddress
                       })

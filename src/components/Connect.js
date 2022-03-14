@@ -60,6 +60,7 @@ const setaddwallet=async(a)=>{
     try {                    
     firebase.database().ref("userprofile").orderByChild("WalletAddress").equalTo(a).once("value").then(snapshot =>{
         let r=[];
+        let dateset=new Date().toDateString();   
         if(snapshot.val()){            
              //console.log("firstaddress1  ",snapshot.val()[a])
                   r.push({
@@ -88,7 +89,7 @@ const setaddwallet=async(a)=>{
                           EscrowAddress:"Connect Wallet",keyId:db,
                           NFTName:"",userSymbol:"",Ipfsurl:"",
                           ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
-                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          TimeStamp:dateset,NFTDescription:"",HistoryAddress:"",
                           Appid:"",valid:"",
                           CreatorAddress:localStorage.getItem('wallet')
                       })
@@ -104,11 +105,24 @@ const setaddwallet=async(a)=>{
             firebase.database().ref("userprofile").child(a).set({
             Imageurl:logo,bgurl:logo,
             UserName:"",Customurl:"",WalletAddress:a,
-            TimeStamp:"",Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""
+            TimeStamp:dateset,Twittername:"",Personalsiteurl:"",Email:"",Bio:"",valid:""
             }).then(()=>{
-                
-            setShow(false)
-            setShowcall(true)    
+                let refactivity=firebase.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
+                          const db = refactivity.push().key;                         
+                          refactivity.child(db).set({
+                          Assetid:"",Imageurl:"",NFTPrice:"",
+                          EscrowAddress:"Connect Wallet",keyId:db,
+                          NFTName:"",userSymbol:"",Ipfsurl:"",
+                          ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
+                          TimeStamp:dateset,NFTDescription:"",HistoryAddress:"",
+                          Appid:"",valid:"",
+                          CreatorAddress:localStorage.getItem('wallet')
+                      })
+                          .then(()=>{				
+                            setShow(false)
+                            setShowcall(true)    
+						})
+            
             })    
         }
     })    

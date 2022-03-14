@@ -277,7 +277,7 @@ const CardCreate = (props) => {
             refactivity.child(db).set({
                 Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
                 NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
-                TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
+                TimeStamp:dateset,NFTDescription:response.txId,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
                 CreatorAddress:props.dataall.CreatorAddress
         })
         .then(()=>{                                        

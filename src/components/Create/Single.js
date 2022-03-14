@@ -262,7 +262,7 @@ const Start = () => {
                           EscrowAddress:"Create Asset",keyId:db,
                           NFTName:tname,userSymbol:"ASA",Ipfsurl:"",
                           ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
-                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          TimeStamp:dateset,NFTDescription:responsetxId,HistoryAddress:"",
                           Appid:"",valid:"",
                           CreatorAddress:localStorage.getItem('wallet')
                       })
@@ -307,7 +307,7 @@ const Start = () => {
                           EscrowAddress:"Create Asset",keyId:db,
                           NFTName:tname,userSymbol:"ASA",Ipfsurl:"",
                           ownerAddress:localStorage.getItem('wallet'),previousoaddress:localStorage.getItem('wallet'), 
-                          TimeStamp:"",NFTDescription:"",HistoryAddress:"",
+                          TimeStamp:dateset,NFTDescription:responsetxId,HistoryAddress:"",
                           Appid:"",valid:"",
                           CreatorAddress:localStorage.getItem('wallet')
                       })
