@@ -5,7 +5,7 @@ import {
   } from "react-router-dom";
 import EthereumIcon from '../../assets/images/Algo.png'
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 const CardCreateOtherView = (props) => {
     const [showTestLoading, setShowTestLoading] = React.useState(false);            
     const [showShare,setshowShare] = React.useState(false);                  

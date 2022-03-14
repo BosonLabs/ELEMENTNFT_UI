@@ -12,7 +12,7 @@ import Compress from "react-image-file-resizer";
 import Logo from '../assets/images/Algo.png';
 import { useHistory } from "react-router-dom";
 //import logogif from '../assets/images/gif1.svg';
-import logogif from '../assets/images/gif4.webp';
+import logogif from '../assets/images/gif4.gif';
 
 function HomePage() {
     // React.useEffect(() => {

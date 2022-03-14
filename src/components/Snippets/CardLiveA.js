@@ -13,7 +13,7 @@ import EthereumIcon from '../../assets/images/Algo.png';
 //import dataescrow from "../../escrow.js";
 import firebase from '../../firebase';
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 //const myAlgoWallet = new MyAlgoConnect();
 
 

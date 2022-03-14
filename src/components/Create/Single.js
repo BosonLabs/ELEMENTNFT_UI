@@ -10,7 +10,7 @@ import firebase from '../../firebase';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 import '../../toast-style-override.css'
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 import dataescrowprice from "../../escrowpricenew";
 import configfile from '../../config.json'
 //const client = create('https://ipfs.infura.io:5001/api/v0')
@@ -477,7 +477,7 @@ const Start = () => {
                     <div className="text-center py-4">
                         <h3>{issuesdisplay}</h3>  
                     </div>                    
-                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Ok</Button>
                 </Modal.Body>
             </Modal>            
         </Layout>

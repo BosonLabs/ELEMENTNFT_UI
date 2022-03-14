@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 //import { DataContext } from '../Context/DataContext';
 import AlgorandIcon from '../assets/images/Algo.png'
 //import logogif from '../assets/images/gif1.svg';
-import logogif from '../assets/images/gif4.webp';
+import logogif from '../assets/images/gif4.gif';
 const algosdk = require('algosdk'); 
 
 

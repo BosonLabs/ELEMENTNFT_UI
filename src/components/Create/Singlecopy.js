@@ -10,7 +10,7 @@ import firebase from '../../firebase';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 import '../../toast-style-override.css'
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 import dataescrowprice from "../../escrowpricenew";
 import configfile from '../../config.json'
 //const client = create('https://ipfs.infura.io:5001/api/v0')

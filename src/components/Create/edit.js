@@ -12,7 +12,7 @@ import firebase from '../../firebase';
 import configfile from '../../config.json'
 import { DataContext } from '../../Context/DataContext';
 //import logogif from '../../assets/images/gif1.svg';
-//import logogif from '../../assets/images/gif4.webp';
+//import logogif from '../../assets/images/gif4.gif';
 //const client = create('https://ipfs.infura.io:5001/api/v0')
 //const algosdk = require('algosdk'); 
 const axios = require('axios');
@@ -324,7 +324,7 @@ const Edit = () => {
                     <div className="text-center py-4">
                         <h3>{issuesdisplay}</h3>  
                     </div>                    
-                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Ok</Button>
                 </Modal.Body>
             </Modal>         
         </Layout>

@@ -12,7 +12,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 //import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import dataescrowprice from "../../escrowpricenew";
@@ -660,7 +660,7 @@ const CardCreate = (props) => {
                     <div className="text-center py-4">
                         <h3>{issuesdisplay}</h3>  
                     </div>                    
-                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale2()}>Done</Button>
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale2()}>Ok</Button>
                 </Modal.Body>
             </Modal>                        
             </div>                                   

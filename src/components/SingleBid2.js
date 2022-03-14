@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import firebase from '../firebase';
 import { DataContext } from '../Context/DataContext';
 //import logogif from '../assets/images/gif1.svg';
-import logogif from '../assets/images/gif4.webp';
+import logogif from '../assets/images/gif4.gif';
 import cjson from '../config.json'
 import AlgorandIcon from '../assets/images/Algo.png'
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
@@ -809,7 +809,7 @@ const SingleBid = (props) => {
                     <div className="text-center py-4">
                         <h3>{issuesdisplay}</h3>  
                     </div>                    
-                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Ok</Button>
                 </Modal.Body>
             </Modal>                          
             

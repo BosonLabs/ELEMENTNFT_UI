@@ -13,7 +13,7 @@ import fireDb from '../../firebase';
 import firebase from '../../firebase';
 //import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 //const myAlgoWallet = new MyAlgoConnect();
 
 const CardBuy = (props) => {
@@ -337,7 +337,7 @@ const CardBuy = (props) => {
                     <div className="text-center py-4">
                         <h3>{issuesdisplay}</h3>  
                     </div>                    
-                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale2()}>Done</Button>
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale2()}>Ok</Button>
                 </Modal.Body>
             </Modal>         
                 </div>                   

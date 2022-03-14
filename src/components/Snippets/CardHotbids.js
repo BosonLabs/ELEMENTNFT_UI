@@ -12,7 +12,7 @@ import MyAlgoConnect from '@randlabs/myalgo-connect';
 import fireDb from '../../firebase';
 import dataescrow from "../../escrow.js";
 //import logogif from '../../assets/images/gif1.svg';
-import logogif from '../../assets/images/gif4.webp';
+import logogif from '../../assets/images/gif4.gif';
 import firebase from '../../firebase';
 //const myAlgoWallet = new MyAlgoConnect();
 const CardHotbids = (props) => {
