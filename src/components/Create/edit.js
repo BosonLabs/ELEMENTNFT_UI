@@ -19,6 +19,7 @@ const axios = require('axios');
 
 const Edit = () => {
     const{getIPro2}=useContext(DataContext)
+    console.log("Editc",getIPro2)
     const [showTestAlert,setshowTestAlert] = React.useState(false);   
     const [issuesdisplay,setissuesdisplay]=useState(null)
     //let tempaddress=localStorage.getItem('wallet').slice(0,5);
@@ -121,6 +122,7 @@ const Edit = () => {
             //alert("Please Enter Valid E-mail")
         }
         else if(getIPro2[0] === null || getIPro2[0] === "" || getIPro2[0] === undefined || getIPro2 === null || getIPro2 === undefined || getIPro2 === ""){            
+        console.log("Edit1",getIPro2[0])
         setshowTestLoading(true)                                     
         //setshowTestLoading(false)  
         //setShow(true)
@@ -142,8 +144,10 @@ const Edit = () => {
         }
         else{
         setshowTestLoading(true)
-        if(fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`).orderByCalled_ === false ){
+        //if(fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`).orderByCalled_ === false ){
+        if(getIPro2[0].bgurl === null || getIPro2[0].bgurl === undefined || getIPro2[0].bgurl === ""){
         let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);
+        console.log("Edit2",ref2.database)
         let dateset=new Date().toDateString();
         ref2.set({
         Imageurl:Img,bgurl:"",
@@ -158,7 +162,7 @@ const Edit = () => {
         });   
         }
         else{                
-        let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                    
+        let ref2=fireDb.database().ref(`userprofile/${localStorage.getItem('wallet')}`);                            
         let dateset=new Date().toDateString();
         let r=[];
         firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
