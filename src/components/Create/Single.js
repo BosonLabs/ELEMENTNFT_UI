@@ -220,11 +220,12 @@ const Start = () => {
         const response = await algodClient.sendRawTransaction(signedTx1.blob).do();      
         await waitForConfirmation(algodClient, response.txId);          
       } catch (err) {        
-        setshowTestLoading(false)          
-        setissuesdisplay("your browser appearing issue")
-        setshowTestAlert(true)               
+        //setshowTestLoading(false)          
+        //setissuesdisplay("your browser appearing issue")
+        //setshowTestAlert(true)               
         //alert("you wallet raises some issues")
-        window.location.reload(false)
+        //window.location.reload(false)
+        storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
       }       
       storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
     }      
