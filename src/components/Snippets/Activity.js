@@ -18,7 +18,7 @@ const Activity = (props) => {
                 <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://testnet.algoexplorer.io/address/${props.dataall.ownerAddress}`)}> {props.dataall.ownerAddress}</p>                
                 {props.dataall.NFTDescription === "" || props.dataall.NFTDescription === null || props.dataall.NFTDescription === undefined ?(<>
                 </>):(<>
-                    <p>  {props.dataall.NFTDescription}</p>
+                    <p style={{cursor: 'pointer'}} onClick={() => window.open(`https://testnet.algoexplorer.io/tx/${props.dataall.NFTDescription}`)}>  {props.dataall.NFTDescription}</p>
                 </>)}
                 <div className="time">{props.dataall.TimeStamp}</div>
                 
