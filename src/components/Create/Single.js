@@ -33,7 +33,9 @@ const Start = () => {
     const [showTestLoading, setshowTestLoading] = React.useState(false);        
     const [Img,setImg] = useState("")
     const [Imgname,setImgname] = useState("")
-    const[getIPro,setgetIPro]=useState([""]);    
+    const[getIPro,setgetIPro]=useState([""]);   
+    const [showTestAlert,setshowTestAlert] = React.useState(false);   
+    const [issuesdisplay,setissuesdisplay]=useState(null) 
     const dbcallPro=async()=>{            
         let r=[];
         try {         
@@ -106,27 +108,44 @@ const Start = () => {
     };
 
 
+    const refreshSale=()=>{
+      setshowTestAlert(false)
+      //history.push('/')
+      //window.location.reload(false)            
+    }
       
 
     const onSubmitNFT = async (event) => {        
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;          
         if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){            
-          alert("please connect your wallet")
+          setissuesdisplay("please connect your wallet")
+          setshowTestAlert(true)                      
+          //alert("please connect your wallet")
         }          
         else if(tname === "" ){
-          alert("please enter NFT Name")
+          setissuesdisplay("please enter NFT Name")
+          setshowTestAlert(true)               
+          //alert("please enter NFT Name")
         }
         else if(!/\S/.test(tname)){
-          alert("only space not allowed")
+          setissuesdisplay("only space not allowed")
+          setshowTestAlert(true)               
+          //alert("only space not allowed")
         }
         else if(format.test(tname)){
-          alert("please enter valid NFT Name special character not allowed")
+          setissuesdisplay("please enter valid NFT Name special character not allowed")
+          setshowTestAlert(true)               
+          //alert("please enter valid NFT Name special character not allowed")
         }
         else if(Img === "" || Img === null || Img === undefined ){
-          alert("please upload image")
+          setissuesdisplay("please upload image")
+          setshowTestAlert(true)               
+          //alert("please upload image")
         }          
         else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
-          alert("Insufficient balance to create NFT")
+          setissuesdisplay("Insufficient balance to create NFT")
+          setshowTestAlert(true)               
+          //alert("Insufficient balance to create NFT")
         }
         else{
         try{                    
@@ -164,7 +183,9 @@ const Start = () => {
         appoptin(assetID,response.txId,localStorage.getItem('wallet'))              
     }catch (err) {        
         setshowTestLoading(false)
-        alert("you wallet raises some issues")
+        setissuesdisplay("your browser appearing issue")
+        setshowTestAlert(true)               
+        //alert("you wallet raises some issues")
         window.location.reload(false)
     }
     }          
@@ -200,7 +221,9 @@ const Start = () => {
         await waitForConfirmation(algodClient, response.txId);          
       } catch (err) {        
         setshowTestLoading(false)          
-        alert("you wallet raises some issues")
+        setissuesdisplay("your browser appearing issue")
+        setshowTestAlert(true)               
+        //alert("you wallet raises some issues")
         window.location.reload(false)
       }       
       storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
@@ -322,6 +345,8 @@ const Start = () => {
           })
           .catch(function (error) {
               //handle error here
+              setissuesdisplay("your browser appearing issue")
+              setshowTestAlert(true)               
               console.log("Error1",error)
           });
     }
@@ -443,6 +468,15 @@ const Start = () => {
                     <div className="text-center py-4">                        
                         <img src={logogif} alt="loading..." />
                     </div>                    
+                </Modal.Body>
+            </Modal>         
+            <Modal show={showTestAlert} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>{issuesdisplay}</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
                 </Modal.Body>
             </Modal>            
         </Layout>

@@ -127,8 +127,8 @@ const setaddwallet=async(a)=>{
         }
     })    
     } catch (error) {
-        
-        alert("no data")
+        setShow(false)
+        //alert("no data")
     }
     //history.push("/")
     //window.location.reload();    

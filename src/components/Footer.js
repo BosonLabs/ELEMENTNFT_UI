@@ -20,6 +20,7 @@ function Footer() {
         if(getMail === null || getMail === undefined || getMail === ""){
 
             alert("please enter your E-mail Address")
+            
         }
         else{
             if(localStorage.getItem('wallet') === null || localStorage.getItem('wallet') === undefined || localStorage.getItem('wallet') === ""){

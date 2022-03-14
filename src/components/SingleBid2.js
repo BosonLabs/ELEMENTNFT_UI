@@ -36,9 +36,13 @@ const SingleBid = (props) => {
     const [showTestLoading, setShowTestLoading] = React.useState(false);    
     const [showTestDone,setshowTestDone] = React.useState(false);   
     const [showTestSale,setshowTestSale] = React.useState(false);   
+    
     const [showShare,setshowShare] = React.useState(false);   
          
     const [getprices,setprices]=useState(null)
+    const [showTestAlert,setshowTestAlert] = React.useState(false);   
+    const [issuesdisplay,setissuesdisplay]=useState(null)
+    
     //const handleCloseTest = () => setShowTest(false);
     //const handleCloseTestLoading = () => setShowTestLoading(false);
     //const handleCloseTestDone = () => setshowTestDone(false);
@@ -151,24 +155,34 @@ const SingleBid = (props) => {
         const buynow=async()=>{
 
             if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
+                setissuesdisplay("please connect wallet")
+                setshowTestAlert(true)
             }
             else{          
             if(location.state.alldata.ownerAddress === localStorage.getItem("wallet"))
             {   
-                alert("you are owner so you does not purchase this token")             
-                window.location.reload(false)                
+                //alert("you are owner so you does not purchase this token")             
+                setissuesdisplay("you are owner")
+                setshowTestAlert(true)
+                //window.location.reload(false)                
             }            
             else{                    
             if(algobalanceApp === 0 || algobalanceApp === ""){
-              alert("your balance below 1")                
+                setissuesdisplay("your wallet balance below 1")
+                setshowTestAlert(true)
+              //alert("your balance below 1")                
               //window.location.reload(false)                
             }
             else if((parseFloat(location.state.alldata.NFTPrice)/1000000) >= algobalance ){
-                alert("your balance not enough to purchase this nft")
+                setissuesdisplay("your balance not enough to purchase this nft")
+                setshowTestAlert(true)
+                //alert("your balance not enough to purchase this nft")
                 //window.location.reload(false)                
             }
             else if(algobalanceApp === "" || algobalanceApp === "0" || algobalanceApp === undefined || algobalanceApp === null || algobalanceApp <= 3){
-                alert("Insufficient balance to create NFT")
+                setissuesdisplay("Insufficient balance to Buy NFT")
+                setshowTestAlert(true)
+                //alert("Insufficient balance to create NFT")
                 //window.location.reload(false)                
             }
             else{
@@ -377,9 +391,11 @@ const SingleBid = (props) => {
                   } catch (err) {
                       //console.error(err);
                       setShowTestLoading(false)
-                      alert("you wallet raises some issues")
                       toast.dismiss();
-                      window.location.reload(false)                
+                      //alert("you wallet raises some issues")
+                      setissuesdisplay("your browser appearing issue")
+                      setshowTestAlert(true)                      
+                      //window.location.reload(false)                
                 }                                                        
             }
             // else{
@@ -782,6 +798,16 @@ const SingleBid = (props) => {
                 <Modal.Body>
                     <div className="text-center py-4">
                         <h3>Token Purchase Successfully</h3>  
+                    </div>                    
+                    <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
+                </Modal.Body>
+            </Modal>                          
+
+            <Modal show={showTestAlert} centered size="sm" >
+                <Modal.Header  />
+                <Modal.Body>
+                    <div className="text-center py-4">
+                        <h3>{issuesdisplay}</h3>  
                     </div>                    
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>refreshSale()}>Done</Button>
                 </Modal.Body>
