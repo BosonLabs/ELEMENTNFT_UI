@@ -276,46 +276,46 @@ useEffect(()=>{dbcallPro2()},[])
 // }, []);
 
 
-const bannerDb=async(index)=>{        
-  axios({
-    method: 'get',
-    url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgosBoson.json',
-    responseType: 'stream'
-  })
-    .then(function (response) {
-    let req = [];        
-    req.push(response.data)
-    let req2 =[];
-    req.forEach((l) => {              
-      //console.log("D",l)              
-      Object.keys(l).map(async(k)=>{                                        
-        const a=l[k];
-        Object.keys(a).map(async(b)=>{                    
-        req2.push({                      
-          Assetid:a[b].Assetid,
-          Imageurl:a[b].Imageurl,
-          NFTPrice:a[b].NFTPrice,
-          EscrowAddress:a[b].EscrowAddress,
-          keyId:a[b].keyId,
-          NFTName:a[b].NFTName,
-          userSymbol:a[b].userSymbol,
-          Ipfsurl:a[b].Ipfsurl,
-          ownerAddress:a[b].ownerAddress,
-          previousoaddress:a[b].previousoaddress,
-          TimeStamp:a[b].TimeStamp,
-          NFTDescription:a[b].NFTDescription,
-          HistoryAddress:a[b].HistoryAddress,
-          Appid:a[b].Appid,
-          valid:a[b].valid,
-          CreatorAddress:a[b].CreatorAddress 
-          })   
-        })                                                                                                                
-      })                                                                     
-    });                        
-    setBosonData(req2)  
-    });                    
-} 
-useEffect(()=>{bannerDb()},[])
+// const bannerDb=async(index)=>{        
+//   axios({
+//     method: 'get',
+//     url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgosBoson.json',
+//     responseType: 'stream'
+//   })
+//     .then(function (response) {
+//     let req = [];        
+//     req.push(response.data)
+//     let req2 =[];
+//     req.forEach((l) => {              
+//       //console.log("D",l)              
+//       Object.keys(l).map(async(k)=>{                                        
+//         const a=l[k];
+//         Object.keys(a).map(async(b)=>{                    
+//         req2.push({                      
+//           Assetid:a[b].Assetid,
+//           Imageurl:a[b].Imageurl,
+//           NFTPrice:a[b].NFTPrice,
+//           EscrowAddress:a[b].EscrowAddress,
+//           keyId:a[b].keyId,
+//           NFTName:a[b].NFTName,
+//           userSymbol:a[b].userSymbol,
+//           Ipfsurl:a[b].Ipfsurl,
+//           ownerAddress:a[b].ownerAddress,
+//           previousoaddress:a[b].previousoaddress,
+//           TimeStamp:a[b].TimeStamp,
+//           NFTDescription:a[b].NFTDescription,
+//           HistoryAddress:a[b].HistoryAddress,
+//           Appid:a[b].Appid,
+//           valid:a[b].valid,
+//           CreatorAddress:a[b].CreatorAddress 
+//           })   
+//         })                                                                                                                
+//       })                                                                     
+//     });                        
+//     setBosonData(req2)  
+//     });                    
+// } 
+// useEffect(()=>{bannerDb()},[])
 
 
 

@@ -233,7 +233,9 @@ const Start = () => {
     const storeDbPinataDuplicate=(assetID,responsetxId,addresseswall)=>{
       toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
       let appId="76917406";
+      
       let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
+      //let ref2=fireDb.database().ref(`/${addresseswall}`);
       let ref22=fireDb.database().ref(`imagerefAlgolt`);   
       let refactivity=fireDb.database().ref(`activitytable/${addresseswall}`);   
       let dateset=new Date().toDateString();     

@@ -30,10 +30,12 @@ const Banner = () => {
             req.push(response.data)
             let req2 =[];
             req.forEach((l) => {              
-            //   console.log("D",l)              
-              Object.keys(l).map(async(k)=>{                                        
+            
+              Object.keys(l).map(async(k)=>{                                                        
                 const a=l[k];
-                Object.keys(a).map(async(b)=>{                    
+                //if()
+                Object.keys(a).map(async(b)=>{                 
+                if(a[b].CreatorAddress === "ANKBCHX6ZBRY6K563HBY2BOGOLFMYSQBI3BRDJEJJGNGG6DAGG3GNKQNQU")   {                            
                 req2.push({                      
                   Assetid:a[b].Assetid,
                   Imageurl:a[b].Imageurl,
@@ -51,8 +53,11 @@ const Banner = () => {
                   Appid:a[b].Appid,
                   valid:a[b].valid,
                   CreatorAddress:a[b].CreatorAddress 
-                  })   
-                })                                                                                                                
+                  })
+                }else{
+                    req.push("")
+                }   
+                })                                                                                                                                
               })                                                                     
             });                        
             setgetI(req2)  
@@ -72,7 +77,7 @@ const Banner = () => {
                 static // default false
             >
 
-               {getBosonData.map((x, index) => {
+               {getI.map((x, index) => {
                 // console.log("logo",x)
                 return(  
                     <>                                        
