@@ -211,7 +211,9 @@ const CardCreate = (props) => {
             setshowTestAlert(true)               
             //alert("Insufficient balance to create NFT")
         }
-        setShowTestLoading(true)        
+        else{
+        
+            setShowTestLoading(true)        
         let amountmul=(parseFloat(getprices)*1000000);
         toast.info("Create Listing Starts",{autoClose:5000}); 
         const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');    
@@ -311,170 +313,9 @@ const CardCreate = (props) => {
             setissuesdisplay("your browser appearing issue")
             setshowTestAlert(true)                      
             // alert("you wallet raises some issues")
-            window.location.reload(false)
+            //window.location.reload(false)
           }
-
-    //     else{                   
-    //     try{                    
-    //     setShowTestLoading(true)        
-    //     toast.info("NFT Price update starting",{autoClose:5000});           
-    //     const algosdk = require('algosdk');  
-    //     const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-    //     // const myAlgoConnect = new MyAlgoConnect();
-    //     let appId=parseInt(configfile['appId']);
-    //     //let idget=assetidgetc;
-    //     let assetidgetc=parseInt(props.dataall.Assetid)    
-    //     //console.log("letasset",x.title)
-    //     try {            
-    //     let amountmul=(parseFloat(getprices)*1000000);
-    //     console.log("amountmul",amountmul)
-    //     const params = await algodclient.getTransactionParams().do();            
-    //     const myAlgoConnect = new MyAlgoConnect();
-    //     let results = await algodclient.compile(dataescrow).do();
-    //     console.log("Resultconsole = " + results);
-    //     console.log("Hash = " + results.hash);
-    //     console.log("Result = " + results.result);
-    //     //await sleep(20000)
-    //     let program = new Uint8Array(Buffer.from(results.result, "base64"));      
-    //     let lsig = algosdk.makeLogicSig(program);
-    //     //let tealSignPrint = tealSign(sk, data, lsig.address());
-    //     console.log("LSIG",lsig.address())
-    //     let appArgs = [];
-    //     appArgs.push(new Uint8Array(Buffer.from("createlisting")));
-    //     appArgs.push(algosdk.encodeUint64(parseInt(amountmul)));     
-    //     let transaction1=""
-    //     let transaction2=""
-    //     let transaction3=""
-    //     let transaction4=""
-    //     let txn5=""
-    // try{        
-    // transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
-    //         from:localStorage.getItem('wallet'), 
-    //         suggestedParams:params, 
-    //         appIndex:parseInt(appId), 
-    //         appArgs:appArgs
-    //     })
-    // }catch(err){
-    //     setShowTestLoading(false)
-    //     alert("you wallet raises some issues")
-    //     window.location.reload(false)
-    // }           
-                
-    // try{            
-    //     transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-    //       from: localStorage.getItem('wallet'),
-    //       to: lsig.address(),
-    //       amount: Number(parseInt(3000)),
-    //       note: undefined,
-    //       suggestedParams: params
-    //     });
-    // }catch(err){
-    //     setShowTestLoading(false)
-    //     alert("you wallet raises some issues")
-    //     window.location.reload(false)
-    // }           
-                  
-    // try{            
-    //     transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-    //       from: lsig.address(),
-    //       to: lsig.address(),
-    //       assetIndex: parseInt(assetidgetc),
-    //       note: undefined,
-    //       amount: 0,
-    //       suggestedParams: params
-    //     });
-    // }catch(err){
-    //     setShowTestLoading(false)
-    //     alert("you wallet raises some issues")
-    //     window.location.reload(false)
-    // }           
-          
-    // try{            
-    //     transaction4= algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-    //       from: localStorage.getItem('wallet'),
-    //       to: lsig.address(),
-    //       assetIndex: parseInt(assetidgetc),
-    //       note: undefined,
-    //       amount: 1,
-    //       suggestedParams: params
-    //     });
-    // }catch(err){
-    //     setShowTestLoading(false)
-    //     alert("you wallet raises some issues")
-    //     window.location.reload(false)
-    // }           
-  
-    // try{            
-    //     txn5 = algosdk.makeAssetConfigTxnWithSuggestedParamsFromObject({
-    //         reKeyTo: undefined,
-    //         from : localStorage.getItem('wallet'),
-    //         manager: lsig.address(),
-    //         assetIndex:parseInt(assetidgetc),
-    //         suggestedParams:params,
-    //         strictEmptyAddressChecking:false            
-    //     })                    
-    // }catch(err){
-    //     setShowTestLoading(false)
-    //     alert("you wallet raises some issues")
-    //     window.location.reload(false)
-    // }           
-    //     const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4,txn5]);
-    //     const txs = [ transaction1, transaction2, transaction3, transaction4,txn5 ];
-    //     txs[0].group = groupID;
-    //     txs[1].group = groupID;
-    //     txs[2].group = groupID;
-    //     txs[3].group = groupID;
-    //     txs[4].group = groupID;                                      
-    // try{            
-    //     const signedTx1 = await myAlgoConnect.signTransaction([txs[0].toByte(),txs[1].toByte(),txs[3].toByte(),txs[4].toByte()]);                    
-    //     const signedTx3 = algosdk.signLogicSigTransaction(txs[2], lsig);          
-    //     const response = await algodclient.sendRawTransaction([ signedTx1[0].blob, signedTx1[1].blob, signedTx3.blob, signedTx1[2].blob,signedTx1[3].blob]).do();        
-    //     console.log("TxID", JSON.stringify(response, null, 1));
-    //     await waitForConfirmation(algodclient, response.txId);  
-    //     toast.success(`NFT Price updated Sucessfully ${response.txId}`,{autoClose: 8000});              
-    // }catch(err){
-    //     setShowTestLoading(false)
-    //     alert("you wallet raises some issues")
-    //     toast.dismiss();
-    //     window.location.reload(false)
-    // }           
-    
-    //     //db here          
-    //     let dateset=new Date().toDateString();
-    //     fireDb.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`).child(props.dataall.keyId).update({
-    //         Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:lsig.address(),keyId:props.dataall.keyId,
-    //         NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
-    //         TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
-    //         CreatorAddress:props.dataall.CreatorAddress
-    //     }).then(()=>{  
-    //         let refactivity=fireDb.database().ref(`activitytable/${localStorage.getItem('wallet')}`);   
-    //         const db = refactivity.push().key;                         
-    //         refactivity.child(db).set({
-    //             Assetid:props.dataall.Assetid,Imageurl:props.dataall.Imageurl,NFTPrice:parseFloat(amountmul),EscrowAddress:"priceupdated",keyId:db,
-    //             NFTName:props.dataall.NFTName,userSymbol:props.dataall.userSymbol,Ipfsurl:props.dataall.Ipfsurl,ownerAddress:props.dataall.ownerAddress,previousoaddress:localStorage.getItem('wallet'),
-    //             TimeStamp:dateset,NFTDescription:props.dataall.NFTDescription,HistoryAddress:props.dataall.HistoryAddress,Appid:props.dataall.Appid,valid:props.dataall.valid,
-    //             CreatorAddress:props.dataall.CreatorAddress
-    //     })
-    //     .then(()=>{                                        
-    //         setShowTestLoading(true)
-    //         setshowTestDone(true)
-    //         })                        
-    //     })
-            
-    //     //db end here
-    //     } catch (err) {
-    //         console.error(err);
-    //         alert("you wallet raises some issues")
-    //         setShowTestLoading(false)
-    //         toast.dismiss();
-    //     }        
-    //     }catch(err){
-    //         setShowTestLoading(false)
-    //         alert("you wallet raises some issues")
-    //         window.location.reload(false)
-    //         toast.dismiss();
-    //     }
-    //     }        
+        }            
     }
     
     const sharebutton=()=>{    
