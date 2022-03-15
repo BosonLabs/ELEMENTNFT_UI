@@ -148,7 +148,7 @@ const Banner = () => {
             static // default false
             >
             
-            {getBosonData.map((x, index) => {
+            {getI.map((x, index) => {
                 return(                    
                 <div className="d-md-none">    
                 <div className='carousel-cell carousel-cell-20'>                    
