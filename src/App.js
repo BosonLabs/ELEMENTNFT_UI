@@ -49,6 +49,7 @@ function App() {
   
   useEffect(() => {        
     async function listenMMAccount() {                            
+        window.scrollTo(0, 0);     
   }
   listenMMAccount();
   }, []);
