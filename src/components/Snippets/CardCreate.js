@@ -258,7 +258,7 @@ const CardInfo = (props) => {
                         <Dropdown.Item href="/">Buy now</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
-                        <Dropdown.Item href="/">Share</Dropdown.Item>
+                        {/* <Dropdown.Item href="/">Share</Dropdown.Item> */}
                         {/* <Dropdown.Item href="/">Report</Dropdown.Item> */}
                     </Dropdown.Menu>
                 </Dropdown>
