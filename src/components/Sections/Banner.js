@@ -22,7 +22,7 @@ const Banner = () => {
     const dbcallsaleal=async(index)=>{        
           axios({
             method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
+            url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefAlgo.json',
             responseType: 'stream'
           })
             .then(function (response) {

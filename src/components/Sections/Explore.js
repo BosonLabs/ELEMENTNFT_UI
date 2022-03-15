@@ -32,7 +32,7 @@ const Explore = () => {
         //else{                        
           axios({
             method: 'get',
-            url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+            url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
             responseType: 'stream'
           })
             .then(function (response) {

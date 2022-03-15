@@ -121,7 +121,7 @@ listenMMAccount();
   const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',
-        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefAlgo.json',
+        url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefAlgo.json',
         responseType: 'stream'
       })
         .then(function (response) {
@@ -160,9 +160,10 @@ listenMMAccount();
 useEffect(()=>{dbcallsaleal()},[])
 
 const dbcallsalealexplore=async(index)=>{        
+  
       axios({
         method: 'get',
-        url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+        url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
         responseType: 'stream'
       })
         .then(function (response) {
@@ -278,7 +279,7 @@ useEffect(()=>{dbcallPro2()},[])
 const bannerDb=async(index)=>{        
   axios({
     method: 'get',
-    url: 'https://demonft-2e778-default-rtdb.firebaseio.com/imagerefexploreoneAlgosBoson.json',
+    url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgosBoson.json',
     responseType: 'stream'
   })
     .then(function (response) {
