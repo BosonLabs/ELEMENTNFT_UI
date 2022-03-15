@@ -364,7 +364,7 @@ const Start = () => {
                 <div className="py-md-0 py-4">
                     <Row className='mb-0'>
                         <Col md={12}>
-                            <h3 className='display-4 font-bold mb-3'>Create single NFT on Algorand</h3>
+                            <h4 className='display-4 font-bold mb-3'>Create single NFT on Algorand</h4>
                         </Col>
                     </Row>
                     <Row className='text-gray'>
