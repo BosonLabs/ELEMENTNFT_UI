@@ -64,7 +64,7 @@ return (
                         <Dropdown.Item href="/profileviewother">Refresh Metadata</Dropdown.Item>
                         <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>                        
                         <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${props.Assetid}`)}>Explore</Dropdown.Item>
-                        <Dropdown.Item href="/profileviewother">Report</Dropdown.Item>
+                        {/* <Dropdown.Item href="/profileviewother">Report</Dropdown.Item> */}
                     </Dropdown.Menu>
                 </Dropdown>
             </Card.Header>
@@ -129,24 +129,38 @@ return (
                                    </a>
                                     <small className='d-block mt-2'>Twitter</small>
                                 </div>
-                                <div>                                
+                                {/* <div>                                
                                 <a href={"https://www.facebook.com/"} target="_blank" rel="noopener noreferrer">
                                         <svg viewBox="0 0 24 24" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" fill="currentColor"></path></svg>                                   
                                 </a>
                                     <small className='d-block mt-2'>Facebook</small>
-                                </div>
+                                </div> */}
                                 <div>
                                 <a href={"https://t.me/elementSwap"} target="_blank" rel="noopener noreferrer">                                
                                         <svg viewBox="0 0 16 14" fill="none" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M15.9513 1.29916L13.5438 13.1556C13.377 13.997 12.8902 14.1987 12.21 13.8093L8.542 10.979L6.76804 12.7662C6.56797 12.9748 6.40125 13.1556 6.03445 13.1556C5.55428 13.1556 5.63431 12.9679 5.47425 12.495L4.20714 8.19051L0.572523 7.00834C-0.214421 6.76495 -0.22109 6.20168 0.745918 5.7914L14.9243 0.0891779C15.5711 -0.209841 16.1914 0.256072 15.9446 1.29221L15.9513 1.29916Z" fill="currentColor"></path></svg>
                                 </a>
                                     <small className='d-block mt-2'>Telegram</small>
                                 </div>
+                                <div>                                
+                                <a href={"https://github.com/BosonLabs/ELEMENTNFT_UI.git"} target="_blank" rel="noopener noreferrer">
+                                        <svg viewBox="0 0 16 14" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr">
+                                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                        </svg>
+                                </a>
+                                    <small className='d-block mt-2'>Github</small>
+                                </div>
                                 <div>
+                                <a href={"https://medium.com/@ramachandran.baskar/nft-steps-513fae0c36a1"} target="_blank" rel="noopener noreferrer">                                
+                                <svg viewBox="0 0 16 14" fill="none" width="40" height="16" xlmns="http://www.w3.org/2000/svg" className="sc-bdvvtL sc-hKwDye gVaYHr"><path d="M5.07644 11.25C7.88022 11.25 10.1531 8.89939 10.1531 5.99991C10.1531 3.10043 7.88004 0.75 5.07644 0.75C2.27284 0.75 0 3.09972 0 5.99991C0 8.9001 2.27267 11.25 5.07644 11.25Z" fill="currentColor"></path><path d="M13.1839 10.9419C14.5857 10.9419 15.7222 8.72942 15.7222 5.99991C15.7222 3.27111 14.5857 1.0579 13.1839 1.0579C11.7821 1.0579 10.6455 3.27111 10.6455 5.99991C10.6455 8.72871 11.7821 10.9419 13.1839 10.9419Z" fill="currentColor"></path><path d="M17.1072 10.4277C17.6003 10.4277 18 8.44542 18 5.99991C18 3.55458 17.6006 1.57207 17.1074 1.57207C16.6142 1.57207 16.2145 3.55511 16.2145 5.99991C16.2145 8.44471 16.6142 10.4277 17.1072 10.4277Z" fill="currentColor"></path></svg>
+                                </a>
+                                <small className='d-block mt-2'>Medium</small>
+                                </div>
+                                {/* <div>
                                 <a href={"https://mail.google.com/"} target="_blank" rel="noopener noreferrer">                                                                
                                         <svg viewBox="0 0 24 24" width="40" height="16" xlmns="http://www.w3.org/2000/svg" class="sc-bdvvtL sc-hKwDye esgSbr"><path d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z" fill="currentColor"></path></svg>
                                 </a>
                                     <small className='d-block mt-2'>E-mail</small>
-                                </div>
+                                </div> */}
                             </div>
                 </Modal.Body>
             </Modal> 

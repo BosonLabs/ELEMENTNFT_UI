@@ -462,7 +462,7 @@ function HomePage() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className='link-flex dropdown-menu-right'>
-                            <Dropdown.Item href="">Report Page</Dropdown.Item>
+                            {/* <Dropdown.Item href="">Report Page</Dropdown.Item> */}
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>

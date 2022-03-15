@@ -623,7 +623,7 @@ const SingleBid = (props) => {
                                     </>):(<>
                                         <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${location.state.alldata.Assetid}`)}>Explore</Dropdown.Item>                        
                                     </>)}                                            
-                                    <Dropdown.Item href="/bid-2">Report</Dropdown.Item>                                    
+                                    {/* <Dropdown.Item href="/bid-2">Report</Dropdown.Item>                                     */}
                                     {/* href="/bid-2" */}
                                 </Dropdown.Menu>
                             </Dropdown>
