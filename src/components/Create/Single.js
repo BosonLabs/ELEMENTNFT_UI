@@ -459,7 +459,7 @@ const Start = () => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>NFT Successfully created</h3>
+                        <h3>NFT Created Successfully</h3>
                     </div>
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>done()}>Done</Button>
                 </Modal.Body>

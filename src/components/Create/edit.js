@@ -317,7 +317,7 @@ const Edit = () => {
                 <Modal.Header  />
                 <Modal.Body>
                     <div className="text-center py-4">
-                        <h3>Upload Successfully...</h3>
+                        <h3>Upload completed Successfully...</h3>
                     </div>                    
                     <Button variant="primary" size="lg" className='w-100' onClick={()=>done()}>Done</Button>
                 </Modal.Body>

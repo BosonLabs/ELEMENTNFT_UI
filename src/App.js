@@ -36,11 +36,23 @@ import configfile from './config.json'
 import cjson from './config.json'
 import Singlecopy from "./components/Create/Singlecopy";
 import ProfileViewOtherCopy2New from "./components/ProfileViewOtherCopy2New";
+import AES from 'crypto-js/aes';
+import Utf8 from 'crypto-js/enc-utf8';
 const axios = require('axios');
 const algosdk = require('algosdk'); 
+var CryptoJS = require("crypto-js");
 
 
 function App() {
+
+
+  
+  useEffect(() => {        
+    async function listenMMAccount() {                            
+  }
+  listenMMAccount();
+  }, []);
+
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);     
   // });
