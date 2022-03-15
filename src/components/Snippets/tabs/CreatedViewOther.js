@@ -91,7 +91,7 @@ const CreatedViewOther = (data) => {
         // { value: 'FIRST', label: 'FIRST', icon: 'https://raw.githubusercontent.com/rarible/public-assets/main/tokens/ATRI.png' },
         // { value: 'ABST', label: 'ABST', icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyNCcgaGVpZ2h0PScyNCcgc3R5bGU9J2JhY2tncm91bmQtY29sb3I6cmdiYSgyNDYsMjQ2LDI0NiwxKTsnPjxnIHN0eWxlPSdmaWxsOnJnYmEoMTIxLDIxNywzOCwxKTsgc3Ryb2tlOnJnYmEoMTIxLDIxNywzOCwxKTsgc3Ryb2tlLXdpZHRoOjAuMTI7Jz48cmVjdCAgeD0nMTEnIHk9JzcnIHdpZHRoPScyJyBoZWlnaHQ9JzInLz48cmVjdCAgeD0nMTEnIHk9JzknIHdpZHRoPScyJyBoZWlnaHQ9JzInLz48cmVjdCAgeD0nMTEnIHk9JzE1JyB3aWR0aD0nMicgaGVpZ2h0PScyJy8+PHJlY3QgIHg9JzknIHk9JzknIHdpZHRoPScyJyBoZWlnaHQ9JzInLz48cmVjdCAgeD0nMTMnIHk9JzknIHdpZHRoPScyJyBoZWlnaHQ9JzInLz48cmVjdCAgeD0nOScgeT0nMTEnIHdpZHRoPScyJyBoZWlnaHQ9JzInLz48cmVjdCAgeD0nMTMnIHk9JzExJyB3aWR0aD0nMicgaGVpZ2h0PScyJy8+PHJlY3QgIHg9JzknIHk9JzEzJyB3aWR0aD0nMicgaGVpZ2h0PScyJy8+PHJlY3QgIHg9JzEzJyB5PScxMycgd2lkdGg9JzInIGhlaWdodD0nMicvPjxyZWN0ICB4PSc3JyB5PSc5JyB3aWR0aD0nMicgaGVpZ2h0PScyJy8+PHJlY3QgIHg9JzE1JyB5PSc5JyB3aWR0aD0nMicgaGVpZ2h0PScyJy8+PHJlY3QgIHg9JzcnIHk9JzE1JyB3aWR0aD0nMicgaGVpZ2h0PScyJy8+PHJlY3QgIHg9JzE1JyB5PScxNScgd2lkdGg9JzInIGhlaWdodD0nMicvPjwvZz48L3N2Zz4=' },
         // { value: 'ADORs', label: 'ADORs', icon: 'https://raw.githubusercontent.com/rarible/public-assets/main/tokens/ADORs.png' },
-        { value: 'elem', label: 'ELEM', icon: 'https://raw.githubusercontent.com/rarible/public-assets/main/tokens/ARKE.png' },
+        // { value: 'elem', label: 'ELEM', icon: 'https://raw.githubusercontent.com/rarible/public-assets/main/tokens/ARKE.png' },
     ]
 
     const filterdata=()=>{
