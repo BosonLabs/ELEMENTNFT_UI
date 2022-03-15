@@ -173,7 +173,7 @@ const CardLiveA = (props) => {
                         <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
                         <Dropdown.Item onClick={()=>sharebutton()}>Share</Dropdown.Item>
                         <Dropdown.Item onClick={() => window.open(`https://testnet.algoexplorer.io/asset/${props.Assetid}`)}>Explore</Dropdown.Item>
-                        <Dropdown.Item href="/">Report</Dropdown.Item>
+                        {/* <Dropdown.Item href="/">Report</Dropdown.Item> */}
                     </Dropdown.Menu>
                 </Dropdown>
             </Card.Header>

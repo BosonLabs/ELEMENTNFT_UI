@@ -259,7 +259,7 @@ const CardInfo = (props) => {
                         <Dropdown.Divider />
                         <Dropdown.Item href="/">Refresh Metadata</Dropdown.Item>
                         <Dropdown.Item href="/">Share</Dropdown.Item>
-                        <Dropdown.Item href="/">Report</Dropdown.Item>
+                        {/* <Dropdown.Item href="/">Report</Dropdown.Item> */}
                     </Dropdown.Menu>
                 </Dropdown>
             </Card.Header>
