@@ -1,9 +1,7 @@
 import React, { useState,useEffect } from "react";
 import Flickity from 'react-flickity-component'
-// import {Row, Col} from 'react-bootstrap';
-//import Card from '../Snippets/Card';
+import configfile from '../../config.json'
 import CardLiveA from "../Snippets/CardLiveA";
-//import ReactPaginate from 'react-paginate';
 const axios = require('axios');
 
 
@@ -33,7 +31,7 @@ const LiveAuctions = () => {
         //else{                        
           axios({
             method: 'get',
-            url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+            url:`${configfile['firebaseurl']}/imagerefexploreoneAlgos.json`,            
             responseType: 'stream'
           })
             .then(function (response) {

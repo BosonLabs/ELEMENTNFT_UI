@@ -1,8 +1,7 @@
 import React, { useState,useEffect } from "react";
 import Flickity from 'react-flickity-component'
-//import Card from '../Snippets/Card';
 import CardHotbids from "../Snippets/CardHotbids";
-//import CardLiveA from "../Snippets/CardLiveA";
+import configfile from '../../config.json'
 const axios = require('axios');
 const HotBids = () => {
     //React.useEffect(() => {
@@ -22,7 +21,7 @@ const HotBids = () => {
         //else{  imagerefAlgo                      
           axios({
             method: 'get',
-            url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+            url:`${configfile['firebaseurl']}/imagerefexploreoneAlgos.json`,            
             responseType: 'stream'
           })
             .then(function (response) {

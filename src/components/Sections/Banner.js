@@ -5,6 +5,7 @@ import VideoCard from '../Snippets/VideoCard';
 import SlidesCard from '../Snippets/SliderCard';
 import {Row, Col} from 'react-bootstrap';
 import { DataContext } from '../../Context/DataContext';
+import configfile from '../../config.json';
 const axios = require('axios');
 
 const Banner = () => {
@@ -22,7 +23,7 @@ const Banner = () => {
     const dbcallsaleal=async(index)=>{        
           axios({
             method: 'get',
-            url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefAlgo.json',
+            url:`${configfile['firebaseurl']}/imagerefAlgo.json`,        
             responseType: 'stream'
           })
             .then(function (response) {

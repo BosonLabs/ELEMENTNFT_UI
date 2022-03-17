@@ -3,7 +3,9 @@ import React, { useState,useEffect } from "react";
 import {Button} from 'react-bootstrap';
 import FilterExplore from '../Snippets/FilterExplore';
 import CardBuy from "../Snippets/CardBuy";
+import configfile from '../../config.json'
 const axios = require('axios');
+
 const Explore = () => {
     // React.useEffect(() => {
     // window.scrollTo(0, 0);     
@@ -32,7 +34,7 @@ const Explore = () => {
         //else{                        
           axios({
             method: 'get',
-            url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
+            url:`${configfile['firebaseurl']}/imagerefexploreoneAlgos.json`,            
             responseType: 'stream'
           })
             .then(function (response) {
