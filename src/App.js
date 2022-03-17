@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import { Offline, Online } from "react-detect-offline";
 
+
+
 import Home from './components/HomePage';
 import Login from './components/Connect';
 import ExplorePage from './components/ExplorePage';
@@ -42,9 +44,11 @@ const axios = require('axios');
 const algosdk = require('algosdk'); 
 //var CryptoJS = require("crypto-js");
 function App() {  
+  //console.log("conso",)
   useEffect(() => {        
-    async function listenMMAccount() {                            
-        window.scrollTo(0, 0);     
+    async function listenMMAccount() {                                  
+      window.scrollTo(0, 0);    
+        
   }
   listenMMAccount();
   }, []);  
@@ -118,7 +122,8 @@ listenMMAccount();
 const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',
-        url:`${configfile['firebaseurl']}/imagerefAlgo.json`,        
+        url:`${process.env.REACT_APP_CLIENT_ID}/imagerefAlgo.json`,
+        //url:`${configfile['firebaseurl']}/imagerefAlgo.json`,        
         responseType: 'stream'
       })
         .then(function (response) {
@@ -159,7 +164,9 @@ useEffect(()=>{dbcallsaleal()},[])
 const dbcallsalealexplore=async(index)=>{          
 axios({
   method: 'get',        
-  url:`${configfile['firebaseurl']}/imagerefexploreoneAlgos.json`,
+  
+  url:`${process.env.REACT_APP_CLIENT_ID}/imagerefexploreoneAlgos.json`,
+  //url:`${configfile['firebaseurl']}/imagerefexploreoneAlgos.json`,
   responseType: 'stream'
 })
   .then(function (response) {
