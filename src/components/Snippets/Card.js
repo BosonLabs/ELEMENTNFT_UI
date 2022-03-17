@@ -216,7 +216,7 @@ const CardCreate = (props) => {
             setShowTestLoading(true)        
         let amountmul=(parseFloat(getprices)*1000000);
         toast.info("Create Listing Starts",{autoClose:5000}); 
-        const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');    
+        const algodClient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');    
         let index = parseInt(configfile['appIdPrice']);  
         let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(props.Assetid))
         let results = await algodClient.compile(dataopreplace).do();                

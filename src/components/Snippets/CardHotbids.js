@@ -113,7 +113,7 @@ const CardHotbids = (props) => {
             else{
                 setShowTestLoading(true)                
                 const algosdk = require('algosdk');  
-                const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');          
+                const algodclient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');          
                 //const myAlgoConnect = new MyAlgoConnect();
                 //  let appId="50714558";
                 let appId=parseInt(configfile['appId']);                

@@ -36,76 +36,57 @@ import configfile from './config.json'
 import cjson from './config.json'
 import Singlecopy from "./components/Create/Singlecopy";
 import ProfileViewOtherCopy2New from "./components/ProfileViewOtherCopy2New";
-import AES from 'crypto-js/aes';
-import Utf8 from 'crypto-js/enc-utf8';
+//import AES from 'crypto-js/aes';
+//import Utf8 from 'crypto-js/enc-utf8';
 const axios = require('axios');
 const algosdk = require('algosdk'); 
-var CryptoJS = require("crypto-js");
-
-
-function App() {
-
-
-  
+//var CryptoJS = require("crypto-js");
+function App() {  
   useEffect(() => {        
     async function listenMMAccount() {                            
         window.scrollTo(0, 0);     
   }
   listenMMAccount();
-  }, []);
-
-  // React.useEffect(() => {
-  //   window.scrollTo(0, 0);     
-  // });
-    //const[getApiData,setApiData]=useState([""]);    
-    //console.log("getApiData",getApiData)   
-    //const setScrollToTop = useScrollToTop(true);
-    const[getIPro2,setgetIPro2]=useState([""]);
-    //console.log("getIProprofile",getIPro2[0].valid)   
+  }, []);  
+    const[getIPro2,setgetIPro2]=useState([""]);    
     const[getIProapp,setgetIProapp]=useState([""]);
-    //console.log("getIProapp",getIProapp) 
     const[getI,setgetI]=useState([""]); 
     const[getIexplore,setgetIexplore]=useState([]);  
     const[getBosonData,setBosonData]=useState([]);  
-    //console.log("App1",getI)
-    //console.log("App2",getIexplore)
-    const [algobalanceApp, setalgobalanceApp] = useState("");
-    //console.log("calcappjs",algobalanceApp)    
-    const[getHotCollection,setHotCollection]=useState([""]);
-    //console.log("getIPro",getHotCollection)     
+    const [algobalanceApp, setalgobalanceApp] = useState("");    
+    const[getHotCollection,setHotCollection]=useState([""]);    
     const dbHotCollection=async()=>{            
-      let r=[];
-      try {         
-      firebase.database().ref("userprofile").on("value", (data) => {          
-        if (data) {             
-          let a=data.val()                   
-          Object.keys(a).map(async(k)=>{                                    
-            //console.log("proff",a[k])
-            r.push({
-              Bio:a[k].Bio,
-              Customurl: a[k].Customurl,
-              Email: a[k].Email,
-              Imageurl:a[k].Imageurl,
-              Personalsiteurl: a[k].Personalsiteurl,
-              TimeStamp: a[k].TimeStamp,
-              Twittername: a[k].Twittername,
-              UserName: a[k].UserName,
-              WalletAddress: a[k].WalletAddress,
-              bgurl:a[k].bgurl,
-              valid:a[k].valid
-            })                
-          })            
-        }
-        else{
-          setHotCollection([""]);  
-        }
-        setHotCollection(r);
-      });                  
-    } catch (error) {
-      //console.log('error occured during search', error);    
-    }                
-    }    
-  useEffect(()=>{dbHotCollection()},[])
+    let r=[];
+    try {         
+    firebase.database().ref("userprofile").on("value", (data) => {          
+      if (data) {             
+        let a=data.val()                   
+        Object.keys(a).map(async(k)=>{                                    
+          //console.log("proff",a[k])
+          r.push({
+            Bio:a[k].Bio,
+            Customurl: a[k].Customurl,
+            Email: a[k].Email,
+            Imageurl:a[k].Imageurl,
+            Personalsiteurl: a[k].Personalsiteurl,
+            TimeStamp: a[k].TimeStamp,
+            Twittername: a[k].Twittername,
+            UserName: a[k].UserName,
+            WalletAddress: a[k].WalletAddress,
+            bgurl:a[k].bgurl,
+            valid:a[k].valid
+          })                
+        })            
+      }
+      else{
+        setHotCollection([""]);  
+      }
+      setHotCollection(r);
+    });                  
+  } catch (error) {    
+  }                
+  }    
+useEffect(()=>{dbHotCollection()},[])
 
 useEffect(() => {        
   async function listenMMAccount() {    
@@ -118,8 +99,11 @@ useEffect(() => {
   const token = {            
   'X-API-key' : cjson.purestakeapi,
   }
+  //const client = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
   let client = new algosdk.Algodv2(token, baseServer, port);                
   ( async() => {
+  //let accountById = await indexClient.lookupAccountByID(localStorage.getItem("walletAddress")).do();
+  //let account1_info = (await client.lookupAccountBalances(localStorage.getItem('wallet')).do());      
   let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
   // calc=JSON.stringify(account1_info.amount)/1000000;      
   setalgobalanceApp(JSON.stringify(account1_info.amount)/1000000);      
@@ -131,10 +115,10 @@ useEffect(() => {
 }
 listenMMAccount();
 }, []);
-  const dbcallsaleal=async(index)=>{                
+const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',
-        url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefAlgo.json',
+        url:`${configfile['firebaseurl']}/imagerefAlgo.json`,        
         responseType: 'stream'
       })
         .then(function (response) {
@@ -172,168 +156,110 @@ listenMMAccount();
 }
 useEffect(()=>{dbcallsaleal()},[])
 
-const dbcallsalealexplore=async(index)=>{        
-  
-      axios({
-        method: 'get',
-        url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgos.json',
-        responseType: 'stream'
-      })
-        .then(function (response) {
-        let req = [];        
-        req.push(response.data)
-        let req2 =[];
-        req.forEach((l) => {              
-          //console.log("D",l)              
-          Object.keys(l).map(async(k)=>{                                        
-            const a=l[k];
-            Object.keys(a).map(async(b)=>{                    
-            req2.push({                      
-              Assetid:a[b].Assetid,
-              Imageurl:a[b].Imageurl,
-              NFTPrice:a[b].NFTPrice,
-              EscrowAddress:a[b].EscrowAddress,
-              keyId:a[b].keyId,
-              NFTName:a[b].NFTName,
-              userSymbol:a[b].userSymbol,
-              Ipfsurl:a[b].Ipfsurl,
-              ownerAddress:a[b].ownerAddress,
-              previousoaddress:a[b].previousoaddress,
-              TimeStamp:a[b].TimeStamp,
-              NFTDescription:a[b].NFTDescription,
-              HistoryAddress:a[b].HistoryAddress,
-              Appid:a[b].Appid,
-              valid:a[b].valid,
-              CreatorAddress:a[b].CreatorAddress 
-              })   
-            })                                                                                                                
-          })                                                                     
-        });                        
-        setgetIexplore(req2)  
-        });                    
-  } 
+const dbcallsalealexplore=async(index)=>{          
+axios({
+  method: 'get',        
+  url:`${configfile['firebaseurl']}/imagerefexploreoneAlgos.json`,
+  responseType: 'stream'
+})
+  .then(function (response) {
+  let req = [];        
+  req.push(response.data)
+  let req2 =[];
+  req.forEach((l) => {              
+    //console.log("D",l)              
+    Object.keys(l).map(async(k)=>{                                        
+      const a=l[k];
+      Object.keys(a).map(async(b)=>{                    
+      req2.push({                      
+        Assetid:a[b].Assetid,
+        Imageurl:a[b].Imageurl,
+        NFTPrice:a[b].NFTPrice,
+        EscrowAddress:a[b].EscrowAddress,
+        keyId:a[b].keyId,
+        NFTName:a[b].NFTName,
+        userSymbol:a[b].userSymbol,
+        Ipfsurl:a[b].Ipfsurl,
+        ownerAddress:a[b].ownerAddress,
+        previousoaddress:a[b].previousoaddress,
+        TimeStamp:a[b].TimeStamp,
+        NFTDescription:a[b].NFTDescription,
+        HistoryAddress:a[b].HistoryAddress,
+        Appid:a[b].Appid,
+        valid:a[b].valid,
+        CreatorAddress:a[b].CreatorAddress 
+        })   
+      })                                                                                                                
+    })                                                                     
+  });                        
+  setgetIexplore(req2)  
+  });                    
+} 
 useEffect(()=>{dbcallsalealexplore()},[])
 
 const dbcallPro=async()=>{            
-  let r=[];
-  try {         
-  firebase.database().ref("userprofile").on("value", (data) => {          
-    if (data) {             
-      let a=data.val()                   
-      Object.keys(a).map(async(k)=>{                                    
-        //console.log("proff",a[k])
-        r.push({
-          Bio:a[k].Bio,
-          Customurl: a[k].Customurl,
-          Email: a[k].Email,
-          Imageurl:a[k].Imageurl,
-          Personalsiteurl: a[k].Personalsiteurl,
-          TimeStamp: a[k].TimeStamp,
-          Twittername: a[k].Twittername,
-          UserName: a[k].UserName,
-          WalletAddress: a[k].WalletAddress,
-          bgurl:a[k].bgurl,
-          valid:a[k].valid
-        })                
-      })            
-    }
-    else{
-      setgetIProapp([""]);  
-    }
-    setgetIProapp(r);
-  });                  
+let r=[];
+try {         
+firebase.database().ref("userprofile").on("value", (data) => {          
+  if (data) {             
+    let a=data.val()                   
+    Object.keys(a).map(async(k)=>{                                    
+      r.push({
+        Bio:a[k].Bio,
+        Customurl: a[k].Customurl,
+        Email: a[k].Email,
+        Imageurl:a[k].Imageurl,
+        Personalsiteurl: a[k].Personalsiteurl,
+        TimeStamp: a[k].TimeStamp,
+        Twittername: a[k].Twittername,
+        UserName: a[k].UserName,
+        WalletAddress: a[k].WalletAddress,
+        bgurl:a[k].bgurl,
+        valid:a[k].valid
+      })                
+    })            
+  }
+  else{
+    setgetIProapp([""]);  
+  }
+  setgetIProapp(r);
+});                  
 } catch (error) {
-  //console.log('error occured during search', error);    
+//console.log('error occured during search', error);    
 }                
 }    
 useEffect(()=>{dbcallPro()},[])
-
-
     
 const dbcallPro2=async()=>{            
-        let r=[];
-        try {         
-        firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
-          if (data) {                      
-              r.push({
-                Bio:data.val().Bio,
-                Customurl: data.val().Customurl,
-                Email: data.val().Email,
-                Imageurl:data.val().Imageurl,
-                Personalsiteurl: data.val().Personalsiteurl,
-                TimeStamp: data.val().TimeStamp,
-                Twittername: data.val().Twittername,
-                UserName: data.val().UserName,
-                WalletAddress: data.val().WalletAddress,
-                bgurl:data.val().bgurl,
-                valid:data.val().valid
-              })                
-          }
-          else{
-            setgetIPro2([""]);  
-          }
-          setgetIPro2(r);
-        });                  
-      } catch (error) {
-        //console.log('error occured during search', error);    
-      }                
+let r=[];
+try {         
+firebase.database().ref("userprofile").child(localStorage.getItem('wallet')).on("value", (data) => {          
+  if (data) {                      
+      r.push({
+        Bio:data.val().Bio,
+        Customurl: data.val().Customurl,
+        Email: data.val().Email,
+        Imageurl:data.val().Imageurl,
+        Personalsiteurl: data.val().Personalsiteurl,
+        TimeStamp: data.val().TimeStamp,
+        Twittername: data.val().Twittername,
+        UserName: data.val().UserName,
+        WalletAddress: data.val().WalletAddress,
+        bgurl:data.val().bgurl,
+        valid:data.val().valid
+      })                
+  }
+  else{
+    setgetIPro2([""]);  
+  }
+  setgetIPro2(r);
+});                  
+} catch (error) {        
+}                
 }    
 useEffect(()=>{dbcallPro2()},[])
 
-// useEffect(() => {        
-//   async function apiData() {      
-//     const res = await axios.get(`${configfile['url']}/nftPlain/${'RYS3A'}`)
-//     setApiData(res.data)                
-//   }
-//   apiData();
-// }, []);
-
-
-// const bannerDb=async(index)=>{        
-//   axios({
-//     method: 'get',
-//     url: 'https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefexploreoneAlgosBoson.json',
-//     responseType: 'stream'
-//   })
-//     .then(function (response) {
-//     let req = [];        
-//     req.push(response.data)
-//     let req2 =[];
-//     req.forEach((l) => {              
-//       //console.log("D",l)              
-//       Object.keys(l).map(async(k)=>{                                        
-//         const a=l[k];
-//         Object.keys(a).map(async(b)=>{                    
-//         req2.push({                      
-//           Assetid:a[b].Assetid,
-//           Imageurl:a[b].Imageurl,
-//           NFTPrice:a[b].NFTPrice,
-//           EscrowAddress:a[b].EscrowAddress,
-//           keyId:a[b].keyId,
-//           NFTName:a[b].NFTName,
-//           userSymbol:a[b].userSymbol,
-//           Ipfsurl:a[b].Ipfsurl,
-//           ownerAddress:a[b].ownerAddress,
-//           previousoaddress:a[b].previousoaddress,
-//           TimeStamp:a[b].TimeStamp,
-//           NFTDescription:a[b].NFTDescription,
-//           HistoryAddress:a[b].HistoryAddress,
-//           Appid:a[b].Appid,
-//           valid:a[b].valid,
-//           CreatorAddress:a[b].CreatorAddress 
-//           })   
-//         })                                                                                                                
-//       })                                                                     
-//     });                        
-//     setBosonData(req2)  
-//     });                    
-// } 
-// useEffect(()=>{bannerDb()},[])
-
-
-
-
-  return (
+return (
     <>
     <Online>    
     <DataContext.Provider value={{getI,setgetI,getIexplore,setgetIexplore,getIProapp,setgetIProapp,getIPro2,setgetIPro2,algobalanceApp, setalgobalanceApp,getHotCollection,setHotCollection,getBosonData,setBosonData}}>          
@@ -416,8 +342,7 @@ useEffect(()=>{dbcallPro2()},[])
     </Router>   
     </DataContext.Provider>         
     
-    </Online>        
-    {/* <Offline>{alert("please connect your Internet")}</Offline>        */}
+    </Online>            
     </>
   );
 }

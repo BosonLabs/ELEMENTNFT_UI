@@ -64,8 +64,10 @@ const SingleBid = (props) => {
                 'X-API-key' : cjson.purestakeapi,
             }
             let client = new algosdk.Algodv2(token, baseServer, port);                
+            //const client = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
     ( async() => {
       let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+      //let account1_info = (await client.lookupAccountByID(localStorage.getItem('wallet')).do());      
       calc=JSON.stringify(account1_info.amount)/1000000;      
       setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
       localStorage.setItem("balget",account1_info);      
@@ -188,7 +190,7 @@ const SingleBid = (props) => {
             else{
                 setShowTestLoading(true)                  
                 const algosdk = require('algosdk');  
-                const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');        
+                const algodClient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');        
                 let index = parseInt(configfile['appIdPrice']);
                 let a=location.state.alldata.HistoryAddress.concat(localStorage.getItem('wallet'));                                              
                 //const myAlgoConnect = new MyAlgoConnect();

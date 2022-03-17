@@ -9,7 +9,7 @@ import HotCollections from './Sections/HotCollections';
 import Explore from './Sections/Explore';
 import Banner from './Sections/Banner';
 //import ScrollTop from '../ScrollToTop';
-import {MovieContext} from '../Movie';
+//import {MovieContext} from '../Movie';
 const axios = require('axios');
 
 

@@ -132,12 +132,13 @@ const Singlecopy = () => {
         try{                    
         setshowTestLoading(true)
         let tb='ASA';          
-        const server = "https://testnet-algorand.api.purestake.io/ps2";
-        const port = "";  
-        const token = {
-          'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
-        }
-        let algodclient = new algosdk.Algodv2(token, server, port);
+        // const server = "https://testnet-algorand.api.purestake.io/ps2";
+        // const port = "";  
+        // const token = {
+        //   'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+        // }
+        //let algodclient = new algosdk.Algodv2(token, server, port);
+        const algodclient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
         const params = await algodclient.getTransactionParams().do();
         params.fee = 1000;
         params.flatFee = true;
@@ -172,7 +173,7 @@ const Singlecopy = () => {
 
     const appoptin=async(assetID,responsetxId,addresseswall)=>{
       let index = parseInt(configfile['appIdPrice']);
-      const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');            
+      const algodClient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
       let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(assetID))
       let results = await algodClient.compile(dataopreplace).do();                
       let program = new Uint8Array(Buffer.from(results.result, "base64"));      

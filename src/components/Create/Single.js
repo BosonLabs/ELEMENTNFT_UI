@@ -36,6 +36,29 @@ const Start = () => {
     const[getIPro,setgetIPro]=useState([""]);   
     const [showTestAlert,setshowTestAlert] = React.useState(false);   
     const [issuesdisplay,setissuesdisplay]=useState(null) 
+    const [showTestOPt,setshowTestOPt] = React.useState(false);   
+    const dbcallOpt=async()=>{                  
+      try {         
+        // const server = "https://testnet-algorand.api.purestake.io/ps2";
+        // const port = "";  
+        // const token = {
+        //   'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+        // }
+        //let algodclient = new algosdk.Algodv2(token, server, port);
+        const algodclient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');          
+        let data = (await algodclient.lookupAccountBalances(localStorage.getItem("walletAddress")).do());        
+        //let data = (await algodclient.accountInformation(localStorage.getItem("walletAddress")).do());        
+        data['apps-local-state'].map((r,s)=>{
+          if(r.id === parseInt(76917406)){
+            setshowTestOPt(true)
+            console.log("opted")
+          }          
+        })            
+    } catch (error) {
+      //console.log('error occured during search', error);    
+    }                
+  }    
+  useEffect(()=>{dbcallOpt()},[])
     const dbcallPro=async()=>{            
         let r=[];
         try {         
@@ -150,14 +173,17 @@ const Start = () => {
         else{
         try{                    
         setshowTestLoading(true)
-        let tb='ASA';          
-        const server = "https://testnet-algorand.api.purestake.io/ps2";
+        let tb='ASA';      
+        //https://testnet-algorand.api.purestake.io/ps2    
+        const server = "https://algoindexer.testnet.algoexplorerapi.io";
         const port = "";  
         const token = {
           'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
         }
+        //const algodclient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
         let algodclient = new algosdk.Algodv2(token, server, port);
         const params = await algodclient.getTransactionParams().do();
+        console.log("185")        
         params.fee = 1000;
         params.flatFee = true;
         const myAlgoConnect = new MyAlgoConnect();      
@@ -179,21 +205,26 @@ const Start = () => {
         const response = await algodclient.sendRawTransaction(signedTxn.blob).do();      
         await waitForConfirmation(algodclient,response.txId);
         let ptx = await algodclient.pendingTransactionInformation(response.txId).do();
-        let assetID = ptx["asset-index"];      
-        appoptin(assetID,response.txId,localStorage.getItem('wallet'))              
+        let assetID = ptx["asset-index"];   
+        if(showTestOPt === true)   {
+          storeDbPinataDuplicate(assetID,response.txId,localStorage.getItem('wallet'))
+        }else{
+          appoptin(assetID,response.txId,localStorage.getItem('wallet'))              
+        }        
     }catch (err) {        
         setshowTestLoading(false)
         setissuesdisplay("your browser appearing issue")
         setshowTestAlert(true)               
         //alert("you wallet raises some issues")
-        window.location.reload(false)
+        //window.location.reload(false)
     }
     }          
     }
-
+    
     const appoptin=async(assetID,responsetxId,addresseswall)=>{
-      let index = parseInt(configfile['appIdPrice']);
-      const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');            
+      let index = parseInt(configfile['appIdPrice']);      
+      //https://api.testnet.algoexplorer.io
+      const algodClient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
       let dataopreplace = dataescrowprice.replaceAll("AppID",configfile['appIdPrice']).replaceAll("AssId",parseInt(assetID))
       let results = await algodClient.compile(dataopreplace).do();                
       let program = new Uint8Array(Buffer.from(results.result, "base64"));      
@@ -219,21 +250,19 @@ const Start = () => {
         const signedTx1 = await algosdk.signLogicSigTransaction(optinTranscation, lsig);
         const response = await algodClient.sendRawTransaction(signedTx1.blob).do();      
         await waitForConfirmation(algodClient, response.txId);          
+        storeDbPinataDuplicate(assetID,response.txId,addresseswall)      
       } catch (err) {        
-        //setshowTestLoading(false)          
-        //setissuesdisplay("your browser appearing issue")
-        //setshowTestAlert(true)               
+        setshowTestLoading(false)
+        setissuesdisplay("your browser appearing issue")
+        setshowTestAlert(true)       
+        window.location.reload(false)        
         //alert("you wallet raises some issues")
-        //window.location.reload(false)
-        //storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
-      }       
-      storeDbPinataDuplicate(assetID,responsetxId,addresseswall)      
+      }             
     }      
 
     const storeDbPinataDuplicate=(assetID,responsetxId,addresseswall)=>{
       toast.info("Image Uploading in IPFS",{autoClose: 5000}); 
-      let appId="76917406";
-      
+      let appId="76917406";      
       let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
       //let ref2=fireDb.database().ref(`/${addresseswall}`);
       let ref22=fireDb.database().ref(`imagerefAlgolt`);   

@@ -16,7 +16,7 @@ import User from '../assets/images/dummy-icon.svg';
 import Logo from '../assets/images/Algo.png';
 import Icon from '../assets/images/dummy-icon.svg';
 import cjson from '../config.json'
-import {MovieContext} from '../Movie';
+//import {MovieContext} from '../Movie';
 import { DataContext } from '../Context/DataContext';
 const algosdk = require('algosdk'); 
 const axios = require('axios');
@@ -53,11 +53,15 @@ function Header() {
                 'X-API-key' : cjson.purestakeapi,
             }
             let client = new algosdk.Algodv2(token, baseServer, port);                
+            //const client = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
     ( async() => {
-      let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
-      let calc=JSON.stringify(account1_info.amount)/1000000;      
-      setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
-      localStorage.setItem("balget",account1_info);      
+        //let account1_info = (await client.lookupAccountByID(localStorage.getItem('wallet')).do());      
+        
+        let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());      
+        //console.log("accinfo2",account1_info)
+        let calc=JSON.stringify(account1_info.amount)/1000000;      
+        setalgobalance(JSON.stringify(account1_info.amount)/1000000);      
+        localStorage.setItem("balget",account1_info);      
   })().catch(e => {
       //console.log(e);
   })                    
@@ -75,10 +79,13 @@ function Header() {
         'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
     }
     let client = new algosdk.Algodv2(token, baseServer, port);  
+    //const client = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');            
+    //let account1_info = (await client.lookupAccountByID(localStorage.getItem('wallet')).do());      
     //console.log("log1",client);
 
 ( async() => {
 let account1_info = (await client.accountInformation(localStorage.getItem('wallet')).do());
+//let account1_info = (await client.lookupAccountByID(localStorage.getItem('wallet')).do());      
 //console.log("accinfo",account1_info)
 //console.log("accinfoamount",account1_info.amount)
 let calc=JSON.stringify(account1_info.amount)/1000000;

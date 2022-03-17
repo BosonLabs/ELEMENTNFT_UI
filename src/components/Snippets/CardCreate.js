@@ -89,7 +89,7 @@ const CardInfo = (props) => {
         }else{                    
             setShowTestLoading(true)    
             const algosdk = require('algosdk');  
-            const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
+            const algodclient = new algosdk.Algodv2('', 'https://algoindexer.testnet.algoexplorerapi.io', '');
             // const myAlgoConnect = new MyAlgoConnect();
             let appId=parseInt(configfile['appId']);
             //let idget=assetidgetc;
