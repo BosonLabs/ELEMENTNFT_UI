@@ -62,31 +62,35 @@ function App() {
     const dbHotCollection=async()=>{            
     let r=[];
     try {         
-    firebase.database().ref("userprofile").on("value", (data) => {          
-      if (data) {             
-        let a=data.val()                   
-        Object.keys(a).map(async(k)=>{                                    
-          //console.log("proff",a[k])
-          r.push({
-            Bio:a[k].Bio,
-            Customurl: a[k].Customurl,
-            Email: a[k].Email,
-            Imageurl:a[k].Imageurl,
-            Personalsiteurl: a[k].Personalsiteurl,
-            TimeStamp: a[k].TimeStamp,
-            Twittername: a[k].Twittername,
-            UserName: a[k].UserName,
-            WalletAddress: a[k].WalletAddress,
-            bgurl:a[k].bgurl,
-            valid:a[k].valid
-          })                
-        })            
-      }
-      else{
-        setHotCollection([""]);  
-      }
-      setHotCollection(r);
-    });                  
+    firebase.auth().signInAnonymously().then((response)=>{
+      firebase.database().ref("userprofile").on("value", (data) => {          
+        if (data) {             
+          let a=data.val()                   
+          Object.keys(a).map(async(k)=>{                                    
+            //console.log("proff",a[k])
+            r.push({
+              Bio:a[k].Bio,
+              Customurl: a[k].Customurl,
+              Email: a[k].Email,
+              Imageurl:a[k].Imageurl,
+              Personalsiteurl: a[k].Personalsiteurl,
+              TimeStamp: a[k].TimeStamp,
+              Twittername: a[k].Twittername,
+              UserName: a[k].UserName,
+              WalletAddress: a[k].WalletAddress,
+              bgurl:a[k].bgurl,
+              valid:a[k].valid
+            })                
+          })            
+        }
+        else{
+          setHotCollection([""]);  
+        }
+        setHotCollection(r);
+      });                  
+
+    })
+    
   } catch (error) {    
   }                
   }    
