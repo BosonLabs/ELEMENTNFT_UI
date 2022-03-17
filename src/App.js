@@ -58,7 +58,8 @@ function App() {
     const[getIexplore,setgetIexplore]=useState([]);  
     const[getBosonData,setBosonData]=useState([]);  
     const [algobalanceApp, setalgobalanceApp] = useState("");    
-    const[getHotCollection,setHotCollection]=useState([""]);    
+    const[getHotCollection,setHotCollection]=useState([""]);   
+    console.log("HotcollectionAppjs",getHotCollection) 
     const dbHotCollection=async()=>{            
     let r=[];
     try {         
