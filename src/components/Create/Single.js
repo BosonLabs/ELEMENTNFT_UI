@@ -7,6 +7,7 @@ import fireDb from '../../firebase';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useHistory } from "react-router-dom";
 import firebase from '../../firebase';
+//import fireDb2 from '../../firebasetest';
 import { DataContext } from '../../Context/DataContext';
 import { ToastContainer, Zoom, toast} from 'react-toastify';
 import '../../toast-style-override.css'
@@ -386,6 +387,19 @@ const Start = () => {
       history.push("/profile")
       window.location.reload(false);    
     }
+    const storefbtestprokect=()=>{
+      let reftest=fireDb.database().ref(`testtable`);   
+      const db = reftest.push().key;                                                
+      reftest.child(db).set({        
+        testcolumn:"testdb"
+      })
+        .then(()=>{   
+          alert("add db")
+         })
+
+
+    }
+    
     return (
         <Layout>
             <Container fluid="md">
@@ -434,7 +448,7 @@ const Start = () => {
                             </div>
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
-                                {/* <Button variant='primary' size="lg" onClick={()=>storedbApi(10212,'a','b')}>Check Api</Button> */}
+                                <Button variant='primary' size="lg" onClick={()=>storefbtestprokect()}>Test project</Button>
                             </div>                                                        
                         </Col>                        
                     </Row>
