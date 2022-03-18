@@ -430,10 +430,12 @@ const Start = () => {
         testcolumn:"testdb"
       })
         .then(()=>{   
-          alert("add db1")
+          //alert("add db1")
+          console.log("Data stored successfully")
          })        
         }).then(()=>{   
-          alert("add db2")
+          console.log("Data stored successfully")
+          //alert("add db2")
          })        
 
 
