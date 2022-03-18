@@ -37,7 +37,42 @@ const Start = () => {
     const[getIPro,setgetIPro]=useState([""]);   
     const [showTestAlert,setshowTestAlert] = React.useState(false);   
     const [issuesdisplay,setissuesdisplay]=useState(null) 
-    const [showTestOPt,setshowTestOPt] = React.useState(false);   
+    const [showTestOPt,setshowTestOPt] = React.useState(false);  
+    const [name,setNames] = useState("");
+    const [city,setCity] = useState("");
+    const [gcptestdata,setgcptestdata] = useState([]);
+
+    
+    // const calltestgcp=async()=>{            
+    //     let r=[];
+    //     try {         
+    //     firebase.database().ref("").child(localStorage.getItem('wallet')).on("value", (data) => {          
+    //       if (data) {                      
+    //           r.push({
+    //             Bio:data.val().Bio,
+    //             Customurl: data.val().Customurl,
+    //             Email: data.val().Email,
+    //             Imageurl:data.val().Imageurl,
+    //             Personalsiteurl: data.val().Personalsiteurl,
+    //             TimeStamp: data.val().TimeStamp,
+    //             Twittername: data.val().Twittername,
+    //             UserName: data.val().UserName,
+    //             WalletAddress: data.val().WalletAddress,
+    //             bgurl:data.val().bgurl,
+    //             valid:data.val().valid
+    //           })                
+    //       }
+    //       else{
+    //         setgetIPro([""]);  
+    //       }
+    //       setgetIPro(r);
+    //     });                  
+    //   } catch (error) {
+    //     //console.log('error occured during search', error);    
+    //   }                
+    // }    
+    // useEffect(()=>{calltestgcp()},[])
+ 
     const dbcallOpt=async()=>{                  
       try {         
         // const server = "https://testnet-algorand.api.purestake.io/ps2";
@@ -402,13 +437,59 @@ const Start = () => {
          })        
 
 
+         
+
+    }
+
+    const addDb=()=>{
+      if(name==="" || name===null || name=== undefined){
+        alert("please enter name")
+      }else if(city==="" || city===null || city=== undefined){
+        alert("please enter city")
+      }else{            
+        let reftest=fireDb.database().ref('testtable');   
+        console.log("DBInside",reftest)      
+        const db = reftest.push().key;   
+        console.log("DB",db)                                             
+        fireDb.auth().signInAnonymously().then((response)=>{
+        reftest.child(db).set({        
+          namecolumn:name,
+          citycolumn:city
+        })
+          .then(()=>{   
+            alert("add db1")
+           })        
+          }).then(()=>{   
+            alert("add db2")
+           })        
+      }
     }
     
+  
     return (
         <Layout>
             <Container fluid="md">
             <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></>
                 <div className="py-md-0 py-4">
+                <div className="App">
+      <br></br><br></br><br></br><br></br>
+    <label>
+    Name &nbsp;&nbsp;
+    <input type="text" name="name" onChange={event => setNames( event.target.value)}/>    
+    </label>
+    <br></br>
+    <br></br>
+    <label>
+      City &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      
+      <input type="text" name="city" onChange={event => setCity( event.target.value)}/>    
+    </label>
+    <br></br>
+    <br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      
+    <input type="submit" value="Submit" onClick={()=>addDb()}/>
+    </div>
+
+
                     <Row className='mb-0'>
                         <Col md={12}>
                             <h4 className='display-4 font-bold mb-3'>Create single NFT on Algorand</h4>
