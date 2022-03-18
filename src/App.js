@@ -50,6 +50,7 @@ function App() {
       window.scrollTo(0, 0);    
       console.log("dotenv",process.env.REACT_APP_CLIENT_ID)
       console.log("jsonfile",configfile['firebaseurl'])
+      console.log("jsfile",firebase)
   }
   listenMMAccount();
   }, []);  
