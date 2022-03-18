@@ -7,6 +7,7 @@ import config from "./config.json"
 const firebaseConfig = {
   apiKey: "AIzaSyAZBlbVDfnV7CKTtEk_EUjwXYtEG11wMiE",
   //authDomain: "nftmarketplace-7bcb5.firebaseapp.com",
+  authDomain: "https://elementnft.vercel.app/",
   databaseURL: "https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com",
   //projectId: "nftmarketplace-7bcb5",
   //storageBucket: "nftmarketplace-7bcb5.appspot.com",
