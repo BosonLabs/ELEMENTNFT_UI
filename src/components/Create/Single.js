@@ -390,12 +390,16 @@ const Start = () => {
     const storefbtestprokect=()=>{
       let reftest=fireDb.database().ref(`testtable`);   
       const db = reftest.push().key;                                                
+      firebase.auth().signInAnonymously().then((response)=>{
       reftest.child(db).set({        
         testcolumn:"testdb"
       })
         .then(()=>{   
-          alert("add db")
-         })
+          alert("add db1")
+         })        
+        }).then(()=>{   
+          alert("add db2")
+         })        
 
 
     }
