@@ -48,6 +48,9 @@ function App() {
   useEffect(() => {        
     async function listenMMAccount() {                                  
       window.scrollTo(0, 0);    
+      let a= process.env.REACT_APP_CLIENT_ID;
+      let b= configfile['firebaseurl']
+      let c= firebase
       console.log("dotenv",process.env.REACT_APP_CLIENT_ID)
       console.log("jsonfile",configfile['firebaseurl'])
       console.log("jsfile",firebase)
