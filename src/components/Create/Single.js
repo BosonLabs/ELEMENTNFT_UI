@@ -426,10 +426,12 @@ const Start = () => {
 
     const getfbtestprokectmy=()=>{             
       firebase.auth().signInAnonymously().then((response)=>{      
+        console.log("TokenResponse",response)
         axios({
           method: 'get',
           url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
-          responseType: 'stream'
+          responseType: 'stream',
+          headers: {"Authorization" : `Bearer ${response}`} 
         })
           .then(function (response) {
           let req = [];        
@@ -572,7 +574,8 @@ const Start = () => {
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
                                 <Button variant='primary' size="lg" onClick={()=>storefbtestprokect()}>Test project</Button>
-                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokectmy()}>Get Test project</Button>
+                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokect()}>Get Test project</Button>
+                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokectmy()}>Get Test project URL</Button>
                             </div>                                                        
                         </Col>                        
                     </Row>
