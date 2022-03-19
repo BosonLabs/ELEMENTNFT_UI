@@ -434,8 +434,15 @@ const Start = () => {
         //   .then(function (response) {            
         //       console.log("ResponseNewTable",response)
         //   });                                            
-        let getfire= firebase.database().ref("testtable").on("value",(data)=>{});
-        console.log("GetFire",getfire)
+        //let getfire= firebase.database().ref("testtable").on("value",(data)=>{});
+        //console.log("GetFire",getfire)
+        firebase.database().ref("testtable").on("value", (data) => {
+          if (data) {
+            data.forEach((d) => {
+              console.log("FirstResponse1",d)
+            })
+          }
+        })
         firebase.database().ref("testtable").on("value", (data) => {  
           let req = [];  
           req.push(data.data)                 
