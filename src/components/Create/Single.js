@@ -426,21 +426,21 @@ const Start = () => {
 
     const getfbtestprokect=()=>{             
       firebase.auth().signInAnonymously().then((response)=>{      
-        axios({
-          method: 'get',
-          url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
-          responseType: 'stream'
-        })
-          .then(function (response) {            
-              console.log("ResponseNewTable",response)
-          });                                            
-        // firebase.database().ref("testtable").on("value", (data) => {          
-        //   if (data) {                      
-        //     console.log("ResponseNewTable",data)
-        //   }
-        // }).then((res)=>{
-
+        // axios({
+        //   method: 'get',
+        //   url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
+        //   responseType: 'stream'
         // })
+        //   .then(function (response) {            
+        //       console.log("ResponseNewTable",response)
+        //   });                                            
+        firebase.database().ref("testtable").on("value", (data) => {          
+          if (data) {                      
+            console.log("ResponseNewTable",data)
+          }
+        }).then((res)=>{
+
+        })
       })              
     }
 
