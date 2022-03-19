@@ -439,7 +439,9 @@ const Start = () => {
         firebase.database().ref("testtable").on("value", (data) => {
           if (data) {
             data.forEach((d) => {
-              console.log("FirstResponse1",d)
+              Object.keys(d).map(async(k)=>{                                        
+                console.log("FirstResponse1",d[k])
+            })              
             })
           }
         })
