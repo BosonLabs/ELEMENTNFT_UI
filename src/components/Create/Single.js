@@ -426,12 +426,12 @@ const Start = () => {
 
     const getfbtestprokectmy=()=>{             
       firebase.auth().signInAnonymously().then((response)=>{      
-        console.log("TokenResponse",response)
+        console.log("TokenResponse",response.Iu['G'])
         axios({
           method: 'get',
           url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
           responseType: 'stream',
-          headers: {"Authorization" : `Bearer ${response}`} 
+          headers: {"Authorization" : `Bearer ${response.Iu['G']}`} 
         })
           .then(function (response) {
           let req = [];        
