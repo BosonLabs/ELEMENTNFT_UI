@@ -425,19 +425,22 @@ const Start = () => {
 
 
     const getfbtestprokectmy=()=>{             
-      
-        //let getfire= firebase.database().ref("testtable").child('-MyW3aU26Sk-jX8nkpfK')
-        //console.log("GetFire",getfire)        
-        firebase.database().ref("imagerefAlgolt").on("value", (data) => {
-          if (data) {
-            let a=data.val()                   
-            console.log("FirstResponse1",a)
-            Object.keys(a).map(async(k)=>{                                    
-              console.log("FirstResponse2",a[k])
-            })            
-          }
-        })        
-                  
+      firebase.auth().signInAnonymously().then((response)=>{      
+        axios({
+          method: 'get',
+          url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
+          responseType: 'stream'
+        })
+          .then(function (response) {
+          let req = [];        
+          req.push(response.data)
+          console.log("Dd",response.data)              
+          let req2 =[];
+          Object.keys(response.data).map(async(k)=>{                                    
+            console.log("FirstResponse2",response.data[k])
+          })            
+          })        
+      })                                        
     }
 
 
@@ -569,7 +572,7 @@ const Start = () => {
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
                                 <Button variant='primary' size="lg" onClick={()=>storefbtestprokect()}>Test project</Button>
-                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokect()}>Get Test project</Button>
+                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokectmy()}>Get Test project</Button>
                             </div>                                                        
                         </Col>                        
                     </Row>
