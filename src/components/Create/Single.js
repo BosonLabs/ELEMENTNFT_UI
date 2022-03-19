@@ -422,6 +422,28 @@ const Start = () => {
       history.push("/profile")
       window.location.reload(false);    
     }
+
+
+    const getfbtestprokect=()=>{             
+      firebase.auth().signInAnonymously().then((response)=>{      
+        axios({
+          method: 'get',
+          url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
+          responseType: 'stream'
+        })
+          .then(function (response) {            
+              console.log("ResponseNewTable",response)
+          });                                            
+        // firebase.database().ref("testtable").on("value", (data) => {          
+        //   if (data) {                      
+        //     console.log("ResponseNewTable",data)
+        //   }
+        // }).then((res)=>{
+
+        // })
+      })              
+    }
+
     const storefbtestprokect=()=>{
       let reftest=fireDb.database().ref(`testtable`);   
       const db = reftest.push().key;                                                
@@ -536,6 +558,7 @@ const Start = () => {
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
                                 <Button variant='primary' size="lg" onClick={()=>storefbtestprokect()}>Test project</Button>
+                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokect()}>Get Test project</Button>
                             </div>                                                        
                         </Col>                        
                     </Row>
