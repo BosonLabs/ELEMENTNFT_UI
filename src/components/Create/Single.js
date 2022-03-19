@@ -436,13 +436,21 @@ const Start = () => {
         //   });                                            
         let getfire= firebase.database().ref("testtable").on("value",(data)=>{});
         console.log("GetFire",getfire)
-        firebase.database().ref("testtable").on("value", (data) => {          
-          if (data) {       
-            data.forEach((l) => {              
-              console.log("Each",l)
-            })               
-            console.log("ResponseNewTable",data)
-          }
+        firebase.database().ref("testtable").on("value", (data) => {  
+          let req = [];  
+          req.push(data.data)                 
+          console.log("ResChange2",req)
+          req.forEach((l) => {              
+            console.log("ResChange3",l)
+            //console.log("D",l)              
+            // Object.keys(l).map(async(k)=>{                                        
+
+            // })
+          })
+        //     data.forEach((l) => {              
+        //       console.log("Each",l)
+        //     })               
+        //     console.log("ResponseNewTable",data)          
         }).then((res)=>{
 
         })
