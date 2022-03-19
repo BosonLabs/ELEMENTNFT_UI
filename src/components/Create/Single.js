@@ -434,13 +434,14 @@ const Start = () => {
         //   .then(function (response) {            
         //       console.log("ResponseNewTable",response)
         //   });                                            
-        //let getfire= firebase.database().ref("testtable").on("value",(data)=>{});
-        //console.log("GetFire",getfire)
+        let getfire= firebase.database().ref("testtable").child('-MyW3aU26Sk-jX8nkpfK');
+        console.log("GetFire",getfire)
         firebase.database().ref("testtable").on("value", (data) => {
           if (data) {
+            console.log("FirstResponse1",data)
             data.forEach((d) => {
               Object.keys(d).map(async(k)=>{                                        
-                console.log("FirstResponse1",d[k])
+                console.log("FirstResponse2",d[k])
             })              
             })
           }
