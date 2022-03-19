@@ -434,7 +434,9 @@ const Start = () => {
         //   .then(function (response) {            
         //       console.log("ResponseNewTable",response)
         //   });                                            
-        firebase.database().child("testtable").on("value", (data) => {          
+        let getfire= firebase.database().ref("testtable");
+        console.log("GetFire",getfire)
+        firebase.database().ref("testtable").on("value", (data) => {          
           if (data) {       
             data.forEach((l) => {              
               console.log("Each",l)
