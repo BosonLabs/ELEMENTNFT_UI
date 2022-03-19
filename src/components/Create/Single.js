@@ -435,7 +435,10 @@ const Start = () => {
         //       console.log("ResponseNewTable",response)
         //   });                                            
         firebase.database().ref("testtable").on("value", (data) => {          
-          if (data) {                      
+          if (data) {       
+            data.forEach((l) => {              
+              console.log("Each",l)
+            })               
             console.log("ResponseNewTable",data)
           }
         }).then((res)=>{
