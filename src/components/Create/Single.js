@@ -424,46 +424,34 @@ const Start = () => {
     }
 
 
+    const getfbtestprokectmy=()=>{             
+      
+        //let getfire= firebase.database().ref("testtable").child('-MyW3aU26Sk-jX8nkpfK')
+        //console.log("GetFire",getfire)        
+        firebase.database().ref("imagerefAlgolt").on("value", (data) => {
+          if (data) {
+            let a=data.val()                   
+            console.log("FirstResponse1",a)
+            Object.keys(a).map(async(k)=>{                                    
+              console.log("FirstResponse2",a[k])
+            })            
+          }
+        })        
+                  
+    }
+
+
     const getfbtestprokect=()=>{             
       firebase.auth().signInAnonymously().then((response)=>{      
-        // axios({
-        //   method: 'get',
-        //   url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
-        //   responseType: 'stream'
-        // })
-        //   .then(function (response) {            
-        //       console.log("ResponseNewTable",response)
-        //   });                                            
-        let getfire= firebase.database().ref("testtable").child('-MyW3aU26Sk-jX8nkpfK')
-        console.log("GetFire",getfire)
         firebase.database().ref("testtable").on("value", (data) => {
           if (data) {
-            console.log("FirstResponse1",data)
-            data.forEach((d) => {
-              Object.keys(d).map(async(k)=>{                                        
-                console.log("FirstResponse2",d[k])
-            })              
-            })
+            let a=data.val()                   
+            console.log("FirstResponse1",a)
+            Object.keys(a).map(async(k)=>{                                    
+              console.log("FirstResponse2",a[k])
+            })            
           }
-        })
-        firebase.database().ref("testtable").on("value", (data) => {  
-          let req = [];  
-          req.push(data.data)                 
-          console.log("ResChange2",req)
-          req.forEach((l) => {              
-            console.log("ResChange3",l)
-            //console.log("D",l)              
-            // Object.keys(l).map(async(k)=>{                                        
-
-            // })
-          })
-        //     data.forEach((l) => {              
-        //       console.log("Each",l)
-        //     })               
-        //     console.log("ResponseNewTable",data)          
-        }).then((res)=>{
-
-        })
+        })         
       })              
     }
 
