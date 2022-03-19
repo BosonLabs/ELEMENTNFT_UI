@@ -434,7 +434,7 @@ const Start = () => {
         //   .then(function (response) {            
         //       console.log("ResponseNewTable",response)
         //   });                                            
-        let getfire= firebase.database().ref("testtable").child('-MyW3aU26Sk-jX8nkpfK').val();
+        let getfire= firebase.database().ref("testtable").child('-MyW3aU26Sk-jX8nkpfK')
         console.log("GetFire",getfire)
         firebase.database().ref("testtable").on("value", (data) => {
           if (data) {
