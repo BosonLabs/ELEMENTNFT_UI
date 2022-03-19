@@ -432,7 +432,7 @@ const Start = () => {
           method: 'get',
           url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
           responseType: 'stream',
-          headers: {"Authorization" : `Bearer ${response.Iu['G']}`} 
+          headers: {"Authorization" : `Bearer ${response['G']}`} 
         })
           .then(function (response) {
           let req = [];        
