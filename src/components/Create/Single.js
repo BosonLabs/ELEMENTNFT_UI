@@ -493,6 +493,7 @@ const Start = () => {
         const db = reftest.push().key;   
         console.log("DB",db)                                             
         fireDb.auth().signInAnonymously().then((response)=>{
+          console.log("PostToken",response['G'])
         reftest.child(db).set({        
           namecolumn:name,
           citycolumn:city
