@@ -427,7 +427,7 @@ const Start = () => {
     const getfbtestprokectmy=()=>{             
       firebase.auth().signInAnonymously().then((response)=>{      
         console.log("TokenResponse",response)
-        console.log("TokenResponse2",response['Iu'])
+        console.log("TokenResponse2",response['G'])
         axios({
           method: 'get',
           url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
