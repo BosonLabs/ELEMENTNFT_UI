@@ -5,9 +5,6 @@ import {
   Route
 } from "react-router-dom";
 import { Offline, Online } from "react-detect-offline";
-
-
-
 import Home from './components/HomePage';
 import Login from './components/Connect';
 import ExplorePage from './components/ExplorePage';
@@ -129,10 +126,26 @@ useEffect(() => {
 }
 listenMMAccount();
 }, []);
+const dbcallsalealnew=async(index)=>{                
+  axios({
+      method: 'get',
+      //url:`${process.env.REACT_APP_CLIENT_ID}/imagerefAlgo.json`,
+      url:`http://localhost:9000/`,
+      //url:`${configfile['firebaseurl']}/imagerefAlgo.json`,        
+      responseType: 'stream'
+    })
+      .then(function (response) {
+            console.log("FrontendRun",response.data)
+      });                        
+            
+}
+useEffect(()=>{dbcallsalealnew()},[])
+
 const dbcallsaleal=async(index)=>{                
     axios({
         method: 'get',
         url:`${process.env.REACT_APP_CLIENT_ID}/imagerefAlgo.json`,
+        //url:`http://localhost:8000/`,
         //url:`${configfile['firebaseurl']}/imagerefAlgo.json`,        
         responseType: 'stream'
       })

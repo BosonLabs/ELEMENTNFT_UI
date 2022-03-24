@@ -17,13 +17,13 @@ import config from "./config.json"
 // };
 const firebaseConfig = {
   apiKey: "AIzaSyDrd6K6rgiDwbCb-X5ytTKtCiqLXIOk004",
-  authDomain: "testproject-50b11.firebaseapp.com",
+  //authDomain: "testproject-50b11.firebaseapp.com",
   databaseURL: "https://testproject-50b11-default-rtdb.firebaseio.com",
-  projectId: "testproject-50b11",
-  storageBucket: "testproject-50b11.appspot.com",
-  messagingSenderId: "869026201510",
-  appId: "1:869026201510:web:1308437873297656031967",
-  measurementId: "G-D2V5S5FNHV"
+  //projectId: "testproject-50b11",
+  //storageBucket: "testproject-50b11.appspot.com",
+  //messagingSenderId: "869026201510",
+  //appId: "1:869026201510:web:1308437873297656031967",
+  //measurementId: "G-D2V5S5FNHV"
 };
 
 const fireDb = firebase.initializeApp(firebaseConfig);

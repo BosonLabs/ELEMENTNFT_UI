@@ -424,37 +424,78 @@ const Start = () => {
     }
 
 
-    const getfbtestprokectmy=()=>{             
+    // const getfbtestprokectmy=()=>{             
+    //   firebase.auth().signInAnonymously().then((response)=>{      
+    //     //console.log("TokenResponse",response)
+    //     //console.log("TokenResponse2",response['G'])
+    //     axios({
+    //       method: 'get',
+    //       url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
+    //       responseType: 'stream',
+    //       headers: {"Authorization" : `Bearer ${response['G']}`} 
+    //     })
+    //       .then(function (response) {
+    //       let req = [];        
+    //       req.push(response.data)
+    //       console.log("Dd",response.data)              
+    //       let req2 =[];
+    //       Object.keys(response.data).map(async(k)=>{                                    
+    //         console.log("FirstResponse2",response.data[k])
+    //       })            
+    //       })        
+    //   })                                        
+    // }
+
+    const getfbtestprokects=()=>{                   
       firebase.auth().signInAnonymously().then((response)=>{      
-        //console.log("TokenResponse",response)
-        //console.log("TokenResponse2",response['G'])
-        axios({
-          method: 'get',
-          url:`https://testproject-50b11-default-rtdb.firebaseio.com/testtable.json`,          
-          responseType: 'stream',
-          //headers: {"Authorization" : `Bearer ${response['G']}`} 
-        })
-          .then(function (response) {
-          let req = [];        
-          req.push(response.data)
-          console.log("Dd",response.data)              
-          let req2 =[];
-          Object.keys(response.data).map(async(k)=>{                                    
-            console.log("FirstResponse2",response.data[k])
-          })            
+      const query = firebase.database().ref('transactionHistory').orderByKey();
+      query.once('value', function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var childData = childSnapshot.val();
+            console.log("printdata",childData);           
+            if(childData.ALGO_ADDRESS === "3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY"){
+              console.log("printdata",childSnapshot.key);           
+            }            
           })        
-      })                                        
+      })
+      //.orderByChild('ALGO_ADDRESS')
+      //.equalTo("3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY")
+      // query.once('value', function (snapshot) {
+      //   snapshot.forEach(function (childSnapshot) {
+      //       var childKey = childSnapshot.key;
+      //       console.log("printdatakey",childKey);           
+      //       var childData = childSnapshot.val();
+      //       console.log("printdata",childData);           
+            
+      //   });
+      // });
+      console.log("Exact",query)
+        // firebase.database().ref("transactionHistory").on("value", (data) => {
+        //   if (data) {
+        //     let a=data.val()                   
+        //     console.log("FirstResponse1",a)
+        //     Object.keys(a).map(async(k)=>{                                    
+        //       if("3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY" === a[k].ALGO_ADDRESS){
+        //         console.log("FirstResponse2",a[k])
+        //       }              
+        //     })            
+        //   }
+        // })         
+      })              
     }
 
+    
 
     const getfbtestprokect=()=>{             
       firebase.auth().signInAnonymously().then((response)=>{      
-        firebase.database().ref("testtable").on("value", (data) => {
+        firebase.database().ref("transactionHistory").on("value", (data) => {
           if (data) {
             let a=data.val()                   
             console.log("FirstResponse1",a)
             Object.keys(a).map(async(k)=>{                                    
-              console.log("FirstResponse2",a[k])
+              if("3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY" === a[k].ALGO_ADDRESS){
+                console.log("FirstResponse2",a[k])
+              }              
             })            
           }
         })         
@@ -493,7 +534,7 @@ const Start = () => {
         const db = reftest.push().key;   
         console.log("DB",db)                                             
         fireDb.auth().signInAnonymously().then((response)=>{
-          console.log("PostToken",response  )
+          console.log("PostToken",response)
         reftest.child(db).set({        
           namecolumn:name,
           citycolumn:city
@@ -506,32 +547,51 @@ const Start = () => {
            })        
       }
     }
+
+
+    // const getfbtestprokectmyproject=()=>{             
+    //   firebase.auth().signInAnonymously().then((response)=>{      
+    //     //console.log("TokenResponse",response)
+    //     //console.log("TokenResponse2",response['G'])
+    //     axios({
+    //       method: 'get',
+    //       url:`https://nftmarketplace-7bcb5-default-rtdb.firebaseio.com/imagerefAlgo.json`,          
+    //       responseType: 'stream',
+    //       headers: {"Authorization" : `Bearer ${response['G']}`} 
+    //     })
+    //       .then(function (response) {
+    //       let req = [];        
+    //       req.push(response.data)
+    //       console.log("Dd",response.data)              
+    //       let req2 =[];
+    //       Object.keys(response.data).map(async(k)=>{                                    
+    //         console.log("FirstResponse2",response.data[k])
+    //       })            
+    //       })        
+    //   })                                        
+    // }
+
+
+    // const getfbtestmyproject=()=>{             
+    //   firebase.auth().signInAnonymously().then((response)=>{      
+    //     firebase.database().ref("imagerefAlgo").on("value", (data) => {
+    //       if (data) {
+    //         let a=data.val()                   
+    //         console.log("FirstResponse1",a)
+    //         Object.keys(a).map(async(k)=>{                                    
+    //           console.log("FirstResponse2",a[k])
+    //         })            
+    //       }
+    //     })         
+    //   })              
+    // }
     
   
     return (
         <Layout>
             <Container fluid="md">
             <><ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/></>
-                <div className="py-md-0 py-4">
-                <div className="App">
-      <br></br><br></br><br></br><br></br>
-    <label>
-    Name &nbsp;&nbsp;
-    <input type="text" name="name" onChange={event => setNames( event.target.value)}/>    
-    </label>
-    <br></br>
-    <br></br>
-    <label>
-      City &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      
-      <input type="text" name="city" onChange={event => setCity( event.target.value)}/>    
-    </label>
-    <br></br>
-    <br></br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      
-    <input type="submit" value="Submit" onClick={()=>addDb()}/>
-    </div>
-
-
+                <div className="py-md-0 py-4">      
                     <Row className='mb-0'>
                         <Col md={12}>
                             <h4 className='display-4 font-bold mb-3'>Create single NFT on Algorand</h4>
@@ -575,9 +635,11 @@ const Start = () => {
                             </div>
                             <div className="d-flex flex-wrap justify-content-between align-items-center">
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
-                                <Button variant='primary' size="lg" onClick={()=>storefbtestprokect()}>Test project</Button>
-                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokect()}>Get Test project</Button>
-                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokectmy()}>Get Test project URL</Button>
+                                {/* <Button variant='primary' size="lg" onClick={()=>storefbtestprokect()}>Test project</Button> */}
+                                {/* <Button variant='primary' size="lg" onClick={()=>getfbtestprokect()}>Get Test project</Button> */}
+                                {/* <Button variant='primary' size="lg" onClick={()=>getfbtestprokectmy()}>Get Test project URL</Button>                                                                 */}
+                                {/* <Button variant='primary' size="lg" onClick={()=>getfbtestprokects()}>Get Test project URL</Button> */}
+                                
                             </div>                                                        
                         </Col>                        
                     </Row>
