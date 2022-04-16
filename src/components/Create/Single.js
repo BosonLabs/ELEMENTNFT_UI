@@ -446,18 +446,79 @@ const Start = () => {
     //   })                                        
     // }
 
+
+    const pagination=()=>{
+      firebase.auth().signInAnonymously().then((response)=>{              
+        const query=firebase.database().ref('liquidityPair').limitToFirst(2)
+        query.once('value', function (snapshot) {
+        var childData = snapshot.val();
+        console.log("pagination",childData);           
+      })
+      })
+      
+    }
     const getfbtestprokects=()=>{                   
       firebase.auth().signInAnonymously().then((response)=>{      
-      const query = firebase.database().ref('transactionHistory').orderByKey();
-      query.once('value', function (snapshot) {
-          snapshot.forEach(function (childSnapshot) {
-            var childData = childSnapshot.val();
-            console.log("printdata",childData);           
-            if(childData.ALGO_ADDRESS === "3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY"){
-              console.log("printdata",childSnapshot.key);           
-            }            
-          })        
-      })
+        
+        firebase.database().ref('liquidityPair')
+          .orderByChild('ASSET1_ID')
+          .equalTo('78045387')
+          .on('child_added', function(snapshot) { 
+              var movie = snapshot.val();
+              if (movie.ASSET2_ID === '0') {
+                console.log("moviekey",snapshot.key)
+                console.log("movie",movie);
+                fireDb.database().ref(`liquidityPair`).child(snapshot.key).update({
+                  "ALGO_ADDRESS" : "PJS5453L2YTTQMBW4UA7SIEZT4KEOYY4MN3M7NVRGJ5XY23NQRV35YCDHA",
+                  "ASSET1_ID" : "78045387",
+                  "ASSET1_NAME" : "USDC",
+                  "ASSET2_ID" : "0",
+                  "ASSET2_NAME" : "ALGO",
+                  "ASSET3_ID" : "78090943",
+                  "ESCROW_ADDRESS" : "XLXVS6TIW54T5HWADLY5UQIWQZJOLUHY53QJKQRMPHAPAWJBI67ZR5OTGA",
+                  "FEES" : 6904193,
+                  "TVL" : 3323231300,
+                  "VOLUME" : 4562580244
+                }).then((response)=>{
+                  alert("updated")
+                })  
+              }
+          });   
+      })              
+    }
+
+
+         // firebase.database().ref('transactionHistory')
+        // .orderByChild('ASSET1')
+        // .startAt('ALGO/ELEM').endAt('ALGO/ELEM')
+        // .orderByChild('ALGO_ADDRESS')                  // !!! THIS LINE WILL RAISE AN ERROR !!!
+        // .startAt('3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY').endAt('3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY')
+        // .on('value', function(snapshot) { 
+        //     console.log("twocol",snapshot.val()); 
+        // });
+      // const query = firebase.database().ref('transactionHistory').orderByChild("ASSET1").equalTo("ALGO/ELEM")
+      // const query1 = firebase.database().ref('transactionHistory').orderByChild("ALGO_ADDRESS").equalTo("3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY");
+      // query.once('value', function (snapshot) {
+      //   var childData = snapshot.val();
+      //   console.log("printdq1",childData);           
+      // })
+
+      // query1.once('value', function (snapshot) {
+      //   var childData = snapshot.val();
+      //   console.log("printdq2",childData);           
+      // })
+      
+      
+      // //.orderByKey();
+      // query.once('value', function (snapshot) {
+      //     snapshot.forEach(function (childSnapshot) {
+      //       var childData = childSnapshot.val();
+      //       console.log("printdata1",childData);           
+      //       if(childData.ALGO_ADDRESS === "3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY"){
+      //         console.log("printdata",childSnapshot.key);           
+      //       }            
+      //     })        
+      // })
       //.orderByChild('ALGO_ADDRESS')
       //.equalTo("3APR4BAD7VLKCWF5OXR4JR5Y4KTPNM74X3OWGZJUSMEP3VGAWW5TLWN5MY")
       // query.once('value', function (snapshot) {
@@ -469,7 +530,7 @@ const Start = () => {
             
       //   });
       // });
-      console.log("Exact",query)
+      //console.log("Exact",query)
         // firebase.database().ref("transactionHistory").on("value", (data) => {
         //   if (data) {
         //     let a=data.val()                   
@@ -481,9 +542,6 @@ const Start = () => {
         //     })            
         //   }
         // })         
-      })              
-    }
-
     
 
     const getfbtestprokect=()=>{             
@@ -637,8 +695,8 @@ const Start = () => {
                                 <Button variant='primary' size="lg" onClick={()=>onSubmitNFT()}>Create item</Button>
                                 {/* <Button variant='primary' size="lg" onClick={()=>storefbtestprokect()}>Test project</Button> */}
                                 {/* <Button variant='primary' size="lg" onClick={()=>getfbtestprokect()}>Get Test project</Button> */}
-                                {/* <Button variant='primary' size="lg" onClick={()=>getfbtestprokectmy()}>Get Test project URL</Button>                                                                 */}
-                                {/* <Button variant='primary' size="lg" onClick={()=>getfbtestprokects()}>Get Test project URL</Button> */}
+                                <Button variant='primary' size="lg" onClick={()=>pagination()}>Pagination</Button>                                                                
+                                <Button variant='primary' size="lg" onClick={()=>getfbtestprokects()}>Get Test project URL</Button>
                                 
                             </div>                                                        
                         </Col>                        

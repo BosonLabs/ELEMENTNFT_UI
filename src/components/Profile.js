@@ -223,7 +223,7 @@ function HomePage() {
           });                  
         }        
       }      
-    useEffect(()=>{dbcallalgo()},[])
+  useEffect(()=>{dbcallalgo()},[])
 
     const dbcallsalealgo=async()=>{
         //console.log("inside dbcallsalealgo function")        
